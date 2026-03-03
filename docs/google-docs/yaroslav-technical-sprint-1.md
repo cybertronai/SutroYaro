@@ -6,15 +6,15 @@ Sutro project
 
 TLDR; 2.5 hours of work, simple workflow demonstrates automatic identification of a gradient fusion strategy that improves energy efficiency slightly. (cache reuse improved by 16%). A significant improvement requires fundamentally different learning algorithm (according to Claude). Candidate algorithms are the topic of Technical Sprint 2.
 
-Github: [https://github.com/cybertronai/sutro/](https://github.com/cybertronai/sutro/)
+Github: [[https://github.com/cybertronai/sutro/](https://github.com/cybertronai/sutro/)]
 
 2:58 start
 
 Goal - Evaluate as a priority task, as drosophilla of \"energy-efficient training\". Try the process of using AI to reinvent learning algorithms, compare the ease at which it is possible to improve energy efficiency compared to the \"default method\"
 
-2;59 \-- Get background of prosperity task from the [notebook](https://notebooklm.google.com/notebook/3eb7b53e-168f-409c-a679-2fb009119e2e)
+2;59 \-- Get background of prosperity task from the [[notebook](https://notebooklm.google.com/notebook/3eb7b53e-168f-409c-a679-2fb009119e2e)]
 
-Generate summary slides and look at the \-- [Sparse_Parity_Optimization.pdf](https://drive.google.com/file/d/1nC5KbckpwLjeGynuS4wPntBoClfDHyqY/view)
+Generate summary slides and look at the \-- [[Sparse_Parity_Optimization.pdf](https://drive.google.com/file/d/1nC5KbckpwLjeGynuS4wPntBoClfDHyqY/view)]
 
 3:06 Finished reading the slides; make a plan. While making the plan, re-examined the goal.
 
@@ -36,7 +36,7 @@ Plan A:
 
 3:11 Created \~/git0/sutro folder for files, saved Antigravity workspace there
 
-3:11 Create a meta-prompt for claude using sparse parity [notebook](https://notebooklm.google.com/notebook/3eb7b53e-168f-409c-a679-2fb009119e2e)
+3:11 Create a meta-prompt for claude using sparse parity [[notebook](https://notebooklm.google.com/notebook/3eb7b53e-168f-409c-a679-2fb009119e2e)]
 
 3:14 created meta-prompt
 
@@ -44,7 +44,7 @@ I am interested in creating a simple toy example which learns prosperity tasks u
 
 \"
 
-3:14 save prompt [here](https://docs.google.com/document/d/1cs8DsWnz9CRoit6JknPavCfNlOV5DfjsSPVGyWH415s/edit?tab=t.0)
+3:14 save prompt [[here](https://docs.google.com/document/d/1cs8DsWnz9CRoit6JknPavCfNlOV5DfjsSPVGyWH415s/edit?tab=t.0)]
 
 3:15 Read the prompt and edit it.
 
@@ -58,7 +58,7 @@ I've noticed the prompt implements energy wrong, but for now let it go, This can
 
 3:23 Finding the default implementation takes more than one second to run, iterating to make it faster.
 
-3:27 saving fast version ([saved](https://colab.research.google.com/drive/1auWQjRgtrqyzef98wqq796sl927tCGMq)), By using Save A Copy in Drive functionality
+3:27 saving fast version ([[saved](https://colab.research.google.com/drive/1auWQjRgtrqyzef98wqq796sl927tCGMq)]), By using Save A Copy in Drive functionality
 
 Initial observation: the loss decreases between the first epoch and the second epoc, which is unexpected. Training accuracy and testing accuracy both improve, which is good.
 
@@ -70,21 +70,21 @@ Prompt: Modify this to do one example at a time, preceding in a cyclical fashion
 
 3:55 distracted by messenger errands. Now back.
 
-[[embedded image removed]]
+[embedded image]
 
 3:59  reduce the total runtime to be under 1 second. Ask Opus to optimize
 
 Without changing the functionality of the program, identify ways to make it faster without sacrificing readability or extensibility. Ideally I wanted to run under one second. 
 
-16:00 Do some estimation whether one second is a reasonable threshold. ([gemini](https://gemini.google.com/share/45a7920017e2)) The reference number is that Yandy Kun in the 80s was using a Spark 7 machine, and his experiments took one week to run.
+16:00 Do some estimation whether one second is a reasonable threshold. ([[gemini](https://gemini.google.com/share/45a7920017e2)]) The reference number is that Yandy Kun in the 80s was using a Spark 7 machine, and his experiments took one week to run.
 
-3 day run should be expected to run in 90 according to [gemini](https://gemini.google.com/share/45a7920017e2), However, surely I'll look one iterated on much shorter rounds in the meanwhile, so keep \<1 second as the requirement for any method, this corresponds to about 1 hour runtime on spark 7.
+3 day run should be expected to run in 90 according to [[gemini](https://gemini.google.com/share/45a7920017e2)], However, surely I'll look one iterated on much shorter rounds in the meanwhile, so keep \<1 second as the requirement for any method, this corresponds to about 1 hour runtime on spark 7.
 
-16:09 upload and check into [repo](https://github.com/cybertronai/sutro), take a walk to think about next steps.
+16:09 upload and check into [[repo](https://github.com/cybertronai/sutro)], take a walk to think about next steps.
 
 16:17 slack distractions. Now really going for a walk.
 
-16:41 Back from the talk. During the talk I thought about ways of measuring energy on this toy task. Let us remember the simple measure which correlates to energy. Average Reuse Distance (Brainstorming [session](https://gemini.google.com/share/c99ec90874da)). ARD\<cache size Implies that most access is via cache and therefore cheap. Instead of determining certain cache sizes to match the realistic load, we can just report average reuse distance.
+16:41 Back from the talk. During the talk I thought about ways of measuring energy on this toy task. Let us remember the simple measure which correlates to energy. Average Reuse Distance (Brainstorming [[session](https://gemini.google.com/share/c99ec90874da)]). ARD\<cache size Implies that most access is via cache and therefore cheap. Instead of determining certain cache sizes to match the realistic load, we can just report average reuse distance.
 
 Plan B (Modifying the original plan A)
 
@@ -102,13 +102,13 @@ e. Sanity checks and compare.
 
 16:55 
 
-[[embedded image removed]]
+[embedded image]
 
 16:56 Try to make it even simpler by removing the biases; however, this breaks learning, so never mind.
 
-17:04 Instructed Claude to make a pure Python version and checked it in, [https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py](https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py)
+17:04 Instructed Claude to make a pure Python version and checked it in, [[https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py](https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py)]
 
-[[embedded image removed]]
+[embedded image]
 
 17:04 Brainstorm with Gemini about average reuse distance. Because Claude code is so slow, I want to iterate a bit on the prompt first. \-- [[session](https://gemini.google.com/share/90bda930129a) ]
 
@@ -118,28 +118,28 @@ Decrease the number of steps to one example and compute metrics to help me track
 
 17:14
 
-[[embedded image removed]]
+[embedded image]
 
 17:20 this is based on the following memory reuse report
 
-[[embedded image removed]]
+[embedded image]
 
-17:21 Re-examining backprop access patterns ([write-up](https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9)) and suspicious about large values. Confirming that it counts individual reviews regardless of variable size, 
+17:21 Re-examining backprop access patterns ([[write-up](https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9)]) and suspicious about large values. Confirming that it counts individual reviews regardless of variable size, 
 
-17:25  ask Opus to clean up and upload to [github](https://github.com/cybertronai/sutro/tree/3059aad4abb49674fe85a2b9fcec50db62f48e9a)
+17:25  ask Opus to clean up and upload to [[github](https://github.com/cybertronai/sutro/tree/3059aad4abb49674fe85a2b9fcec50db62f48e9a)]
 
-[[embedded image removed]]
+[embedded image]
 
 Ask it to improve reuse distance \-- prompt with \"implement a way to improve reuse distance without affecting accuracy\"
 
 The result is auomaticallyidentifyinga gradient fusion strategy 
 
-[[embedded image removed]]
+[embedded image]
 
-New sutro [github](https://github.com/cybertronai/sutro/tree/d4fe8d95a0374c47d320dadb6916067ef31b7ddf)
+New sutro [[github](https://github.com/cybertronai/sutro/tree/d4fe8d95a0374c47d320dadb6916067ef31b7ddf)]
 
 [large table/output removed]
-  [[embedded image removed]]   [[embedded image removed]]
+  [embedded image]   [embedded image]
 [large table/output removed]
 [large table/output removed]
 

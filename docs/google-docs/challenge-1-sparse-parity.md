@@ -2,7 +2,7 @@
 
 sparse parity
 
-parent: [Sutro Group](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0)
+parent: [[Sutro Group](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0)]
 
 Motivation:
 
@@ -20,7 +20,7 @@ We can incorporate the following concrete lessons:
 
 2. AI is bottlenecked by energy
 
-3. memory cost is the biggest contributor to energy use (see bill daly [talk](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457))
+3. memory cost is the biggest contributor to energy use (see bill daly [[talk](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457)])
 
 Emmet, Germaine, Andy, Seth were able to improve energy efficiency on some tasks. Microgpt task was interesting (by virtue of being popular), Emmett was able to drive energy usage 2x using his Aster agentic loop framework however iteration time was adding friction (3 minutes per run).
 
@@ -66,7 +66,7 @@ Set of examples with ? output is known as the \"testing set\" and the challenge 
 
 Sample challenge 1: generate larger training set, larger testing set, practice making a neural net algorithm which learns this rule from data. Aim for accuracy much larger than random, ie 90%.
 
-Estimate memory energy usage. To avoid thinking about particular cache sizes, focus on a specific metric which strongly correlates with memory energy use \-- Average Reuse Distance. When Average Reuse Distance is small, data can be kept in small energy-efficient cache. Otherwise it goes to expensive external memory. ([interactive tutorial](https://ai.studio/apps/eca3f37a-175a-4713-bb17-622b24e17d3a) on reuse distance)
+Estimate memory energy usage. To avoid thinking about particular cache sizes, focus on a specific metric which strongly correlates with memory energy use \-- Average Reuse Distance. When Average Reuse Distance is small, data can be kept in small energy-efficient cache. Otherwise it goes to expensive external memory. ([[interactive tutorial](https://ai.studio/apps/eca3f37a-175a-4713-bb17-622b24e17d3a)] on reuse distance)
 
 Sample challenge 2: prompt the model to improve the algorithm to improve Average Reuse Distance
 
@@ -76,13 +76,13 @@ Sample challenge 2: prompt the model to improve the algorithm to improve Average
 
 - increase difficulty to 3-bit parity task with \"dirty bits\". IE, insert some bits which are irrelevant. This is known as the \"sparse parity task\". Scale up to 20 total bits with 3 relevant bits and 17 \"noise\" bits
 
-[[embedded image removed]]
+[embedded image]
 
-Here's how Yaroslav approached the first part (don't use it as gospel, there are many inefficiencies there) [Yaroslav Sutro technical sprint #1 02mar26](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0)
+Here's how Yaroslav approached the first part (don't use it as gospel, there are many inefficiencies there) [[Yaroslav Sutro technical sprint #1 02mar26](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0)]
 
 ## Tips 
 
-- make sure iteration time is small (ie, training + evaluation takes \<1 second at all times)
+- make sure iteration time is small (ie, training + evaluation takes \<2 seconds at all times)
 
 - change one thing at a time, either focus on correctness, or wall-clock time performance, or energy usage, keep the other factors fixed.
 
@@ -92,7 +92,7 @@ Here's how Yaroslav approached the first part (don't use it as gospel, there are
 
 Related materials: Bill Daly about energy use in GPUs
 
-[https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457)
+[[https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457)]
 
 # The question to answer 
 
