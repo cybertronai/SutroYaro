@@ -1,0 +1,603 @@
+{
+  "experiment": "exp_evolutionary",
+  "description": "Random and evolutionary search over k-subsets for sparse parity",
+  "hypothesis": "Random search needs ~C(n,k) tries; evolutionary search beats that",
+  "approach": "blank_slate \u2014 no neural net, no SGD, no gradients",
+  "configs": {
+    "n20_k3": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "c_n_k": 1140,
+      "n_train": 500,
+      "random": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 683,
+          "elapsed_s": 0.0083
+        },
+        {
+          "seed": 43,
+          "found": [
+            6,
+            9,
+            19
+          ],
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 1408,
+          "elapsed_s": 0.0173
+        },
+        {
+          "seed": 44,
+          "found": [
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 395,
+          "elapsed_s": 0.0049
+        },
+        {
+          "seed": 45,
+          "found": [
+            12,
+            16,
+            19
+          ],
+          "secret": [
+            12,
+            16,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 1767,
+          "elapsed_s": 0.0207
+        },
+        {
+          "seed": 46,
+          "found": [
+            1,
+            3,
+            4
+          ],
+          "secret": [
+            1,
+            3,
+            4
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 150,
+          "elapsed_s": 0.0018
+        }
+      ],
+      "evolutionary": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 4,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0092
+        },
+        {
+          "seed": 43,
+          "found": [
+            6,
+            9,
+            19
+          ],
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 10,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0225
+        },
+        {
+          "seed": 44,
+          "found": [
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 31,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0721
+        },
+        {
+          "seed": 45,
+          "found": [
+            12,
+            16,
+            19
+          ],
+          "secret": [
+            12,
+            16,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 20,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0464
+        },
+        {
+          "seed": 46,
+          "found": [
+            1,
+            3,
+            4
+          ],
+          "secret": [
+            1,
+            3,
+            4
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 25,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0556
+        }
+      ]
+    },
+    "n50_k3": {
+      "n_bits": 50,
+      "k_sparse": 3,
+      "c_n_k": 19600,
+      "n_train": 500,
+      "random": [
+        {
+          "seed": 42,
+          "found": [
+            13,
+            30,
+            39
+          ],
+          "secret": [
+            13,
+            30,
+            39
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 602,
+          "elapsed_s": 0.0073
+        },
+        {
+          "seed": 43,
+          "found": [
+            19,
+            28,
+            36
+          ],
+          "secret": [
+            19,
+            28,
+            36
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 21388,
+          "elapsed_s": 0.2703
+        },
+        {
+          "seed": 44,
+          "found": [
+            6,
+            37,
+            47
+          ],
+          "secret": [
+            6,
+            37,
+            47
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 13372,
+          "elapsed_s": 0.1784
+        },
+        {
+          "seed": 45,
+          "found": [
+            2,
+            7,
+            47
+          ],
+          "secret": [
+            2,
+            7,
+            47
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 15331,
+          "elapsed_s": 0.1839
+        },
+        {
+          "seed": 46,
+          "found": [
+            3,
+            9,
+            14
+          ],
+          "secret": [
+            3,
+            9,
+            14
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 5760,
+          "elapsed_s": 0.0697
+        }
+      ],
+      "evolutionary": [
+        {
+          "seed": 42,
+          "found": [
+            13,
+            30,
+            39
+          ],
+          "secret": [
+            13,
+            30,
+            39
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 89,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.4591
+        },
+        {
+          "seed": 43,
+          "found": [
+            19,
+            28,
+            36
+          ],
+          "secret": [
+            19,
+            28,
+            36
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 266,
+          "best_fitness": 1.0,
+          "elapsed_s": 1.3728
+        },
+        {
+          "seed": 44,
+          "found": [
+            6,
+            37,
+            47
+          ],
+          "secret": [
+            6,
+            37,
+            47
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 186,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.9613
+        },
+        {
+          "seed": 45,
+          "found": [
+            2,
+            7,
+            47
+          ],
+          "secret": [
+            2,
+            7,
+            47
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 165,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.8448
+        },
+        {
+          "seed": 46,
+          "found": [
+            3,
+            9,
+            14
+          ],
+          "secret": [
+            3,
+            9,
+            14
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 48,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.269
+        }
+      ]
+    },
+    "n20_k5": {
+      "n_bits": 20,
+      "k_sparse": 5,
+      "c_n_k": 15504,
+      "n_train": 2000,
+      "random": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 16183,
+          "elapsed_s": 0.4532
+        },
+        {
+          "seed": 43,
+          "found": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "secret": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 33149,
+          "elapsed_s": 0.7831
+        },
+        {
+          "seed": 44,
+          "found": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 11,
+          "elapsed_s": 0.0003
+        },
+        {
+          "seed": 45,
+          "found": [
+            2,
+            12,
+            15,
+            16,
+            19
+          ],
+          "secret": [
+            2,
+            12,
+            15,
+            16,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 35618,
+          "elapsed_s": 0.763
+        },
+        {
+          "seed": 46,
+          "found": [
+            1,
+            3,
+            4,
+            10,
+            19
+          ],
+          "secret": [
+            1,
+            3,
+            4,
+            10,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "tries": 6241,
+          "elapsed_s": 0.1314
+        }
+      ],
+      "evolutionary": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 1,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0101
+        },
+        {
+          "seed": 43,
+          "found": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "secret": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 51,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.399
+        },
+        {
+          "seed": 44,
+          "found": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 104,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.7537
+        },
+        {
+          "seed": 45,
+          "found": [
+            2,
+            12,
+            15,
+            16,
+            19
+          ],
+          "secret": [
+            2,
+            12,
+            15,
+            16,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 203,
+          "best_fitness": 1.0,
+          "elapsed_s": 1.5204
+        },
+        {
+          "seed": 46,
+          "found": [
+            1,
+            3,
+            4,
+            10,
+            19
+          ],
+          "secret": [
+            1,
+            3,
+            4,
+            10,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "generations": 11,
+          "best_fitness": 1.0,
+          "elapsed_s": 0.0745
+        }
+      ]
+    }
+  }
+}
