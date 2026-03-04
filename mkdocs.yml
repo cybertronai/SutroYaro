@@ -83,6 +83,11 @@ nav:
       - Exp C - Per-Layer 20-bit: findings/exp_c_perlayer_20bit.md
       - Exp D - Scaling Frontier: findings/exp_d_scaling.md
       - Exp E - Forward-Forward: findings/exp_e_forward_forward.md
+      - Sign SGD: findings/exp_sign_sgd.md
+      - Cache-Aware ARD: findings/exp_cache_ard.md
+      - Curriculum Learning: findings/exp_curriculum.md
+      - Weight Decay Sweep: findings/exp_wd_sweep.md
+      - Per-Layer + Batch: findings/exp_perlayer_batch.md
       - Prompting Strategies: findings/prompting-strategies.md
   - Plans:
       - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md

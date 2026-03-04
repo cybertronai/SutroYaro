@@ -5,10 +5,22 @@ All notable changes to this research workspace.
 ## [Unreleased]
 
 ### Planned
-- Sign SGD (Kou et al. 2024) — can it solve k=5?
-- Cache-aware MemTracker — simulate L1/L2 hits for realistic energy numbers
-- Curriculum learning — train on small n, transfer to large n
-- Weight decay sweep for faster grokking
+- LR decay for Sign SGD (oscillates near 100% with fixed step size)
+- Curriculum + Sign SGD combined for k=5 at large n
+- Tiled W1 updates to reduce the 75% ARD bottleneck
+- Deeper networks (5-10 layers) where FF's locality advantage may appear
+
+---
+
+## [0.7.0] - 2026-03-04
+
+### Research experiments (Round 2 — autonomous agent team)
+
+- **Sign SGD** — solves k=5 2x faster than standard SGD (7 vs 14 epochs). Surprise: standard SGD also solves k=5 with enough data (n_train=5000). The exp_d "failure" at 61.5% was insufficient data, not algorithm limits.
+- **Curriculum learning** — n=50/k=3 cracked via n=10→30→50 transfer. 14.6x speedup. Transfer after W1 expansion is instant (1 epoch). Biggest practical finding of the session.
+- **Cache-aware MemTracker** — built CacheTracker with LRU simulation. L2 (256KB) eliminates all misses for both single/batch. Batch wins on total traffic (13% fewer floats, 16x fewer writes), not cache locality. Single-sample is more L1-friendly.
+- **Weight decay sweep** — WD=0.01 already optimal. Working range is narrow [0.01, 0.05]. Higher WD kills learning.
+- **Per-layer + batch** — combines but not valuable. Single-sample SGD is 8x faster in epochs. Per-layer re-forward adds 3.7x overhead.
 
 ---
 
