@@ -1,0 +1,42 @@
+[
+  {
+    "url": "https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit",
+    "name": "sutro-group-main",
+    "description": "Sutro Group main page (meetings index)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit",
+    "name": "challenge-1-sparse-parity",
+    "description": "Challenge #1: Sparse Parity"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit",
+    "name": "yaroslav-technical-sprint-1",
+    "description": "Yaroslav Technical Sprint 1 (02 Mar 2026)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1ZsH26hVvbZBOshwA1KgdX5AK5zw9W0CzqZuXLa5fIlo/edit",
+    "name": "meeting-1-energy-intro",
+    "description": "Meeting #1: Energy-efficient training intro (19 Jan 2026)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1IdXRUhPRoWt8xLH1Y6iRWRx1g9-gbotFiiAnVixJYZY/edit",
+    "name": "meeting-2-forward-forward",
+    "description": "Meeting #2: Hinton's Forward-Forward discussion (26 Jan 2026)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_fETAIuxIyHgLtC5OPD_qpGpqg/edit",
+    "name": "meeting-6-emmett-results",
+    "description": "Meeting #6: Emmett's pure-Python GPT results"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1OXd_-RweVbHzjqTA2UF05mEs8iJZQiqKeU3QHU_DMdc/edit",
+    "name": "meeting-6-notes",
+    "description": "Meeting #6: Full meeting notes (23 Feb 2026)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1M5cJVDTb3AbCz1w19O333FuQrSIoQHW8y6pJK4KwEO4/edit",
+    "name": "meeting-7-notes",
+    "description": "Meeting #7: Sparse parity discussion (02 Mar 2026)"
+  }
+]
