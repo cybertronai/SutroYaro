@@ -141,13 +141,16 @@ See `src/sparse_parity/experiments/_template.py` for the code template.
 
 ## Current Baselines
 
-| Config | Method | Accuracy | ARD | Reference |
-|--------|--------|----------|-----|-----------|
-| n=3, k=3 | standard | 100% | 10,640 | run_20260303_200353 |
-| n=3, k=3 | perlayer | 100% | 9,674 | run_20260303_200353 |
-| n=20, k=3 | standard (LR=0.1, batch=32) | 100% | 17,976 | exp_a |
-| n=20, k=3 | perlayer (LR=0.1) | 99.5% | 17,299 | exp_a / exp_c |
-| n=20, k=3 | forward-forward | 58.5% | 277,256 | exp_e |
-| n=30, k=3 | standard (LR=0.1, batch=32) | 94.5% | — | exp_d |
-| n=50, k=3 | standard | 54% (FAIL) | — | exp_d |
-| n=20, k=5 | standard | 61.5% (FAIL) | — | exp_d |
+| Config | Method | Accuracy | ARD | Time | Reference |
+|--------|--------|----------|-----|------|-----------|
+| n=20, k=3 | numpy SGD (fast.py) | 100% | — | 0.12s | fast.py |
+| n=20, k=3 | standard (LR=0.1, batch=32) | 100% | 17,976 | — | exp_a |
+| n=20, k=3 | perlayer (LR=0.1) | 99.5% | 17,299 | — | exp_c |
+| n=20, k=3 | forward-forward | 58.5% | 277,256 | — | exp_e |
+| n=20, k=5 | sign SGD (n_train=5000) | >90% | — | — | exp_sign_sgd |
+| n=20, k=5 | standard (n_train=5000) | >90% | — | — | exp_sign_sgd |
+| n=30, k=3 | standard (LR=0.1, batch=32) | 94.5% | — | — | exp_d |
+| n=50, k=3 | curriculum (n=10→30→50) | >90% | — | — | exp_curriculum |
+| n=50, k=3 | standard (direct) | 54% (FAIL) | — | — | exp_d |
+| n=3, k=3 | standard | 100% | 10,640 | — | run_20260303_200353 |
+| n=3, k=3 | perlayer | 100% | 9,674 | — | run_20260303_200353 |
