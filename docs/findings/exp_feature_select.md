@@ -1,8 +1,8 @@
-# Experiment exp_feature_select: Feature Selection — Blank Slate Sparse Parity
+# Experiment exp_feature_select: Feature Selection, Blank Slate Sparse Parity
 
 **Date**: 2026-03-04
 **Status**: PARTIAL
-**Answers**: Blank slate — can we beat SGD without gradient descent?
+**Answers**: Blank slate. Can we beat SGD without gradient descent?
 
 ## Hypothesis
 
@@ -34,7 +34,7 @@ If we separate SEARCH (find which k bits matter) from LEARNING (compute parity o
 | Exhaustive vs SGD time | 4.8x–86x faster wall time |
 | Exhaustive solves n=50/k=3 | Yes (SGD fails at 56%) |
 
-## Key Table
+## Summary Table
 
 | Scenario | Method | Correct | Time (s) | Ops | Speedup (ops) |
 |----------|--------|---------|-----------|-----|---------------|
@@ -51,7 +51,7 @@ If we separate SEARCH (find which k bits matter) from LEARNING (compute parity o
 
 ### What worked
 
-- **Exhaustive combo check solves everything**: C(n,k) product-accuracy test finds the secret perfectly every time. 100% accuracy guaranteed.
+- **Exhaustive combo check solves everything**: C(n,k) product-accuracy test finds the secret every time. 100% accuracy.
 - **Massive ops advantage**: 178x–1203x fewer operations than SGD. The exhaustive method does O(C(n,k) * n_samples * k) ops vs SGD's O(epochs * n_train * hidden * n_bits).
 - **Solves cases SGD cannot**: n=50/k=3 is trivial for exhaustive (0.13s, 19.6K combos) but SGD fails at 56% even after 200 epochs.
 - **Early termination helps**: On average, the correct combo is found after checking ~half the combos (163/1140 for n=20/k=3 due to ordering).
@@ -63,18 +63,18 @@ If we separate SEARCH (find which k bits matter) from LEARNING (compute parity o
 
 ### Surprise
 
-**Parity is cryptographically hard for correlation methods.** Any statistical test of order < k gives exactly zero signal. This is why SGD needs grokking — the network must implicitly discover the full k-way interaction through nonlinear composition across layers. The exhaustive method works because it tests the full k-way product directly. This also explains why the Fourier/Walsh-Hadamard approach (which tests all k-way interactions simultaneously) is the natural solution.
+**Parity is cryptographically hard for correlation methods.** Any statistical test of order < k gives zero signal. This is why SGD needs grokking: the network must discover the full k-way interaction through nonlinear composition across layers. The exhaustive method works because it tests the full k-way product directly. The Fourier/Walsh-Hadamard approach (which tests all k-way interactions) is the natural solution for the same reason.
 
 ## Scaling Analysis
 
 Exhaustive has complexity O(C(n,k)) combos:
-- n=20, k=3: C(20,3) = 1,140 — instant
-- n=50, k=3: C(50,3) = 19,600 — instant (0.13s)
-- n=100, k=3: C(100,3) = 161,700 — still fast (~1s)
-- n=20, k=5: C(20,5) = 15,504 — fast (0.03s)
-- n=50, k=5: C(50,5) = 2,118,760 — feasible (~10s)
-- n=100, k=5: C(100,5) = 75,287,520 — minutes, but doable
-- n=100, k=10: C(100,10) = 17 trillion — intractable
+- n=20, k=3: C(20,3) = 1,140, instant
+- n=50, k=3: C(50,3) = 19,600, instant (0.13s)
+- n=100, k=3: C(100,3) = 161,700, still fast (~1s)
+- n=20, k=5: C(20,5) = 15,504, fast (0.03s)
+- n=50, k=5: C(50,5) = 2,118,760, feasible (~10s)
+- n=100, k=5: C(100,5) = 75,287,520, minutes but doable
+- n=100, k=10: C(100,10) = 17 trillion, intractable
 
 So exhaustive search works well for small k (up to ~7-8) regardless of n, but becomes intractable for large k. This is where SGD's implicit search through gradient descent still has value.
 

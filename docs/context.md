@@ -11,7 +11,7 @@ Sparse parity is the "drosophila" of learning tasks:
 - **Simplest non-trivial** learning problem (XOR was the example Minsky used to trigger the AI winter)
 - **Easy to scale** difficulty (add noise bits)
 - **Fast to iterate** (0.12s with numpy, <2s even in pure Python)
-- **Exposes fundamental** memory access patterns in backprop
+- **Exposes** memory access patterns in backprop
 - **Well-studied** in theory (Barak et al. 2022, Kou et al. 2024)
 
 ## What We Found
@@ -25,7 +25,7 @@ Sparse parity is the "drosophila" of learning tasks:
 !!! warning "The ARD Bottleneck"
     W1 (the first layer weight matrix) accounts for ~75% of all float reads. Its reuse distance is fixed regardless of update order. This caps operation-reordering improvements at ~10%.
 
-Per-layer forward-backward gives 3.8% ARD improvement. Fused updates give 1.3%. To go further requires either smaller models or fundamentally different algorithms.
+Per-layer forward-backward gives 3.8% ARD improvement. Fused updates give 1.3%. Going further requires either smaller models or different algorithms.
 
 ### Forward-Forward is not the answer (for small networks)
 
@@ -65,7 +65,7 @@ gantt
 
 | Name | Role / Focus |
 |------|-------------|
-| **Yad** | Created this repo (SutroYaro), built the Claude Code autonomous research lab — parallel agent teams, experiment templates, DISCOVERIES.md knowledge accumulation |
+| **Yad** | Created this repo (SutroYaro), built the Claude Code autonomous research lab: parallel agent teams, experiment templates, DISCOVERIES.md knowledge accumulation |
 | **Yaroslav** | Sutro Group founder, technical sprints, algorithm work, [cybertronai/sutro](https://github.com/cybertronai/sutro) |
 | **Emmett** | Aster agentic loop framework, 2x energy improvement on microgpt |
 | **Germaine** | Presentations, implementations |

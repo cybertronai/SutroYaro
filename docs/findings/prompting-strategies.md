@@ -3,13 +3,13 @@
 **Date**: 2026-03-04
 **Context**: Sutro Group Challenge #1, Question 3 -- "What are the prompting strategies/approaches that are useful here?"
 
-We used Claude Code as an autonomous research agent to go from 54% accuracy (coin-flip) to 100% accuracy on 20-bit sparse parity (k=3). This document captures the workflow, the prompts that worked, the ones that did not, and a reusable template for future research cycles.
+We used Claude Code as a research agent to go from 54% accuracy (coin-flip) to 100% accuracy on 20-bit sparse parity (k=3). This document captures the workflow, the prompts that worked, the ones that did not, and a reusable template for future research cycles.
 
 ---
 
 ## The Workflow That Worked
 
-The successful cycle followed a specific five-stage loop:
+The successful cycle followed a five-stage loop:
 
 ```
 Literature Search --> Diagnose Gap --> Hypothesis --> Experiment --> Measure --> Iterate
@@ -30,7 +30,7 @@ This produced a literature review (`research/sparse-parity-literature.md`) cover
 - Feature learning dynamics under grokking (2024)
 - Rubin et al. 2026 (grokking as phase transition)
 
-**Why it worked**: The AI retrieved concrete hyperparameters and convergence expectations from published baselines, not just abstract theory.
+**Why it worked**: The AI retrieved concrete hyperparameters and convergence expectations from published baselines.
 
 ### Stage 2: Diagnose the Gap
 
@@ -45,7 +45,7 @@ The literature review included a table comparing our config to published baselin
 | max_epochs | 50          | 500+                | Phase transition needs n^O(k) steps |
 | n_train   | 200          | 500-1000            | More data helps generalization |
 
-This diagnosis was the single most valuable output of the entire process. It turned a vague "it doesn't work" into a precise checklist of things to fix.
+This diagnosis turned a vague "it doesn't work" into a precise checklist of things to fix.
 
 ### Stage 3: Hypothesis and Experiment Plan
 
@@ -87,11 +87,11 @@ Asking for literature on the exact task, not a general topic, produced directly 
 
 ### 2. "What are the practical hyperparameters from this paper?"
 
-Asking for concrete numbers from papers, not just theoretical insights, was critical. The Barak et al. paper contained the exact recipe (LR=0.1, batch_size=32, hidden=1000, hinge loss) that solved our problem.
+Asking for concrete numbers from papers produced the fix. The Barak et al. paper contained the exact recipe (LR=0.1, batch_size=32, hidden=1000, hinge loss) that solved our problem.
 
 ### 3. "Compare our config against published baselines"
 
-This is the highest-leverage prompt in the entire workflow. It turns the literature review into an actionable diagnosis. The output is a diff between "what we have" and "what works," which directly maps to experiment priorities.
+This turns the literature review into an actionable diagnosis. The output is a diff between "what we have" and "what works," which maps directly to experiment priorities.
 
 ### 4. "Create an experiment plan with ranked hypotheses"
 
@@ -107,14 +107,14 @@ Asking the AI to track ||w_t - w_0||_1 (weight movement norm) revealed that SGD 
 
 ### 1. GrokFast Was Counterproductive
 
-The literature review flagged GrokFast as "our most promising practical trick -- could reduce training from 500 epochs to 5-50." In practice:
+The literature review flagged GrokFast as "could reduce training from 500 epochs to 5-50." In practice:
 
 - GrokFast was 17x slower (383.7s vs 22.7s)
 - Caused 83x more weight movement (441K vs 5.3K L1 norm)
 - Never reached 100% accuracy (peaked at 99%)
 - Baseline SGD reached 100% in 5 epochs without any tricks
 
-**Lesson**: A technique that works brilliantly in one regime (modular arithmetic with thousands of grokking epochs) can be actively harmful in another (sparse parity where correct hyperparameters give fast convergence). The literature review correctly identified GrokFast as promising, but the regime mismatch was only discovered by running the experiment.
+**Lesson**: A technique that works in one regime (modular arithmetic with thousands of grokking epochs) can be harmful in another (sparse parity where correct hyperparameters give fast convergence). The regime mismatch was only discovered by running the experiment.
 
 ### 2. Blindly Following Paper Defaults Without Understanding the Regime
 
@@ -122,23 +122,23 @@ The GrokFast default parameters (alpha=0.98, lambda=2.0) were tuned for tasks wh
 
 ### 3. Trying Fancy Algorithms Before Fixing Basics
 
-If we had jumped straight to GrokFast or Sign SGD without first fixing the hyperparameters, we would have wasted significant time. The problem was not that SGD was insufficient -- it was that our LR was 5x too high and our batch size was 1 instead of 32.
+If we had jumped straight to GrokFast or Sign SGD without first fixing the hyperparameters, we would have wasted time. Our LR was 5x too high and our batch size was 1 instead of 32.
 
 ---
 
 ## Lessons Learned
 
-1. **Always compare your config against published baselines first.** This is the single highest-ROI step. A five-minute literature search and config comparison solved a problem that would have been unsolvable with algorithmic tricks alone.
+1. **Compare your config against published baselines first.** A five-minute literature search and config comparison solved a problem that would have been unsolvable with algorithmic tricks alone.
 
-2. **The simplest fix should be tried before fancy algorithms.** Hyperparameter correction (Experiment 1) solved the problem. GrokFast (Experiment 4) made it worse. Prioritize by simplicity, not novelty.
+2. **Try the simplest fix before fancy algorithms.** Hyperparameter correction (Experiment 1) solved the problem. GrokFast (Experiment 4) made it worse. Prioritize by simplicity.
 
 3. **Track hidden progress metrics, not just loss/accuracy.** Weight movement norm (||w_t - w_0||_1) was a leading indicator of convergence. Without it, we might have given up during the "silent" phase when test accuracy was stuck at 50%.
 
-4. **Literature techniques do not always transfer to your regime.** GrokFast was designed for extended memorization phases (thousands of epochs). Our task converged in 5 epochs. Always check whether the assumptions behind a technique match your setting.
+4. **Literature techniques do not always transfer to your regime.** GrokFast was designed for extended memorization phases (thousands of epochs). Our task converged in 5 epochs. Check whether the assumptions behind a technique match your setting.
 
-5. **One change at a time, with clear success criteria.** The experiment plan tested each idea independently with a defined success threshold (>90% test accuracy). This made it trivial to identify what worked and what did not.
+5. **One change at a time, with clear success criteria.** The experiment plan tested each idea independently with a defined threshold (>90% test accuracy). This made it easy to identify what worked.
 
-6. **Document failures as carefully as successes.** The GrokFast finding (Experiment 4) is arguably more informative than the hyperparameter fix (Experiment 1), because it identifies a common research pitfall: importing techniques from a different regime without verifying the assumptions.
+6. **Document failures as carefully as successes.** The GrokFast finding (Experiment 4) is more informative than the hyperparameter fix (Experiment 1), because it identifies a common pitfall: importing techniques from a different regime without verifying the assumptions.
 
 ---
 
@@ -195,4 +195,4 @@ If not, return to Phase 1 with the new information from failed experiments.
 
 ## Summary
 
-The core insight is that **AI-assisted research works best when the AI is given a structured workflow**, not open-ended instructions. The sequence "literature search, gap diagnosis, ranked experiments, one-at-a-time execution, failure analysis" produced a solution in under 2 hours. The most effective single prompt was asking the AI to compare our configuration against published baselines -- that one comparison contained the entire fix.
+**AI-assisted research works best with a structured workflow**, not open-ended instructions. The sequence "literature search, gap diagnosis, ranked experiments, one-at-a-time execution, failure analysis" produced a solution in under 2 hours. The most effective prompt was asking the AI to compare our configuration against published baselines. That one comparison contained the entire fix.

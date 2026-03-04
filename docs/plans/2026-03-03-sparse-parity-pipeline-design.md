@@ -106,7 +106,7 @@ Each run produces (in `results/`):
 2. **Markdown report**: auto-generated summary comparing all methods
 3. **PNG plots**: loss curves, accuracy curves, ARD comparison bar chart
 
-## Key Design Decisions
+## Design Decisions
 
 1. **Modular files** over monolithic: each file <200 lines, Claude can read/edit in one pass
 2. **Optional tracker** parameter: same forward/backward code works with or without instrumentation

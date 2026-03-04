@@ -25,15 +25,15 @@ Matching Barak et al. 2022's hyperparameters (LR=0.1, batch_size=32, more epochs
 | batch_size  | 1 (online)     | 32 (mini-batch)      |
 | max_epochs  | 50             | 200 (solved at 52)   |
 
-## Key Observations
+## Observations
 
 ### Phase transition / grokking pattern
 
-The training curve shows the classic grokking pattern:
+The training curve follows the grokking pattern:
 
-1. **Epochs 1-20**: Train accuracy rises to ~80%, test accuracy stays at chance (~50%). The model is memorizing.
-2. **Epochs 20-40**: Train accuracy continues climbing, test accuracy begins to move (59% at epoch 30, 75% at epoch 40). Hidden progress is building.
-3. **Epochs 40-52**: Sharp phase transition. Test accuracy jumps from 75% to 99% in about 10 epochs. The model suddenly generalizes.
+1. **Epochs 1-20**: Train accuracy rises to ~80%, test accuracy stays at chance (~50%). The model memorizes.
+2. **Epochs 20-40**: Train accuracy continues climbing, test accuracy begins to move (59% at epoch 30, 75% at epoch 40).
+3. **Epochs 40-52**: Phase transition. Test accuracy jumps from 75% to 99% in about 10 epochs.
 
 ### Hidden progress tracking
 
@@ -43,17 +43,17 @@ The L1 weight movement ||w_t - w_0||_1 grew steadily throughout training:
 - Epoch 43: 3,830 (test acc crosses 90%)
 - Epoch 52: 4,149 (solved at 99%)
 
-This confirms the "hidden progress" phenomenon from Barak et al.: SGD is making meaningful progress on the weights long before it shows up in test accuracy. The weight movement metric is a useful leading indicator.
+This confirms the "hidden progress" phenomenon from Barak et al.: SGD moves weights well before test accuracy responds. The weight movement metric is a useful leading indicator.
 
 ### What fixed it
 
-Three changes were critical, in order of importance:
+Two changes mattered most:
 
-1. **Mini-batch SGD (batch_size=32)**: The biggest fix. Single-sample online SGD produces very noisy gradient estimates. Averaging over 32 samples provides a cleaner signal, especially important for sparse parity where the relevant bits are a tiny fraction of the input.
+1. **Mini-batch SGD (batch_size=32)**: Single-sample online SGD produces noisy gradient estimates. Averaging over 32 samples provides a cleaner signal, especially for sparse parity where 3 of 20 bits are relevant.
 
-2. **Lower learning rate (0.1 vs 0.5)**: LR=0.5 was too aggressive. With noisy single-sample gradients and high LR, the optimizer overshoots. LR=0.1 with mini-batches gives stable convergence.
+2. **Lower learning rate (0.1 vs 0.5)**: LR=0.5 with noisy single-sample gradients causes overshooting. LR=0.1 with mini-batches gives stable convergence.
 
-3. **More training data (n_train=500 vs 200)**: More samples help the gradient estimate and reduce overfitting to noise bits. With 500 samples and batch_size=32, each epoch has ~16 update steps.
+More training data also helped (n_train=500 vs 200): more samples reduce overfitting to noise bits. With 500 samples and batch_size=32, each epoch has ~16 update steps.
 
 ### Performance
 

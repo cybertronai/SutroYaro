@@ -1,5 +1,16 @@
 /* Dropdown tabs for Material for MkDocs */
 
+/* Override Material's clipping on the tabs bar */
+.md-tabs {
+  overflow: visible !important;
+  z-index: 10 !important;
+}
+
+.md-tabs__list {
+  overflow: visible !important;
+  contain: none !important;
+}
+
 /* Dropdown container */
 .md-tabs__dropdown {
   position: relative;

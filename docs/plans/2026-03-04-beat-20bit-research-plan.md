@@ -87,7 +87,7 @@ For each experiment:
 6. If accuracy >90%, stop and document the winning config
 7. If not, analyze why, update hypothesis, proceed to next experiment
 
-## Key References
+## References
 
 - [Hidden Progress in Deep Learning: SGD Learns Parities Near the Computational Limit](https://arxiv.org/abs/2207.08799) — Barak et al. 2022, NeurIPS
 - [Matching the SQ Lower Bound for k-Sparse Parity with Sign SGD](https://arxiv.org/abs/2404.12376) — Kou et al. 2024, NeurIPS

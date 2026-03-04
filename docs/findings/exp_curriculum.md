@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-04
 **Status**: SUCCESS
-**Answers**: Open question #3 — "Can curriculum learning help at scale?"
+**Answers**: Open question #3, "Can curriculum learning help at scale?"
 
 ## Hypothesis
 
@@ -47,7 +47,7 @@ If we train on small n first (where grokking is fast) and then expand W1 to larg
 | Curriculum k=2->3->5 | 95.0% | 157 | 0.46s |
 | **Speedup** | — | **1.5x fewer epochs** | **1.4x faster** |
 
-## Key Table
+## Summary Table
 
 | Method | Target | Acc | Epochs | Time | vs Direct |
 |--------|--------|-----|--------|------|-----------|
@@ -62,21 +62,21 @@ If we train on small n first (where grokking is fast) and then expand W1 to larg
 
 ### What worked
 
-- **n-curriculum is dramatically effective**: 10->30->50 solves n=50/k=3 in 20 total epochs vs 292 for direct training — a 14.6x improvement.
-- **Transfer is near-instant**: After expanding W1 from n=10 to n=20, the network achieves 100% test accuracy in epoch 1. The trained feature detector on the 3 secret bits transfers perfectly because the new columns are initialized small and don't interfere.
-- **n=50 solved via curriculum**: Direct training on n=50/k=3 previously failed at 54% in exp_d (200 epochs). Here with 500 epochs it reaches 95.5%. But curriculum solves it in just 20 epochs total — it bypasses the grokking plateau entirely.
-- **k-curriculum also helps**: 1.5x speedup for k=5, meaningful but less dramatic than n-curriculum.
+- **n-curriculum is effective**: 10->30->50 solves n=50/k=3 in 20 total epochs vs 292 for direct training, a 14.6x improvement.
+- **Transfer is near-instant**: After expanding W1 from n=10 to n=20, the network achieves 100% test accuracy in epoch 1. The trained feature detector on the 3 secret bits transfers because the new columns are initialized small and don't interfere.
+- **n=50 solved via curriculum**: Direct training on n=50/k=3 previously failed at 54% in exp_d (200 epochs). Here with 500 epochs it reaches 95.5%. Curriculum solves it in 20 epochs total, bypassing the grokking plateau.
+- **k-curriculum also helps**: 1.5x speedup for k=5, less dramatic than n-curriculum.
 
 ### What didn't work
 
-- **k-curriculum has limited transfer**: Going from k=2 to k=5 doesn't transfer as cleanly because the parity function changes structure (from 2-way to 5-way XOR). The network must still learn the new interaction pattern.
-- **k-curriculum for k=5 still took 140 epochs** in the final phase — most of the work. The k=2 and k=3 warmup helped but didn't short-circuit the k=5 learning.
+- **k-curriculum has limited transfer**: Going from k=2 to k=5 doesn't transfer cleanly because the parity function changes structure (from 2-way to 5-way XOR). The network must still learn the new interaction pattern.
+- **k-curriculum for k=5 still took 140 epochs** in the final phase, most of the work. The k=2 and k=3 warmup helped but didn't short-circuit k=5 learning.
 
 ### Surprise
 
-The n-curriculum expansion is almost free. When going from n=10 to n=20 to n=50, each expansion phase solves in 1 epoch. The network has already learned "look at bits 1, 5, 8 and compute their product" — adding irrelevant input columns (initialized with near-zero weights) doesn't break this at all. The entire cost is the initial n=10 training (18 epochs), which is trivially fast.
+The n-curriculum expansion is almost free. When going from n=10 to n=20 to n=50, each expansion phase solves in 1 epoch. The network has already learned "look at bits 1, 5, 8 and compute their product." Adding irrelevant input columns (initialized with near-zero weights) doesn't break this. The entire cost is the initial n=10 training (18 epochs), which is trivially fast.
 
-This means **n-curriculum completely neutralizes the n^k scaling wall for k=3**. The hard part (finding the secret bits) is done at small n where it's cheap. Expansion is free.
+**n-curriculum neutralizes the n^k scaling wall for k=3.** The hard part (finding the secret bits) is done at small n where it is cheap. Expansion is free.
 
 ## Open Questions (for next experiment)
 

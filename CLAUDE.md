@@ -26,7 +26,7 @@ batch_size=32, n_train=1000, max_epochs=200
 
 Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
 
-## Key Findings
+## Findings
 
 - LR=0.1 is critical (0.5 overshoots, never triggers phase transition)
 - Per-layer forward-backward gives 3.8% ARD improvement for free
@@ -45,7 +45,7 @@ Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
 - One hypothesis per experiment, always compare against baseline
 - Record everything — failed hypotheses are findings too
 
-## Key People
+## People
 
 - **Yad** (repo creator, SutroYaro) — Built the Claude Code autonomous research lab, parallel agent experiments
 - **Yaroslav** (Sutro Group founder) — Technical sprints, algorithm work, cybertronai/sutro

@@ -1,13 +1,13 @@
-# Technical Sprint 2 Plan — COMPLETED
+# Technical Sprint 2 Plan: COMPLETED
 
 !!! note "Historical"
     This plan was written after Sprint 1 and has been fully executed. All candidate algorithms were tested. See the findings linked below.
 
 ## Background
 
-Sprint 1 showed that gradient fusion improves ARD by ~16%, but the real bottleneck is parameter tensors read twice across the full forward+backward pass. Fundamentally different algorithms are needed.
+Sprint 1 showed that gradient fusion improves ARD by ~16%, but the real bottleneck is parameter tensors read twice across the full forward+backward pass. Different algorithms are needed.
 
-## Candidate Algorithms — All Tested
+## Candidate Algorithms (All Tested)
 
 | Algorithm | Result | Finding |
 |-----------|--------|---------|
@@ -29,7 +29,7 @@ Sprint 1 showed that gradient fusion improves ARD by ~16%, but the real bottlene
 
 - **Does Forward-Forward converge on sparse parity?** Only 3-bit. Fails on 20-bit due to greedy layer-wise objective.
 - **What's the theoretical minimum ARD for this task?** W1 dominates at 75% of reads. Operation reordering capped at ~10% improvement.
-- **Can we combine approaches?** Per-layer + batch works but isn't valuable. Single-sample SGD is 8x faster.
+- **Can we combine approaches?** Per-layer + batch works but isn't useful. Single-sample SGD is 8x faster.
 
 ## What's Next
 

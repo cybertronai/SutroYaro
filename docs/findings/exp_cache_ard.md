@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-04
 **Status**: SUCCESS
-**Answers**: Open question #2 — "What does ARD look like with a cache model?"
+**Answers**: Open question #2, "What does ARD look like with a cache model?"
 
 ## Hypothesis
 
@@ -31,9 +31,9 @@ If we add LRU cache simulation to MemTracker, then batch-32 will show dramatical
 | Epochs to >90% | N/A |
 | Wall time | <1s per comparison |
 | CacheTracker implemented | YES |
-| Key finding | L2 cache eliminates ALL misses for both methods |
+| Finding | L2 cache eliminates ALL misses for both methods |
 
-## Key Table
+## Summary Table
 
 | Hidden | Cache | W1 fits? | Method | Hit Rate | Eff. ARD | Misses | Total Floats |
 |--------|-------|----------|--------|----------|----------|--------|--------------|
@@ -51,22 +51,22 @@ If we add LRU cache simulation to MemTracker, then batch-32 will show dramatical
 ### What worked
 
 - CacheTracker correctly extends MemTracker with LRU simulation
-- At L2 (256KB), both methods achieve 100% hit rate — the entire working set fits, confirming exp_b's intuition
-- Batch-32 accesses 13% fewer total floats than 32 single-sample steps (2.13M vs 2.46M for hidden=1000), confirming the parameter-traffic reduction found in exp_b
-- The cache model gives a clear binary answer: if your cache fits W1, reuse distance is irrelevant
+- At L2 (256KB), both methods achieve 100% hit rate. The entire working set fits, confirming exp_b's intuition
+- Batch-32 accesses 13% fewer total floats than 32 single-sample steps (2.13M vs 2.46M for hidden=1000), confirming exp_b's parameter-traffic reduction
+- The cache model gives a binary answer: if your cache fits W1, reuse distance is irrelevant
 
 ### What didn't work
 
-- Batch does NOT have better L1 cache behavior than single-sample — it's actually worse
+- Batch does NOT have better L1 cache behavior than single-sample. It is worse
   - hidden=200, L1: batch 73% vs single-sample 100%
   - hidden=1000, L1: batch 69% vs single-sample 91%
 - The per-sample temporaries in batch (h_pre_0...h_pre_31, h_0...h_31, dh_0, etc.) thrash the L1 cache, evicting parameters that single-sample keeps resident
 
 ### Surprise
 
-**Single-sample is more cache-friendly than batch at L1.** Each single-sample step has a tiny working set (~hidden*3 + n_bits floats for temporaries) that fits alongside W1 in L1. Batch creates 32 sets of these temporaries, blowing out the cache. The conventional wisdom "batch reuses parameters" only holds when the cache is large enough to hold both parameters AND all per-sample temporaries.
+**Single-sample is more cache-friendly than batch at L1.** Each single-sample step has a small working set (~hidden*3 + n_bits floats for temporaries) that fits alongside W1 in L1. Batch creates 32 sets of these temporaries, blowing out the cache. The assumption "batch reuses parameters" only holds when the cache is large enough to hold both parameters and all per-sample temporaries.
 
-**The real batch advantage is total traffic, not locality.** Batch-32 does 16x fewer parameter writes (from exp_b) and 13% fewer total float accesses. On a memory-bandwidth-bound system, this is the actual energy saving — not cache hit rate.
+**The real batch advantage is total traffic, not locality.** Batch-32 does 16x fewer parameter writes (from exp_b) and 13% fewer total float accesses. On a memory-bandwidth-bound system, this is the actual energy saving, not cache hit rate.
 
 ## Open Questions (for next experiment)
 

@@ -34,7 +34,7 @@ All 3 variants converged to 96.5% test accuracy in 6 epochs. ARD was measured on
 
 ### Per-layer wins, but modestly
 
-Per-layer forward-backward achieves the best (lowest) ARD at 17,299 floats -- a 3.8% reduction vs standard backprop. The fused variant sits in between at 1.3% better.
+Per-layer forward-backward achieves the lowest ARD at 17,299 floats, a 3.8% reduction vs standard backprop. The fused variant sits in between at 1.3% better.
 
 ### Why the improvement is small
 
@@ -53,7 +53,7 @@ Per-layer shows fewer total operations (15 reads vs 24, 13 writes vs 18) because
 - Updates are fused inline with backward computation
 - W2's reuse distances are tighter: max 14,544 (perlayer) vs 39,570 (standard)
 
-The key per-buffer improvement is **W2**: standard backprop reads W2 three times with avg distance 22,387, while per-layer reads it three times with avg distance 13,877. This is because per-layer updates W2 immediately after computing its gradient, keeping it in "cache" between forward and backward.
+The largest per-buffer improvement is **W2**: standard backprop reads W2 three times with avg distance 22,387, while per-layer reads it three times with avg distance 13,877. Per-layer updates W2 immediately after computing its gradient, keeping it in cache between forward and backward.
 
 ### The bottleneck is W1
 
@@ -61,11 +61,10 @@ W1 at 10,000 floats is 20x larger than any other buffer. Any optimization that d
 
 1. **Smaller models** -- reduce hidden dimension
 2. **Block/tile updates** -- update W1 in chunks so each chunk stays in cache
-3. **Forward-Forward** -- Hinton's algorithm avoids backprop entirely, potentially allowing W1 to be read once and updated in-place
 
-## Key Answer
+## Answer
 
-**Does per-layer update still give better ARD on 20-bit?** Yes, but only 3.8% better. The improvement is real but modest because W1 dominates the ARD at this scale. The per-layer variant's main advantage is eliminating intermediate gradient buffers and tightening W2's reuse distance.
+**Does per-layer update still give better ARD on 20-bit?** Yes, but only 3.8% better. The improvement is modest because W1 dominates the ARD at this scale. The per-layer variant's advantage is eliminating intermediate gradient buffers and tightening W2's reuse distance.
 
 ## Files
 

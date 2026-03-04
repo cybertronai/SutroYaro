@@ -3,7 +3,7 @@
 ## Referenced Talks
 
 - **Bill Daly - Energy use in GPUs**: https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457
-  - Key point: memory cost is the biggest contributor to energy use
+  - Memory cost is the largest contributor to energy use
 
 ## Group Presentations
 

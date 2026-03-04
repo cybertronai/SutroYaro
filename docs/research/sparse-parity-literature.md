@@ -7,19 +7,19 @@
 
 Learn a k-sparse parity function: given x ∈ {-1,+1}^n, predict the product of k secret coordinates. With n=20 and k=3, there are C(20,3) = 1,140 possible subsets. The task is statistically easy (O(n^k) samples suffice) but computationally hard (SQ lower bound is Ω(n^k) queries).
 
-## Key Papers
+## Papers
 
 ### 1. Hidden Progress in Deep Learning (Barak et al., NeurIPS 2022)
 **Paper**: https://arxiv.org/abs/2207.08799
 
-The foundational result. Shows that SGD on neural networks CAN learn sparse parity, but with a sharp phase transition:
+Shows that SGD on neural networks CAN learn sparse parity, but with a sharp phase transition:
 
 - Training loss/accuracy show NO progress for a long time, then suddenly snap to perfect generalization
 - The "hidden progress" is SGD gradually amplifying Fourier coefficients corresponding to the secret subset
 - Progress is invisible to standard metrics but visible in ||w_t - w_0||_1 (weight movement norm)
 - Convergence requires ~n^O(k) iterations, matching SQ lower bounds
 
-**Key hyperparameters from the paper**:
+**Hyperparameters from the paper**:
 - 1-layer ReLU MLP, hidden=1000
 - SGD with LR=0.1, batch_size=32, weight_decay=0.01
 - Constant learning rate (no schedule)
@@ -35,7 +35,7 @@ Proves that Sign SGD (replace gradient with its sign) on 2-layer nets solves k-s
 
 - Uses 2^Θ(k) neurons (for k=3, that's ~8 neurons — much smaller than our 1000)
 - Sign SGD normalizes gradient magnitudes, helping with sparse feature detection
-- Theoretically optimal, practical implementation straightforward
+- Theoretically optimal, easy to implement
 
 **Implementation**: Replace `W -= lr * grad` with `W -= lr * sign(grad)` in backward pass.
 
@@ -54,15 +54,15 @@ Sparse parity is a canonical example of "grokking" — delayed generalization af
 ### 4. GrokFast: Accelerated Grokking (Lee et al., 2024)
 **Code**: https://github.com/ironjr/grokfast
 
-A simple trick to accelerate grokking by 50-100x:
+Accelerates grokking by 50-100x:
 
 - Maintain exponential moving average of gradients: `g_slow = α * g_slow + (1-α) * grad`
 - Amplify slow component: `grad_new = grad + λ * g_slow`
 - Default α=0.98, λ=2.0
 - The slow gradient component corresponds to the generalizing direction
-- Low-pass filtering amplifies this signal, dramatically speeding up the phase transition
+- Low-pass filtering amplifies this signal, speeding up the phase transition
 
-**This is our most promising practical trick** — could reduce training from 500 epochs to 5-50.
+**Most promising practical trick.** Could reduce training from 500 epochs to 5-50.
 
 ### 5. Feature Learning Dynamics under Grokking (2024)
 **Paper**: https://openreview.net/forum?id=gciHssAM8A
@@ -76,7 +76,7 @@ Analyzes grokking in sparse parity through the Neural Tangent Kernel (NTK):
 ### 6. Grokking as Phase Transition (Rubin et al., 2026)
 **Paper**: https://arxiv.org/html/2603.01192
 
-Very recent (March 2026) — uses Singular Learning Theory to formalize grokking as a first-order phase transition with a mixed phase.
+March 2026. Uses Singular Learning Theory to formalize grokking as a first-order phase transition with a mixed phase.
 
 ## Practical Summary
 
@@ -90,7 +90,7 @@ Very recent (March 2026) — uses Singular Learning Theory to formalize grokking
 | Training samples | 200 | 500-1000 | More data helps generalization |
 | Weight decay | 0.01 | Sweep 0.01-2.0 | Higher WD speeds grokking |
 
-### Novel approaches to try (priority order)
+### Approaches to try (priority order)
 
 1. **GrokFast** — simplest intervention, 50-100x speedup on grokking
 2. **Sign SGD** — theoretically optimal, easy to implement

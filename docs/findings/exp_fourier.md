@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-04
 **Status**: SUCCESS
-**Answers**: Blank-slate approach — can we solve sparse parity without neural nets?
+**Answers**: Blank-slate approach. Can we solve sparse parity without neural nets?
 
 ## Hypothesis
 
@@ -35,7 +35,7 @@ If we compute Walsh-Hadamard correlations for every k-subset, the true secret wi
 | Weighted ARD (n=20,k=3) | 1,147,375 |
 | ARD improvement vs baseline | N/A (different algorithm class) |
 
-## Key Table
+## Summary Table
 
 | Config | Method | Acc | Time | Subsets | Samples |
 |--------|--------|-----|------|---------|---------|
@@ -54,28 +54,28 @@ If we compute Walsh-Hadamard correlations for every k-subset, the true secret wi
 
 ### What worked
 
-- Perfect accuracy on every config tested. Correlation for the true subset is always exactly 1.0.
+- Perfect accuracy on every config tested. Correlation for the true subset is always 1.0.
 - **13x faster than SGD on n=20,k=3** (0.009s vs 0.12s).
-- **Solves n=50,k=3 trivially** where SGD fails outright (54%) and curriculum needs 20 epochs.
-- **Solves n=20,k=7** which SGD has never been tested on — 77,520 subsets in 0.7s.
+- **Solves n=50,k=3 trivially** where SGD fails (54%) and curriculum needs 20 epochs.
+- **Solves n=20,k=7**, 77,520 subsets in 0.7s.
 - Only needs ~20 samples for k=3 (vs 500-5000 for SGD). Sample complexity is O(1/epsilon^2), independent of n.
 - Scales to n=200,k=3 in 10.8s (1.3M subsets).
 
 ### What didn't work
 
-- **ARD is terrible**: 1,147,375 weighted ARD vs 17,976 for SGD. The algorithm reads the entire dataset for each subset — pure streaming, no locality.
-- **Combinatorial wall at high k**: C(n,k) grows fast. C(50,5) = 2.1M, C(100,5) = 75M, C(50,7) = 99M. The method is fundamentally O(C(n,k)) which is polynomial in n for fixed k but explodes with k.
-- Not a learning algorithm — it's a brute-force search. Doesn't generalize or transfer.
+- **ARD is terrible**: 1,147,375 weighted ARD vs 17,976 for SGD. The algorithm reads the entire dataset for each subset, pure streaming with no locality.
+- **Combinatorial wall at high k**: C(n,k) grows fast. C(50,5) = 2.1M, C(100,5) = 75M, C(50,7) = 99M. The method is O(C(n,k)), polynomial in n for fixed k but explodes with k.
+- Not a learning algorithm. It is a brute-force search that does not generalize or transfer.
 
 ### Surprise
 
-- The Fourier solver is **13x faster than the best SGD** on n=20,k=3. We spent weeks optimizing SGD and a trivial brute-force beats it. The neural net was solving an easy problem the hard way.
+- The Fourier solver is **13x faster than the best SGD** on n=20,k=3. A trivial brute-force beats the optimized neural net approach.
 - Only **20 samples** are needed for reliable k=3 detection. SGD uses 500-5000.
 
 ## Open Questions (for next experiment)
 
 - Can we prune the subset search with single-variable correlations first? (Check each bit's individual correlation, discard low ones, then only check k-subsets of the top candidates.)
-- Hybrid: use Fourier to find the secret, then a trivial classifier (just compute the product) — what's the total energy cost vs SGD?
+- Hybrid: use Fourier to find the secret, then a trivial classifier (just compute the product). What is the total energy cost vs SGD?
 - At what (n,k) does SGD actually beat Fourier in wall time?
 
 ## Files

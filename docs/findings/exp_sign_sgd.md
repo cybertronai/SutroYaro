@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-04
 **Status**: SUCCESS (with caveats)
-**Answers**: Open Question #1 — "Can Sign SGD solve k=5?"
+**Answers**: Open Question #1, "Can Sign SGD solve k=5?"
 
 ## Hypothesis
 
@@ -33,7 +33,7 @@ If we replace gradient descent with sign(gradient) descent, then k=5 sparse pari
 | Wall time (sign, k=5, 5K) | 0.44s |
 | Wall time (std, k=5, 5K) | 0.81s |
 
-## Key Table
+## Summary Table
 
 | Config | Method | n_train | Best Acc | Ep->90% | Time(s) | Solved |
 |--------|--------|---------|----------|---------|---------|--------|
@@ -58,12 +58,12 @@ If we replace gradient descent with sign(gradient) descent, then k=5 sparse pari
 ### What didn't work
 
 - Sign SGD with lr=0.001 is very slow (145 epochs to 90% on k=5 with 5K samples)
-- Sign SGD oscillates near the top on k=3 — reaches 99% but struggles to hit 100% (due to fixed step size)
+- Sign SGD oscillates near the top on k=3, reaches 99% but struggles to hit 100% (due to fixed step size)
 - lr=0.001 on k=3 fails entirely (78% max in 200 epochs)
 
 ### Surprise
 
-**Standard SGD ALSO solves k=5 with enough data.** The earlier exp_d finding that "k=5 is categorically impractical" was wrong — it used n_train=200 (= 10*n_bits). With n_train=5000, standard SGD solves n=20/k=5 at 100% in 14 epochs. The bottleneck was training data, not the optimization algorithm.
+**Standard SGD also solves k=5 with enough data.** The earlier exp_d finding that "k=5 is impractical" was wrong: it used n_train=200 (= 10*n_bits). With n_train=5000, standard SGD solves n=20/k=5 at 100% in 14 epochs. The bottleneck was training data, not the optimization algorithm.
 
 This means the n^k sample complexity bound is pessimistic in practice. With n_train=5000 << n^k=3,200,000, standard SGD still solves it.
 

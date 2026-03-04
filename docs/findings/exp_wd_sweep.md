@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-04
 **Status**: SUCCESS
-**Answers**: Open Question #5 — "Does higher WD (0.1, 1.0) accelerate grokking on 20-bit?"
+**Answers**: Open Question #5, "Does higher WD (0.1, 1.0) accelerate grokking on 20-bit?"
 
 ## Hypothesis
 
@@ -32,7 +32,7 @@ If we increase weight decay beyond 0.01, grokking will accelerate because strong
 | Working range | [0.01, 0.05] only |
 | Failure modes | WD<0.01: no convergence in 200 epochs; WD>=0.1: regularization kills learning |
 
-## Key Table
+## Summary Table
 
 | WD | Avg Epochs | Avg Time (s) | Success Rate |
 |---------|------------|--------------|--------------|
@@ -47,8 +47,8 @@ If we increase weight decay beyond 0.01, grokking will accelerate because strong
 ## Analysis
 
 ### What worked
-- WD=0.01 remains the best setting — 100% success, fastest average (39 epochs, 0.108s)
-- WD=0.05 also works perfectly — slightly slower (45.8 epochs) but still robust
+- WD=0.01 remains best: 100% success, fastest average (39 epochs, 0.108s)
+- WD=0.05 also works: slightly slower (45.8 epochs) but reliable
 - The working range [0.01, 0.05] is narrow but reliable
 
 ### What didn't work
@@ -57,8 +57,8 @@ If we increase weight decay beyond 0.01, grokking will accelerate because strong
 - No WD value beats the existing default of 0.01
 
 ### Surprise
-- The working WD range is extremely narrow — only a 5x range (0.01-0.05) out of a 2000x sweep. This suggests WD is tightly coupled to LR: the effective regularization is LR*WD, so the working range for LR*WD is [0.001, 0.005]. WD=0.001 fails because LR*WD=0.0001 is too weak; WD=0.1 fails because LR*WD=0.01 is too strong.
-- WD=0.001 failing is notable — without enough regularization, the phase transition doesn't happen at all within 200 epochs. Weight decay isn't just a nice-to-have; it's essential for grokking in this regime.
+- The working WD range is narrow: only a 5x range (0.01-0.05) out of a 2000x sweep. WD is tightly coupled to LR. The effective regularization is LR*WD, so the working range for LR*WD is [0.001, 0.005]. WD=0.001 fails because LR*WD=0.0001 is too weak; WD=0.1 fails because LR*WD=0.01 is too strong.
+- WD=0.001 failing is notable: without enough regularization, the phase transition doesn't happen within 200 epochs. Weight decay is required for grokking in this regime.
 
 ## Open Questions (for next experiment)
 

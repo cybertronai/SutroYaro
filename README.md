@@ -10,7 +10,7 @@ An autonomous research lab for the sparse parity challenge: learn XOR/parity fro
 
 We use Claude Code with parallel agent teams to run experiments, record findings, and accumulate knowledge automatically.
 
-## Key Results
+## Results
 
 **20-bit sparse parity (k=3) solved** — 100% accuracy in 0.12 seconds (numpy) across 5 seeds.
 
@@ -65,7 +65,7 @@ This repo demonstrates a workflow for AI-assisted research:
 4. **Record** — structured findings so future sessions don't repeat work
 5. **Iterate** — each experiment leaves open questions for the next
 
-The key files that make this work:
+The files that make this work:
 - `LAB.md` — protocol for autonomous experiment sessions
 - `DISCOVERIES.md` — accumulated knowledge (read before every experiment)
 - `_template.py` — experiment code starter

@@ -4,15 +4,15 @@
 
 **Location**: SPC main floor
 
-Orientation meeting. Introductions and backgrounds. Key concepts introduced:
+Orientation meeting. Introductions and backgrounds. Concepts introduced:
 
-- Memory cost is the biggest energy contributor (Bill Daly [talk](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457))
+- Memory cost is the largest energy contributor (Bill Daly [talk](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457))
 - Local registers ~5pJ vs HBM ~640pJ
 - Backprop is like the giraffe's recurrent laryngeal nerve -- works but inefficient
 - "Nerd snipe" proposal: train a model on smartphone via WebGPU using minimum joules
 - WebGPU exposes memory hierarchy (Registers -> Shared -> Global)
 
-!!! quote "Key takeaway"
+!!! quote "Takeaway"
     Yaroslav beat Google in 2018 DawnBench (fastest ImageNet training) not through superior intelligence but 3 months optimizing AWS infrastructure for 10-second restart cycles versus Google's 10+ minutes.
 
 ---
@@ -21,7 +21,7 @@ Orientation meeting. Introductions and backgrounds. Key concepts introduced:
 
 **Location**: Accel board room
 
-Deep dive on Hinton's Forward-Forward paper.
+Discussion of Hinton's Forward-Forward paper.
 
 - Two forward passes (positive/negative) replace forward+backward
 - Greedy layer-wise learning: each layer has its own objective
@@ -37,7 +37,7 @@ Notes: [Forward-Forward discussion](https://docs.google.com/document/d/1IdXRUhPR
 
 **Location**: SPC
 
-Hands-on tooling session.
+Tooling session.
 
 - Barak demonstrated Modal workflow
 - Yaroslav demonstrated Colab workflow

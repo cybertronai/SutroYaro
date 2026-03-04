@@ -9,11 +9,11 @@ How much does mini-batch SGD improve energy efficiency (as measured by ARD) comp
 - Both process the same 32 samples from the same initial weights
 - MemTracker instruments every read/write at the buffer level
 
-## Key Result: ARD is the WRONG metric for batch comparison
+## Result: ARD is the wrong metric for batch comparison
 
-**Surprising finding: Batch-32 has 17x HIGHER weighted ARD than single-sample (547,881 vs 31,500).**
+**Batch-32 has 17x HIGHER weighted ARD than single-sample (547,881 vs 31,500).**
 
-This is the opposite of what was hypothesized, and the reason is instructive.
+The reason is instructive.
 
 ### Why batch ARD is higher
 
@@ -25,7 +25,7 @@ The MemTracker uses a flat clock that advances by buffer size on every access. I
 
 This means the reuse distance for W1 in the batch case is ~1M floats (the entire batch of temporaries sits between reads), while in single-sample it's ~34K (just one sample's temporaries).
 
-The MemTracker's ARD model penalizes holding parameters in cache across the whole batch -- which is exactly what makes batching efficient on real hardware with large caches.
+The MemTracker's ARD model penalizes holding parameters in cache across the whole batch, which is what makes batching efficient on real hardware with large caches.
 
 ### What batch DOES improve: total parameter traffic
 
@@ -36,7 +36,7 @@ The MemTracker's ARD model penalizes holding parameters in cache across the whol
 | W1 writes                |                      32  |                 2  |
 | Parameter writes (all)   |                     128  |                 8  |
 
-Single-sample reads and writes W1 (20K floats) on EVERY sample. Batch reads W1 once at start + once at update = 2 reads total for the core forward pass + update. This is a **16x reduction in parameter write traffic** and significant read reduction.
+Single-sample reads and writes W1 (20K floats) on every sample. Batch reads W1 once at start + once at update = 2 reads total for the forward pass + update. This is a **16x reduction in parameter write traffic** and a large read reduction.
 
 ### Batch size sweep (floats/sample)
 
@@ -57,13 +57,13 @@ The floats/sample is higher for batches because gradient accumulators (acc_dW1 =
 
 2. **Accumulator overhead (bad for ARD metric)**: Each sample's gradients must be accumulated into shared buffers (acc_dW1, acc_db1, etc.), adding read-modify-write cycles that inflate the clock and push parameter reuse distances up.
 
-3. **Per-sample temporaries fragment locality**: Each sample creates its own h_pre_i, h_i, dh_pre_i etc. These unique buffers never get reused, adding to total traffic without benefiting from caching.
+Per-sample temporaries also fragment locality: each sample creates its own h_pre_i, h_i, dh_pre_i etc. These unique buffers never get reused, adding to total traffic without benefiting from caching.
 
 ## Conclusion
 
-**Batch size IS a lever for energy, but ARD (as currently defined) does not capture it well.**
+**Batch size is a lever for energy, but ARD (as currently defined) does not capture it well.**
 
-The current MemTracker measures reuse distance in a flat address-time space. This correctly identifies that parameter buffers are accessed far apart in the batch case. But on real hardware, if the cache is large enough to hold W1 (20K floats = 80KB), the parameters stay resident and the "distance" is irrelevant -- it is all cache hits.
+The current MemTracker measures reuse distance in a flat address-time space. It correctly identifies that parameter buffers are accessed far apart in the batch case. But on real hardware, if the cache is large enough to hold W1 (20K floats = 80KB), the parameters stay resident and the distance is irrelevant: all cache hits.
 
 ### Recommendations
 
@@ -71,7 +71,7 @@ The current MemTracker measures reuse distance in a flat address-time space. Thi
 
 2. **Track parameter traffic separately**: The metric "parameter bytes loaded from DRAM per sample" would directly capture the batch benefit: ~48K/sample for BS=1 vs ~2K/sample for BS=32 (amortized).
 
-3. **Batch size IS an energy lever**: Even without fixing the metric, the raw numbers show 16x fewer parameter writes and significantly fewer parameter reads. For a memory-bandwidth-bound system, this is a proportional energy saving.
+3. **Batch size is an energy lever**: Even without fixing the metric, the raw numbers show 16x fewer parameter writes and fewer parameter reads. For a memory-bandwidth-bound system, this is a proportional energy saving.
 
 4. **Optimal batch size for this model**: The floats/sample metric plateaus around BS=16-32. Larger batches see diminishing returns because the accumulator overhead scales linearly while the parameter savings are already near-maximum.
 

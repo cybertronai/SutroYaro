@@ -30,11 +30,11 @@ Secret indices: [0, 3, 8]
 
 **ARD improvement: 3.8%** (per-layer vs standard)
 
-## Key Findings
+## Findings
 
-1. **Per-layer CONVERGES on 20-bit.** Both methods reach 99.5% test accuracy by epoch 9, with >90% already at epoch 6. The convergence trajectories are identical -- same accuracy at every epoch.
+1. **Per-layer converges on 20-bit.** Both methods reach 99.5% test accuracy by epoch 9, with >90% at epoch 6. The convergence trajectories are identical at every epoch.
 
-2. **Identical convergence dynamics.** Both methods produce exactly the same train/test accuracy curves and weight movement norms at every epoch. This makes sense: with single-sample SGD the "per-layer" reordering only affects the parameter update order within each sample, but the mathematical effect is nearly identical when learning rates are moderate.
+2. **Identical convergence dynamics.** Both methods produce the same train/test accuracy curves and weight movement norms at every epoch. With single-sample SGD, the per-layer reordering only affects parameter update order within each sample, and the mathematical effect is nearly identical at moderate learning rates.
 
 3. **ARD improvement is 3.8%, down from 9.1% on 3-bit.** The per-layer method uses fewer reads (15 vs 24) and writes (13 vs 18) per training step. The improvement shrinks at scale because:
    - The W1 buffer (hidden x n_bits = 20,000 floats) dominates total memory traffic
@@ -45,9 +45,9 @@ Secret indices: [0, 3, 8]
 
 ## Implications
 
-- Per-layer forward-backward is a **safe optimization** -- it does not hurt convergence on the hard 20-bit task
-- The 3.8% ARD improvement is real but modest; the benefit diminishes as model size grows
-- For larger models, bigger ARD wins will require approaches that reduce the dominant W1 traffic (e.g., tiling, gradient accumulation in registers, or avoiding full W1 reads)
+- Per-layer forward-backward is a safe optimization: it does not hurt convergence on the 20-bit task
+- The 3.8% ARD improvement is real but modest, and the benefit diminishes as model size grows
+- For larger models, bigger ARD wins require approaches that reduce W1 traffic (e.g., tiling, gradient accumulation in registers, or avoiding full W1 reads)
 
 ## Files
 
