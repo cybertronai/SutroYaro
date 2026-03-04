@@ -1,0 +1,2127 @@
+{
+  "experiment": "exp_b_batch_ard",
+  "question": "How much does mini-batch SGD improve ARD vs single-sample?",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "hidden": 1000,
+    "lr": 0.1,
+    "wd": 0.01,
+    "batch_size": 32,
+    "seed": 42
+  },
+  "single_sample_32steps": {
+    "weighted_ard": 31499.64337904391,
+    "total_floats_accessed": 2455931,
+    "reads": 543,
+    "writes": 441,
+    "wall_clock_s": 0.09130477905273438,
+    "per_buffer": {
+      "x": {
+        "size": 20,
+        "avg_dist": 11826.632653061224,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 49
+      },
+      "W1": {
+        "size": 20000,
+        "avg_dist": 33847.63265306123,
+        "min_dist": 22042,
+        "max_dist": 56070,
+        "read_count": 49
+      },
+      "b1": {
+        "size": 1000,
+        "avg_dist": 41133.34693877551,
+        "min_dist": 22042,
+        "max_dist": 77070,
+        "read_count": 49
+      },
+      "h_pre": {
+        "size": 1000,
+        "avg_dist": 4125.224489795918,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 49
+      },
+      "h": {
+        "size": 1000,
+        "avg_dist": 1695.9591836734694,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 49
+      },
+      "W2": {
+        "size": 1000,
+        "avg_dist": 40475.257575757576,
+        "min_dist": 26042,
+        "max_dist": 79070,
+        "read_count": 66
+      },
+      "b2": {
+        "size": 1,
+        "avg_dist": 44786.755102040814,
+        "min_dist": 26042,
+        "max_dist": 80071,
+        "read_count": 49
+      },
+      "out": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 32
+      },
+      "y": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 32
+      },
+      "dout": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 34
+      },
+      "dh": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 17
+      },
+      "dh_pre": {
+        "size": 1000,
+        "avg_dist": 21510.0,
+        "min_dist": 1000,
+        "max_dist": 42020,
+        "read_count": 34
+      },
+      "dW2": {
+        "size": 1000,
+        "avg_dist": 50022.0,
+        "min_dist": 50022,
+        "max_dist": 50022,
+        "read_count": 17
+      },
+      "db2": {
+        "size": 1,
+        "avg_dist": 52022.0,
+        "min_dist": 52022,
+        "max_dist": 52022,
+        "read_count": 17
+      }
+    }
+  },
+  "batch_32": {
+    "weighted_ard": 547881.3046903154,
+    "total_floats_accessed": 2132040,
+    "reads": 608,
+    "writes": 370,
+    "wall_clock_s": 0.10517597198486328,
+    "per_buffer": {
+      "W1": {
+        "size": 20000,
+        "avg_dist": 981353.7647058824,
+        "min_dist": 22001,
+        "max_dist": 2086037,
+        "read_count": 34
+      },
+      "b1": {
+        "size": 1000,
+        "avg_dist": 981971.4117647059,
+        "min_dist": 22001,
+        "max_dist": 2107037,
+        "read_count": 34
+      },
+      "W2": {
+        "size": 1000,
+        "avg_dist": 1020826.9107142857,
+        "min_dist": 22001,
+        "max_dist": 2109037,
+        "read_count": 56
+      },
+      "b2": {
+        "size": 1,
+        "avg_dist": 985824.3823529412,
+        "min_dist": 22001,
+        "max_dist": 2110038,
+        "read_count": 34
+      },
+      "x_0": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_0": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_0": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_0": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_0": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_1": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_1": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_1": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_1": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_1": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_1": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_1": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_1": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "acc_dW1": {
+        "size": 20000,
+        "avg_dist": 68784.13043478261,
+        "min_dist": 25003,
+        "max_dist": 111162,
+        "read_count": 23
+      },
+      "acc_db1": {
+        "size": 1000,
+        "avg_dist": 88697.17391304347,
+        "min_dist": 64003,
+        "max_dist": 130162,
+        "read_count": 23
+      },
+      "dW2_1": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "acc_dW2": {
+        "size": 1000,
+        "avg_dist": 88784.13043478261,
+        "min_dist": 64003,
+        "max_dist": 130162,
+        "read_count": 23
+      },
+      "db2_1": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "acc_db2": {
+        "size": 1,
+        "avg_dist": 89826.65217391304,
+        "min_dist": 66001,
+        "max_dist": 131161,
+        "read_count": 23
+      },
+      "x_2": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_2": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_2": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_2": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_2": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_3": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_3": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_3": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_3": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_3": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_3": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_3": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_3": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_3": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_3": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_4": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_4": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_4": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_4": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_4": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_5": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_5": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_5": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_5": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_5": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_5": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_5": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_5": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_5": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_5": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_6": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_6": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_6": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_6": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_6": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_6": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_6": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_6": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_6": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_6": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_7": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_7": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_7": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_7": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_7": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_7": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_7": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_7": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_7": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_7": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_8": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_8": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_8": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_8": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_8": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_9": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_9": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_9": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_9": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_9": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_10": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_10": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_10": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_10": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_10": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_10": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_10": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_10": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_10": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_10": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_11": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_11": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_11": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_11": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_11": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_11": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_11": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_11": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_11": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_11": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_12": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_12": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_12": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_12": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_12": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_12": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_12": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_12": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_12": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_12": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_13": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_13": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_13": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_13": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_13": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_14": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_14": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_14": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_14": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_14": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_14": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_14": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_14": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_14": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_14": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_15": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_15": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_15": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_15": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_15": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_16": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_16": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_16": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_16": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_16": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_16": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_16": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_16": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_16": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_16": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_17": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_17": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_17": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_17": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_17": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_17": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_17": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_17": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_17": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_17": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_18": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_18": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_18": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_18": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_18": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_18": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_18": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_18": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_18": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_18": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_19": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_19": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_19": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_19": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_19": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_19": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_19": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_19": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_19": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_19": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_20": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_20": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_20": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_20": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_20": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_21": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_21": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_21": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_21": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_21": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_21": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_21": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_21": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_21": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_21": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_22": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_22": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_22": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_22": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_22": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_23": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_23": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_23": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_23": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_23": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_23": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_23": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_23": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_23": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_23": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_24": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_24": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_24": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_24": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_24": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_24": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_24": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_24": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_24": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_24": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_25": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_25": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_25": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_25": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_25": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_25": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_25": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_25": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_25": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_25": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_26": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_26": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_26": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_26": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_26": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_26": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_26": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_26": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_26": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_26": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_27": {
+        "size": 20,
+        "avg_dist": 21.0,
+        "min_dist": 21,
+        "max_dist": 21,
+        "read_count": 1
+      },
+      "h_pre_27": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "h_27": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "out_27": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_27": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "x_28": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_28": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_28": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_28": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_28": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_28": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_28": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_28": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_28": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_28": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_29": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_29": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_29": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_29": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_29": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_29": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_29": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_29": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_29": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_29": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_30": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_30": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_30": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_30": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_30": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_30": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_30": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_30": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_30": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_30": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      },
+      "x_31": {
+        "size": 20,
+        "avg_dist": 17035.0,
+        "min_dist": 21,
+        "max_dist": 34049,
+        "read_count": 2
+      },
+      "h_pre_31": {
+        "size": 1000,
+        "avg_dist": 5504.0,
+        "min_dist": 1000,
+        "max_dist": 10008,
+        "read_count": 2
+      },
+      "h_31": {
+        "size": 1000,
+        "avg_dist": 2003.0,
+        "min_dist": 1000,
+        "max_dist": 3006,
+        "read_count": 2
+      },
+      "out_31": {
+        "size": 1,
+        "avg_dist": 1.0,
+        "min_dist": 1,
+        "max_dist": 1,
+        "read_count": 1
+      },
+      "y_31": {
+        "size": 1,
+        "avg_dist": 26024.0,
+        "min_dist": 26024,
+        "max_dist": 26024,
+        "read_count": 1
+      },
+      "dout_31": {
+        "size": 1,
+        "avg_dist": 1502.0,
+        "min_dist": 1,
+        "max_dist": 3003,
+        "read_count": 2
+      },
+      "dh_31": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dh_pre_31": {
+        "size": 1000,
+        "avg_dist": 1000.0,
+        "min_dist": 1000,
+        "max_dist": 1000,
+        "read_count": 1
+      },
+      "dW2_31": {
+        "size": 1000,
+        "avg_dist": 49022.0,
+        "min_dist": 49022,
+        "max_dist": 49022,
+        "read_count": 1
+      },
+      "db2_31": {
+        "size": 1,
+        "avg_dist": 51022.0,
+        "min_dist": 51022,
+        "max_dist": 51022,
+        "read_count": 1
+      }
+    }
+  },
+  "ard_improvement_ratio": 0.05749355400408995,
+  "total_floats_ratio": 1.1519160053282302,
+  "batch_size_sweep": [
+    {
+      "batch_size": 1,
+      "weighted_ard": 20437.767431211756,
+      "total_floats": 48046,
+      "floats_per_sample": 48046.0,
+      "reads": 9,
+      "writes": 9
+    },
+    {
+      "batch_size": 4,
+      "weighted_ard": 107606.12884208982,
+      "total_floats": 342240,
+      "floats_per_sample": 85560.0,
+      "reads": 76,
+      "writes": 50
+    },
+    {
+      "batch_size": 8,
+      "weighted_ard": 166923.45739341763,
+      "total_floats": 605501,
+      "floats_per_sample": 75687.625,
+      "reads": 154,
+      "writes": 97
+    },
+    {
+      "batch_size": 16,
+      "weighted_ard": 302818.87365265796,
+      "total_floats": 1025969,
+      "floats_per_sample": 64123.0625,
+      "reads": 282,
+      "writes": 173
+    },
+    {
+      "batch_size": 32,
+      "weighted_ard": 547881.3046903154,
+      "total_floats": 2132040,
+      "floats_per_sample": 66626.25,
+      "reads": 608,
+      "writes": 370
+    },
+    {
+      "batch_size": 64,
+      "weighted_ard": 1085939.054690498,
+      "total_floats": 4026020,
+      "floats_per_sample": 62906.5625,
+      "reads": 1176,
+      "writes": 710
+    }
+  ]
+}
