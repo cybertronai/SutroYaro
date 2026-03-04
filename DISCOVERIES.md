@@ -89,6 +89,9 @@
 - **Random search solves n=50/k=3 which SGD cannot**: Direct SGD gets 54% on n=50/k=3; random search solves it in 0.14s. Combinatorial search bypasses grokking entirely. [exp_evolutionary]
 - **Evolutionary search uses fewer evaluations but more wall time**: 18 gens vs 881 tries (n=20/k=3), but evaluating a population of 100 per gen makes it slower in wall time. [exp_evolutionary]
 - **Random search and SGD solve different problems**: Random search finds the exact subset (needs enough data to verify); SGD learns a neural net that generalizes (needs grokking). For small k, random search is simpler and more reliable. [exp_evolutionary]
+- **Pairwise/greedy feature selection provably fails for parity**: E[y * x_i * x_j] = 0 for ALL pairs including correct ones. Parity is invisible to any correlation test below order k. Same for greedy (single-bit signal is zero). [exp_feature_select]
+- **Exhaustive combo search gives 178x–1203x ops speedup over SGD**: Test all C(n,k) subsets with product classifier. 100% correct on n=20/k=3, n=50/k=3, n=20/k=5. Solves n=50/k=3 (0.13s) which SGD fails. [exp_feature_select]
+- **Exhaustive scales as O(C(n,k))**: Feasible for k≤7. n=100/k=5 is ~75M combos (minutes). Intractable for k≥10 (C(100,10)=17T). SGD's implicit search wins for large k. [exp_feature_select]
 
 ### Exploratory
 7. **FF on deeper networks**: Does FF's ARD advantage appear with 5-10 layer networks on a simpler task?
@@ -113,3 +116,4 @@
 | exp_cache_ard | 03-04 | Cache model shows batch wins | NUANCED: L2 eliminates all misses; batch wins on traffic not locality | SS 100% L1 hit vs batch 73% |
 | exp_sign_sgd | 03-04 | Sign SGD solves k=5 | SUCCESS: 2x faster, but std SGD also works w/ data | 7 vs 14 epochs to 90% |
 | exp_evolutionary | 03-04 | Random/evo search over k-subsets | SUCCESS: solves all configs incl n=50/k=3 | Random: 881-18K tries, <0.5s |
+| exp_feature_select | 03-04 | Feature selection vs SGD | PARTIAL: exhaustive 178-1203x faster, pairwise/greedy provably fail | Parity invisible below order k |

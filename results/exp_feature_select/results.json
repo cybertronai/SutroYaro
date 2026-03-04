@@ -1,0 +1,179 @@
+[
+  {
+    "label": "n20_k3",
+    "n_bits": 20,
+    "k_sparse": 3,
+    "n_train": 1000,
+    "secret": [
+      0,
+      15,
+      17
+    ],
+    "pairwise": {
+      "candidates": [],
+      "accuracy": 0.0,
+      "top_pairs": [],
+      "n_pair_evals": 190,
+      "ops": 570000,
+      "time_s": 0.0013527870178222656,
+      "correct": false
+    },
+    "greedy": {
+      "candidates": [
+        1,
+        15,
+        16
+      ],
+      "accuracy": 0.525,
+      "n_bit_evals": 57,
+      "ops": 169000,
+      "time_s": 0.0007560253143310547,
+      "correct": false
+    },
+    "exhaustive": {
+      "candidates": [
+        0,
+        15,
+        17
+      ],
+      "accuracy": 1.0,
+      "n_combos_checked": 163,
+      "n_combos_total": 1140,
+      "ops": 652000,
+      "time_s": 0.0017330646514892578,
+      "correct": true
+    },
+    "sgd": {
+      "accuracy": 1.0,
+      "time_s": 0.1491382122039795,
+      "epochs": 49,
+      "ops_estimate": 784000000,
+      "correct": "True"
+    }
+  },
+  {
+    "label": "n50_k3",
+    "n_bits": 50,
+    "k_sparse": 3,
+    "n_train": 1000,
+    "secret": [
+      13,
+      30,
+      39
+    ],
+    "pairwise": {
+      "candidates": [
+        "15",
+        "16",
+        "37"
+      ],
+      "accuracy": 0.489,
+      "top_pairs": [
+        [
+          15,
+          16,
+          0.104
+        ],
+        [
+          37,
+          49,
+          0.1
+        ]
+      ],
+      "n_pair_evals": 1225,
+      "ops": 3675000,
+      "time_s": 0.0065059661865234375,
+      "correct": false
+    },
+    "greedy": {
+      "candidates": [
+        11,
+        28,
+        34
+      ],
+      "accuracy": 0.534,
+      "n_bit_evals": 147,
+      "ops": 439000,
+      "time_s": 0.0014178752899169922,
+      "correct": false
+    },
+    "exhaustive": {
+      "candidates": [
+        13,
+        30,
+        39
+      ],
+      "accuracy": 1.0,
+      "n_combos_checked": 12279,
+      "n_combos_total": 19600,
+      "ops": 49116000,
+      "time_s": 0.1266639232635498,
+      "correct": true
+    },
+    "sgd": {
+      "accuracy": 0.562,
+      "time_s": 0.6025726795196533,
+      "epochs": 200,
+      "ops_estimate": 8000000000,
+      "correct": "False"
+    }
+  },
+  {
+    "label": "n20_k5",
+    "n_bits": 20,
+    "k_sparse": 5,
+    "n_train": 5000,
+    "secret": [
+      0,
+      1,
+      8,
+      15,
+      17
+    ],
+    "pairwise": {
+      "candidates": [],
+      "accuracy": 0.0,
+      "top_pairs": [],
+      "n_pair_evals": 190,
+      "ops": 2850000,
+      "time_s": 0.0029909610748291016,
+      "correct": false
+    },
+    "greedy": {
+      "candidates": [
+        6,
+        7,
+        12,
+        14,
+        19
+      ],
+      "accuracy": 0.5162,
+      "n_bit_evals": 90,
+      "ops": 1750000,
+      "time_s": 0.002633810043334961,
+      "correct": false
+    },
+    "exhaustive": {
+      "candidates": [
+        0,
+        1,
+        8,
+        15,
+        17
+      ],
+      "accuracy": 1.0,
+      "n_combos_checked": 643,
+      "n_combos_total": 15504,
+      "ops": 19290000,
+      "time_s": 0.02572798728942871,
+      "correct": true
+    },
+    "sgd": {
+      "accuracy": 1.0,
+      "time_s": 0.5593559741973877,
+      "epochs": 43,
+      "ops_estimate": 3440000000,
+      "correct": "True"
+    }
+  }
+]
