@@ -59,6 +59,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Learning Guide: learning-guide.md
   - Context: context.md
   - Goals: goals.md
   - Google Docs:
