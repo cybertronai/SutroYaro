@@ -40,6 +40,12 @@
 - **FF has 25x WORSE ARD than backprop**. Two forward passes per sample + 4 weight reads per layer per step. The "local learning" advantage is illusory for 2-layer networks. [exp_e]
 - **FF might help for 10+ layer networks** where backprop's activation storage creates genuinely large reuse distances. Not our regime. [exp_e]
 
+### Per-layer + Batching
+
+- **Per-layer + batch=32 converges identically** to standard+batch. Both solve 5/5 seeds on n=20/k=3. Per-layer needs slightly fewer epochs (40.6 vs 41.4), negligible difference. [exp_perlayer_batch]
+- **Single-sample SGD is 8x faster in epochs than batch=32** (5.2 vs ~41 epochs). Batching's value is stability, not convergence speed for this problem. [exp_perlayer_batch]
+- **Per-layer + batch has 3.7x wall-time overhead** due to re-forward pass after updating W1. The ARD benefit may offset this on real hardware but was not measured here. [exp_perlayer_batch]
+
 ### Scaling
 
 - **Standard SGD breaks at n^k > 100,000 steps**. Confirmed experimentally. [exp_d]
@@ -63,7 +69,7 @@
 3. ~~**Can curriculum learning help at scale?**~~ ANSWERED — n-curriculum gives 14.6x speedup on n=50/k=3. Transfer is instant after W1 expansion. [exp_curriculum]
 
 ### Medium Priority
-4. **Does per-layer + batching combine?** We've tested per-layer with single-sample and batching with standard backprop. What about per-layer + batch=32?
+4. ~~**Does per-layer + batching combine?**~~ ANSWERED — Yes, converges identically. But single-sample is 8x faster in epochs; per-layer+batch adds 3.7x wall-time overhead from re-forward. [exp_perlayer_batch]
 5. ~~**Weight decay sweep**~~: ANSWERED — WD=0.01 is optimal, higher WD kills learning. [exp_wd_sweep]
 6. **Tiled/blocked W1 updates**: Since W1 dominates ARD, can we tile the update to keep blocks in cache?
 
@@ -86,3 +92,4 @@
 | exp_f | 03-04 | Document prompting strategies | DONE | Literature→diagnose→fix |
 | exp_wd_sweep | 03-04 | Higher WD accelerates grokking | REFUTED: WD=0.01 optimal | Only [0.01, 0.05] works |
 | exp_curriculum | 03-04 | Curriculum learning helps scaling | SUCCESS: 14.6x speedup | n=50 solved in 20 epochs |
+| exp_perlayer_batch | 03-04 | Per-layer + batch combine? | CONFIRMED: converges, but 3.7x slower wall-time | 40.6 vs 41.4 epochs |

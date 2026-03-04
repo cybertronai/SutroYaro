@@ -1,0 +1,176 @@
+{
+  "experiment": "exp_perlayer_batch",
+  "question": "Does per-layer + batching combine for better convergence?",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "hidden": 200,
+    "lr": 0.1,
+    "wd": 0.01,
+    "max_epochs": 200,
+    "n_train": 1000,
+    "n_test": 200,
+    "batch_size": 32,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ]
+  },
+  "variants": {
+    "standard+single": {
+      "seeds": 5,
+      "solved": 5,
+      "avg_solve_epoch": 5.2,
+      "avg_wall_time": 0.0582,
+      "per_seed": [
+        {
+          "seed": 42,
+          "solve_epoch": 4,
+          "wall_time": 0.0497,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 43,
+          "solve_epoch": 3,
+          "wall_time": 0.0422,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 44,
+          "solve_epoch": 5,
+          "wall_time": 0.0647,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 45,
+          "solve_epoch": 9,
+          "wall_time": 0.0805,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 46,
+          "solve_epoch": 5,
+          "wall_time": 0.0539,
+          "final_acc": 1.0
+        }
+      ]
+    },
+    "standard+batch": {
+      "seeds": 5,
+      "solved": 5,
+      "avg_solve_epoch": 41.4,
+      "avg_wall_time": 0.1775,
+      "per_seed": [
+        {
+          "seed": 42,
+          "solve_epoch": 52,
+          "wall_time": 0.1283,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 43,
+          "solve_epoch": 45,
+          "wall_time": 0.2237,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 44,
+          "solve_epoch": 30,
+          "wall_time": 0.096,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 45,
+          "solve_epoch": 43,
+          "wall_time": 0.1952,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 46,
+          "solve_epoch": 37,
+          "wall_time": 0.2444,
+          "final_acc": 1.0
+        }
+      ]
+    },
+    "perlayer+single": {
+      "seeds": 5,
+      "solved": 5,
+      "avg_solve_epoch": 5.2,
+      "avg_wall_time": 0.2214,
+      "per_seed": [
+        {
+          "seed": 42,
+          "solve_epoch": 4,
+          "wall_time": 0.0734,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 43,
+          "solve_epoch": 3,
+          "wall_time": 0.0601,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 44,
+          "solve_epoch": 5,
+          "wall_time": 0.1288,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 45,
+          "solve_epoch": 9,
+          "wall_time": 0.3554,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 46,
+          "solve_epoch": 5,
+          "wall_time": 0.4892,
+          "final_acc": 1.0
+        }
+      ]
+    },
+    "perlayer+batch": {
+      "seeds": 5,
+      "solved": 5,
+      "avg_solve_epoch": 40.6,
+      "avg_wall_time": 0.6653,
+      "per_seed": [
+        {
+          "seed": 42,
+          "solve_epoch": 55,
+          "wall_time": 1.6617,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 43,
+          "solve_epoch": 38,
+          "wall_time": 0.3902,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 44,
+          "solve_epoch": 28,
+          "wall_time": 0.3199,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 45,
+          "solve_epoch": 45,
+          "wall_time": 0.3246,
+          "final_acc": 1.0
+        },
+        {
+          "seed": 46,
+          "solve_epoch": 37,
+          "wall_time": 0.6301,
+          "final_acc": 1.0
+        }
+      ]
+    }
+  }
+}
