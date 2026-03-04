@@ -6,6 +6,7 @@ repo_name: 0bserver07/SutroYaro
 
 theme:
   name: material
+  custom_dir: overrides
   palette:
     - scheme: default
       primary: deep purple
@@ -101,6 +102,9 @@ nav:
           - Sutro Group Main: google-docs/sutro-group-main.md
           - Yaroslav Sprint 1: google-docs/yaroslav-technical-sprint-1.md
   - Changelog: changelog.md
+
+extra_css:
+  - stylesheets/dropdown-tabs.css
 
 extra:
   social:
