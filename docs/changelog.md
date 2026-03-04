@@ -2,16 +2,6 @@
 
 All notable changes to this research workspace.
 
-## [Unreleased]
-
-### Planned
-- LR decay for Sign SGD (oscillates near 100% with fixed step size)
-- Curriculum + Sign SGD combined for k=5 at large n
-- Tiled W1 updates to reduce the 75% ARD bottleneck
-- Deeper networks (5-10 layers) where FF's locality advantage may appear
-
----
-
 ## [0.7.0] - 2026-03-04
 
 ### Research experiments (Round 2 — autonomous agent team)
