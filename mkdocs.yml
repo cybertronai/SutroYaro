@@ -73,9 +73,15 @@ nav:
   - Lectures: lectures/index.md
   - Research:
       - Overview: research/index.md
+      - Literature Review: research/sparse-parity-literature.md
   - Findings:
-      - Sprint 1: findings/sprint-1-findings.md
+      - Sprint 1 (ARD Baseline): findings/sprint-1-findings.md
+      - Exp 1 - Fix Hyperparams: findings/exp1_fix_hyperparams.md
+      - Exp 4 - GrokFast: findings/exp4_grokfast.md
   - Plans:
+      - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md
+      - Implementation Plan: plans/2026-03-03-sparse-parity-implementation.md
+      - Beat 20-bit Research: plans/2026-03-04-beat-20bit-research-plan.md
       - Sprint 2: plans/sprint-2-plan.md
   - References: references.md
   - Changelog: changelog.md

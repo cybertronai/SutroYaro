@@ -5,9 +5,37 @@ All notable changes to this research workspace.
 ## [Unreleased]
 
 ### Planned
-- Technical Sprint 2: Forward-Forward on sparse parity
-- Per-layer update scheme experiments
-- Local learning rules exploration
+- Experiment 2: Weight decay sweep
+- Experiment 3: Sign SGD (Kou et al. 2024)
+- Scale to n=100 or k=5 where energy-efficient algorithms become necessary
+- ARD measurement on the winning config (Exp 1 hyperparams)
+- Technical Sprint 2: Forward-Forward on harder instances
+
+---
+
+## [0.5.0] - 2026-03-04
+
+### Added
+- **Exp 1: Fix Hyperparams** — 99% accuracy on 20-bit sparse parity (k=3)
+    - LR 0.5→0.1, batch_size 1→32, n_train 200→500
+    - Classic grokking pattern: phase transition at epoch 52
+- **Exp 4: GrokFast** — baseline SGD hits 100% in 5 epochs (22.7s)
+    - GrokFast counterproductive when hyperparams are correct
+- Literature review: 6 key papers on sparse parity learning
+- Research plan for autonomous experiment cycle
+- Results organized into per-run directories with auto-generated index
+
+---
+
+## [0.4.0] - 2026-03-03
+
+### Added
+- Complete sparse parity pipeline (all 5 phases)
+    - 3 training variants: standard backprop, fused, per-layer
+    - MemTracker for ARD measurement
+    - JSON + markdown + plot output
+- 20/20 tests passing
+- Per-run results directories with index lookup
 
 ---
 
