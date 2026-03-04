@@ -1,0 +1,104 @@
+{
+  "experiment": "exp_d_scaling",
+  "description": "Scale stress test for standard SGD on sparse parity",
+  "timeout_per_config_s": 180,
+  "configs_tested": 4,
+  "results": [
+    {
+      "n_bits": 30,
+      "k_sparse": 3,
+      "hidden": 60,
+      "n_train": 500,
+      "max_epochs": 200,
+      "batch_size": 32,
+      "lr": 0.1,
+      "wd": 0.01,
+      "epochs_to_90pct": 124,
+      "total_steps": 3200,
+      "wall_time_s": 25.38,
+      "final_accuracy": 0.945,
+      "best_test_acc": 0.945,
+      "status": "completed",
+      "theoretical_nk": 27000,
+      "c_n_k": 4060,
+      "secret_indices": [
+        0,
+        3,
+        20
+      ]
+    },
+    {
+      "n_bits": 50,
+      "k_sparse": 3,
+      "hidden": 100,
+      "n_train": 500,
+      "max_epochs": 200,
+      "batch_size": 32,
+      "lr": 0.1,
+      "wd": 0.01,
+      "epochs_to_90pct": -1,
+      "total_steps": 3200,
+      "wall_time_s": 52.27,
+      "final_accuracy": 0.48,
+      "best_test_acc": 0.54,
+      "status": "completed",
+      "theoretical_nk": 125000,
+      "c_n_k": 19600,
+      "secret_indices": [
+        1,
+        7,
+        40
+      ]
+    },
+    {
+      "n_bits": 20,
+      "k_sparse": 5,
+      "hidden": 40,
+      "n_train": 500,
+      "max_epochs": 200,
+      "batch_size": 32,
+      "lr": 0.1,
+      "wd": 0.01,
+      "epochs_to_90pct": -1,
+      "total_steps": 3200,
+      "wall_time_s": 12.54,
+      "final_accuracy": 0.58,
+      "best_test_acc": 0.615,
+      "status": "completed",
+      "theoretical_nk": 3200000,
+      "c_n_k": 15504,
+      "secret_indices": [
+        0,
+        3,
+        7,
+        8,
+        16
+      ]
+    },
+    {
+      "n_bits": 50,
+      "k_sparse": 5,
+      "hidden": 100,
+      "n_train": 500,
+      "max_epochs": 200,
+      "batch_size": 32,
+      "lr": 0.1,
+      "wd": 0.01,
+      "epochs_to_90pct": -1,
+      "total_steps": 3200,
+      "wall_time_s": 51.43,
+      "final_accuracy": 0.495,
+      "best_test_acc": 0.58,
+      "status": "completed",
+      "theoretical_nk": 312500000,
+      "c_n_k": 2118760,
+      "secret_indices": [
+        1,
+        7,
+        17,
+        40,
+        47
+      ]
+    }
+  ]
+}
