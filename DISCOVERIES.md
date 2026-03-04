@@ -47,12 +47,20 @@
 - **k=5 is categorically impractical** with standard SGD. Even n=20/k=5 needs ~200,000 epochs. [exp_d]
 - **The frontier for novel algorithms is k≥5 or n≥50**. Below that, just tune hyperparams. [exp_d]
 
+### Curriculum Learning
+
+- **n-curriculum demolishes the n^k scaling wall**: Training on n=10 first then expanding W1 to n=50 solves in 20 total epochs vs 292 for direct training — **14.6x speedup**. [exp_curriculum]
+- **Transfer after W1 expansion is instant**: After training on n=10/k=3 (18 epochs), expanding to n=20 or n=50 achieves >95% in epoch 1. The learned feature detector for the secret bits transfers perfectly. [exp_curriculum]
+- **n-curriculum solves n=50/k=3** which previously failed at 54% in 200 epochs (exp_d). Curriculum bypasses the grokking plateau entirely. [exp_curriculum]
+- **k-curriculum gives modest speedup (1.5x)**: Going k=2→k=3→k=5 on n=20 takes 157 epochs vs 232 direct. The k=5 phase still dominates because the parity structure changes. [exp_curriculum]
+- **n-curriculum >> k-curriculum**: Scaling input dimension transfers much better than scaling parity order. The hard part is finding which bits matter, and that's invariant to n. [exp_curriculum]
+
 ## Open Questions (prioritized)
 
 ### High Priority
 1. **Can Sign SGD solve k=5?** Theory says it needs n^{k-1} samples instead of n^k. For n=20/k=5, that's 160,000 vs 3,200,000. Could be feasible. [ref: Kou et al. 2024]
 2. **What does ARD look like with a cache model?** Adding cache simulation to MemTracker would give realistic energy numbers. Batch training would look much better. [from exp_b]
-3. **Can curriculum learning help at scale?** Train on easy configs (small n) first, then increase n. Transfer the learned feature detector.
+3. ~~**Can curriculum learning help at scale?**~~ ANSWERED — n-curriculum gives 14.6x speedup on n=50/k=3. Transfer is instant after W1 expansion. [exp_curriculum]
 
 ### Medium Priority
 4. **Does per-layer + batching combine?** We've tested per-layer with single-sample and batching with standard backprop. What about per-layer + batch=32?
@@ -77,3 +85,4 @@
 | exp_e | 03-04 | FF has lower ARD | REFUTED: 25x worse ARD | FF not suitable |
 | exp_f | 03-04 | Document prompting strategies | DONE | Literature→diagnose→fix |
 | exp_wd_sweep | 03-04 | Higher WD accelerates grokking | REFUTED: WD=0.01 optimal | Only [0.01, 0.05] works |
+| exp_curriculum | 03-04 | Curriculum learning helps scaling | SUCCESS: 14.6x speedup | n=50 solved in 20 epochs |

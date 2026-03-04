@@ -1,0 +1,150 @@
+{
+  "test1_n10_to_n20": {
+    "direct": {
+      "best_test_acc": 0.98,
+      "solve_epoch": 33,
+      "total_epochs": 33,
+      "elapsed_s": 0.112
+    },
+    "curriculum": {
+      "phases": [
+        {
+          "phase": 1,
+          "n": 10,
+          "best_test_acc": 1.0,
+          "solve_epoch": 18,
+          "total_epochs": 18,
+          "elapsed_s": 0.066
+        },
+        {
+          "phase": 2,
+          "n": 20,
+          "best_test_acc": 1.0,
+          "solve_epoch": 1,
+          "total_epochs": 1,
+          "elapsed_s": 0.002
+        }
+      ],
+      "total_epochs": 19,
+      "total_elapsed_s": 0.069,
+      "final_acc": 1.0
+    },
+    "secret": [
+      1,
+      5,
+      8
+    ]
+  },
+  "test2_n10_to_n50": {
+    "direct": {
+      "best_test_acc": 0.955,
+      "solve_epoch": 292,
+      "total_epochs": 292,
+      "elapsed_s": 1.028
+    },
+    "curriculum": {
+      "phases": [
+        {
+          "phase": 1,
+          "n": 10,
+          "best_test_acc": 1.0,
+          "solve_epoch": 18,
+          "total_epochs": 18,
+          "elapsed_s": 0.055
+        },
+        {
+          "phase": 2,
+          "n": 30,
+          "best_test_acc": 0.995,
+          "solve_epoch": 1,
+          "total_epochs": 1,
+          "elapsed_s": 0.002
+        },
+        {
+          "phase": 3,
+          "n": 50,
+          "best_test_acc": 0.985,
+          "solve_epoch": 1,
+          "total_epochs": 1,
+          "elapsed_s": 0.002
+        }
+      ],
+      "total_epochs": 20,
+      "total_elapsed_s": 0.062,
+      "final_acc": 0.985
+    },
+    "secret": [
+      1,
+      5,
+      8
+    ]
+  },
+  "test3_k_curriculum": {
+    "direct_k3": {
+      "best_test_acc": 0.955,
+      "solve_epoch": 28,
+      "total_epochs": 28,
+      "elapsed_s": 0.096
+    },
+    "direct_k5": {
+      "best_test_acc": 0.965,
+      "solve_epoch": 232,
+      "total_epochs": 232,
+      "elapsed_s": 0.635
+    },
+    "curriculum": {
+      "phases": [
+        {
+          "phase": 1,
+          "k": 2,
+          "secret": [
+            0,
+            1
+          ],
+          "best_test_acc": 0.95,
+          "solve_epoch": 3,
+          "total_epochs": 3,
+          "elapsed_s": 0.008
+        },
+        {
+          "phase": 2,
+          "k": 3,
+          "secret": [
+            0,
+            1,
+            8
+          ],
+          "best_test_acc": 0.965,
+          "solve_epoch": 14,
+          "total_epochs": 14,
+          "elapsed_s": 0.037
+        },
+        {
+          "phase": 3,
+          "k": 5,
+          "secret": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "best_test_acc": 0.95,
+          "solve_epoch": 140,
+          "total_epochs": 140,
+          "elapsed_s": 0.41
+        }
+      ],
+      "total_epochs": 157,
+      "total_elapsed_s": 0.456,
+      "final_acc": 0.95
+    },
+    "full_secret": [
+      0,
+      1,
+      8,
+      15,
+      17
+    ]
+  }
+}
