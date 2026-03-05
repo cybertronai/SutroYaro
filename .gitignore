@@ -29,6 +29,9 @@ Thumbs.db
 # MkDocs
 site/
 
+# Traces (exported session data)
+.traces/sessions/
+
 # Data
 *.csv
 *.h5
