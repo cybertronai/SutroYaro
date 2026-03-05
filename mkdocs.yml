@@ -68,6 +68,12 @@ nav:
       - Lectures: lectures/index.md
       - Homework: homework/index.md
       - References: references.md
+      - Tooling:
+          - Overview: tooling/index.md
+          - Claude Code Setup: tooling/claude-code-setup.md
+          - Skills Reference: tooling/skills.md
+          - Anti-Slop Guide: tooling/anti-slop-guide.md
+          - Automation Scripts: tooling/automation.md
   - Research:
       - Overview: research/index.md
       - Literature Review: research/sparse-parity-literature.md
