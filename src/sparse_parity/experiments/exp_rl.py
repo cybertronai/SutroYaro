@@ -119,7 +119,7 @@ def bandit_ucb_search(x, y, n_bits, k_sparse, n_episodes=2000,
         batch_idx = rng.choice(n_samples, batch_size, replace=False)
         tracker.write(f'arm_{arm_idx}_query', k_sparse * batch_size)
         reward = evaluate_subset(x, y, arm, batch_idx)
-        tracker.read(f'arm_{i}_query', k_sparse * batch_size)
+        tracker.read(f'arm_{arm_idx}_query', k_sparse * batch_size)
 
         counts[arm_idx] += 1
         total_reward[arm_idx] += reward

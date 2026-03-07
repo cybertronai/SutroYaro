@@ -1,12 +1,14 @@
 # Sparse Parity: A Practitioner's Field Guide
 
-33 experiments across 17 methods for energy-efficient learning on the simplest non-trivial task.
+33 experiments (16 Phase 1 + 17 Phase 2) for energy-efficient learning on the simplest non-trivial task.
 
 **Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/0bserver07/SutroYaro)
 
 ---
 
 ## 1. TL;DR
+
+Sorted by verdict tier (SUCCESS, PARTIAL, meta-experiments, FAILED), then by speed within each tier. RL appears twice (bandit + sequential are separate approaches in one experiment).
 
 | Rank | Method | Phase | Accuracy (n=20/k=3) | Time | ARD | Verdict |
 |------|--------|-------|---------------------|------|-----|---------|
@@ -16,34 +18,34 @@
 | 4 | LASSO (no CV) | 2 | 100% | 0.005s | 861,076 | SUCCESS |
 | 5 | Fourier/Walsh-Hadamard | 1 | 100% | 0.009s | 1,147,375 | SUCCESS |
 | 6 | Random Subset Search | 1 | 100% | 0.011s | N/A | SUCCESS |
-| 7 | Random Projections | 2 | 100% | 0.013s | ~670,000 | SUCCESS |
-| 8 | Mutual Information | 2 | 100% | 0.033s | 1,147,375 | SUCCESS |
-| 9 | Evolutionary Search | 1 | 100% | 0.041s | N/A | SUCCESS |
-| 10 | SGD Baseline (fixed hyp.) | 1 | 99-100% | 0.12s | 17,976 | SUCCESS |
+| 7 | MDL Compression | 2 | 100% | 0.013s | 1,147,375 | SUCCESS |
+| 8 | Random Projections | 2 | 100% | 0.013s | ~670,000 | SUCCESS |
+| 9 | Mutual Information | 2 | 100% | 0.033s | 1,147,375 | SUCCESS |
+| 10 | Evolutionary Search | 1 | 100% | 0.041s | N/A | SUCCESS |
 | 11 | n-Curriculum SGD | 1 | 100% | 0.07s | ~18,000 | SUCCESS |
-| 12 | Sign SGD | 1 | 99.7% | 0.42s | ~18,000 | SUCCESS |
-| 13 | MDL Compression | 2 | 100% | 0.013s | 1,147,375 | SUCCESS |
-| 14 | Per-Layer Backprop | 1 | 99.5% | 0.11s | 17,299 | SUCCESS |
-| 15 | Exhaustive Feature Select | 1 | 100% | ~0.02s | N/A | PARTIAL |
-| 16 | GP Symbolic | 2 | 100% | 0.98s | 0 | PARTIAL |
-| 17 | RL Bandit UCB | 2 | 100% | 0.12s | 83,396 | SUCCESS |
-| 18 | RL Sequential QL | 2 | 100% | 2.40s | 1 | SUCCESS |
+| 12 | Per-Layer Backprop | 1 | 99.5% | 0.11s | 17,299 | SUCCESS |
+| 13 | SGD Baseline (fixed hyp.) | 1 | 99-100% | 0.12s | 17,976 | SUCCESS |
+| 14 | RL Bandit UCB | 2 | 100% | 0.12s | 83,396 | SUCCESS |
+| 15 | Sign SGD | 1 | 99.7% | 0.42s | ~18,000 | SUCCESS |
+| 16 | RL Sequential QL | 2 | 100% | 2.40s | 1 | SUCCESS |
+| 17 | Exhaustive Feature Select | 1 | 100% | ~0.02s | N/A | PARTIAL |
+| 18 | GP Symbolic | 2 | 100% | 0.98s | 0 | PARTIAL |
 | 19 | Pebble Game Reorder | 2 | 98% | ~1s | 42,034 | PARTIAL |
 | 20 | Binary Weights | 2 | 55.5% (n=20) | 1.51s | 13,726 | PARTIAL |
-| 21 | Decision Trees (best) | 2 | 92.5% | 0.42s | N/A | FAILED |
-| 22 | Tiled W1 | 2 | 99.8% | ~0.11s | 32,853 | FAILED |
-| 23 | Per-Layer + Batch | 1 | 99.8% | 0.665s | ~17,000 | CONFIRMED |
-| 24 | Weight Decay Sweep | 1 | 100% | 0.108s | ~18,000 | CONFIRMED |
-| 25 | Batch ARD | 1 | 99% | ~0.1s | 547,881 | SURPRISE |
-| 26 | Scaling Stress Test | 1 | 54-99% | varies | ~35,000 | MAPPED |
-| 27 | Sprint 1 Baseline | 1 | 100% (3-bit) | <1s | ~19,000 | MAPPED |
-| 28 | GrokFast | 1 | 99% | 383.7s | ~35,000 | FAILED |
-| 29 | Cache ARD Simulator | 1 | N/A | <1s | varies | NUANCED |
+| 21 | Weight Decay Sweep | 1 | 100% | 0.108s | ~18,000 | CONFIRMED |
+| 22 | Per-Layer + Batch | 1 | 99.8% | 0.665s | ~17,000 | CONFIRMED |
+| 23 | Batch ARD | 1 | 99% | ~0.1s | 547,881 | SURPRISE |
+| 24 | Sprint 1 Baseline | 1 | 100% (3-bit) | <1s | ~19,000 | MAPPED |
+| 25 | Scaling Stress Test | 1 | 54-99% | varies | ~35,000 | MAPPED |
+| 26 | Cache ARD Simulator | 1 | N/A | <1s | varies | NUANCED |
+| 27 | Decision Trees (best) | 2 | 92.5% | 0.42s | N/A | FAILED |
+| 28 | Tiled W1 | 2 | 99.8% | ~0.11s | 32,853 | FAILED |
+| 29 | GrokFast | 1 | 99% | 383.7s | ~35,000 | FAILED |
 | 30 | Forward-Forward | 1 | 58.5% | timeout | 277,256 | FAILED |
-| 31 | Hebbian | 2 | 56% | ~1s | 34,798 | FAILED |
-| 32 | Predictive Coding | 2 | 51.2% | timeout | 370,005 | FAILED |
-| 33 | Equilibrium Propagation | 2 | 60.8% | 93.8s | 711,003 | FAILED |
-| -- | Target Propagation | 2 | 54.5% | ~1s | 37,788 | FAILED |
+| 31 | Equilibrium Propagation | 2 | 60.8% | 93.8s | 711,003 | FAILED |
+| 32 | Hebbian | 2 | 56% | ~1s | 34,798 | FAILED |
+| 33 | Target Propagation | 2 | 54.5% | ~1s | 37,788 | FAILED |
+| 34 | Predictive Coding | 2 | 51.2% | timeout | 370,005 | FAILED |
 
 - **Fastest**: GF(2) at ~500 microseconds for n=20/k=3 with 21 samples. 240x faster than SGD.
 - **Best energy**: KM at ARD 1,585 during training (724x better than Fourier). RL sequential Q-learning at ARD 1 during inference (reads exactly k=3 bits per prediction).
