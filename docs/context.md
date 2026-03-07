@@ -16,28 +16,19 @@ Sparse parity is the "drosophila" of learning tasks:
 
 ## What We Found
 
-### The 20-bit problem is solved
+33 experiments across two phases. Full ranked results in the [Practitioner's Field Guide](research/survey.md).
 
-100% accuracy in 0.12 seconds. The fix was hyperparameters (LR=0.1, batch=32), not a new algorithm. See [Exp 1 findings](findings/exp1_fix_hyperparams.md).
+### Phase 1: SGD optimization (16 experiments)
 
-### The ARD bottleneck is real but capped
+The 20-bit problem was "unsolvable" at LR=0.5. At LR=0.1 it solves in 5 epochs. From there we optimized ARD within the SGD framework, hitting a ceiling at ~10% because W1 accounts for 75% of all float reads. Forward-Forward has 25x worse ARD than backprop for 2-layer networks. Curriculum learning broke the scaling wall (n=50). The cache simulator showed L2 eliminates all misses.
 
-!!! warning "The ARD Bottleneck"
-    W1 (the first layer weight matrix) accounts for ~75% of all float reads. Its reuse distance is fixed regardless of update order. This caps operation-reordering improvements at ~10%.
+### Phase 2: Broad search (17 experiments)
 
-Per-layer forward-backward gives 3.8% ARD improvement. Fused updates give 1.3%. Going further requires either smaller models or different algorithms.
+Parity is linear over GF(2). GF(2) Gaussian elimination solves in 509 microseconds, 240x faster than SGD. Kushilevitz-Mansour influence estimation achieves ARD 1,585 (724x better than Fourier). All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) fail at chance level because parity requires k-th order interaction detection.
 
-### Forward-Forward is not the answer (for small networks)
+### Key insight
 
-Hinton's Forward-Forward has 25x WORSE ARD than backprop for 2-layer networks. The "local learning" advantage only kicks in for 10+ layer networks. See [Exp E findings](findings/exp_e_forward_forward.md).
-
-### For small k, it's a search problem
-
-The biggest insight: sparse parity with small k (k ≤ 7) is better solved by combinatorial search (Fourier / random search) than by training a neural network. Fourier solver: 0.009s, 13x faster than SGD. See [Exp Fourier findings](findings/exp_fourier.md).
-
-### Scaling frontier
-
-Standard SGD breaks at n^k > 100,000 iterations. Curriculum learning (train small n, expand network) pushes the frontier to n=50. Sign SGD solves k=5. For large k (≥ 10), SGD's implicit gradient search is the only feasible approach.
+For small k, sparse parity is a search problem, not a learning problem. The neural network was solving an easy problem the hard way.
 
 ## Timeline
 
@@ -56,9 +47,9 @@ gantt
     section Research
     Sprint 1 (ARD baseline)           :s1, 2026-03-02, 1d
     Sprint 2 (solve 20-bit)           :s2, 2026-03-03, 2d
-    Round 1 (ARD measurement)         :r1, 2026-03-04, 1d
-    Round 2 (optimizer variants)      :r2, 2026-03-04, 1d
-    Round 3 (blank-slate approaches)  :r3, 2026-03-04, 1d
+    Phase 1 (16 experiments)          :p1, 2026-03-04, 2d
+    Phase 2 (17 parallel agents)      :p2, 2026-03-06, 1d
+    Survey written                    :sv, 2026-03-06, 1d
 ```
 
 ## People
@@ -68,6 +59,7 @@ gantt
 | **Yad** | Created this repo (SutroYaro), built the Claude Code autonomous research lab: parallel agent teams, experiment templates, DISCOVERIES.md knowledge accumulation |
 | **Yaroslav** | Sutro Group founder, technical sprints, algorithm work, [cybertronai/sutro](https://github.com/cybertronai/sutro) |
 | **Emmett** | Aster agentic loop framework, 2x energy improvement on microgpt |
+| **G B** | Architecture experiments (depth-1/hidden-64, ARD ~33-35) |
 | **Germaine** | Presentations, implementations |
 | **Andy** | Chat tooling experiments |
 | **Seth** | Healthcare AI, satisficing concepts |

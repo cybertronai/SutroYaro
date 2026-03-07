@@ -3,7 +3,7 @@
     **Related**: [Challenge #1](challenge-1-sparse-parity.md) · [Sprint 1 findings](../findings/sprint-1-findings.md) · [Per-layer ARD](../findings/exp_c_perlayer_20bit.md) · [Cache-aware ARD](../findings/exp_cache_ard.md)
     **Code**: [cybertronai/sutro](https://github.com/cybertronai/sutro) · [sparse_parity_benchmark.py](https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py)
 
-# Yaroslav Technical Sprint 1
+Yaroslav Technical Sprint 1
 
 02 Mar 2026
 

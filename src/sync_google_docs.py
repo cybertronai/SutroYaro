@@ -147,6 +147,26 @@ def extract_links(html_content):
     return sorted(links)
 
 
+def extract_header(file_path):
+    """Extract any cross-reference header from an existing file.
+
+    Preserves everything before the first markdown heading that starts
+    with '# ' (the Google Doc's own title). This keeps manually-added
+    !!! info blocks and other front-matter across syncs.
+    """
+    if not file_path.exists():
+        return ""
+    content = file_path.read_text()
+    lines = content.split('\n')
+    header_lines = []
+    for line in lines:
+        if line.startswith('# '):
+            break
+        header_lines.append(line)
+    header = '\n'.join(header_lines).strip()
+    return header + '\n\n' if header else ""
+
+
 def sync_doc(doc_config):
     """Download, convert, and save a single Google Doc."""
     doc_id = extract_doc_id(doc_config["url"])
@@ -154,6 +174,11 @@ def sync_doc(doc_config):
     out_path = DOCS_DIR / f"{name}.md"
 
     print(f"\nSyncing: {doc_config.get('description', name)}")
+
+    # Preserve any cross-reference header before overwriting
+    preserved_header = extract_header(out_path)
+    if preserved_header.strip():
+        print(f"  Preserving cross-reference header")
 
     html = download_html(doc_id)
     print(f"  Downloaded {len(html):,} bytes of HTML")
@@ -168,7 +193,7 @@ def sync_doc(doc_config):
     print(f"  Cleaned to {len(md):,} bytes")
 
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(md)
+    out_path.write_text(preserved_header + md)
     print(f"  Saved to {out_path.relative_to(REPO_ROOT)}")
 
     return links

@@ -3,7 +3,7 @@
     **Key outcomes**: "Drosophila of learning" concept — need sub-1-second iteration task. Led to [Challenge #1: Sparse Parity](challenge-1-sparse-parity.md).
     **Related**: [Emmett's results](meeting-6-emmett-results.md) · [Pebbling games](https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9)
 
-# Overview
+# Overview 
 
 [embedded image]
 

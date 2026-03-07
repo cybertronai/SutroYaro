@@ -3,9 +3,9 @@
     **Related research**: [Sprint 1 findings](../findings/sprint-1-findings.md) · [All experiment results](../research/index.md) · [Yaroslav Sprint 1](yaroslav-technical-sprint-1.md) · [Literature review](../research/sparse-parity-literature.md)
     **Yad's reproduction**: [SutroYaro repo](https://github.com/0bserver07/SutroYaro) — 16 experiments, solved 20-bit k=3 in 0.12s
 
-# Sutro Group Challenge #1
+# Sutro Group Challenge #1 
 
-sparse parity
+sparse parity task. Yaroslav's attempt #1 [[here](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0)]
 
 parent: [[Sutro Group](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0)]
 
