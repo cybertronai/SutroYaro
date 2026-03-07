@@ -2,6 +2,10 @@
 
 Research notes and literature review for the Sutro Group.
 
+## Survey
+
+**[Sparse Parity: A Practitioner's Field Guide](survey.md)** ranks all 33 experiments (16 Phase 1 + 17 Phase 2), provides a decision framework for picking methods, and documents the full AI research process including parallel agent dispatch.
+
 ## Topics
 
 - [x] Sparse parity learning theory: [literature review](sparse-parity-literature.md)
@@ -12,9 +16,8 @@ Research notes and literature review for the Sutro Group.
 - [x] Curriculum learning: [14.6x speedup on n=50](../findings/exp_curriculum.md)
 - [x] Scaling frontier: [SGD breaks at n^k > 100K](../findings/exp_d_scaling.md)
 - [x] Blank-slate approaches: [Fourier](../findings/exp_fourier.md), [evolutionary](../findings/exp_evolutionary.md), [feature selection](../findings/exp_feature_select.md)
-- [ ] [17 proposed approaches](proposed-approaches.md) — info-theoretic, algebraic, local learning, hardware-aware, alternative framings
+- [x] [17 proposed approaches](proposed-approaches.md): all completed, results in [survey](survey.md)
 - [ ] Deeper networks (5-10 layers) where FF's locality advantage may appear
-- [ ] Predictive Coding on sparse parity
 - [ ] Hybrid approaches for k=8-9 (combinatorial search with pruning)
 
 ## Main Finding

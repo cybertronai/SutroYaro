@@ -37,3 +37,8 @@ site/
 *.h5
 *.hdf5
 !data/*.csv
+
+# Telegram sync
+.tg-session*
+node_modules/
+bun.lock

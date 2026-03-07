@@ -97,10 +97,47 @@
 - **Fourier solves n=200/k=3 (1.3M subsets) in 10.8s and n=20/k=7 (77K subsets) in 0.7s**. Scales as O(C(n,k) * n_samples). [exp_fourier]
 - **Fourier ARD is 64x worse than SGD** (1,147,375 vs 17,976). Pure streaming over data for each subset — no weight reuse, no locality. [exp_fourier]
 
+### Algebraic / Exact Methods
+
+- **GF(2) Gaussian elimination solves in ~500μs** and is k-independent. Works for k=3,5,7,10 equally fast. Only needs n+1 samples (21 for n=20). 240x faster than SGD. [exp_gf2]
+- **Kushilevitz-Mansour finds secret via influence estimation in O(n)** not O(C(n,k)). ARD of 1,585 vs Fourier's 1,147,375 (724x better). Even 5 influence samples per bit suffice. [exp_km]
+- **SMT/backtracking constraint solver at 0.002s**. The k-1 pruning trick: once k-1 indices fixed, last column is fully determined. Only 10 samples needed. [exp_smt]
+
+### Information-Theoretic Methods
+
+- **MI provides no advantage over Fourier for binary parity**: 3.7x slower (0.033s vs 0.009s), same ARD. True subset MI is ~0.693 nats (log 2), wrong subsets ~0.001. [exp_mutual_info]
+- **LASSO on interaction features is competitive**: 0.005s, robust to alpha across 500x range. LASSO finds exactly 1 nonzero coefficient. Same combinatorial cost as Fourier (O(C(n,k))). [exp_lasso]
+- **MDL is noise-robust**: works under 5% label noise. True subset compresses to 0 bits, wrong subsets ~499 bits. 30% slower than Fourier. [exp_mdl]
+- **Random projections save 30-70% of evaluations** vs exhaustive Fourier but with high variance (geometric distribution). Modest wall-time speedup (1.1-1.5x). [exp_random_proj]
+
+### Local Learning Rules (all failed)
+
+- **All local learning rules fail on sparse parity**: Hebbian (~50%), Predictive Coding (~51-55%), Equilibrium Propagation (~60%), Target Propagation (~55%). This is structural, not tunable. [exp_hebbian, exp_predictive_coding, exp_equilibrium_prop, exp_target_prop]
+- **Parity is invisible to methods limited to local statistics**: the signal lives in k-th order interactions (E[x_i * x_j * x_k * y] = 1). Any method that only detects 1st/2nd-order statistics gets zero signal. [exp_hebbian]
+- **Predictive coding has 18x worse ARD than backprop** (370K vs 20K on n=20/k=3). 15 inference iterations re-read weight matrices ~32 times. [exp_predictive_coding]
+- **Equilibrium propagation is 2,300x slower than SGD** and fails due to tanh saturation. 60 relaxation iterations (30 free + 30 clamped) per training step. [exp_equilibrium_prop]
+- **Target propagation suffers "target collapse"**: the linear inverse G2 produces input-independent targets. ARD is 1.1-1.6x worse than backprop due to extra buffers. [exp_target_prop]
+
+### Hardware-Aware Methods
+
+- **Tiled W1 increases software ARD by 6.8-12.1%**: the MemTracker can't capture hardware cache benefits. The output layer still needs the full hidden vector before backward starts. [exp_tiled_w1]
+- **Pebble game optimizer saves 2.2% energy** (10.76 uJ vs 11.00 uJ). Found that fused and per-layer orderings break training (57% accuracy) via read-after-write hazard on mutable parameters. [exp_pebble_game]
+- **Binary weights solve n=3/k=3 in 1 epoch (80x faster)** but fail on n=20/k=3 (~55%). STE is too crude for the feature selection problem. [exp_binary_weights]
+
+### Alternative Framings
+
+- **GP evolves exact symbolic solution for n=20/k=3** (e.g., mul(x[0], mul(x[15], x[17]))). Zero parameters, zero ARD. Fails n=50/k=3 and n=20/k=5 due to needle-in-haystack fitness landscape. [exp_genetic_prog]
+- **RL bit querying achieves theoretical minimum inference reads**: k reads per prediction, ARD=1. Value-blind state (track which bits queried, not values) was the key to making Q-learning converge. [exp_rl]
+- **Decision trees fail on parity**: best is ExtraTrees at 92.5% (n=20/k=3). Greedy information-gain splitting fails because individual bits have zero marginal correlation. [exp_decision_tree]
+
 ### Exploratory
 7. **FF on deeper networks**: Does FF's ARD advantage appear with 5-10 layer networks on a simpler task?
-8. **Predictive Coding on sparse parity**: Another local learning rule. Different from FF.
+8. ~~**Predictive Coding on sparse parity**~~: ANSWERED — Failed, 18x worse ARD than backprop. Generative model is harder than discriminative for parity. [exp_predictive_coding]
 9. **Karpathy Names task**: Separate homework from Meeting #5. Untouched.
+10. **Can GF(2) handle noisy labels?** It assumes exact parity — noise would corrupt the linear system.
+11. **Hybrid approach: use KM to find candidate bits, then verify with small neural net.** What's the total energy cost?
+12. **At what depth does predictive coding's locality advantage over backprop appear?** Our 2-layer network is too shallow.
+13. **Can the pebble game optimizer's anti-dependency detection be automated for arbitrary computation graphs?**
 
 ## Experiment Log
 
@@ -122,3 +159,20 @@
 | exp_evolutionary | 03-04 | Random/evo search over k-subsets | SUCCESS: solves all configs incl n=50/k=3 | Random: 881-18K tries, <0.5s |
 | exp_feature_select | 03-04 | Feature selection vs SGD | PARTIAL: exhaustive 178-1203x faster, pairwise/greedy provably fail | Parity invisible below order k |
 | exp_fourier | 03-04 | Walsh-Hadamard correlation finds secret | SUCCESS: 13x faster than SGD, 100% on all configs | 0.009s n=20/k=3, ARD 64x worse |
+| exp_mutual_info | 03-06 | MI detects parity | SUCCESS but no advantage over Fourier | 0.033s, same ARD |
+| exp_lasso | 03-06 | LASSO finds 1 coefficient | SUCCESS: 0.005s, robust | 1 nonzero coef |
+| exp_decision_tree | 03-06 | Trees learn parity | FAILED: 92.5% best, greedy fails | Zero marginal signal |
+| exp_gf2 | 03-06 | GF(2) solves parity | SUCCESS: ~500μs, k-independent | 240x faster than SGD |
+| exp_random_proj | 03-06 | Monte Carlo Fourier | SUCCESS: saves 30-70% evals | High variance |
+| exp_km | 03-06 | KM influence estimation | SUCCESS: 0.006s, ARD 1,585 | 724x better ARD |
+| exp_hebbian | 03-06 | Hebbian learns parity | FAILED: ~50% (chance) | 3rd-order invisible |
+| exp_predictive_coding | 03-06 | PC lower ARD than backprop | FAILED: 18x worse ARD | Generative harder |
+| exp_equilibrium_prop | 03-06 | EP solves parity | FAILED: ~60%, 2300x slower | Tanh saturation |
+| exp_target_prop | 03-06 | TP local targets work | FAILED: ~55%, target collapse | Input-independent |
+| exp_tiled_w1 | 03-06 | Tiling reduces ARD | FAILED: ARD increased 6.8% | SW metric mismatch |
+| exp_pebble_game | 03-06 | Optimal execution order | PARTIAL: 2.2% energy win | Fused breaks training |
+| exp_binary_weights | 03-06 | Binary ops for parity | PARTIAL: n=3 works, n=20 fails | STE too crude |
+| exp_genetic_prog | 03-06 | GP finds symbolic solution | PARTIAL: n=20/k=3 only | Needle in haystack |
+| exp_smt | 03-06 | Constraint solver | SUCCESS: 0.002s, 10 samples | k-1 pruning trick |
+| exp_rl | 03-06 | RL learns what to read | SUCCESS: k reads per prediction | ARD=1 at inference |
+| exp_mdl | 03-06 | MDL finds secret | SUCCESS: noise-robust | 0 bits vs 499 bits |
