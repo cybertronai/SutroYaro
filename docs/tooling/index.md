@@ -12,7 +12,7 @@ How we use Claude Code as a research automation tool for the Sutro Group.
 | [Custom skills](skills.md#custom-skills) | Anti-slop guide, Ralph Wiggum |
 | [MCP servers](skills.md#mcp-servers) | Extensible tool servers (Google Docs, browser, diagrams) |
 | [Anti-slop guide](anti-slop-guide.md) | Reference for eliminating AI writing patterns from prose |
-| [Automation scripts](automation.md) | `sync_google_docs.py` for pulling Google Docs, reference extraction |
+| [Automation scripts](automation.md) | `sync_google_docs.py` for pulling Google Docs, `sync_telegram.ts` for pulling Telegram threads, session trace export |
 
 ## What Worked
 
