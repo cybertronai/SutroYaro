@@ -55,19 +55,24 @@ Each experiment produces:
 - `findings/exp_{name}.md` — analysis (strict template)
 - `results/exp_{name}/results.json` — machine-readable metrics
 
-## Using Claude Code for Research
+## How Agent-Driven Research Works
 
-This repo demonstrates a workflow for AI-assisted research:
+![Agent Workflow](docs/diagrams/agent-workflow.drawio.svg)
 
-1. **Literature review** — search arxiv, identify the gap between your config and published baselines
-2. **Diagnose** — compare your hyperparameters against the literature (this alone solved our 20-bit problem)
-3. **Experiment** — one hypothesis per experiment, always compare against baseline
-4. **Record** — structured findings so future sessions don't repeat work
-5. **Iterate** — each experiment leaves open questions for the next
+The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads those first, surveys the problem space, then dispatches isolated sub-agents in parallel. Each sub-agent gets one approach, the experiment template, and shared modules. No sub-agent sees another's results or the knowledge base. Read-only access to benchmark code prevents agents from gaming the metrics. Outputs feed back into DISCOVERIES.md for the next round.
+
+Three automation scripts feed live context to the agents:
+
+- `sync_google_docs.py` pulls the group's Google Docs into local markdown
+- `sync_telegram.ts` pulls Telegram thread messages into JSON (one-way, read-only)
+- `.traces/export_sessions.py` exports agent conversation traces with timestamps (audit trail)
 
 The files that make this work:
-- `LAB.md` — protocol for autonomous experiment sessions
-- `DISCOVERIES.md` — accumulated knowledge (read before every experiment)
+
+- `CLAUDE.md` — problem context, constraints, current best config
+- `DISCOVERIES.md` — accumulated proven facts from all experiments (shared memory across agents)
+- `LAB.md` — experiment protocol, templates, lifecycle
+- `proposed-approaches.md` — candidate methods generated during survey step
 - `_template.py` — experiment code starter
 - `findings/*.md` — structured experiment reports
 
