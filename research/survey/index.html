@@ -1,0 +1,3030 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Sutro Group - Energy-Efficient AI Training Research" name="description"/>
+<link href="https://0bserver07.github.io/SutroYaro/research/survey/" rel="canonical"/>
+<link href="../proposed-approaches/" rel="prev"/>
+<link href="../../findings/sprint-1-findings/" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.2" name="generator"/>
+<title>Survey - SutroYaro</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../stylesheets/dropdown-tabs.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="amber" data-md-color-primary="deep-purple" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#sparse-parity-a-practitioners-field-guide">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="SutroYaro" class="md-header__button md-logo" data-md-component="logo" href="../.." title="SutroYaro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            SutroYaro
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Survey
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-purple" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-purple" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/0bserver07/SutroYaro" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    0bserver07/SutroYaro
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../..">
+            
+  
+  
+  Home
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../..">
+          Overview
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../context/">
+          Context
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../goals/">
+          Goals
+        </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../../learning-guide/">
+            
+  
+  
+  Learning
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../../learning-guide/">
+          Learning Guide
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../lectures/">
+          Lectures
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../homework/">
+          Homework
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../references/">
+          References
+        </a>
+</li>
+<li class="md-tabs__dropdown-header">Tooling</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/">
+              Overview
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/claude-code-setup/">
+              Claude Code Setup
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/skills/">
+              Skills &amp; Plugins
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/anti-slop-guide/">
+              Anti-Slop Guide
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/automation/">
+              Automation Scripts
+            </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item md-tabs__item--active md-tabs__dropdown">
+<a class="md-tabs__link" href="../">
+            
+  
+  
+  Research
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../">
+          Overview
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../sparse-parity-literature/">
+          Literature Review
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../proposed-approaches/">
+          Proposed Approaches
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link md-tabs__dropdown-link--active" href="./">
+          Survey
+        </a>
+</li>
+<li class="md-tabs__dropdown-header">Findings</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/sprint-1-findings/">
+              Sprint 1 (ARD Baseline)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp1_fix_hyperparams/">
+              Exp 1 - Fix Hyperparams
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp4_grokfast/">
+              Exp 4 - GrokFast
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_a_ard_winning/">
+              Exp A - ARD Winning Config
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_b_batch_ard/">
+              Exp B - Batch ARD
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_c_perlayer_20bit/">
+              Exp C - Per-Layer 20-bit
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_d_scaling/">
+              Exp D - Scaling Frontier
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_e_forward_forward/">
+              Exp E - Forward-Forward
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_sign_sgd/">
+              Sign SGD
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_cache_ard/">
+              Cache-Aware ARD
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_curriculum/">
+              Curriculum Learning
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_wd_sweep/">
+              Weight Decay Sweep
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_perlayer_batch/">
+              Per-Layer + Batch
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_fourier/">
+              Fourier Solver (Blank Slate)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_evolutionary/">
+              Evolutionary Search (Blank Slate)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_feature_select/">
+              Feature Selection (Blank Slate)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_mutual_info/">
+              Mutual Information
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_lasso/">
+              LASSO
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_decision_tree/">
+              Decision Trees
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_gf2/">
+              GF(2) Gaussian Elimination
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_random_proj/">
+              Random Projections
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_km/">
+              Kushilevitz-Mansour
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_hebbian/">
+              Hebbian Learning
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_predictive_coding/">
+              Predictive Coding
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_equilibrium_prop/">
+              Equilibrium Propagation
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_target_prop/">
+              Target Propagation
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_tiled_w1/">
+              Tiled W1
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_pebble_game/">
+              Pebble Game Optimizer
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_binary_weights/">
+              Binary Weights
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_genetic_prog/">
+              Genetic Programming
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_smt/">
+              SMT Solver
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_rl/">
+              RL Bit Querying
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_mdl/">
+              MDL Compression
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/prompting-strategies/">
+              Prompting Strategies
+            </a>
+</li>
+<li class="md-tabs__dropdown-header">Plans</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../plans/2026-03-03-sparse-parity-pipeline-design/">
+              Pipeline Design
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../plans/2026-03-03-sparse-parity-implementation/">
+              Implementation Plan
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../plans/2026-03-04-beat-20bit-research-plan/">
+              Beat 20-bit Research
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../plans/sprint-2-plan/">
+              Sprint 2
+            </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../../meetings/">
+            
+  
+  
+  Meetings
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../../meetings/">
+          Overview
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../meetings/notes/">
+          Meeting Notes
+        </a>
+</li>
+<li class="md-tabs__dropdown-header">Google Docs</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/challenge-1-sparse-parity/">
+              Challenge 1 - Sparse Parity
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/sutro-group-main/">
+              Sutro Group Main
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/yaroslav-technical-sprint-1/">
+              Yaroslav Sprint 1
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-1-energy-intro/">
+              Meeting 1 - Energy Intro
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-2-forward-forward/">
+              Meeting 2 - Forward-Forward
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-6-emmett-results/">
+              Meeting 6 - Emmett Results
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-6-notes/">
+              Meeting 6 - Notes
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-7-notes/">
+              Meeting 7 - Notes
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/how-to-search/">
+              How to Search
+            </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../changelog/">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="SutroYaro" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="SutroYaro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    SutroYaro
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/0bserver07/SutroYaro" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    0bserver07/SutroYaro
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../context/">
+<span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../goals/">
+<span class="md-ellipsis">
+    
+  
+    Goals
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../learning-guide/">
+<span class="md-ellipsis">
+    
+  
+    Learning Guide
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lectures/">
+<span class="md-ellipsis">
+    
+  
+    Lectures
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/">
+<span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../references/">
+<span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tooling
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/claude-code-setup/">
+<span class="md-ellipsis">
+    
+  
+    Claude Code Setup
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/skills/">
+<span class="md-ellipsis">
+    
+  
+    Skills &amp; Plugins
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/anti-slop-guide/">
+<span class="md-ellipsis">
+    
+  
+    Anti-Slop Guide
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/automation/">
+<span class="md-ellipsis">
+    
+  
+    Automation Scripts
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sparse-parity-literature/">
+<span class="md-ellipsis">
+    
+  
+    Literature Review
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../proposed-approaches/">
+<span class="md-ellipsis">
+    
+  
+    Proposed Approaches
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Survey
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Survey
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-tldr">
+<span class="md-ellipsis">
+      
+        1. TL;DR
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-the-problem">
+<span class="md-ellipsis">
+      
+        2. The Problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-phase-1-incremental-improvements">
+<span class="md-ellipsis">
+      
+        3. Phase 1: Incremental Improvements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-phase-2-broad-search">
+<span class="md-ellipsis">
+      
+        4. Phase 2: Broad Search
+      
+    </span>
+</a>
+<nav aria-label="4. Phase 2: Broad Search" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#algebraic-exact">
+<span class="md-ellipsis">
+      
+        Algebraic / Exact
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#information-theoretic">
+<span class="md-ellipsis">
+      
+        Information-Theoretic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#local-learning-rules">
+<span class="md-ellipsis">
+      
+        Local Learning Rules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hardware-aware">
+<span class="md-ellipsis">
+      
+        Hardware-Aware
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alternative-framings">
+<span class="md-ellipsis">
+      
+        Alternative Framings
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-results-leaderboard">
+<span class="md-ellipsis">
+      
+        5. Results Leaderboard
+      
+    </span>
+</a>
+<nav aria-label="5. Results Leaderboard" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-1-by-speed-wall-time-n20k3">
+<span class="md-ellipsis">
+      
+        Table 1: By Speed (wall time, n=20/k=3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-2-by-energy-proxy-weighted-ard-single-training-step-n20k3">
+<span class="md-ellipsis">
+      
+        Table 2: By Energy Proxy (weighted ARD, single training step, n=20/k=3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-3-by-generality-largest-config-solved-highest-k">
+<span class="md-ellipsis">
+      
+        Table 3: By Generality (largest config solved, highest k)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-decision-framework">
+<span class="md-ellipsis">
+      
+        6. Decision Framework
+      
+    </span>
+</a>
+<nav aria-label="6. Decision Framework" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6a-parity-specific-flowchart">
+<span class="md-ellipsis">
+      
+        6a. Parity-Specific Flowchart
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6b-generalized-principles">
+<span class="md-ellipsis">
+      
+        6b. Generalized Principles
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-the-ai-research-process">
+<span class="md-ellipsis">
+      
+        7. The AI Research Process
+      
+    </span>
+</a>
+<nav aria-label="7. The AI Research Process" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7a-the-agentic-loop">
+<span class="md-ellipsis">
+      
+        7a. The Agentic Loop
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7b-parallel-dispatch">
+<span class="md-ellipsis">
+      
+        7b. Parallel Dispatch
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7c-what-worked-and-what-didnt">
+<span class="md-ellipsis">
+      
+        7c. What Worked and What Didn't
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-appendix">
+<span class="md-ellipsis">
+      
+        8. Appendix
+      
+    </span>
+</a>
+<nav aria-label="8. Appendix" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-1-findings">
+<span class="md-ellipsis">
+      
+        Phase 1 Findings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-2-findings">
+<span class="md-ellipsis">
+      
+        Phase 2 Findings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#code">
+<span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Findings
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Findings
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/sprint-1-findings/">
+<span class="md-ellipsis">
+    
+  
+    Sprint 1 (ARD Baseline)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp1_fix_hyperparams/">
+<span class="md-ellipsis">
+    
+  
+    Exp 1 - Fix Hyperparams
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp4_grokfast/">
+<span class="md-ellipsis">
+    
+  
+    Exp 4 - GrokFast
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_a_ard_winning/">
+<span class="md-ellipsis">
+    
+  
+    Exp A - ARD Winning Config
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_b_batch_ard/">
+<span class="md-ellipsis">
+    
+  
+    Exp B - Batch ARD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_c_perlayer_20bit/">
+<span class="md-ellipsis">
+    
+  
+    Exp C - Per-Layer 20-bit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_d_scaling/">
+<span class="md-ellipsis">
+    
+  
+    Exp D - Scaling Frontier
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_e_forward_forward/">
+<span class="md-ellipsis">
+    
+  
+    Exp E - Forward-Forward
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_sign_sgd/">
+<span class="md-ellipsis">
+    
+  
+    Sign SGD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_cache_ard/">
+<span class="md-ellipsis">
+    
+  
+    Cache-Aware ARD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_curriculum/">
+<span class="md-ellipsis">
+    
+  
+    Curriculum Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_wd_sweep/">
+<span class="md-ellipsis">
+    
+  
+    Weight Decay Sweep
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_perlayer_batch/">
+<span class="md-ellipsis">
+    
+  
+    Per-Layer + Batch
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_fourier/">
+<span class="md-ellipsis">
+    
+  
+    Fourier Solver (Blank Slate)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_evolutionary/">
+<span class="md-ellipsis">
+    
+  
+    Evolutionary Search (Blank Slate)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_feature_select/">
+<span class="md-ellipsis">
+    
+  
+    Feature Selection (Blank Slate)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_mutual_info/">
+<span class="md-ellipsis">
+    
+  
+    Mutual Information
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_lasso/">
+<span class="md-ellipsis">
+    
+  
+    LASSO
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_decision_tree/">
+<span class="md-ellipsis">
+    
+  
+    Decision Trees
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_gf2/">
+<span class="md-ellipsis">
+    
+  
+    GF(2) Gaussian Elimination
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_random_proj/">
+<span class="md-ellipsis">
+    
+  
+    Random Projections
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_km/">
+<span class="md-ellipsis">
+    
+  
+    Kushilevitz-Mansour
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_hebbian/">
+<span class="md-ellipsis">
+    
+  
+    Hebbian Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_predictive_coding/">
+<span class="md-ellipsis">
+    
+  
+    Predictive Coding
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_equilibrium_prop/">
+<span class="md-ellipsis">
+    
+  
+    Equilibrium Propagation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_target_prop/">
+<span class="md-ellipsis">
+    
+  
+    Target Propagation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_tiled_w1/">
+<span class="md-ellipsis">
+    
+  
+    Tiled W1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_pebble_game/">
+<span class="md-ellipsis">
+    
+  
+    Pebble Game Optimizer
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_binary_weights/">
+<span class="md-ellipsis">
+    
+  
+    Binary Weights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_genetic_prog/">
+<span class="md-ellipsis">
+    
+  
+    Genetic Programming
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_smt/">
+<span class="md-ellipsis">
+    
+  
+    SMT Solver
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_rl/">
+<span class="md-ellipsis">
+    
+  
+    RL Bit Querying
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_mdl/">
+<span class="md-ellipsis">
+    
+  
+    MDL Compression
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/prompting-strategies/">
+<span class="md-ellipsis">
+    
+  
+    Prompting Strategies
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Plans
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Plans
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../plans/2026-03-03-sparse-parity-pipeline-design/">
+<span class="md-ellipsis">
+    
+  
+    Pipeline Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../plans/2026-03-03-sparse-parity-implementation/">
+<span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../plans/2026-03-04-beat-20bit-research-plan/">
+<span class="md-ellipsis">
+    
+  
+    Beat 20-bit Research
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../plans/sprint-2-plan/">
+<span class="md-ellipsis">
+    
+  
+    Sprint 2
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Meetings
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Meetings
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../meetings/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../meetings/notes/">
+<span class="md-ellipsis">
+    
+  
+    Meeting Notes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Google Docs
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Google Docs
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/challenge-1-sparse-parity/">
+<span class="md-ellipsis">
+    
+  
+    Challenge 1 - Sparse Parity
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/sutro-group-main/">
+<span class="md-ellipsis">
+    
+  
+    Sutro Group Main
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/yaroslav-technical-sprint-1/">
+<span class="md-ellipsis">
+    
+  
+    Yaroslav Sprint 1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-1-energy-intro/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 1 - Energy Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-2-forward-forward/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 2 - Forward-Forward
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-6-emmett-results/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 6 - Emmett Results
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-6-notes/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 6 - Notes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-7-notes/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 7 - Notes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/how-to-search/">
+<span class="md-ellipsis">
+    
+  
+    How to Search
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../changelog/">
+<span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-tldr">
+<span class="md-ellipsis">
+      
+        1. TL;DR
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-the-problem">
+<span class="md-ellipsis">
+      
+        2. The Problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-phase-1-incremental-improvements">
+<span class="md-ellipsis">
+      
+        3. Phase 1: Incremental Improvements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-phase-2-broad-search">
+<span class="md-ellipsis">
+      
+        4. Phase 2: Broad Search
+      
+    </span>
+</a>
+<nav aria-label="4. Phase 2: Broad Search" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#algebraic-exact">
+<span class="md-ellipsis">
+      
+        Algebraic / Exact
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#information-theoretic">
+<span class="md-ellipsis">
+      
+        Information-Theoretic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#local-learning-rules">
+<span class="md-ellipsis">
+      
+        Local Learning Rules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hardware-aware">
+<span class="md-ellipsis">
+      
+        Hardware-Aware
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alternative-framings">
+<span class="md-ellipsis">
+      
+        Alternative Framings
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-results-leaderboard">
+<span class="md-ellipsis">
+      
+        5. Results Leaderboard
+      
+    </span>
+</a>
+<nav aria-label="5. Results Leaderboard" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-1-by-speed-wall-time-n20k3">
+<span class="md-ellipsis">
+      
+        Table 1: By Speed (wall time, n=20/k=3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-2-by-energy-proxy-weighted-ard-single-training-step-n20k3">
+<span class="md-ellipsis">
+      
+        Table 2: By Energy Proxy (weighted ARD, single training step, n=20/k=3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-3-by-generality-largest-config-solved-highest-k">
+<span class="md-ellipsis">
+      
+        Table 3: By Generality (largest config solved, highest k)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-decision-framework">
+<span class="md-ellipsis">
+      
+        6. Decision Framework
+      
+    </span>
+</a>
+<nav aria-label="6. Decision Framework" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6a-parity-specific-flowchart">
+<span class="md-ellipsis">
+      
+        6a. Parity-Specific Flowchart
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6b-generalized-principles">
+<span class="md-ellipsis">
+      
+        6b. Generalized Principles
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-the-ai-research-process">
+<span class="md-ellipsis">
+      
+        7. The AI Research Process
+      
+    </span>
+</a>
+<nav aria-label="7. The AI Research Process" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7a-the-agentic-loop">
+<span class="md-ellipsis">
+      
+        7a. The Agentic Loop
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7b-parallel-dispatch">
+<span class="md-ellipsis">
+      
+        7b. Parallel Dispatch
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7c-what-worked-and-what-didnt">
+<span class="md-ellipsis">
+      
+        7c. What Worked and What Didn't
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-appendix">
+<span class="md-ellipsis">
+      
+        8. Appendix
+      
+    </span>
+</a>
+<nav aria-label="8. Appendix" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-1-findings">
+<span class="md-ellipsis">
+      
+        Phase 1 Findings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-2-findings">
+<span class="md-ellipsis">
+      
+        Phase 2 Findings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#code">
+<span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="sparse-parity-a-practitioners-field-guide">Sparse Parity: A Practitioner's Field Guide<a class="headerlink" href="#sparse-parity-a-practitioners-field-guide" title="Permanent link">¶</a></h1>
+<p>33 experiments (16 Phase 1 + 17 Phase 2) for energy-efficient learning on the simplest non-trivial task.</p>
+<p><strong>Sutro Group, Challenge #1</strong> | March 2026 | <a href="https://github.com/0bserver07/SutroYaro">Source code</a></p>
+<hr/>
+<h2 id="1-tldr">1. TL;DR<a class="headerlink" href="#1-tldr" title="Permanent link">¶</a></h2>
+<p>Sorted by verdict tier (SUCCESS, PARTIAL, meta-experiments, FAILED), then by speed within each tier. RL appears twice (bandit + sequential are separate approaches in one experiment).</p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Method</th>
+<th>Phase</th>
+<th>Accuracy (n=20/k=3)</th>
+<th>Time</th>
+<th>ARD</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GF(2) Gaussian Elimination</td>
+<td>2</td>
+<td>100%</td>
+<td>509 us</td>
+<td>~500</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>2</td>
+<td>KM Influence Estimation</td>
+<td>2</td>
+<td>100%</td>
+<td>0.001-0.006s</td>
+<td>1,585</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SMT Backtracking</td>
+<td>2</td>
+<td>100%</td>
+<td>0.002s</td>
+<td>~2,000</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>4</td>
+<td>LASSO (no CV)</td>
+<td>2</td>
+<td>100%</td>
+<td>0.005s</td>
+<td>861,076</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Fourier/Walsh-Hadamard</td>
+<td>1</td>
+<td>100%</td>
+<td>0.009s</td>
+<td>1,147,375</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Random Subset Search</td>
+<td>1</td>
+<td>100%</td>
+<td>0.011s</td>
+<td>N/A</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>7</td>
+<td>MDL Compression</td>
+<td>2</td>
+<td>100%</td>
+<td>0.013s</td>
+<td>1,147,375</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Random Projections</td>
+<td>2</td>
+<td>100%</td>
+<td>0.013s</td>
+<td>~670,000</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Mutual Information</td>
+<td>2</td>
+<td>100%</td>
+<td>0.033s</td>
+<td>1,147,375</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Evolutionary Search</td>
+<td>1</td>
+<td>100%</td>
+<td>0.041s</td>
+<td>N/A</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>11</td>
+<td>n-Curriculum SGD</td>
+<td>1</td>
+<td>100%</td>
+<td>0.07s</td>
+<td>~18,000</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Per-Layer Backprop</td>
+<td>1</td>
+<td>99.5%</td>
+<td>0.11s</td>
+<td>17,299</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>13</td>
+<td>SGD Baseline (fixed hyp.)</td>
+<td>1</td>
+<td>99-100%</td>
+<td>0.12s</td>
+<td>17,976</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>14</td>
+<td>RL Bandit UCB</td>
+<td>2</td>
+<td>100%</td>
+<td>0.12s</td>
+<td>83,396</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Sign SGD</td>
+<td>1</td>
+<td>99.7%</td>
+<td>0.42s</td>
+<td>~18,000</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>16</td>
+<td>RL Sequential QL</td>
+<td>2</td>
+<td>100%</td>
+<td>2.40s</td>
+<td>1</td>
+<td>SUCCESS</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Exhaustive Feature Select</td>
+<td>1</td>
+<td>100%</td>
+<td>~0.02s</td>
+<td>N/A</td>
+<td>PARTIAL</td>
+</tr>
+<tr>
+<td>18</td>
+<td>GP Symbolic</td>
+<td>2</td>
+<td>100%</td>
+<td>0.98s</td>
+<td>0</td>
+<td>PARTIAL</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Pebble Game Reorder</td>
+<td>2</td>
+<td>98%</td>
+<td>~1s</td>
+<td>42,034</td>
+<td>PARTIAL</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Binary Weights</td>
+<td>2</td>
+<td>55.5% (n=20)</td>
+<td>1.51s</td>
+<td>13,726</td>
+<td>PARTIAL</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Weight Decay Sweep</td>
+<td>1</td>
+<td>100%</td>
+<td>0.108s</td>
+<td>~18,000</td>
+<td>CONFIRMED</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Per-Layer + Batch</td>
+<td>1</td>
+<td>99.8%</td>
+<td>0.665s</td>
+<td>~17,000</td>
+<td>CONFIRMED</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Batch ARD</td>
+<td>1</td>
+<td>99%</td>
+<td>~0.1s</td>
+<td>547,881</td>
+<td>SURPRISE</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Sprint 1 Baseline</td>
+<td>1</td>
+<td>100% (3-bit)</td>
+<td>&lt;1s</td>
+<td>~19,000</td>
+<td>MAPPED</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Scaling Stress Test</td>
+<td>1</td>
+<td>54-99%</td>
+<td>varies</td>
+<td>~35,000</td>
+<td>MAPPED</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Cache ARD Simulator</td>
+<td>1</td>
+<td>N/A</td>
+<td>&lt;1s</td>
+<td>varies</td>
+<td>NUANCED</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Decision Trees (best)</td>
+<td>2</td>
+<td>92.5%</td>
+<td>0.42s</td>
+<td>N/A</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Tiled W1</td>
+<td>2</td>
+<td>99.8%</td>
+<td>~0.11s</td>
+<td>32,853</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>29</td>
+<td>GrokFast</td>
+<td>1</td>
+<td>99%</td>
+<td>383.7s</td>
+<td>~35,000</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Forward-Forward</td>
+<td>1</td>
+<td>58.5%</td>
+<td>timeout</td>
+<td>277,256</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Equilibrium Propagation</td>
+<td>2</td>
+<td>60.8%</td>
+<td>93.8s</td>
+<td>711,003</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Hebbian</td>
+<td>2</td>
+<td>56%</td>
+<td>~1s</td>
+<td>34,798</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Target Propagation</td>
+<td>2</td>
+<td>54.5%</td>
+<td>~1s</td>
+<td>37,788</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Predictive Coding</td>
+<td>2</td>
+<td>51.2%</td>
+<td>timeout</td>
+<td>370,005</td>
+<td>FAILED</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Fastest</strong>: GF(2) at ~500 microseconds for n=20/k=3 with 21 samples. 240x faster than SGD.</li>
+<li><strong>Best energy</strong>: KM at ARD 1,585 during training (724x better than Fourier). RL sequential Q-learning at ARD 1 during inference (reads exactly k=3 bits per prediction).</li>
+<li><strong>Most general</strong>: GF(2) is k-independent, solving n=20/k=10 in 703 microseconds. SGD + curriculum works when k is unknown.</li>
+</ul>
+<hr/>
+<h2 id="2-the-problem">2. The Problem<a class="headerlink" href="#2-the-problem" title="Permanent link">¶</a></h2>
+<p>Sparse parity is defined over n-bit inputs where each bit takes values in {-1, +1}. A set S of k bits is chosen uniformly at random and kept secret. The label for input x is the product of the k selected bit values: y = x[S[0]] * x[S[1]] * ... * x[S[k-1]]. The task is to identify S and classify correctly.</p>
+<p>This is the simplest non-trivial learning task. It is solvable on 1960s hardware. A single run finishes in under 2 seconds. Every configuration has a known ground truth. For energy-efficiency research, it is what Drosophila melanogaster is to genetics: small enough to iterate fast, structured enough to reveal real phenomena.</p>
+<p><strong>ARD (Average Reuse Distance)</strong> counts the average number of intervening float accesses between writing a buffer and reading it back. Small ARD means the data is still in cache when it is needed, which means cheap access. Large ARD means the data has been evicted, which means an expensive fetch from a higher level of the memory hierarchy.</p>
+<p>The cache model we use throughout: L1 is 64KB, L2 is 256KB, HBM capacity is effectively unlimited. Energy per float access: register 5 pJ, L1 20 pJ, L2 100 pJ, HBM 640 pJ. These numbers come from Bill Dally's talks on GPU energy breakdown.</p>
+<p><strong>Constraints</strong>: train + eval under 2 seconds. Test accuracy above 90%. Standard config: n=20, k=3 (1,140 possible subsets). Scaling config: n=50, k=3 (19,600 subsets). Higher-order config: n=20, k=5 (15,504 subsets).</p>
+<hr/>
+<h2 id="3-phase-1-incremental-improvements">3. Phase 1: Incremental Improvements<a class="headerlink" href="#3-phase-1-incremental-improvements" title="Permanent link">¶</a></h2>
+<p>Phase 1 ran 16 experiments over two days, starting from a broken baseline and ending with the realization that algorithmic change, not operation reordering, was the path forward.</p>
+<p><strong>1. Sprint 1 baseline.</strong> Yaroslav's initial implementation ran on 3-bit parity. Gradient fusion reduced ARD by 16%, but the improvement only touched 5% of total float traffic. The parameter tensor W1 dominated reads at 32%, and its reuse distance was unchanged by fusion. <a href="../../findings/sprint-1-findings/">sprint-1-findings</a></p>
+<p><strong>2. exp1: Fix Hyperparameters.</strong> Changed LR from 0.5 to 0.1, batch size from 1 to 32, n_train from 200 to 500. The model achieved 99% test accuracy at epoch 52, solving 20-bit sparse parity for the first time. The problem was never hard. It was misconfigured. <a href="../../findings/exp1_fix_hyperparams/">exp1</a></p>
+<p><strong>3. exp4: GrokFast.</strong> Applied Lee et al. 2024's low-pass gradient filter (alpha=0.98, lambda=2.0). GrokFast produced 83x more weight movement (441,826 vs 5,300 L1 norm) and converged slower (12 epochs vs 5). It was designed for tasks with thousand-epoch memorization phases, which 20-bit parity does not have. <a href="../../findings/exp4_grokfast/">exp4</a></p>
+<p><strong>4. exp_a: ARD Winning Config.</strong> Measured ARD across all three training variants on the winning 20-bit config. Per-layer achieved 17,299 weighted ARD vs standard's 17,976, a 3.8% improvement. Fused achieved 1.3%. W1 at 10,000 floats (500 hidden x 20 input) accounted for 75% of all float reads. <a href="../../findings/exp_a_ard_winning/">exp_a</a></p>
+<p><strong>5. exp_b: Batch ARD.</strong> Batch-32 showed 17x higher ARD than single-sample (547,881 vs 31,500). This was the opposite of the hypothesis. The MemTracker's flat clock penalizes holding parameters in cache across a batch, which is exactly what makes batching efficient on real hardware. Batch did reduce total parameter writes by 16x. <a href="../../findings/exp_b_batch_ard/">exp_b</a></p>
+<p><strong>6. exp_c: Per-Layer 20-bit.</strong> Per-layer forward-backward converged identically to standard backprop: 99.5% test accuracy at epoch 6, same convergence trajectory, same number of epochs. The 3.8% ARD improvement was confirmed at hidden=1000. <a href="../../findings/exp_c_perlayer_20bit/">exp_c</a></p>
+<p><strong>7. exp_d: Scaling.</strong> Swept n from 20 to 50 and k from 3 to 5. SGD breaks when n^k exceeds ~100,000 gradient steps. n=30/k=3 solved at 94.5%. n=50/k=3 stuck at 54% (chance). n=20/k=5 stuck at 61.5% with n_train=200. <a href="../../findings/exp_d_scaling/">exp_d</a></p>
+<p><strong>8. exp_e: Forward-Forward.</strong> Hinton's FF algorithm produced 25x worse ARD than backprop (277,256 vs 10,229) because it reads each weight matrix 4 times per sample (positive forward, positive update, negative forward, negative update). FF failed on 20-bit parity at 58.5%, stuck by greedy layer-wise objectives. <a href="../../findings/exp_e_forward_forward/">exp_e</a></p>
+<p><strong>9. exp_wd_sweep: Weight Decay.</strong> Swept WD from 0.001 to 2.0 across 5 seeds. Only WD in [0.01, 0.05] solves 20-bit parity. WD=0.01 averaged 39 epochs. WD &gt;= 0.1 kills learning entirely. The effective regularization LR * WD must stay in [0.001, 0.005]. <a href="../../findings/exp_wd_sweep/">exp_wd_sweep</a></p>
+<p><strong>10. exp_curriculum: Curriculum Learning.</strong> Training on n=10 first then expanding W1 to n=50 solved the scaling wall. Total: 20 epochs vs 292 for direct training, a 14.6x speedup. Transfer after expansion was instant, reaching &gt;95% accuracy in epoch 1. The learned feature detector for the k secret bits survives the addition of irrelevant input columns. <a href="../../findings/exp_curriculum/">exp_curriculum</a></p>
+<p><strong>11. exp_perlayer_batch: Per-Layer + Batch.</strong> Combining per-layer updates with batch=32 converged identically to standard + batch (40.6 vs 41.4 epochs). However, the re-forward pass after updating W1 added 3.7x wall-time overhead (0.665s vs 0.18s). <a href="../../findings/exp_perlayer_batch/">exp_perlayer_batch</a></p>
+<p><strong>12. exp_cache_ard: Cache ARD.</strong> Built an LRU cache simulator on top of MemTracker. L2 (256KB) eliminated ALL cache misses for both single-sample and batch methods. Single-sample achieved 91-100% L1 hit rate vs batch's 69-73%, because batch temporaries (h_pre_0 through h_pre_31) thrash L1. Batch wins on total traffic: 13% fewer floats overall. <a href="../../findings/exp_cache_ard/">exp_cache_ard</a></p>
+<p><strong>13. exp_sign_sgd: Sign SGD.</strong> Replaced gradients with sign(gradient). Solved k=5 in 7 epochs (vs 14 for standard SGD). Both methods reach 100% with n_train=5000. The earlier finding that "k=5 is impractical" was wrong: it was a training data issue, not an algorithm issue. <a href="../../findings/exp_sign_sgd/">exp_sign_sgd</a></p>
+<p><strong>14. exp_evolutionary: Random/Evolutionary Search.</strong> Random search over k-subsets solved all configs in under 0.5s. n=20/k=3: 881 tries, 0.011s. n=50/k=3: 11,291 tries, 0.142s. Evolutionary search used fewer evaluations (18 generations vs 881 tries) but was slower in wall time due to population overhead. <a href="../../findings/exp_evolutionary/">exp_evolutionary</a></p>
+<p><strong>15. exp_feature_select: Feature Selection.</strong> Exhaustive enumeration of C(n,k) subsets used 178-1203x fewer operations than SGD. Pairwise and greedy selection provably fail: E[y * x_i * x_j] = 0 for all pairs, including the correct ones. Parity is invisible to any correlation test below order k. <a href="../../findings/exp_feature_select/">exp_feature_select</a></p>
+<p><strong>16. exp_fourier: Fourier Solver.</strong> Walsh-Hadamard correlation over all C(n,k) subsets. 13x faster than SGD on n=20/k=3 (0.009s vs 0.12s). Needed only 20 samples vs SGD's 500. 100% accuracy on every config. Scaled to n=200/k=3 (1.3M subsets, 10.8s). ARD was 64x worse than SGD (1,147,375 vs 17,976), pure streaming with no locality. <a href="../../findings/exp_fourier/">exp_fourier</a></p>
+<p><strong>The narrative arc</strong>: we started with a broken baseline (LR=0.5, 54% accuracy), fixed it with hyperparameters, optimized ARD within the SGD framework (maxing out at ~10% improvement because W1 dominates 75% of float reads), built a cache simulator that showed L2 eliminates all misses, then pivoted entirely to new algorithms. Curriculum learning broke the scaling wall. Fourier brute-force broke the speed wall. The neural network was solving an easy problem the hard way.</p>
+<hr/>
+<h2 id="4-phase-2-broad-search">4. Phase 2: Broad Search<a class="headerlink" href="#4-phase-2-broad-search" title="Permanent link">¶</a></h2>
+<p>Phase 2 dispatched 17 independent experiments in parallel, each probing a different algorithmic family. The results split cleanly into methods that exploit the algebraic structure of parity (all succeed) and methods that rely on local statistics (all fail).</p>
+<h3 id="algebraic-exact">Algebraic / Exact<a class="headerlink" href="#algebraic-exact" title="Permanent link">¶</a></h3>
+<p>Parity is linear over GF(2). Any method that recognizes this solves instantly.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>n=20/k=3</th>
+<th>n=50/k=3</th>
+<th>n=100/k=3</th>
+<th>n=20/k=5</th>
+<th>Min Samples</th>
+<th>ARD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../findings/exp_gf2/">GF(2)</a></td>
+<td>509 us, 100%</td>
+<td>2.1 ms, 100%</td>
+<td>8.1 ms, 100%</td>
+<td>405 us, 100%</td>
+<td>21 (n+1)</td>
+<td>~500</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_km/">KM</a></td>
+<td>0.006s, 100%</td>
+<td>0.003s, 100%</td>
+<td>0.009s, 100%</td>
+<td>0.001s, 100%</td>
+<td>5/bit</td>
+<td>1,585</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_smt/">SMT</a></td>
+<td>0.002s, 100%</td>
+<td>0.026s, 100%</td>
+<td>0.183s, 100%</td>
+<td>0.046s, 100%</td>
+<td>10</td>
+<td>~2,000</td>
+</tr>
+</tbody>
+</table>
+<p>GF(2) Gaussian elimination treats each training sample as a linear equation over the binary field and row-reduces. The time is O(n * m) where m is the number of samples, independent of k. With 21 samples for n=20, it runs in 509 microseconds, which is 240x faster than SGD. For n=100/k=3, where Fourier would check 161,700 subsets, GF(2) solves in 8 milliseconds with 101 samples.</p>
+<p>KM's influence estimation flips each bit independently and measures label change rate. Secret bits have influence 1.0. Non-secret bits have influence 0.0. This prunes the search from C(n,k) subsets to exactly 1, with O(n) queries. Its ARD of 1,585 is 724x better than Fourier's 1,147,375.</p>
+<p>SMT backtracking encodes parity as a constraint satisfaction problem. The k-1 pruning trick (once k-1 indices are fixed, the required last column is fully determined) reduces the search to ~2,146 nodes for n=100/k=3, far below the 161,700-subset space.</p>
+<h3 id="information-theoretic">Information-Theoretic<a class="headerlink" href="#information-theoretic" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>n=20/k=3</th>
+<th>n=50/k=3</th>
+<th>n=20/k=5</th>
+<th>Noise-tolerant</th>
+<th>ARD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../findings/exp_mutual_info/">MI</a></td>
+<td>0.033s, 100%</td>
+<td>0.569s, 100%</td>
+<td>0.453s, 100%</td>
+<td>untested</td>
+<td>1,147,375</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_lasso/">LASSO</a></td>
+<td>0.005s, 100%</td>
+<td>0.15s, 100%</td>
+<td>0.21s, 100%</td>
+<td>inherent</td>
+<td>861,076</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_mdl/">MDL</a></td>
+<td>0.013s, 100%</td>
+<td>0.267s, 100%</td>
+<td>0.254s, 100%</td>
+<td>yes (5%)</td>
+<td>1,147,375</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_random_proj/">Random Proj</a></td>
+<td>0.013s, 100%</td>
+<td>0.113s, 100%</td>
+<td>0.134s, 100%</td>
+<td>untested</td>
+<td>~670,000</td>
+</tr>
+</tbody>
+</table>
+<p>All four solve the problem. None beats Fourier for binary parity in any dimension except LASSO, which is competitive at 0.005s for n=20/k=3 (Fourier: 0.009s). MI computes a 2x2 contingency table per subset, detecting the same perfect correlation Fourier detects, but 3.7x slower due to the entropy calculation overhead. MDL adds noise tolerance: under 5% label flips, the true subset's description length rises to ~157 bits but stays far below wrong subsets at ~499 bits. LASSO works across a 500x range of alpha values (0.001 to 0.5 all work). Random projections save 30-70% of subset evaluations on average but have high variance, with best-case 0.3% and worst-case 90% of C(n,k).</p>
+<h3 id="local-learning-rules">Local Learning Rules<a class="headerlink" href="#local-learning-rules" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>n=20/k=3 Best Acc</th>
+<th>Failure Reason</th>
+<th>ARD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../findings/exp_hebbian/">Hebbian</a></td>
+<td>56% (chance)</td>
+<td>Zero 1st/2nd-order correlation</td>
+<td>34,798</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_predictive_coding/">Predictive Coding</a></td>
+<td>51.2%</td>
+<td>18x worse ARD, generative inversion fails</td>
+<td>370,005</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_equilibrium_prop/">Equilibrium Prop</a></td>
+<td>60.8% (avg)</td>
+<td>Tanh saturation, 2,300x slower</td>
+<td>711,003</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_target_prop/">Target Prop</a></td>
+<td>54.5%</td>
+<td>Target collapse: input-independent targets</td>
+<td>37,788</td>
+</tr>
+</tbody>
+</table>
+<p>Four methods, one structural reason for failure. Parity is a k-th order interaction. For k=3, E[x_i * y] = 0 for all i. E[x_i * x_j * y] = 0 for all pairs. Only E[x_i * x_j * x_k * y] = 1 at the secret triple. Hebbian rules detect first- and second-order statistics. Predictive coding's generative model cannot invert the product. Equilibrium propagation's tanh activations saturate, killing the gradient. Target propagation's linear inverse G2 maps both labels to fixed hidden targets regardless of input.</p>
+<p>All three Hebbian variants (simple, Oja, BCM) gave essentially identical results (49-56%), confirming the failure is structural. The ARD story is also negative: predictive coding's 15 inference iterations per sample read each weight matrix 32 times, producing 18x worse ARD than backprop.</p>
+<h3 id="hardware-aware">Hardware-Aware<a class="headerlink" href="#hardware-aware" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Accuracy</th>
+<th>ARD Change vs Baseline</th>
+<th>Energy Savings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../findings/exp_tiled_w1/">Tiled W1</a></td>
+<td>99.8% (unchanged)</td>
+<td>+6.8% to +12.1% (worse)</td>
+<td>unmeasured</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_pebble_game/">Pebble Game</a></td>
+<td>98% (optimal order)</td>
+<td>-7.2%</td>
+<td>2.2%</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_binary_weights/">Binary Weights</a></td>
+<td>100% (n=3), 55.5% (n=20)</td>
+<td>-28% per step</td>
+<td>N/A (fails)</td>
+</tr>
+</tbody>
+</table>
+<p>Software metrics and hardware behavior diverge. Tiling W1 into 20KB chunks (fitting in L1) increased software ARD by 6.8-12.1% because the MemTracker counts intervening float accesses between producer and consumer. Tiling does not reduce that count. It reduces L1 cache misses, which the tracker does not simulate. The pebble game found that fused and per-layer execution orderings destroy training accuracy (57%, random chance) by updating W2 before the backward pass reads it. This read-after-write hazard on mutable parameters is invisible to the computation DAG. The optimal pebble ordering saved 2.2% energy by interleaving small-tensor updates between backward operations. Binary weights solved n=3 in 1 epoch (the parity function is inherently binary) but failed at n=20 because the straight-through estimator is too crude for feature selection.</p>
+<h3 id="alternative-framings">Alternative Framings<a class="headerlink" href="#alternative-framings" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>n=20/k=3</th>
+<th>n=50/k=3</th>
+<th>n=20/k=5</th>
+<th>Reads per Prediction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../findings/exp_genetic_prog/">GP</a></td>
+<td>100%, 0.98s</td>
+<td>50.2% (fail)</td>
+<td>49.8% (fail)</td>
+<td>3 (zero params)</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_rl/">RL Bandit</a></td>
+<td>100%, 0.12s</td>
+<td>untested</td>
+<td>untested</td>
+<td>150 (k * batch)</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_rl/">RL Sequential</a></td>
+<td>100%, 2.40s</td>
+<td>untested</td>
+<td>untested</td>
+<td>3 (optimal)</td>
+</tr>
+<tr>
+<td><a href="../../findings/exp_decision_tree/">Decision Trees</a></td>
+<td>92.5%, 0.42s</td>
+<td>65.6%</td>
+<td>67.1%</td>
+<td>full tree</td>
+</tr>
+</tbody>
+</table>
+<p>GP discovered exact symbolic programs for n=20/k=3 (e.g., <code>mul(x[0], mul(x[15], x[17]))</code>) with zero learned parameters. It failed on larger configs because the parity fitness surface is a needle in a haystack: any wrong subset gives exactly 50% accuracy, providing no gradient signal for crossover or mutation. The RL sequential Q-learner achieved the theoretical minimum of k=3 reads per prediction at inference time, with ARD of 1. The value-blind state representation (track which bits queried, not their values) was the key design decision, reducing the state space from exponential to O(sum C(n,j) for j &lt; k). Decision trees fail because greedy information-gain splitting cannot find the secret bits: each individual bit has zero marginal correlation with the label. ExtraTrees with unlimited depth reached 92.5% on n=20/k=3, the best tree result, but no tree model hit 100%.</p>
+<hr/>
+<h2 id="5-results-leaderboard">5. Results Leaderboard<a class="headerlink" href="#5-results-leaderboard" title="Permanent link">¶</a></h2>
+<h3 id="table-1-by-speed-wall-time-n20k3">Table 1: By Speed (wall time, n=20/k=3)<a class="headerlink" href="#table-1-by-speed-wall-time-n20k3" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Method</th>
+<th>Time</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GF(2) Gaussian Elimination</td>
+<td>509 us</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>KM Influence (k=5 config)</td>
+<td>0.001s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SMT Backtracking</td>
+<td>0.002s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>LASSO (no CV)</td>
+<td>0.005s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>KM Influence (k=3 config)</td>
+<td>0.006s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Fourier/Walsh-Hadamard</td>
+<td>0.009s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Random Subset Search</td>
+<td>0.011s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>MDL Compression</td>
+<td>0.013s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Random Projections</td>
+<td>0.013s</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>MI Exhaustive</td>
+<td>0.033s</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="table-2-by-energy-proxy-weighted-ard-single-training-step-n20k3">Table 2: By Energy Proxy (weighted ARD, single training step, n=20/k=3)<a class="headerlink" href="#table-2-by-energy-proxy-weighted-ard-single-training-step-n20k3" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Method</th>
+<th>Weighted ARD</th>
+<th>Accuracy</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>RL Sequential QL</td>
+<td>1</td>
+<td>100%</td>
+<td>inference only</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GP Symbolic</td>
+<td>0</td>
+<td>100%</td>
+<td>zero params, n=20/k=3 only</td>
+</tr>
+<tr>
+<td>3</td>
+<td>GF(2) Gaussian Elimination</td>
+<td>~500</td>
+<td>100%</td>
+<td>not a training loop</td>
+</tr>
+<tr>
+<td>4</td>
+<td>KM Influence</td>
+<td>1,585</td>
+<td>100%</td>
+<td>724x better than Fourier</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SMT Backtracking</td>
+<td>~2,000</td>
+<td>100%</td>
+<td>est. from solver structure</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Per-Layer Backprop</td>
+<td>17,299</td>
+<td>99.5%</td>
+<td>SGD variant</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Standard SGD</td>
+<td>17,976</td>
+<td>99-100%</td>
+<td>baseline</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Hebbian (h=200)</td>
+<td>6,985</td>
+<td>56%</td>
+<td>fails to learn</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Binary Weights (h=200)</td>
+<td>13,726</td>
+<td>55.5%</td>
+<td>fails at n=20</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Pebble Game (optimal)</td>
+<td>42,034</td>
+<td>98%</td>
+<td>SGD reordered</td>
+</tr>
+</tbody>
+</table>
+<h3 id="table-3-by-generality-largest-config-solved-highest-k">Table 3: By Generality (largest config solved, highest k)<a class="headerlink" href="#table-3-by-generality-largest-config-solved-highest-k" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Method</th>
+<th>Max Config Solved</th>
+<th>Time at Max</th>
+<th>k-Independent?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GF(2)</td>
+<td>n=100/k=10</td>
+<td>703 us (n=20/k=10)</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Fourier</td>
+<td>n=200/k=3, n=20/k=7</td>
+<td>10.8s, 0.7s</td>
+<td>no (O(C(n,k)))</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SGD + Curriculum</td>
+<td>n=50/k=3</td>
+<td>0.06s</td>
+<td>works with unknown k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>KM Influence</td>
+<td>n=100/k=5</td>
+<td>0.009s</td>
+<td>O(n), k-independent for influence phase</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SMT Backtracking</td>
+<td>n=100/k=3</td>
+<td>0.183s</td>
+<td>slows with k</td>
+</tr>
+<tr>
+<td>6</td>
+<td>LASSO</td>
+<td>n=50/k=5</td>
+<td>0.21s</td>
+<td>O(C(n,k)) feature expansion</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Random Search</td>
+<td>n=50/k=5</td>
+<td>0.426s</td>
+<td>O(C(n,k))</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Sign SGD</td>
+<td>n=30/k=5</td>
+<td>0.44s</td>
+<td>needs n_train ~ n^(k-1)</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="6-decision-framework">6. Decision Framework<a class="headerlink" href="#6-decision-framework" title="Permanent link">¶</a></h2>
+<h3 id="6a-parity-specific-flowchart">6a. Parity-Specific Flowchart<a class="headerlink" href="#6a-parity-specific-flowchart" title="Permanent link">¶</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    A[New sparse parity problem] --&gt; B{Is k known?}
+    B --&gt;|Yes| C{k &lt;= 7?}
+    B --&gt;|No| D[SGD + curriculum]
+    C --&gt;|Yes| E{Priority?}
+    C --&gt;|No| F[SGD + curriculum + Sign SGD]
+    E --&gt;|Speed| G[GF2 Gaussian elimination]
+    E --&gt;|Low ARD| H[Kushilevitz-Mansour]
+    E --&gt;|Min inference reads| I[RL bit querying]
+    E --&gt;|Noise tolerance| J[MDL or LASSO]
+</code></pre>
+<h3 id="6b-generalized-principles">6b. Generalized Principles<a class="headerlink" href="#6b-generalized-principles" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p><strong>Check for algebraic structure before reaching for gradient descent.</strong> GF(2) solves in microseconds what SGD takes seconds for. The 240x speedup is not from better optimization. It is from recognizing that parity is linear over a different field. (GF(2), KM, SMT)</p>
+</li>
+<li>
+<p><strong>Raw reuse distance is misleading without a cache model.</strong> L2 eliminated all misses for both single-sample and batch methods. The MemTracker reported 17x worse ARD for batch, but on real hardware with a 256KB L2, both are equivalent. (exp_cache_ard)</p>
+</li>
+<li>
+<p><strong>Local learning rules fail when the signal lives in high-order interactions.</strong> Four methods (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) all produced chance-level accuracy on parity. The reason is the same in each case: the learning rule cannot detect k-th order correlations from local statistics.</p>
+</li>
+<li>
+<p><strong>One tensor can dominate your energy budget. Measure before optimizing.</strong> W1 accounted for 75% of all float reads. Per-layer reordering, fused execution, and tiling all maxed out at ~10% improvement because they could not change W1's reuse distance. (exp_a, exp_tiled_w1)</p>
+</li>
+<li>
+<p><strong>Curriculum learning transfers when the hard part is feature selection, not function complexity.</strong> After training on n=10, expanding to n=50 achieved &gt;95% accuracy in epoch 1. The learned feature detector for the k secret bits is invariant to the number of irrelevant input columns. (exp_curriculum)</p>
+</li>
+<li>
+<p><strong>Software metrics and hardware behavior diverge.</strong> Tiling W1 into 20KB chunks worsened software ARD by 6.8% but would improve L1 cache hits because each chunk fits in the 64KB L1 cache. The MemTracker cannot distinguish these effects. (exp_tiled_w1)</p>
+</li>
+<li>
+<p><strong>Greedy methods fail for problems with zero marginal signal.</strong> Decision trees, greedy feature selection, and single-bit Hebbian learning all rely on per-feature information gain. For parity, each feature individually carries zero information about the label. (exp_decision_tree, exp_feature_select, exp_hebbian)</p>
+</li>
+<li>
+<p><strong>The problem you think is hard may just be misconfigured.</strong> 20-bit sparse parity was "unsolvable" at LR=0.5. At LR=0.1 it solves in 5 epochs. The entire Phase 1 investigation began with a hyperparameter bug. (exp1)</p>
+</li>
+<li>
+<p><strong>Fused or reordered execution can silently break training via read-after-write hazards on mutable parameters.</strong> The pebble game discovered that updating W2 before computing dh = W2^T @ dy causes the backward pass to use already-modified weights. The resulting model is stuck at 57% accuracy. (exp_pebble_game)</p>
+</li>
+<li>
+<p><strong>Negative results have structure.</strong> Four local learning rules failed for the same reason, which tells you that parity requires k-th order interaction detection. This is a property of the problem class, not a deficiency of any individual method.</p>
+</li>
+</ol>
+<hr/>
+<h2 id="7-the-ai-research-process">7. The AI Research Process<a class="headerlink" href="#7-the-ai-research-process" title="Permanent link">¶</a></h2>
+<p>The 33 experiments ran in two phases with different structures:</p>
+<ul>
+<li>
+<p><strong>Phase 1</strong> (16 experiments, sequential): Each experiment built on findings from the previous one. A human operator (Yad) decided what to try next based on results, then wrote the spec. The agent implemented, ran, and documented each experiment. Key pivot decisions (abandoning incremental ARD optimization after Phase 1 stalled, building the cache simulator when the ARD metric looked wrong, switching to blank-slate approaches) were human calls, not agent calls.</p>
+</li>
+<li>
+<p><strong>Phase 2</strong> (17 experiments, parallel): 17 independent agents dispatched simultaneously. Each received an approach description, the experiment template, shared module APIs, and three test configs. No agent saw another agent's results. The agents had read-only access to the benchmark code. They could not modify the objective function, data generation, or accuracy measurement.</p>
+</li>
+</ul>
+<p>Both phases shared one design: <strong>DISCOVERIES.md as persistent memory</strong>. This file accumulated proven facts from every completed experiment. Every agent read it before starting. No agent repeated known-bad configurations (LR=0.5, GrokFast, WD&gt;=0.1) because the file documented those as failures. This is the mechanism that prevents wasted work across sessions.</p>
+<h3 id="7a-the-agentic-loop">7a. The Agentic Loop<a class="headerlink" href="#7a-the-agentic-loop" title="Permanent link">¶</a></h3>
+<p>Each experiment followed a standardized pipeline. The template file (_template.py) defines a baseline run, an experiment run, a comparison table, and JSON output. Shared modules provide consistent infrastructure:</p>
+<ul>
+<li><strong>config.py</strong>: Config dataclass holding n_bits, k_sparse, hidden, lr, wd, batch_size, max_epochs, n_train, n_test, seed</li>
+<li><strong>data.py</strong>: generate() function producing {-1, +1} inputs and product-parity labels with a fixed random seed</li>
+<li><strong>model.py</strong>: 2-layer MLP (input -&gt; hidden -&gt; 1) with ReLU and hinge loss</li>
+<li><strong>tracker.py</strong>: MemTracker recording write/read timestamps, computing weighted ARD per buffer and summary statistics</li>
+<li><strong>cache_tracker.py</strong>: LRU cache simulation on top of MemTracker, reporting hit rate and effective ARD</li>
+<li><strong>metrics.py</strong>: accuracy, loss, weight movement norms</li>
+</ul>
+<p>DISCOVERIES.md accumulated proven facts from all prior experiments. Every agent read it before starting. No agent tried LR=0.5 or GrokFast because the file documented those as known-bad.</p>
+<p>The pipeline for each experiment: write experiment.py, run it, save results.json, write findings.md, copy to docs/findings/, update mkdocs nav.</p>
+<h3 id="7b-parallel-dispatch">7b. Parallel Dispatch<a class="headerlink" href="#7b-parallel-dispatch" title="Permanent link">¶</a></h3>
+<p>Phase 2 ran 17 independent agents dispatched simultaneously from Claude Code. Each agent received: the approach description from proposed-approaches.md, the experiment template pattern, shared module APIs, the three configs to test (n=20/k=3, n=50/k=3, n=20/k=5), and the findings markdown format.</p>
+<p>Completion times ranged from ~2.5 minutes (MI, MDL) to ~38 minutes (Pebble Game, which explored 5,758 topological orderings).</p>
+<p>Failure modes the agents encountered and resolved:</p>
+<ul>
+<li><strong>Data generation bug</strong>: some agents used different seeds for train and test, producing different secret indices. Fixed by using sequential RNG calls from the same seed.</li>
+<li><strong>Even-k parity inversion</strong>: the GF(2) agent discovered that for even k, the product-to-XOR mapping inverts. Fixed by solving both A<em>s = b and A</em>s = (1-b) mod 2 and verifying which produces correct labels.</li>
+<li><strong>Target collapse</strong>: the Target Prop agent diagnosed that the linear inverse G2 maps both labels to fixed hidden targets regardless of input, destroying input-dependent learning.</li>
+<li><strong>Tanh saturation</strong>: the Equilibrium Prop agent found outputs lock to constant values, killing the EP update rule. No fix was possible within the EP framework.</li>
+<li><strong>State space explosion</strong>: the RL agent's first attempt used value-aware state (tracking both which bits were queried and their values). This produced ~50% accuracy because the state space was too large. Pivoting to value-blind state (track only which bits were queried) fixed it.</li>
+</ul>
+<p>All 17 agents produced: a working Python experiment file, a results JSON, and findings markdown in both the root findings/ directory and docs/findings/.</p>
+<h3 id="7c-what-worked-and-what-didnt">7c. What Worked and What Didn't<a class="headerlink" href="#7c-what-worked-and-what-didnt" title="Permanent link">¶</a></h3>
+<p><strong>What worked:</strong></p>
+<ul>
+<li><strong>Literature-first prompting.</strong> Giving agents theoretical context ("parity is linear over GF(2)") led to correct implementations. Without context, agents try generic approaches that waste time.</li>
+<li><strong>The "it's OK to fail" prompt.</strong> Telling agents "It's OK if this fails. Document WHY it fails." produced better negative results than "solve this problem." The Hebbian and Predictive Coding agents wrote precise structural analyses of why their methods could not work.</li>
+<li><strong>DISCOVERIES.md as shared memory.</strong> No agent repeated known-bad configurations. The file acted as a persistent knowledge base across all 33 experiments.</li>
+<li><strong>Strict output format.</strong> Every agent produced the same structure: hypothesis, config table, results table, analysis, open questions, file paths. This made the 33 experiments directly comparable.</li>
+<li><strong>"Run and verify before writing findings."</strong> This prevented hallucinated numbers. Every number in every findings page came from an actual results.json.</li>
+</ul>
+<p><strong>What didn't work:</strong></p>
+<ul>
+<li><strong>Pyright diagnostics noise.</strong> Every agent triggered "Import could not be resolved" because PYTHONPATH is set at runtime, not in the IDE. Harmless but noisy.</li>
+<li><strong>Unused variable warnings and minor type errors</strong> in several agents' outputs.</li>
+<li><strong>Data generation bugs</strong> in two agents (Hebbian, Binary Weights) required code fixes during execution.</li>
+<li><strong>The Pebble Game agent took 38 minutes</strong> because it exhaustively sampled 5,758 topological orderings of a 15-node computation DAG. A smarter search strategy would have been faster.</li>
+</ul>
+<hr/>
+<h2 id="8-appendix">8. Appendix<a class="headerlink" href="#8-appendix" title="Permanent link">¶</a></h2>
+<h3 id="phase-1-findings">Phase 1 Findings<a class="headerlink" href="#phase-1-findings" title="Permanent link">¶</a></h3>
+<ol>
+<li><a href="../../findings/sprint-1-findings/">Sprint 1 baseline</a></li>
+<li><a href="../../findings/exp1_fix_hyperparams/">exp1: Fix Hyperparameters</a></li>
+<li><a href="../../findings/exp4_grokfast/">exp4: GrokFast</a></li>
+<li><a href="../../findings/exp_a_ard_winning/">exp_a: ARD Winning Config</a></li>
+<li><a href="../../findings/exp_b_batch_ard/">exp_b: Batch ARD</a></li>
+<li><a href="../../findings/exp_c_perlayer_20bit/">exp_c: Per-Layer 20-bit</a></li>
+<li><a href="../../findings/exp_d_scaling/">exp_d: Scaling</a></li>
+<li><a href="../../findings/exp_e_forward_forward/">exp_e: Forward-Forward</a></li>
+<li><a href="../../findings/exp_wd_sweep/">exp_wd_sweep: Weight Decay</a></li>
+<li><a href="../../findings/exp_curriculum/">exp_curriculum: Curriculum Learning</a></li>
+<li><a href="../../findings/exp_perlayer_batch/">exp_perlayer_batch: Per-Layer + Batch</a></li>
+<li><a href="../../findings/exp_cache_ard/">exp_cache_ard: Cache ARD</a></li>
+<li><a href="../../findings/exp_sign_sgd/">exp_sign_sgd: Sign SGD</a></li>
+<li><a href="../../findings/exp_evolutionary/">exp_evolutionary: Random/Evo Search</a></li>
+<li><a href="../../findings/exp_feature_select/">exp_feature_select: Feature Selection</a></li>
+<li><a href="../../findings/exp_fourier/">exp_fourier: Fourier Solver</a></li>
+</ol>
+<h3 id="phase-2-findings">Phase 2 Findings<a class="headerlink" href="#phase-2-findings" title="Permanent link">¶</a></h3>
+<ol>
+<li><a href="../../findings/exp_mutual_info/">exp_mutual_info: Mutual Information</a></li>
+<li><a href="../../findings/exp_lasso/">exp_lasso: LASSO</a></li>
+<li><a href="../../findings/exp_decision_tree/">exp_decision_tree: Decision Trees</a></li>
+<li><a href="../../findings/exp_gf2/">exp_gf2: GF(2) Gaussian Elimination</a></li>
+<li><a href="../../findings/exp_random_proj/">exp_random_proj: Random Projections</a></li>
+<li><a href="../../findings/exp_km/">exp_km: Kushilevitz-Mansour</a></li>
+<li><a href="../../findings/exp_hebbian/">exp_hebbian: Hebbian Learning</a></li>
+<li><a href="../../findings/exp_predictive_coding/">exp_predictive_coding: Predictive Coding</a></li>
+<li><a href="../../findings/exp_equilibrium_prop/">exp_equilibrium_prop: Equilibrium Propagation</a></li>
+<li><a href="../../findings/exp_target_prop/">exp_target_prop: Target Propagation</a></li>
+<li><a href="../../findings/exp_tiled_w1/">exp_tiled_w1: Tiled W1</a></li>
+<li><a href="../../findings/exp_pebble_game/">exp_pebble_game: Pebble Game</a></li>
+<li><a href="../../findings/exp_binary_weights/">exp_binary_weights: Binary Weights</a></li>
+<li><a href="../../findings/exp_genetic_prog/">exp_genetic_prog: Genetic Programming</a></li>
+<li><a href="../../findings/exp_smt/">exp_smt: SMT/Backtracking</a></li>
+<li><a href="../../findings/exp_rl/">exp_rl: RL Bit Querying</a></li>
+<li><a href="../../findings/exp_mdl/">exp_mdl: MDL Compression</a></li>
+</ol>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">¶</a></h3>
+<ul>
+<li>Experiments: <code>src/sparse_parity/experiments/</code></li>
+<li>Results: <code>results/</code></li>
+<li>Shared modules: <code>src/sparse_parity/</code></li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/0bserver07/SutroYaro" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://t.me/sutro_group" rel="noopener" target="_blank" title="t.me">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 8a248 248 0 1 0 0 496 248 248 0 1 0 0-496m115 168.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7.2-.7.3-3.1-1.2-4.4s-3.6-.8-5.1-.5c-2.2.5-37.1 23.5-104.6 69.1-9.9 6.8-18.9 10.1-26.9 9.9-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3.6-4.5 6.7-9 18.4-13.7 72.3-31.5 120.5-52.3 144.6-62.3 68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6.5 9.6 2.9 2 1.7 3.2 4.1 3.5 6.7.5 3.2.6 6.5.4 9.8z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script></body>
+</html>

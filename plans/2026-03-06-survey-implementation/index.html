@@ -1,0 +1,2133 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Sutro Group - Energy-Efficient AI Training Research" name="description"/>
+<link href="https://0bserver07.github.io/SutroYaro/plans/2026-03-06-survey-implementation/" rel="canonical"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.2" name="generator"/>
+<title>Survey Implementation Plan - SutroYaro</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../stylesheets/dropdown-tabs.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="amber" data-md-color-primary="deep-purple" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#survey-implementation-plan">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="SutroYaro" class="md-header__button md-logo" data-md-component="logo" href="../.." title="SutroYaro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            SutroYaro
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Survey Implementation Plan
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-purple" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-purple" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/0bserver07/SutroYaro" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    0bserver07/SutroYaro
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../..">
+            
+  
+  
+  Home
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../..">
+          Overview
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../context/">
+          Context
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../goals/">
+          Goals
+        </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../../learning-guide/">
+            
+  
+  
+  Learning
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../../learning-guide/">
+          Learning Guide
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../lectures/">
+          Lectures
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../homework/">
+          Homework
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../references/">
+          References
+        </a>
+</li>
+<li class="md-tabs__dropdown-header">Tooling</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/">
+              Overview
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/claude-code-setup/">
+              Claude Code Setup
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/skills/">
+              Skills &amp; Plugins
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/anti-slop-guide/">
+              Anti-Slop Guide
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../tooling/automation/">
+              Automation Scripts
+            </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../../research/">
+            
+  
+  
+  Research
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../../research/">
+          Overview
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../research/sparse-parity-literature/">
+          Literature Review
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../research/proposed-approaches/">
+          Proposed Approaches
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../research/survey/">
+          Survey
+        </a>
+</li>
+<li class="md-tabs__dropdown-header">Findings</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/sprint-1-findings/">
+              Sprint 1 (ARD Baseline)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp1_fix_hyperparams/">
+              Exp 1 - Fix Hyperparams
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp4_grokfast/">
+              Exp 4 - GrokFast
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_a_ard_winning/">
+              Exp A - ARD Winning Config
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_b_batch_ard/">
+              Exp B - Batch ARD
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_c_perlayer_20bit/">
+              Exp C - Per-Layer 20-bit
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_d_scaling/">
+              Exp D - Scaling Frontier
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_e_forward_forward/">
+              Exp E - Forward-Forward
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_sign_sgd/">
+              Sign SGD
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_cache_ard/">
+              Cache-Aware ARD
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_curriculum/">
+              Curriculum Learning
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_wd_sweep/">
+              Weight Decay Sweep
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_perlayer_batch/">
+              Per-Layer + Batch
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_fourier/">
+              Fourier Solver (Blank Slate)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_evolutionary/">
+              Evolutionary Search (Blank Slate)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_feature_select/">
+              Feature Selection (Blank Slate)
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_mutual_info/">
+              Mutual Information
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_lasso/">
+              LASSO
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_decision_tree/">
+              Decision Trees
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_gf2/">
+              GF(2) Gaussian Elimination
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_random_proj/">
+              Random Projections
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_km/">
+              Kushilevitz-Mansour
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_hebbian/">
+              Hebbian Learning
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_predictive_coding/">
+              Predictive Coding
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_equilibrium_prop/">
+              Equilibrium Propagation
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_target_prop/">
+              Target Propagation
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_tiled_w1/">
+              Tiled W1
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_pebble_game/">
+              Pebble Game Optimizer
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_binary_weights/">
+              Binary Weights
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_genetic_prog/">
+              Genetic Programming
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_smt/">
+              SMT Solver
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_rl/">
+              RL Bit Querying
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_mdl/">
+              MDL Compression
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../findings/prompting-strategies/">
+              Prompting Strategies
+            </a>
+</li>
+<li class="md-tabs__dropdown-header">Plans</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../2026-03-03-sparse-parity-pipeline-design/">
+              Pipeline Design
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../2026-03-03-sparse-parity-implementation/">
+              Implementation Plan
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../2026-03-04-beat-20bit-research-plan/">
+              Beat 20-bit Research
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../sprint-2-plan/">
+              Sprint 2
+            </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item md-tabs__dropdown">
+<a class="md-tabs__link" href="../../meetings/">
+            
+  
+  
+  Meetings
+
+            <span class="md-tabs__arrow">▾</span>
+</a>
+<ul class="md-tabs__dropdown-list">
+<li>
+<a class="md-tabs__dropdown-link" href="../../meetings/">
+          Overview
+        </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../meetings/notes/">
+          Meeting Notes
+        </a>
+</li>
+<li class="md-tabs__dropdown-header">Google Docs</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/challenge-1-sparse-parity/">
+              Challenge 1 - Sparse Parity
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/sutro-group-main/">
+              Sutro Group Main
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/yaroslav-technical-sprint-1/">
+              Yaroslav Sprint 1
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-1-energy-intro/">
+              Meeting 1 - Energy Intro
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-2-forward-forward/">
+              Meeting 2 - Forward-Forward
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-6-emmett-results/">
+              Meeting 6 - Emmett Results
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-6-notes/">
+              Meeting 6 - Notes
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/meeting-7-notes/">
+              Meeting 7 - Notes
+            </a>
+</li>
+<li>
+<a class="md-tabs__dropdown-link" href="../../google-docs/how-to-search/">
+              How to Search
+            </a>
+</li>
+</ul>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../changelog/">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="SutroYaro" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="SutroYaro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    SutroYaro
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/0bserver07/SutroYaro" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    0bserver07/SutroYaro
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../context/">
+<span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../goals/">
+<span class="md-ellipsis">
+    
+  
+    Goals
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../learning-guide/">
+<span class="md-ellipsis">
+    
+  
+    Learning Guide
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lectures/">
+<span class="md-ellipsis">
+    
+  
+    Lectures
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/">
+<span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../references/">
+<span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tooling
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/claude-code-setup/">
+<span class="md-ellipsis">
+    
+  
+    Claude Code Setup
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/skills/">
+<span class="md-ellipsis">
+    
+  
+    Skills &amp; Plugins
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/anti-slop-guide/">
+<span class="md-ellipsis">
+    
+  
+    Anti-Slop Guide
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tooling/automation/">
+<span class="md-ellipsis">
+    
+  
+    Automation Scripts
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/sparse-parity-literature/">
+<span class="md-ellipsis">
+    
+  
+    Literature Review
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/proposed-approaches/">
+<span class="md-ellipsis">
+    
+  
+    Proposed Approaches
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/survey/">
+<span class="md-ellipsis">
+    
+  
+    Survey
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Findings
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Findings
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/sprint-1-findings/">
+<span class="md-ellipsis">
+    
+  
+    Sprint 1 (ARD Baseline)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp1_fix_hyperparams/">
+<span class="md-ellipsis">
+    
+  
+    Exp 1 - Fix Hyperparams
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp4_grokfast/">
+<span class="md-ellipsis">
+    
+  
+    Exp 4 - GrokFast
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_a_ard_winning/">
+<span class="md-ellipsis">
+    
+  
+    Exp A - ARD Winning Config
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_b_batch_ard/">
+<span class="md-ellipsis">
+    
+  
+    Exp B - Batch ARD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_c_perlayer_20bit/">
+<span class="md-ellipsis">
+    
+  
+    Exp C - Per-Layer 20-bit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_d_scaling/">
+<span class="md-ellipsis">
+    
+  
+    Exp D - Scaling Frontier
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_e_forward_forward/">
+<span class="md-ellipsis">
+    
+  
+    Exp E - Forward-Forward
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_sign_sgd/">
+<span class="md-ellipsis">
+    
+  
+    Sign SGD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_cache_ard/">
+<span class="md-ellipsis">
+    
+  
+    Cache-Aware ARD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_curriculum/">
+<span class="md-ellipsis">
+    
+  
+    Curriculum Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_wd_sweep/">
+<span class="md-ellipsis">
+    
+  
+    Weight Decay Sweep
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_perlayer_batch/">
+<span class="md-ellipsis">
+    
+  
+    Per-Layer + Batch
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_fourier/">
+<span class="md-ellipsis">
+    
+  
+    Fourier Solver (Blank Slate)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_evolutionary/">
+<span class="md-ellipsis">
+    
+  
+    Evolutionary Search (Blank Slate)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_feature_select/">
+<span class="md-ellipsis">
+    
+  
+    Feature Selection (Blank Slate)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_mutual_info/">
+<span class="md-ellipsis">
+    
+  
+    Mutual Information
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_lasso/">
+<span class="md-ellipsis">
+    
+  
+    LASSO
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_decision_tree/">
+<span class="md-ellipsis">
+    
+  
+    Decision Trees
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_gf2/">
+<span class="md-ellipsis">
+    
+  
+    GF(2) Gaussian Elimination
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_random_proj/">
+<span class="md-ellipsis">
+    
+  
+    Random Projections
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_km/">
+<span class="md-ellipsis">
+    
+  
+    Kushilevitz-Mansour
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_hebbian/">
+<span class="md-ellipsis">
+    
+  
+    Hebbian Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_predictive_coding/">
+<span class="md-ellipsis">
+    
+  
+    Predictive Coding
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_equilibrium_prop/">
+<span class="md-ellipsis">
+    
+  
+    Equilibrium Propagation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_target_prop/">
+<span class="md-ellipsis">
+    
+  
+    Target Propagation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_tiled_w1/">
+<span class="md-ellipsis">
+    
+  
+    Tiled W1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_pebble_game/">
+<span class="md-ellipsis">
+    
+  
+    Pebble Game Optimizer
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_binary_weights/">
+<span class="md-ellipsis">
+    
+  
+    Binary Weights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_genetic_prog/">
+<span class="md-ellipsis">
+    
+  
+    Genetic Programming
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_smt/">
+<span class="md-ellipsis">
+    
+  
+    SMT Solver
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_rl/">
+<span class="md-ellipsis">
+    
+  
+    RL Bit Querying
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_mdl/">
+<span class="md-ellipsis">
+    
+  
+    MDL Compression
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/prompting-strategies/">
+<span class="md-ellipsis">
+    
+  
+    Prompting Strategies
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Plans
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Plans
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2026-03-03-sparse-parity-pipeline-design/">
+<span class="md-ellipsis">
+    
+  
+    Pipeline Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2026-03-03-sparse-parity-implementation/">
+<span class="md-ellipsis">
+    
+  
+    Implementation Plan
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2026-03-04-beat-20bit-research-plan/">
+<span class="md-ellipsis">
+    
+  
+    Beat 20-bit Research
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sprint-2-plan/">
+<span class="md-ellipsis">
+    
+  
+    Sprint 2
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Meetings
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Meetings
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../meetings/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../meetings/notes/">
+<span class="md-ellipsis">
+    
+  
+    Meeting Notes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Google Docs
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Google Docs
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/challenge-1-sparse-parity/">
+<span class="md-ellipsis">
+    
+  
+    Challenge 1 - Sparse Parity
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/sutro-group-main/">
+<span class="md-ellipsis">
+    
+  
+    Sutro Group Main
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/yaroslav-technical-sprint-1/">
+<span class="md-ellipsis">
+    
+  
+    Yaroslav Sprint 1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-1-energy-intro/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 1 - Energy Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-2-forward-forward/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 2 - Forward-Forward
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-6-emmett-results/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 6 - Emmett Results
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-6-notes/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 6 - Notes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/meeting-7-notes/">
+<span class="md-ellipsis">
+    
+  
+    Meeting 7 - Notes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../google-docs/how-to-search/">
+<span class="md-ellipsis">
+    
+  
+    How to Search
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../changelog/">
+<span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-1-update-mkdocsyml-nav-with-17-new-findings-pages">
+<span class="md-ellipsis">
+      
+        Task 1: Update mkdocs.yml nav with 17 new findings pages
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-2-write-section-1-tldr">
+<span class="md-ellipsis">
+      
+        Task 2: Write Section 1 — TL;DR
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-3-write-section-2-the-problem">
+<span class="md-ellipsis">
+      
+        Task 3: Write Section 2 — The Problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-4-write-section-3-phase-1-incremental-improvements">
+<span class="md-ellipsis">
+      
+        Task 4: Write Section 3 — Phase 1: Incremental Improvements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-5-write-section-4-phase-2-broad-search">
+<span class="md-ellipsis">
+      
+        Task 5: Write Section 4 — Phase 2: Broad Search
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-6-write-section-5-results-leaderboard">
+<span class="md-ellipsis">
+      
+        Task 6: Write Section 5 — Results Leaderboard
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-7-write-section-6-decision-framework">
+<span class="md-ellipsis">
+      
+        Task 7: Write Section 6 — Decision Framework
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-8-write-section-7-the-ai-research-process">
+<span class="md-ellipsis">
+      
+        Task 8: Write Section 7 — The AI Research Process
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-9-write-section-8-appendix-finalize">
+<span class="md-ellipsis">
+      
+        Task 9: Write Section 8 — Appendix + finalize
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-10-copy-to-repo-root-update-discoveriesmd-update-research-index">
+<span class="md-ellipsis">
+      
+        Task 10: Copy to repo root + update DISCOVERIES.md + update research index
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-11-final-verification">
+<span class="md-ellipsis">
+      
+        Task 11: Final verification
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="survey-implementation-plan">Survey Implementation Plan<a class="headerlink" href="#survey-implementation-plan" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>For Claude:</strong> REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.</p>
+</blockquote>
+<p><strong>Goal:</strong> Write a practitioner's field guide surveying all 33 sparse parity experiments, with rankings, decision framework, and full AI research methodology.</p>
+<p><strong>Architecture:</strong> Single markdown document written section by section into <code>docs/research/survey.md</code>, then copied to repo root. Nav and index updates follow. Anti-slop guide applied to all prose.</p>
+<p><strong>Tech Stack:</strong> Markdown, Mermaid diagrams, MkDocs Material theme</p>
+<hr/>
+<h3 id="task-1-update-mkdocsyml-nav-with-17-new-findings-pages">Task 1: Update mkdocs.yml nav with 17 new findings pages<a class="headerlink" href="#task-1-update-mkdocsyml-nav-with-17-new-findings-pages" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>mkdocs.yml:81-98</code></p>
+<p><strong>Step 1: Add new findings entries to the nav</strong></p>
+<p>Add these 17 entries under the existing <code>Findings:</code> section in the nav, after the existing entries and before <code>Prompting Strategies</code>:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="w">          </span><span class="c1"># ... existing entries ...</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Fourier Solver (Blank Slate)</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_fourier.md</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Evolutionary Search (Blank Slate)</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_evolutionary.md</span>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Feature Selection (Blank Slate)</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_feature_select.md</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">          </span><span class="c1"># NEW: Phase 2 experiments</span>
+<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Mutual Information</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_mutual_info.md</span>
+<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LASSO</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_lasso.md</span>
+<a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Decision Trees</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_decision_tree.md</span>
+<a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">GF(2) Gaussian Elimination</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_gf2.md</span>
+<a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Random Projections</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_random_proj.md</span>
+<a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Kushilevitz-Mansour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_km.md</span>
+<a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Hebbian Learning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_hebbian.md</span>
+<a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Predictive Coding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_predictive_coding.md</span>
+<a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Equilibrium Propagation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_equilibrium_prop.md</span>
+<a href="#__codelineno-0-15" id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Target Propagation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_target_prop.md</span>
+<a href="#__codelineno-0-16" id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Tiled W1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_tiled_w1.md</span>
+<a href="#__codelineno-0-17" id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Pebble Game Optimizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_pebble_game.md</span>
+<a href="#__codelineno-0-18" id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Binary Weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_binary_weights.md</span>
+<a href="#__codelineno-0-19" id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Genetic Programming</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_genetic_prog.md</span>
+<a href="#__codelineno-0-20" id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">SMT Solver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_smt.md</span>
+<a href="#__codelineno-0-21" id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RL Bit Querying</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_rl.md</span>
+<a href="#__codelineno-0-22" id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">MDL Compression</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/exp_mdl.md</span>
+<a href="#__codelineno-0-23" id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Prompting Strategies</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">findings/prompting-strategies.md</span>
+</code></pre></div>
+<p>Also add the survey page under Research, before Findings:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Survey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">research/survey.md</span>
+</code></pre></div>
+<p><strong>Step 2: Verify mkdocs builds</strong></p>
+<p>Run: <code>cd /Users/yadkonrad/dev_dev/year26/feb26/SutroYaro &amp;&amp; mkdocs build --strict 2&gt;&amp;1 | tail -5</code>
+Expected: no errors about missing files</p>
+<p><strong>Step 3: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>git<span class="w"> </span>add<span class="w"> </span>mkdocs.yml
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"nav: add 17 new findings pages and survey to mkdocs"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-2-write-section-1-tldr">Task 2: Write Section 1 — TL;DR<a class="headerlink" href="#task-2-write-section-1-tldr" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write the TL;DR section</strong></p>
+<p>Start the file with the document header and TL;DR. The ranked table must include all 33 experiments. Pull actual numbers from:
+- <code>DISCOVERIES.md</code> (Phase 1 experiments)
+- <code>results/exp_*/results.json</code> (Phase 2 experiments)
+- The agent completion summaries in this conversation</p>
+<p>The table columns: Rank, Method, Phase, Accuracy (n=20/k=3), Time, ARD, Verdict (one phrase).</p>
+<p>Rank by speed (wall time to solve n=20/k=3). Below the table, three bullets:
+- Fastest: GF(2) at ~500μs
+- Best energy proxy: KM at ARD 1,585 (or RL at ARD 1 for inference)
+- Most general (scales to high k): GF(2) (k-independent) or SGD+curriculum (works without knowing k)</p>
+<p><strong>Anti-slop check:</strong> No "comprehensive," no "noteworthy," no em dashes. Just the table and three bullets.</p>
+<p><strong>Step 2: Verify the file renders</strong></p>
+<p>Run: <code>cd /Users/yadkonrad/dev_dev/year26/feb26/SutroYaro &amp;&amp; mkdocs build --strict 2&gt;&amp;1 | grep survey</code></p>
+<p><strong>Step 3: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add TL;DR with ranked results table"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-3-write-section-2-the-problem">Task 3: Write Section 2 — The Problem<a class="headerlink" href="#task-3-write-section-2-the-problem" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write problem definition</strong></p>
+<p>Append Section 2. Cover:
+- Sparse parity: n-bit input, k secret bits, label = product of secret bit values
+- Why it matters: simplest non-trivial learning task, solvable on 1960s hardware, fast iteration (&lt;2s)
+- ARD definition: average number of intervening float accesses between writing and reading the same buffer
+- Cache model: L1 (64KB), L2 (256KB), HBM. Energy per access: register 5pJ, L1 20pJ, L2 100pJ, HBM 640pJ
+- Constraints: train+eval under 2 seconds, test accuracy above 90%
+- Configs tested: n=20/k=3 (standard), n=50/k=3 (scaling), n=20/k=5 (higher order)</p>
+<p><strong>Anti-slop check:</strong> No "in today's," no "it's worth noting." Define terms once, use them. One paragraph per concept.</p>
+<p><strong>Step 2: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add problem definition section"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-4-write-section-3-phase-1-incremental-improvements">Task 4: Write Section 3 — Phase 1: Incremental Improvements<a class="headerlink" href="#task-4-write-section-3-phase-1-incremental-improvements" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write Phase 1 narrative</strong></p>
+<p>Append Section 3. This tells the story of the 16 original experiments. Structure as a numbered sequence of moves, each with the result and what it told us:</p>
+<ol>
+<li>Yaroslav's Sprint 1: built pure-Python net, added ARD tracking, Claude found gradient fusion (16% cache reuse improvement). But W1 dominates.</li>
+<li>Fix hyperparams (exp1): LR=0.1 not 0.5, n_train=500, batch=32. Solved 20-bit at 99% in epoch 52.</li>
+<li>GrokFast (exp4): counterproductive. 83x more weight movement, slower convergence.</li>
+<li>Single-sample SGD: 5 epochs to 100% with correct hyperparams. Faster than batch.</li>
+<li>Per-layer forward-backward (exp_a, exp_c): 3.8% ARD improvement, identical accuracy.</li>
+<li>Batch ARD (exp_b): raw ARD 17x higher but misleading. Need cache model.</li>
+<li>Cache simulator (exp_cache_ard): L2 eliminates all misses. Single-sample is more L1-friendly. Batch wins on traffic.</li>
+<li>Forward-Forward (exp_e): 25x worse ARD, can't solve 20-bit.</li>
+<li>Weight decay sweep (exp_wd_sweep): WD=0.01 optimal.</li>
+<li>Scaling frontier (exp_d): SGD breaks at n^k &gt; 100K.</li>
+<li>Sign SGD (exp_sign_sgd): 2x faster on k=5.</li>
+<li>Curriculum (exp_curriculum): 14.6x speedup, transfer is instant.</li>
+<li>Per-layer + batch (exp_perlayer_batch): works but 3.7x wall-time overhead.
+14-16. Blank slate: Fourier (13x faster), evolutionary (solves n=50/k=3), feature selection (pairwise provably fails, exhaustive 178x ops speedup).</li>
+</ol>
+<p>The wall: after exp_a showed W1 dominates 75% of reads, the ceiling for operation reordering was ~10%. This motivated the pivot.</p>
+<p>Link each experiment name to its findings page: <code>[exp1](../findings/exp1_fix_hyperparams.md)</code>.</p>
+<p><strong>Anti-slop check:</strong> No "aha moment," no "game-changer." State what was tried, what happened, what it meant. Numbers only.</p>
+<p><strong>Step 2: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add Phase 1 narrative"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-5-write-section-4-phase-2-broad-search">Task 5: Write Section 4 — Phase 2: Broad Search<a class="headerlink" href="#task-5-write-section-4-phase-2-broad-search" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write Phase 2 by taxonomy</strong></p>
+<p>Append Section 4. Five subsections by category. For each category: one paragraph of context, then a table of results, then one paragraph of analysis.</p>
+<p><strong>Algebraic / Exact:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Accuracy</th>
+<th>Time (n=20/k=3)</th>
+<th>ARD</th>
+<th>Scales to high k?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GF(2)</td>
+<td>100%</td>
+<td>~500μs</td>
+<td>minimal</td>
+<td>Yes (k-independent)</td>
+</tr>
+<tr>
+<td>KM</td>
+<td>100%</td>
+<td>0.006s</td>
+<td>1,585</td>
+<td>Yes (poly in 2^k)</td>
+</tr>
+<tr>
+<td>SMT/backtracking</td>
+<td>100%</td>
+<td>0.002s</td>
+<td>minimal</td>
+<td>Depends on solver</td>
+</tr>
+</tbody>
+</table>
+<p>Analysis: parity is linear over GF(2). Linear algebra solves it. KM's influence estimation prunes the search to O(n). These are the correct tools.</p>
+<p><strong>Information-Theoretic:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Accuracy</th>
+<th>Time</th>
+<th>ARD</th>
+<th>Advantage over Fourier?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MI</td>
+<td>100%</td>
+<td>0.033s</td>
+<td>1,147,375</td>
+<td>None (3.7x slower)</td>
+</tr>
+<tr>
+<td>LASSO</td>
+<td>100%</td>
+<td>0.005s</td>
+<td>same</td>
+<td>Competitive speed, robust</td>
+</tr>
+<tr>
+<td>MDL</td>
+<td>100%</td>
+<td>0.27s</td>
+<td>same</td>
+<td>Noise-robust</td>
+</tr>
+<tr>
+<td>Random Proj</td>
+<td>100%</td>
+<td>varies</td>
+<td>same</td>
+<td>Saves 30-70% evaluations, high variance</td>
+</tr>
+</tbody>
+</table>
+<p>Analysis: all solve it but none beat Fourier meaningfully for binary parity. LASSO is competitive. MDL's generality matters if you don't know the labeling function.</p>
+<p><strong>Local Learning Rules:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Best accuracy</th>
+<th>Why it failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hebbian</td>
+<td>~50%</td>
+<td>Only detects 1st/2nd order statistics</td>
+</tr>
+<tr>
+<td>Predictive Coding</td>
+<td>~51-55%</td>
+<td>Generative direction harder; 18x worse ARD</td>
+</tr>
+<tr>
+<td>Equilibrium Prop</td>
+<td>~60%</td>
+<td>2,300x slower; tanh saturation</td>
+</tr>
+<tr>
+<td>Target Prop</td>
+<td>~55%</td>
+<td>Target collapse: input-independent targets</td>
+</tr>
+</tbody>
+</table>
+<p>Analysis: parity is a k-th order interaction. Any method limited to local statistics cannot detect it. This is structural, not a tuning issue.</p>
+<p><strong>Hardware-Aware:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Result</th>
+<th>Key finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiled W1</td>
+<td>ARD worse (+6.8%)</td>
+<td>Software metric can't capture hardware cache benefit</td>
+</tr>
+<tr>
+<td>Pebble Game</td>
+<td>2.2% energy savings</td>
+<td>Fused/per-layer orderings silently break training</td>
+</tr>
+<tr>
+<td>Binary Weights</td>
+<td>Fails n=20</td>
+<td>STE too crude for feature selection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Alternative Framings:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Result</th>
+<th>Key finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GP</td>
+<td>Solves n=20/k=3 only</td>
+<td>Zero-param symbolic solution, but needle-in-haystack for larger n</td>
+</tr>
+<tr>
+<td>RL</td>
+<td>Solves all</td>
+<td>k reads per prediction (theoretical minimum inference ARD)</td>
+</tr>
+<tr>
+<td>Decision Trees</td>
+<td>92.5% best</td>
+<td>Greedy splits fail for parity</td>
+</tr>
+</tbody>
+</table>
+<p>Link each experiment to its findings page.</p>
+<p><strong>Anti-slop check:</strong> No "mixed results," no "interestingly." Tables carry the data. Analysis paragraphs explain the structural reason.</p>
+<p><strong>Step 2: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add Phase 2 broad search results"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-6-write-section-5-results-leaderboard">Task 6: Write Section 5 — Results Leaderboard<a class="headerlink" href="#task-6-write-section-5-results-leaderboard" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write three ranked tables</strong></p>
+<p>Append Section 5. Three tables, each sorted by one metric. Include all 33 experiments (or all that apply). Top 10 per table is fine if 33 rows is too long.</p>
+<p>Table 1: <strong>By speed</strong> (wall time, n=20/k=3). Columns: Rank, Method, Time, Note.
+Table 2: <strong>By energy proxy</strong> (weighted ARD, single training step). Columns: Rank, Method, ARD, Note.
+Table 3: <strong>By generality</strong> (largest config solved). Columns: Rank, Method, Max config, Note.</p>
+<p>Pull numbers from results JSONs and findings docs. Be precise.</p>
+<p><strong>Step 2: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add results leaderboard"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-7-write-section-6-decision-framework">Task 7: Write Section 6 — Decision Framework<a class="headerlink" href="#task-7-write-section-6-decision-framework" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write parity-specific flowchart</strong></p>
+<p>Append Section 6a. Use a mermaid flowchart:</p>
+<pre class="mermaid"><code>flowchart TD
+    A[New sparse parity problem] --&gt; B{Is k known?}
+    B --&gt;|Yes| C{Is k ≤ 7?}
+    B --&gt;|No| D[SGD + curriculum learning]
+    C --&gt;|Yes| E{Need noise robustness?}
+    C --&gt;|No| F[SGD + curriculum + Sign SGD]
+    E --&gt;|Yes| G[MDL or LASSO]
+    E --&gt;|No| H{Minimize energy?}
+    H --&gt;|Speed| I[GF2 Gaussian elimination]
+    H --&gt;|ARD| J[Kushilevitz-Mansour]
+    H --&gt;|Inference reads| K[RL bit querying]
+</code></pre>
+<p><strong>Step 2: Write generalized principles</strong></p>
+<p>Append Section 6b. Numbered list of transferable lessons. Each principle is one sentence followed by the experiment(s) that proved it. Target 8-12 principles. Examples:</p>
+<ol>
+<li>Check for algebraic structure before reaching for gradient descent. (GF(2) solves in microseconds what SGD takes seconds for.)</li>
+<li>Raw ARD is misleading without a cache model. (exp_cache_ard: L2 eliminates all misses.)</li>
+<li>Local learning rules fail when the signal lives in high-order interactions. (Hebbian, PC, EP, TP all at chance.)</li>
+<li>One tensor can dominate your energy budget. Measure before optimizing. (exp_a: W1 = 75% of reads.)</li>
+<li>Curriculum learning transfers when the hard part is feature selection, not function complexity. (exp_curriculum: &gt;95% in epoch 1 after expansion.)</li>
+<li>Software metrics and hardware behavior diverge. (Tiled W1 worsened software ARD but would improve L1 cache performance.)</li>
+<li>Greedy methods fail for parity. Any method that tests one variable at a time gets zero signal. (Decision trees, greedy feature selection, Hebbian.)</li>
+<li>The problem you think is hard may just be misconfigured. (20-bit "hard problem" was LR=0.5 instead of 0.1.)</li>
+</ol>
+<p><strong>Step 3: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add decision framework"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-8-write-section-7-the-ai-research-process">Task 8: Write Section 7 — The AI Research Process<a class="headerlink" href="#task-8-write-section-7-the-ai-research-process" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write 7a — the agentic loop</strong></p>
+<p>Append Section 7a. Describe the experiment infrastructure:
+- Template file (<code>_template.py</code>): baseline vs experiment, comparison, JSON output
+- Shared modules: <code>config.py</code>, <code>data.py</code>, <code>model.py</code>, <code>tracker.py</code>, <code>metrics.py</code>, <code>cache_tracker.py</code>
+- Knowledge accumulation: <code>DISCOVERIES.md</code> as the "read before starting" file
+- Output pipeline: experiment.py → results.json → findings.md → docs/findings/ → mkdocs nav</p>
+<p>Include the template structure (abbreviated). Reference <code>findings/prompting-strategies.md</code> for detailed prompting notes.</p>
+<p><strong>Step 2: Write 7b — parallel dispatch</strong></p>
+<p>Append Section 7b. Describe the Phase 2 parallel agent run:
+- 17 independent agents dispatched simultaneously
+- Each agent received: approach description, template pattern, shared module APIs, configs to run, findings format
+- Completion times: fastest ~2.5 minutes (MI, MDL), slowest ~38 minutes (Pebble Game)
+- Failure modes encountered:
+  - Data generation bugs (different seeds for train/test producing different secrets)
+  - Even-k parity inversion (GF(2) agent discovered and fixed)
+  - Target collapse (Target Prop agent diagnosed structural failure)
+  - Tanh saturation (Equilibrium Prop)
+  - Value-aware state explosion (RL agent pivoted to value-blind)
+- All agents produced: working Python file, results JSON, findings markdown in both locations</p>
+<p><strong>Step 3: Write 7c — what worked and what didn't</strong></p>
+<p>Append Section 7c. Cover:
+- Literature-first prompting: giving agents the theoretical context (e.g., "parity is linear over GF(2)") led to correct implementations. Without it, agents would try generic approaches.
+- The diagnose-then-fix pattern: agents that hit failures and explained WHY produced better findings than ones that just reported numbers.
+- DISCOVERIES.md prevented repeated mistakes: no agent tried LR=0.5 or GrokFast because the file said those were known-bad.
+- Anti-slop guide for findings: consistent format, no filler, actual numbers.
+- Specific prompt patterns that worked: "It's OK if this fails. Document WHY it fails." produced better negative results. "Run and verify before writing findings" prevented hallucinated numbers.
+- What didn't work: Pyright diagnostics from missing PYTHONPATH (harmless but noisy). Some agents had unused variable warnings. Two agents had bugs that required code fixes during execution.</p>
+<p><strong>Step 4: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add AI research process methodology"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-9-write-section-8-appendix-finalize">Task 9: Write Section 8 — Appendix + finalize<a class="headerlink" href="#task-9-write-section-8-appendix-finalize" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/research/survey.md</code></p>
+<p><strong>Step 1: Write appendix</strong></p>
+<p>Append Section 8. Two parts:
+- Links to all 33 findings pages (grouped by phase)
+- Links to code: <code>src/sparse_parity/experiments/</code> directory, <code>results/</code> directory</p>
+<p><strong>Step 2: Add document header</strong></p>
+<p>Go back to the top and add:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gh"># Sparse Parity: A Practitioner's Field Guide</span>
+<a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>
+<a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a>33 experiments across 17 methods for energy-efficient learning on the simplest non-trivial task.
+<a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a>
+<a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="gs">**Sutro Group, Challenge #1**</span> | March 2026 | [<span class="nt">Source code</span>](<span class="na">https://github.com/0bserver07/SutroYaro</span>)
+</code></pre></div></p>
+<p><strong>Step 3: Full anti-slop review</strong></p>
+<p>Read the complete document and check against the anti-slop guide:
+- No em dashes (replace with commas or periods)
+- No Tier 1 words (delve, landscape, tapestry, showcase, etc.)
+- No throat-clearing openers
+- No rule of three (use two items)
+- No binary contrasts ("Not X. Y.")
+- No "serves as" / "stands as" (use "is")
+- Sentence length varies
+- No paragraph ends with a punchy one-liner repeatedly</p>
+<p><strong>Step 4: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/research/survey.md
+<a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: add appendix and finalize"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-10-copy-to-repo-root-update-discoveriesmd-update-research-index">Task 10: Copy to repo root + update DISCOVERIES.md + update research index<a class="headerlink" href="#task-10-copy-to-repo-root-update-discoveriesmd-update-research-index" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>survey.md</code> (repo root, copy of <code>docs/research/survey.md</code>)
+- Modify: <code>DISCOVERIES.md</code>
+- Modify: <code>docs/research/index.md</code></p>
+<p><strong>Step 1: Copy survey to repo root</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a>cp<span class="w"> </span>docs/research/survey.md<span class="w"> </span>survey.md
+</code></pre></div>
+<p><strong>Step 2: Update DISCOVERIES.md</strong></p>
+<p>Add the 17 new experiments to the Proven Facts sections and Experiment Log table. Group by category. Add new sections for:
+- Algebraic/Exact methods
+- Information-Theoretic methods
+- Local Learning Rules (and why they fail)
+- Hardware-Aware approaches
+- Alternative Framings</p>
+<p>Update Open Questions: mark answered ones, add new ones from the 17 experiments.</p>
+<p><strong>Step 3: Update research index</strong></p>
+<p>In <code>docs/research/index.md</code>, add a link to the survey at the top. Update the checklist to mark the 17 proposed approaches as completed. Add the new findings to the topics list.</p>
+<p><strong>Step 4: Commit</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a>git<span class="w"> </span>add<span class="w"> </span>survey.md<span class="w"> </span>DISCOVERIES.md<span class="w"> </span>docs/research/index.md
+<a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: standalone copy, update DISCOVERIES.md and research index"</span>
+</code></pre></div>
+<hr/>
+<h3 id="task-11-final-verification">Task 11: Final verification<a class="headerlink" href="#task-11-final-verification" title="Permanent link">¶</a></h3>
+<p><strong>Step 1: Build mkdocs and check for errors</strong></p>
+<p>Run: <code>cd /Users/yadkonrad/dev_dev/year26/feb26/SutroYaro &amp;&amp; mkdocs build --strict 2&gt;&amp;1 | tail -20</code>
+Expected: clean build, no warnings about missing pages</p>
+<p><strong>Step 2: Verify all 33 findings pages render</strong></p>
+<p>Run: <code>ls docs/findings/exp_*.md | wc -l</code>
+Expected: 30 (16 original + 14 new with exp_ prefix)</p>
+<p>Run: <code>ls docs/findings/*.md | wc -l</code>
+Expected: 33 (30 + sprint-1-findings.md + exp1_fix_hyperparams.md + prompting-strategies.md)</p>
+<p><strong>Step 3: Spot-check survey links</strong></p>
+<p>Open <code>docs/research/survey.md</code> and verify at least 5 internal links resolve to real files.</p>
+<p><strong>Step 4: Commit any fixes</strong></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+<a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"survey: fix any broken links or build issues"</span>
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/0bserver07/SutroYaro" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://t.me/sutro_group" rel="noopener" target="_blank" title="t.me">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 8a248 248 0 1 0 0 496 248 248 0 1 0 0-496m115 168.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7.2-.7.3-3.1-1.2-4.4s-3.6-.8-5.1-.5c-2.2.5-37.1 23.5-104.6 69.1-9.9 6.8-18.9 10.1-26.9 9.9-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3.6-4.5 6.7-9 18.4-13.7 72.3-31.5 120.5-52.3 144.6-62.3 68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6.5 9.6 2.9 2 1.7 3.2 4.1 3.5 6.7.5 3.2.6 6.5.4 9.8z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script></body>
+</html>
