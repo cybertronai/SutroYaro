@@ -57,7 +57,7 @@ Each experiment produces:
 
 ## How Agent-Driven Research Works
 
-![Agent Workflow](docs/diagrams/agent-workflow.drawio.svg)
+![Agent Workflow](docs/diagrams/agent-workflow.svg)
 
 The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads those first, surveys the problem space, then dispatches isolated sub-agents in parallel. Each sub-agent gets one approach, the experiment template, and shared modules. No sub-agent sees another's results or the knowledge base. Read-only access to benchmark code prevents agents from gaming the metrics. Outputs feed back into DISCOVERIES.md for the next round.
 
