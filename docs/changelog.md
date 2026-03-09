@@ -2,6 +2,18 @@
 
 All notable changes to this research workspace.
 
+## [0.12.0] - 2026-03-09
+
+### GF(2) noise tolerance experiment
+
+- Added exp_gf2_noise experiment testing algebraic solver with label noise
+- Key finding: Basic GF(2) fails at 1% noise; robust subset-sampling recovers up to 10-15%
+- New experiment: `src/sparse_parity/experiments/exp_gf2_noise.py`
+- Findings: `findings/exp_gf2_noise.md`
+- Updated DISCOVERIES.md with noise tolerance results
+
+---
+
 ## [0.11.0] - 2026-03-07
 
 ### Homepage and documentation refresh
