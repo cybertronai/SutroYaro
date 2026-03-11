@@ -1,7 +1,7 @@
 # Task 6: Prep homework for next Monday
 
 **Priority**: HIGH
-**Status**: TODO
+**Status**: IN PROGRESS
 **Source**: Meeting #8 homework, The Bigger Picture
 
 ## Context
@@ -18,11 +18,20 @@ Yad already presented the first video. For next Monday we need:
 
 ## Tasks
 
-- [ ] Complete tasks 1-2 (DMC metric, stack distance) so we have new numbers
-- [ ] Review and merge Andy's PRs (#2, #3) if they pass review
-- [ ] Prepare a short summary of what changed since Meeting #8
+- [x] Complete task 1: DMC metric added. Baseline: ARD 4,104 / DMC 300,298
+- [x] Complete task 2: Stack distance confirmed already implemented
+- [x] Complete task 4: Germain depth-1 reproduced. ARD/float identical (0.36). Not a locality win, just smaller model.
+- [x] Complete task 5: Linear classifier paper reviewed. CoT-based, not applicable to our one-shot benchmark.
+- [ ] Review and merge Andy's PRs (#2, #3) - need gh auth to merge
+- [ ] Prepare summary of what changed since Meeting #8
 - [ ] Record a follow-up demo if appropriate
-- [ ] Update the survey page with any new experiments
+
+## What to present Monday
+
+1. **DMC metric** - adopted from Yaroslav's Knowledge Sprint #2. Now tracking alongside ARD. Based on Ding et al. (arXiv:2312.14441). DMC = sum(sqrt(stack_distance)).
+2. **Germain's depth-1 analysis** - reproduced the result, ARD drops 68% but so do total floats. ARD/float is identical. The improvement is from doing less work, not better locality.
+3. **Collaboration workflow** - Andy opened 2 PRs and 1 issue. Reviewed as Claude Code. Sync runbook created for weekly/daily cadence.
+4. **Task tracker** - 6 tasks extracted from Meeting #8 feedback, 4 completed, 1 reviewed, 1 in progress.
 
 ## References
 

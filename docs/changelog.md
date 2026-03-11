@@ -11,6 +11,8 @@ All notable changes to this research workspace.
 - Added metric isolation rule to LAB.md (rule #9): agents cannot modify measurement code
 - Created task tracker in `docs/tasks/` with 6 tasks from Meeting #8 feedback
 - Updated baselines table in LAB.md with DMC column
+- Reproduced Germain's hidden=64 result: ARD drops 68% but ARD/float is identical (0.36). Smaller model, not better locality.
+- Reviewed linear classifier paper (arXiv:2309.06979): CoT-based, not applicable to one-shot sparse parity benchmark
 
 ---
 

@@ -1,7 +1,7 @@
 # Task 4: Reproduce Germain's depth-1/hidden-64 ARD result
 
 **Priority**: MEDIUM
-**Status**: TODO
+**Status**: DONE
 **Source**: Yaroslav verification doc, Meeting #8
 
 ## Context
@@ -23,6 +23,18 @@ We need to check: is this a real energy improvement, or just doing less computat
 - [ ] Compare ARD per unit of useful work (normalize by total_accesses or by accuracy)
 - [ ] Check if it solves n=20/k=3 reliably (Germain's was on a simpler config?)
 - [ ] Write findings
+
+## Results (5 seeds, n=20/k=3)
+
+| Config | Accuracy | ARD | DMC | Total Floats |
+|--------|----------|-----|-----|-------------|
+| hidden=200 (baseline) | 100% | 6,589 | 740,165 | 18,308 |
+| hidden=64 (Germain) | 100% | 2,129 | 135,724 | 5,904 |
+| **Improvement** | - | **67.7%** | **81.7%** | **67.7%** |
+
+**Verdict**: Yaroslav was right to be skeptical. ARD/float is identical (0.360 vs 0.361). The ARD improvement is entirely explained by the model being smaller (fewer parameters = fewer floats to access). The locality per unit of work is unchanged. Hidden=64 is not a locality win, it's just doing less computation. Both solve n=20/k=3 at 100%.
+
+This is still useful information: for sparse parity, hidden=64 is sufficient and uses 3x less energy. But it's not transferable to harder problems where you need more capacity.
 
 ## References
 
