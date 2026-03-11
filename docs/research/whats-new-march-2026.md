@@ -90,22 +90,20 @@ The longer version, with examples from our 33 experiments: [Research as Navigati
 
 One concrete example: we ran 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation). All failed for the same reason -- parity is invisible to methods limited to local statistics. A smarter navigation protocol would have tested 1, understood why it failed, and skipped the other 3. That's the difference between running experiments and navigating a research space.
 
-## Demo
+## Status
 
-```bash
-# The locked harness (solves 20-bit parity in 509 microseconds)
-PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3 --json
+What's working:
+- Locked harness, all 5 methods verified
+- Pre-flight checks (env + baselines)
+- Experiment log with all 33 experiments
+- Progress report and chart generation
+- Tool-agnostic launcher (Claude Code and Gemini CLI tested)
+- Merge workflow for cross-researcher results
 
-# 33 experiments at a glance
-bin/analyze-log
-
-# Progress chart (ARD dropped from 17,000 to 1 across 33 experiments)
-bin/analyze-log --plot
-open results/progress.png
-
-# Five tools, one command
-bin/run-agent --help
-```
+Work in progress:
+- End-to-end test of a full autonomous cycle (harness and launcher work individually, full loop not yet run overnight)
+- Codex CLI and OpenCode integration (written from docs, not tested locally yet)
+- nanoGPT as the next challenge (protocol supports it, harness doesn't yet)
 
 ## All the docs
 
