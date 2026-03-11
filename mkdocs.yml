@@ -78,6 +78,7 @@ nav:
           - Agent CLI Guide: tooling/agent-cli-guide.md
   - Research:
       - Overview: research/index.md
+      - "What's New (March 2026)": research/whats-new-march-2026.md
       - Research as Navigation: research/navigation-thesis.md
       - Peer Research Protocol: research/peer-research-protocol.md
       - Literature Review: research/sparse-parity-literature.md
