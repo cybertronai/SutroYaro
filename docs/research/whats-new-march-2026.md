@@ -1,83 +1,120 @@
 # What's New (March 2026)
 
-Quick summary for the group. If you want to run experiments with your own AI tool, start here.
+For the Sutro Group. If you want to run experiments on sparse parity (or the next challenge) using your own AI tool, this page tells you how.
 
-## What changed
+## What we added
 
-We built autonomous research infrastructure that any AI tool can use. Before this, experiments were run manually and results lived in scattered session docs. Now there's a protocol, a locked harness, and a machine-readable log.
+Before: each person ran experiments with their own tool, measured things differently, and results lived in scattered docs. Germain's agents rewrote the measurement code to get better scores instead of improving the algorithm.
 
-## The 30-second version
+Now: everyone runs against the same locked harness. The harness measures ARD, DMC, and wall-clock time identically for every tool. Results go into one shared log. Nobody can game the metric.
 
-1. A locked evaluation harness (`src/harness.py`) measures ARD, DMC, and timing the same way for everyone
-2. An agent protocol (`AGENT.md`) tells any AI tool how to run experiments
-3. A bash launcher (`bin/run-agent`) works with Claude Code, Gemini CLI, Codex CLI, OpenCode, or any CLI
-4. All 33 experiments are in a machine-readable log (`research/log.jsonl`)
-5. A progress report and chart are one command away (`bin/analyze-log`)
+The system has five parts:
 
-## How to try it
+- **`src/harness.py`** -- locked evaluation. Runs GF(2), SGD, KM, Fourier, or SMT and returns accuracy, ARD, DMC, timing. Agents cannot modify this file.
+- **`AGENT.md`** -- the protocol. Any AI tool reads this and knows what to do: pick a hypothesis, run it, classify the result (WIN/LOSS/INVALID), log it, repeat.
+- **`bin/run-agent`** -- a bash launcher that works with Claude Code, Gemini CLI, Codex CLI, OpenCode, or any other CLI. No hooks, no special setup.
+- **`research/log.jsonl`** -- machine-readable log of all 33 experiments so far. One JSON line per experiment.
+- **`bin/analyze-log`** -- prints a progress report and generates a chart.
+
+## Get started
 
 ```bash
-# Pull the latest
+# First time
+git clone https://github.com/0bserver07/SutroYaro.git
+cd SutroYaro
+
+# Already have the repo
+cd SutroYaro
 git pull
 
-# Check your environment
+# Check your environment (needs Python 3.8+ and numpy)
 PYTHONPATH=src python3 checks/env_check.py
 PYTHONPATH=src python3 checks/baseline_check.py
 
-# See the 33-experiment progress report
+# See what 33 experiments look like
 bin/analyze-log
-
-# Run one experiment with your tool of choice
-bin/run-agent --tool gemini --max 1
-bin/run-agent --tool codex --max 1
-bin/run-agent --tool claude --max 1
-
-# Or overnight (10 cycles, 5 experiments each)
-bin/run-agent --tool gemini --loop 10 --max 5
 ```
 
-No special setup beyond having your AI CLI installed and authenticated.
+## Run experiments with your tool
 
-## What tool should I use?
-
-Any of them. The protocol is the same regardless. Pick whatever you already have:
-
-| Tool | Install | Run |
-|------|---------|-----|
-| Claude Code | `npm i -g @anthropic-ai/claude-code` | `bin/run-agent --tool claude` |
-| Gemini CLI | `npm i -g @google/gemini-cli` | `bin/run-agent --tool gemini` |
-| Codex CLI | `npm i -g @openai/codex` | `bin/run-agent --tool codex` |
-| OpenCode | `brew install opencode` | `bin/run-agent --tool opencode` |
-| Antigravity | Download from antigravity.google | Open project, tell agent "Read AGENT.md" |
-
-Full setup details: [Agent CLI Guide](../tooling/agent-cli-guide.md)
-
-## How results get shared
-
-Each researcher runs experiments locally and produces log entries in `research/log.jsonl`. Submit a PR to merge your results into the shared log. The harness ensures everyone's numbers are comparable.
+Pick whichever AI CLI you already have installed:
 
 ```bash
-# After your run, check your results
-bin/analyze-log
-
-# Submit via PR -- your log entries merge into the shared log
+bin/run-agent --tool claude --max 5       # Claude Code
+bin/run-agent --tool gemini --max 5       # Gemini CLI
+bin/run-agent --tool codex --max 5        # Codex CLI
+bin/run-agent --tool opencode --max 5     # OpenCode
 ```
 
-## Key pages
+For Antigravity (which is an IDE, not a CLI):
 
-- [Agent CLI Guide](../tooling/agent-cli-guide.md) -- setup for each tool
-- [Peer Research Protocol](peer-research-protocol.md) -- full design, nanoGPT proposal
-- [Research as Navigation](navigation-thesis.md) -- why we built it this way
-- [Practitioner's Field Guide](survey.md) -- all 33 experiments ranked
+```bash
+agy .
+# Then tell the agent: "Read AGENT.md. Follow its protocol."
+```
 
-## For Friday's demo
+For overnight runs, looped mode runs multiple short cycles. If one crashes, the next picks up from the file state:
 
-The demo flow:
+```bash
+bin/run-agent --tool gemini --loop 10 --max 5    # 10 cycles, up to 5 experiments each
+```
 
-1. `PYTHONPATH=src python3 src/harness.py --method gf2 --json` -- the locked harness in action
-2. `bin/analyze-log` -- 33 experiments, 36.4% win rate, best ARD = 1 (RL)
-3. `bin/analyze-log --plot` then `open results/progress.png` -- the ARD progress chart
-4. `bin/run-agent --help` -- show 5 supported tools
-5. Walk through `AGENT.md` -- the protocol any AI follows
+Install links if you don't have one yet:
 
-The pitch: "The tool doesn't matter. The protocol does. Any AI CLI can follow it. Results accumulate across everyone's runs."
+| Tool | Install |
+|------|---------|
+| Claude Code | `npm i -g @anthropic-ai/claude-code` |
+| Gemini CLI | `npm i -g @google/gemini-cli` |
+| Codex CLI | `npm i -g @openai/codex` |
+| OpenCode | `brew install opencode` |
+| Antigravity | [antigravity.google](https://antigravity.google) |
+
+Full setup and customization options per tool: [Agent CLI Guide](../tooling/agent-cli-guide.md)
+
+## Share your results
+
+After running experiments, your results are in `research/log.jsonl`. To merge them into the shared log:
+
+1. Fork the repo (or create a branch)
+2. Run your experiments
+3. Submit a PR with your updated `log.jsonl` and any findings docs
+4. `bin/merge-findings` deduplicates and integrates
+
+The locked harness is what makes this work. Everyone measures the same way, so Yad's Claude Code results are directly comparable to Yaroslav's Gemini results.
+
+## Why we built it this way
+
+The short version: research is about finding the right experiment to run, not just running experiments faster. A coding agent (Claude Code, Gemini CLI, Codex, etc.) can read what's been tried, pick the next hypothesis, run it, log the result, and repeat. That loop is what makes autonomous research possible.
+
+The longer version, with examples from our 33 experiments: [Research as Navigation](navigation-thesis.md)
+
+One concrete example: we ran 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation). All failed for the same reason -- parity is invisible to methods limited to local statistics. A smarter navigation protocol would have tested 1, understood why it failed, and skipped the other 3. That's the difference between running experiments and navigating a research space.
+
+## Demo
+
+```bash
+# The locked harness (solves 20-bit parity in 509 microseconds)
+PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3 --json
+
+# 33 experiments at a glance
+bin/analyze-log
+
+# Progress chart (ARD dropped from 17,000 to 1 across 33 experiments)
+bin/analyze-log --plot
+open results/progress.png
+
+# Five tools, one command
+bin/run-agent --help
+```
+
+## All the docs
+
+| Page | What it covers |
+|------|---------------|
+| [Agent CLI Guide](../tooling/agent-cli-guide.md) | Setup, install, customization for each AI tool |
+| [Peer Research Protocol](peer-research-protocol.md) | Full design: two-layer architecture, log schema, nanoGPT migration |
+| [Research as Navigation](navigation-thesis.md) | The thesis: research is navigation, coding agents are the right tool (ELI5 through PhD) |
+| [Practitioner's Field Guide](survey.md) | All 33 experiments ranked with methodology |
+| [AGENT.md](https://github.com/0bserver07/SutroYaro/blob/main/AGENT.md) | The protocol any AI tool follows |
+| [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) | Every proven fact from 33 experiments |
+| [CONTRIBUTING.md](https://github.com/0bserver07/SutroYaro/blob/main/CONTRIBUTING.md) | How to submit your results via PR |
