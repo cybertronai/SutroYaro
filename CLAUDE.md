@@ -89,6 +89,9 @@ bun run sync_telegram.ts
 - **Sync Google Docs** if meeting notes may have changed: `python3 src/sync_google_docs.py`
 - **Sync Telegram** if group discussion may have new messages: `bun run sync_telegram.ts`
 - **Check `docs/index.md`** if findings or status changed -- homepage should reflect current state
+- **Check GitHub** for PRs/issues: `gh pr list --repo 0bserver07/SutroYaro`
+
+Full sync workflow: [docs/tooling/sync-runbook.md](docs/tooling/sync-runbook.md)
 
 ## People
 

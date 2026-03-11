@@ -2,6 +2,19 @@
 
 All notable changes to this research workspace.
 
+## [0.13.0] - 2026-03-10
+
+### Meeting #8 docs and sync runbook
+
+- Synced 6 new Google Docs from Meeting #8 (09 Mar 2026): notes, AI notes, Yaroslav knowledge sprint 2, Yaroslav GF(2) verification, Michael's Claude approach, The Bigger Picture roadmap
+- Added all new docs to MkDocs nav with cross-reference headers
+- Updated meetings index and notes pages with Meeting #8 summary
+- Created sync runbook (`docs/tooling/sync-runbook.md`) with weekly/daily/per-session checklists
+- Added GitHub PR/issue checking to CLAUDE.md "Before Pushing" checklist
+- Total synced Google Docs: 15 (up from 9)
+
+---
+
 ## [0.11.0] - 2026-03-07
 
 ### Homepage and documentation refresh

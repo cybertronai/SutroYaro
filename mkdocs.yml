@@ -74,6 +74,7 @@ nav:
           - Skills & Plugins: tooling/skills.md
           - Anti-Slop Guide: tooling/anti-slop-guide.md
           - Automation Scripts: tooling/automation.md
+          - Sync Runbook: tooling/sync-runbook.md
   - Research:
       - Overview: research/index.md
       - Literature Review: research/sparse-parity-literature.md
@@ -131,6 +132,12 @@ nav:
           - Meeting 6 - Emmett Results: google-docs/meeting-6-emmett-results.md
           - Meeting 6 - Notes: google-docs/meeting-6-notes.md
           - Meeting 7 - Notes: google-docs/meeting-7-notes.md
+          - Meeting 8 - Notes: google-docs/meeting-8-notes.md
+          - Meeting 8 - AI Notes: google-docs/meeting-8-ai-notes.md
+          - Yaroslav Knowledge Sprint 2: google-docs/yaroslav-knowledge-sprint-2.md
+          - Yaroslav Verification (GF2): google-docs/yaroslav-verification.md
+          - Michael's Claude Approach: google-docs/michael-claude-approach.md
+          - The Bigger Picture: google-docs/bigger-picture.md
           - How to Search: google-docs/how-to-search.md
   - Changelog: changelog.md
 
