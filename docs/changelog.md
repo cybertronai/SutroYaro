@@ -2,6 +2,18 @@
 
 All notable changes to this research workspace.
 
+## [0.14.0] - 2026-03-11
+
+### Feedback tasks from Meeting #8
+
+- Added Data Movement Complexity (DMC) metric to MemTracker (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Baseline: ARD 4,104 / DMC 300,298.
+- Confirmed stack distance already implemented (tracker clock advances by buffer size, not instruction count)
+- Added metric isolation rule to LAB.md (rule #9): agents cannot modify measurement code
+- Created task tracker in `docs/tasks/` with 6 tasks from Meeting #8 feedback
+- Updated baselines table in LAB.md with DMC column
+
+---
+
 ## [0.13.0] - 2026-03-10
 
 ### Meeting #8 docs and sync runbook
