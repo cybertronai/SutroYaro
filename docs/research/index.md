@@ -2,6 +2,10 @@
 
 Research notes and literature review for the Sutro Group.
 
+## Research as Navigation
+
+**[Research as Navigation](navigation-thesis.md)** is the thesis behind this project: research is primarily a navigation problem (finding the right question, method, comparison), and coding agents are the first tool that can navigate autonomously because they read state, execute experiments, write results, and loop. The page walks through this idea from ELI5 to PhD level, with examples from our 33 experiments.
+
 ## Autonomous Research Infrastructure
 
 **[Peer Research Protocol](peer-research-protocol.md)** describes how SutroYaro runs autonomous, multi-researcher experiments. Multiple people use different AI tools (Claude Code, Replit, Gemini) on the same challenge. A locked evaluation harness ensures comparable results. A machine-readable experiment log accumulates findings across researchers.

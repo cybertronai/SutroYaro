@@ -75,8 +75,10 @@ nav:
           - Anti-Slop Guide: tooling/anti-slop-guide.md
           - Automation Scripts: tooling/automation.md
           - Sync Runbook: tooling/sync-runbook.md
+          - Agent CLI Guide: tooling/agent-cli-guide.md
   - Research:
       - Overview: research/index.md
+      - Research as Navigation: research/navigation-thesis.md
       - Peer Research Protocol: research/peer-research-protocol.md
       - Literature Review: research/sparse-parity-literature.md
       - Proposed Approaches: research/proposed-approaches.md
