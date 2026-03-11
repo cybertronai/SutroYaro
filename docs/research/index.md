@@ -35,6 +35,8 @@ Research notes and literature review for the Sutro Group.
 | GrokFast (Lee et al.) | 2024 | EMA gradient filter, counterproductive in our regime | [github](https://github.com/ironjr/grokfast) |
 | Feature Learning Dynamics under Grokking | 2024 | NTK eigenfunctions align with secret indices | [openreview](https://openreview.net/forum?id=gciHssAM8A) |
 | Bill Daly - Energy in GPUs | 2024 | Memory cost dominates energy | [YouTube](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457) |
+| DMC4ML (Ding et al.) | 2023 | Data Movement Complexity for ML | [arXiv](https://arxiv.org/abs/2312.14441) |
+| Demmel - Communication-Avoiding Algorithms | 2013 | Lower bounds on data movement | [slides](https://simons.berkeley.edu/sites/default/files/docs/827/demmelslides.pdf) |
 
 ## Other Resources
 
@@ -52,6 +54,16 @@ Research notes and literature review for the Sutro Group.
 ### Average Reuse Distance (ARD)
 
 Proxy metric for energy efficiency. Small ARD means data stays in fast cache. Large ARD means data must be fetched from external memory (HBM). Our CacheTracker extends this with LRU cache simulation for realistic estimates.
+
+### Data Movement Complexity (DMC)
+
+Added in v0.14.0 based on Yaroslav's [Knowledge Sprint #2](../google-docs/yaroslav-knowledge-sprint-2.md). DMC = sum of sqrt(stack_distance) for all float accesses (Ding et al., [arXiv:2312.14441](https://arxiv.org/abs/2312.14441)). Unlike ARD (which averages), DMC penalizes long-distance fetches sub-linearly through the square root, matching the physics of 2D chip layouts. The LRU cache lemma guarantees LRU is within 2x of optimal, so our LRU-based tracker gives realistic estimates.
+
+Baseline (n=20/k=3): ARD 4,104 / DMC 300,298.
+
+### The Roadmap
+
+Yaroslav's [bigger picture](../google-docs/bigger-picture.md) defines three axes: **process** (agent harnesses), **metric** (ARD to DMC to GPU), **problem** (sparse parity to nanoGPT). Take small steps along one axis at a time. The final exam is energy-efficient nanoGPT training.
 
 ### The Giraffe Nerve Analogy
 
