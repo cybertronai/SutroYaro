@@ -42,13 +42,15 @@ while [[ $# -gt 0 ]]; do
             echo "  --loop N        Run N cycles (default: 1). Each cycle is a fresh AI session."
             echo "  --max N         Max experiments per cycle (default: 20)"
             echo "  --tool NAME     AI CLI to use (default: claude)"
-            echo "                    claude  - Claude Code CLI (claude -p)"
-            echo "                    gemini  - Gemini CLI (gemini -p --yolo)"
-            echo "                    custom  - Set AI_CMD env var to your CLI command"
+            echo "                    claude   - Claude Code (claude -p)"
+            echo "                    gemini   - Gemini CLI (gemini -p --yolo)"
+            echo "                    codex    - Codex CLI (codex -q)"
+            echo "                    opencode - OpenCode (opencode)"
+            echo "                    custom   - Set AI_CMD env var to your CLI command"
             echo "  --researcher ID Researcher ID for log entries (default: yad-agent)"
             echo ""
-            echo "Note: Antigravity (agy) is an IDE, not a CLI. Use it manually by opening"
-            echo "the project and following AGENT.md, or use Gemini CLI for headless runs."
+            echo "Note: Antigravity (agy) is an IDE, not a CLI. Use it manually by"
+            echo "opening the project and following AGENT.md."
             exit 0
             ;;
         *)          echo "Unknown option: $1"; exit 1 ;;
@@ -100,6 +102,14 @@ launch_cycle() {
             ;;
         gemini)
             gemini -p "$prompt" --yolo \
+                2>&1 | tee "$logfile"
+            ;;
+        codex)
+            codex -q "$prompt" \
+                2>&1 | tee "$logfile"
+            ;;
+        opencode)
+            opencode "$prompt" \
                 2>&1 | tee "$logfile"
             ;;
         *)

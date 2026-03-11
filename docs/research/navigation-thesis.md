@@ -8,15 +8,15 @@ Research is primarily a navigation problem -- finding the right question and the
 
 ## ELI5: What does this mean?
 
-Imagine you're lost in a forest and you need to find a specific tree. You have two options:
+Imagine you're looking for buried treasure in a big field. You have two options:
 
-**Option A**: Walk in a straight line and hope you're going the right direction. (This is optimization -- pick a method, tune it, push harder.)
+**Option A**: Pick a spot and dig deeper. (This is optimization -- pick a method, tune it, push harder.)
 
-**Option B**: Climb the nearest hill, look around, pick a direction based on what you see, walk there, climb again, look again. (This is navigation -- survey the space, pick the most promising direction, check if it worked, repeat.)
+**Option B**: Walk around the field first, look for clues, then decide where to dig. (This is navigation -- survey the space, pick the most promising spot, check if it worked, move on.)
 
-Most AI research tools do Option A. They take one approach and optimize it. Our system does Option B. The agent reads what's been tried (climbs the hill), picks the next experiment (chooses a direction), runs it (walks there), and checks the result (looks around again).
+Most AI research tools do Option A. They take one approach and optimize it. Our system does Option B. The agent reads what's been tried (surveys the field), picks the next experiment (chooses where to dig), runs it (digs), and checks the result (anything there?).
 
-The hard part is the hill-climbing, the navigation. Once you know what to try, running the experiment is easy. The 33 experiments in this project took 3 days of agent time. Figuring out *which* 33 to run, in *what order*, with *what comparisons* -- that's where all the value was.
+The surveying is the hard part, not the digging. Once you know what to try, running the experiment is easy. The 33 experiments in this project took 3 days of agent time. Figuring out *which* 33 to run, in *what order*, with *what comparisons* -- that's where all the value was.
 
 ---
 
@@ -51,7 +51,7 @@ A chatbot can suggest experiments. A notebook can run them. Only a coding agent 
 
 ## ELI a grad student: Why coding agents specifically?
 
-There are many AI tools. Why are coding agents (Claude Code, Gemini CLI, Antigravity) better for research than chatbots, notebooks, or AutoML?
+There are many AI tools. Why are coding agents (Claude Code, Gemini CLI, Codex CLI, OpenCode) better for research than chatbots, notebooks, or AutoML?
 
 ### What makes coding agents different
 
@@ -161,20 +161,21 @@ If research is navigation and coding agents are the right tool, then:
 
 ---
 
-## Where we are now
+## Where we are now (honest assessment)
 
-The SutroYaro system implements this thesis at a basic level:
+We built the map. The agent can read the map. But the agent doesn't yet reason about the map.
 
-- The agent follows a fixed navigation strategy (top of TODO queue)
-- The search space is bounded but static
-- Knowledge accumulates in files
-- Multiple researchers can contribute via PR
+Right now, the agent picks the top unchecked item from TODO.md. That's a FIFO queue, not navigation. The *human* navigated -- by writing the TODO list in a good order, by structuring the question dependencies, by writing DISCOVERIES.md. The agent executed within that structure.
 
-What's missing (and what would make the thesis stronger):
+This is still valuable. The infrastructure (locked harness, log.jsonl, questions.yaml, search_space.yaml) *enables* navigation in a way that no chatbot, notebook, or AutoML system does. A human or a smarter agent can use these files to reason about what to try next. The state is readable, the results are comparable, the knowledge accumulates.
 
-- **Adaptive navigation**: the agent should reason about which experiment is most informative, not just pick the next item in the queue
-- **Cross-experiment reasoning**: "Hebbian failed because of X; therefore Predictive Coding will also fail because of X" -- the agent should prune without testing
-- **Dynamic search space expansion**: when the agent hits a ceiling in one method family, it should propose new methods (like the jump from SGD to GF(2))
-- **Information-theoretic experiment selection**: pick the experiment that maximizes expected information gain, not just the next one in line
+But the current agent protocol is: read state, follow the queue, log the result. That's execution, not navigation.
 
-These are hard problems. But the infrastructure to test them is in place.
+What would make the thesis real:
+
+- **The agent reasons about what to skip.** "Hebbian failed because parity requires k-th order interactions. Predictive Coding has the same limitation. Skip it." Our agent tested all 4 local learning rules. A navigating agent would have tested 1 and skipped 3.
+- **The agent reorders the queue.** Instead of FIFO, the agent reads log.jsonl, identifies the biggest gap in knowledge, and picks the most informative experiment. This is where information theory meets research design.
+- **The agent expands the search space.** When every method in search_space.yaml has been tried, the agent proposes new ones. The jump from SGD to GF(2) was a human insight. A navigating agent would make that jump itself.
+- **The agent knows when to stop.** Not "queue empty" but "diminishing returns -- the last 5 experiments were INCONCLUSIVE, we've saturated this challenge, time to move to nanoGPT."
+
+The infrastructure to test these ideas is in place. The navigation itself is the open problem.

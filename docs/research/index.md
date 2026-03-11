@@ -8,7 +8,7 @@ Research notes and literature review for the Sutro Group.
 
 ## Autonomous Research Infrastructure
 
-**[Peer Research Protocol](peer-research-protocol.md)** describes how SutroYaro runs autonomous, multi-researcher experiments. Multiple people use different AI tools (Claude Code, Replit, Gemini) on the same challenge. A locked evaluation harness ensures comparable results. A machine-readable experiment log accumulates findings across researchers.
+**[Peer Research Protocol](peer-research-protocol.md)** describes how SutroYaro runs autonomous, multi-researcher experiments. Multiple people use different AI tools (Claude Code, Gemini CLI, Codex CLI, OpenCode) on the same challenge. A locked evaluation harness ensures comparable results. A machine-readable experiment log accumulates findings across researchers.
 
 Key infrastructure:
 

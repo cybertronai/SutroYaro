@@ -4,7 +4,7 @@ How SutroYaro runs autonomous, multi-researcher experiments on shared challenges
 
 ## Why this exists
 
-At Meeting #8 (09 Mar 2026), four people independently ran agent-driven research on the same sparse parity challenge using different tools (Claude Code, Replit, Gemini, plain Python). Each produced valid results. One researcher's agents rewrote the measurement code to inflate scores instead of improving the algorithm.
+At Meeting #8 (09 Mar 2026), four people independently ran agent-driven research on the same sparse parity challenge using different tools (Claude Code, Gemini CLI, Codex CLI, OpenCode, plain Python). Each produced valid results. One researcher's agents rewrote the measurement code to inflate scores instead of improving the algorithm.
 
 This protocol solves three problems:
 
@@ -39,7 +39,7 @@ Multiple researchers submit findings via PR. The merge process:
 ```
 Yad's machine              Germain's machine           Yaroslav's machine
 +------------------+       +------------------+        +------------------+
-| AGENT.md loop    |       | Replit agents    |        | Gemini / manual  |
+| AGENT.md loop    |       | Codex CLI        |        | Gemini CLI       |
 | log.jsonl (local)|       | log.jsonl (local)|        | log.jsonl (local)|
 | harness.py (locked)      | harness.py (locked)       | harness.py (locked)
 +--------+---------+       +--------+---------+        +--------+---------+
@@ -100,7 +100,7 @@ bin/
 
 ## Running autonomously
 
-Three modes, from simplest to most resilient. All are tool-agnostic (Claude, Gemini, or any CLI).
+Three modes, from simplest to most resilient. All are tool-agnostic (Claude Code, Gemini CLI, Codex CLI, OpenCode, or any CLI).
 
 **Single cycle** -- one AI session, up to N experiments:
 ```bash
@@ -140,11 +140,12 @@ The system is designed to work with any AI tool that can read files, run Python,
 |------|-----------|-------------|-------|
 | **Claude Code** | Yes (`claude -p`) | `bin/run-agent --tool claude` | Full tool permissions via `--allowedTools`. 200 turn limit per cycle. |
 | **Gemini CLI** | Yes (`gemini -p --yolo`) | `bin/run-agent --tool gemini` | `--yolo` skips confirmation prompts. Free tier: 60 req/min, 1K req/day. 1M token context. |
-| **Antigravity** | No (IDE only) | Open project manually, follow AGENT.md | `agy` opens the IDE. Use Manager View to dispatch parallel agents on different hypotheses. Cannot be driven by bash loop. |
-| **Replit Agent** | No (web IDE) | Follow AGENT.md in Replit chat | Germain's setup. Works but no headless mode for `bin/run-agent`. |
+| **Codex CLI** | Yes (`codex -q`) | `bin/run-agent --tool codex` | OpenAI's agent. Included with ChatGPT Plus/Pro. Sandbox security built in. |
+| **OpenCode** | Yes (arg) | `bin/run-agent --tool opencode` | Open source, 75+ providers. No vendor lock-in. Use any model. |
+| **Antigravity** | No (IDE only) | Open project manually, follow AGENT.md | `agy` opens the IDE. Use Manager View for parallel agents. Cannot be driven by bash loop. |
 | **Custom CLI** | Depends | `AI_CMD="my-tool -p" bin/run-agent --tool custom` | Any CLI that accepts a prompt on stdin or via flag. |
 
-For GUI tools (Antigravity, Replit, Cursor), the workflow is manual:
+For GUI tools (Antigravity, Cursor), the workflow is manual:
 
 1. Open the project in the IDE
 2. Tell the agent: "Read AGENT.md. Follow its protocol. Your researcher ID is [name]."

@@ -150,19 +150,85 @@ This is similar to Claude Code's sub-agent dispatch but with a visual interface.
 
 ---
 
-## Replit Agent
+## Codex CLI
 
-Replit's AI agent runs in a web IDE with its own execution environment.
+OpenAI's terminal coding agent, powered by codex-1 (optimized o3). Built in Rust, runs locally.
 
-### Run experiments (manual workflow)
+### Install
 
-1. Fork the repo into Replit
-2. In the agent chat: "Read AGENT.md. Follow its protocol. Your researcher ID is [your-name]."
-3. The agent reads files, runs experiments, logs results.
+```bash
+npm install -g @openai/codex
+# or
+brew install --cask codex
 
-### Known issues
+# Verify
+codex --version
+```
 
-Germain's experience (Meeting #8): Replit agents tried to rewrite the ARD measurement code to inflate scores instead of improving the algorithm. This is why metric isolation (LAB.md rule #9) exists. Make sure to tell the agent explicitly: "Do NOT modify harness.py, tracker.py, or any measurement code."
+Included with ChatGPT Plus, Pro, Business, Edu, and Enterprise plans. Or use API credits.
+
+### Run experiments
+
+```bash
+# Single cycle
+bin/run-agent --tool codex --max 10
+
+# Overnight
+bin/run-agent --tool codex --loop 10 --max 5
+```
+
+### How it launches
+
+The launcher calls `codex -q "$prompt"`. The `-q` flag runs in quiet/non-interactive mode.
+
+### Customization
+
+- **AGENTS.md**: Codex reads this file for project context (similar to CLAUDE.md for Claude Code)
+- **MCP servers**: supported for external tool integration
+- **Multi-agent**: experimental parallel agent support built in
+- **Sandbox**: cross-platform security (macOS Seatbelt, Linux Landlock)
+
+---
+
+## OpenCode
+
+Open-source, multi-provider terminal agent. Works with Claude, GPT, Gemini, and local models (Ollama). 95K+ GitHub stars. No vendor lock-in.
+
+### Install
+
+```bash
+curl -fsSL https://opencode.ai/install | bash
+# or
+npm install -g opencode-ai@latest
+# or
+brew install opencode
+
+# Verify
+opencode --version
+```
+
+Bring your own API key (any provider). Or use local models for free.
+
+### Run experiments
+
+```bash
+# Single cycle
+bin/run-agent --tool opencode --max 10
+
+# Overnight
+bin/run-agent --tool opencode --loop 10 --max 5
+```
+
+### How it launches
+
+OpenCode accepts prompts as command-line arguments for non-interactive mode. The launcher passes the prompt directly.
+
+### Customization
+
+- **Multi-provider**: switch models mid-session (Claude for reasoning, GPT for code generation, local for privacy)
+- **LSP integration**: type information and symbol definitions from your language server
+- **Session persistence**: SQLite-backed session storage
+- **No vendor lock-in**: the main reason to choose OpenCode over single-vendor CLIs
 
 ---
 
@@ -199,13 +265,14 @@ bin/merge-findings research/log.jsonl --scoreboard
 
 ## Comparing tools
 
-| Feature | Claude Code | Gemini CLI | Antigravity | Replit |
-|---------|------------|-----------|-------------|--------|
-| Headless mode | Yes (`-p`) | Yes (`-p --yolo`) | No (IDE) | No (web) |
-| `bin/run-agent` | Yes | Yes | No | No |
-| Looped overnight | Yes | Yes | No | No |
-| MCP servers | Yes | Yes | No | No |
-| Custom skills | Yes | Yes (extensions) | No | No |
-| Context window | 200K (Opus: 1M) | 1M | Varies by model | Varies |
-| Cost | API key or subscription | Free tier available | Free preview | Subscription |
-| Metric isolation risk | Low (rules enforced) | Low | Medium | High (Germain's experience) |
+| Feature | Claude Code | Gemini CLI | Codex CLI | OpenCode | Antigravity |
+|---------|------------|-----------|-----------|----------|-------------|
+| Headless mode | Yes (`-p`) | Yes (`-p --yolo`) | Yes (`-q`) | Yes (arg) | No (IDE) |
+| `bin/run-agent` | Yes | Yes | Yes | Yes | No |
+| Looped overnight | Yes | Yes | Yes | Yes | No |
+| MCP servers | Yes | Yes | Yes | Yes | No |
+| Custom skills/plugins | Yes | Yes (extensions) | Yes | Yes | No |
+| Multi-provider | No (Anthropic) | No (Google) | No (OpenAI) | Yes (75+) | Yes |
+| Context window | 200K (Opus: 1M) | 1M | Varies | Varies | Varies |
+| Cost | Subscription or API | Free tier | ChatGPT Plus or API | BYO API key | Free preview |
+| Open source | No | Yes (Apache 2.0) | Yes | Yes | No |

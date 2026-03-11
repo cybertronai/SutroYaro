@@ -6,7 +6,7 @@ Research workspace for the [Sutro Group](https://t.me/sutro_group) -- energy-eff
 
 ## What This Is
 
-An autonomous, multi-researcher research lab. Multiple people use different AI tools (Claude Code, Gemini CLI, Replit, Antigravity, plain Python) to run experiments on shared challenges. A locked evaluation harness ensures comparable results. A machine-readable log accumulates findings across researchers.
+An autonomous, multi-researcher research lab. Multiple people use different AI tools (Claude Code, Gemini CLI, Codex CLI, OpenCode, Antigravity, plain Python) to run experiments on shared challenges. A locked evaluation harness ensures comparable results. A machine-readable log accumulates findings across researchers.
 
 Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} inputs). Next challenge: **nanoGPT** (energy-efficient training of Karpathy's nanoGPT).
 
@@ -63,7 +63,7 @@ AI_CMD="my-ai-tool -p" bin/run-agent --tool custom --max 5
 
 Each cycle: fresh AI context, reads accumulated file state (log, findings, TODO), runs experiments, logs results. If a cycle crashes, the next picks up from the files.
 
-**Antigravity** is an IDE, not a CLI -- use it manually by opening the project and following AGENT.md. Or use Gemini CLI for headless runs from the same Google ecosystem.
+**Antigravity** is an IDE, not a CLI -- use it manually by opening the project and following AGENT.md. For headless runs from Google's ecosystem, use Gemini CLI instead.
 
 After a run:
 ```bash
@@ -96,7 +96,7 @@ Safety mechanisms:
 Multiple people run independent experiments, then merge via PR:
 
 ```
-Yad (Claude Code)     Germain (Replit)     Yaroslav (Gemini)
+Yad (Claude Code)     Germain (Codex)      Yaroslav (Gemini CLI)
      |                      |                     |
      v                      v                     v
   log.jsonl (local)    log.jsonl (local)    log.jsonl (local)
