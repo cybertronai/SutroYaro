@@ -4,9 +4,9 @@ For the Sutro Group. If you want to run experiments on sparse parity (or the nex
 
 ## What we added
 
-Before: each person ran experiments with their own tool, measured things differently, and results lived in scattered docs. Germain's agents rewrote the measurement code to get better scores instead of improving the algorithm.
+Before: each person ran experiments with their own tool, measured things differently, and results lived in scattered docs. Without a shared measurement standard, it was hard to compare results across people and tools.
 
-Now: everyone runs against the same locked harness. The harness measures ARD, DMC, and wall-clock time identically for every tool. Results go into one shared log. Nobody can game the metric.
+Now: everyone runs against the same locked harness. The harness measures ARD, DMC, and wall-clock time identically for every tool. Results go into one shared log. Numbers are directly comparable regardless of who ran them or what tool they used.
 
 The system has five parts:
 
