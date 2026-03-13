@@ -101,6 +101,7 @@
 ### Algebraic / Exact Methods
 
 - **GF(2) Gaussian elimination solves in ~500μs** and is k-independent. Works for k=3,5,7,10 equally fast. Only needs n+1 samples (21 for n=20). 240x faster than SGD. [exp_gf2]
+- **GF(2) is fragile to noise**: basic solver fails at 1% noise (inconsistent system). But subset-sampling robust solver recovers up to 10-15% noise by finding clean equation subsets. 100% success at 10% noise, 65% at 15%, 20% at 20%. [exp_gf2_noise]
 - **Kushilevitz-Mansour finds secret via influence estimation in O(n)** not O(C(n,k)). ARD of 1,585 vs Fourier's 1,147,375 (724x better). Even 5 influence samples per bit suffice. [exp_km]
 - **SMT/backtracking constraint solver at 0.002s**. The k-1 pruning trick: once k-1 indices fixed, last column is fully determined. Only 10 samples needed. [exp_smt]
 
@@ -135,7 +136,7 @@
 7. **FF on deeper networks**: Does FF's ARD advantage appear with 5-10 layer networks on a simpler task?
 8. ~~**Predictive Coding on sparse parity**~~: ANSWERED — Failed, 18x worse ARD than backprop. Generative model is harder than discriminative for parity. [exp_predictive_coding]
 9. **Karpathy Names task**: Separate homework from Meeting #5. Untouched.
-10. **Can GF(2) handle noisy labels?** It assumes exact parity — noise would corrupt the linear system.
+10. ~~**Can GF(2) handle noisy labels?**~~ ANSWERED — Basic GF(2) fails at 1% noise (inconsistent). Robust subset-sampling solver works up to 10-15% noise. [exp_gf2_noise]
 11. **Hybrid approach: use KM to find candidate bits, then verify with small neural net.** What's the total energy cost?
 12. **At what depth does predictive coding's locality advantage over backprop appear?** Our 2-layer network is too shallow.
 13. **Can the pebble game optimizer's anti-dependency detection be automated for arbitrary computation graphs?**
@@ -177,3 +178,4 @@
 | exp_smt | 03-06 | Constraint solver | SUCCESS: 0.002s, 10 samples | k-1 pruning trick |
 | exp_rl | 03-06 | RL learns what to read | SUCCESS: k reads per prediction | ARD=1 at inference |
 | exp_mdl | 03-06 | MDL finds secret | SUCCESS: noise-robust | 0 bits vs 499 bits |
+| exp_gf2_noise | 03-09 | GF(2) handles noise | SUCCESS: robust solver | 100% at 10% noise, fails at 20% |

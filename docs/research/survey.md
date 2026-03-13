@@ -1,6 +1,6 @@
 # Sparse Parity: A Practitioner's Field Guide
 
-33 experiments (16 Phase 1 + 17 Phase 2) for energy-efficient learning on the simplest non-trivial task.
+34 experiments (16 Phase 1 + 17 Phase 2 + 1 follow-up) for energy-efficient learning on the simplest non-trivial task.
 
 **Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/cybertronai/SutroYaro)
 
@@ -122,6 +122,8 @@ Parity is linear over GF(2). Any method that recognizes this solves instantly.
 | [SMT](../findings/exp_smt.md) | 0.002s, 100% | 0.026s, 100% | 0.183s, 100% | 0.046s, 100% | 10 | ~2,000 |
 
 GF(2) Gaussian elimination treats each training sample as a linear equation over the binary field and row-reduces. The time is O(n * m) where m is the number of samples, independent of k. With 21 samples for n=20, it runs in 509 microseconds, which is 240x faster than SGD. For n=100/k=3, where Fourier would check 161,700 subsets, GF(2) solves in 8 milliseconds with 101 samples.
+
+**Noise limitation**: Basic GF(2) fails at 1% label noise (inconsistent system). A robust subset-sampling variant recovers up to 10-15% noise by finding clean equation subsets. See [exp_gf2_noise](../findings/exp_gf2_noise.md).
 
 KM's influence estimation flips each bit independently and measures label change rate. Secret bits have influence 1.0. Non-secret bits have influence 0.0. This prunes the search from C(n,k) subsets to exactly 1, with O(n) queries. Its ARD of 1,585 is 724x better than Fourier's 1,147,375.
 
@@ -362,6 +364,7 @@ All 17 agents produced: a working Python experiment file, a results JSON, and fi
 31. [exp_smt: SMT/Backtracking](../findings/exp_smt.md)
 32. [exp_rl: RL Bit Querying](../findings/exp_rl.md)
 33. [exp_mdl: MDL Compression](../findings/exp_mdl.md)
+34. [exp_gf2_noise: GF(2) with Noisy Labels](../findings/exp_gf2_noise.md)
 
 ### Code
 

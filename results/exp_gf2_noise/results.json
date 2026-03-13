@@ -1,0 +1,406 @@
+{
+  "experiment": "exp_gf2_noise",
+  "description": "GF(2) Gaussian elimination with noisy labels",
+  "hypothesis": "GF(2) fails when noise corrupts the linear system",
+  "all_results": {
+    "noise_sweep": [
+      {
+        "noise_rate": 0.0,
+        "correct": 20,
+        "inconsistent": 0,
+        "total": 20,
+        "avg_time_us": 1551.4
+      },
+      {
+        "noise_rate": 0.01,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1455.76
+      },
+      {
+        "noise_rate": 0.02,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1448.37
+      },
+      {
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1454.9
+      },
+      {
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1453.53
+      },
+      {
+        "noise_rate": 0.15,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1467.01
+      },
+      {
+        "noise_rate": 0.2,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1469.03
+      },
+      {
+        "noise_rate": 0.3,
+        "correct": 0,
+        "inconsistent": 20,
+        "total": 20,
+        "avg_time_us": 1480.47
+      }
+    ],
+    "samples_vs_noise": [
+      {
+        "n_samples": 21,
+        "noise_rate": 0.0,
+        "correct": 9,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 21,
+        "noise_rate": 0.01,
+        "correct": 9,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 21,
+        "noise_rate": 0.02,
+        "correct": 9,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 21,
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 6,
+        "total": 10
+      },
+      {
+        "n_samples": 21,
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 7,
+        "total": 10
+      },
+      {
+        "n_samples": 30,
+        "noise_rate": 0.0,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 30,
+        "noise_rate": 0.01,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 30,
+        "noise_rate": 0.02,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 30,
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 30,
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 50,
+        "noise_rate": 0.0,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 50,
+        "noise_rate": 0.01,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 50,
+        "noise_rate": 0.02,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 50,
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 50,
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 100,
+        "noise_rate": 0.0,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 100,
+        "noise_rate": 0.01,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 100,
+        "noise_rate": 0.02,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 100,
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 100,
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 200,
+        "noise_rate": 0.0,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 200,
+        "noise_rate": 0.01,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 200,
+        "noise_rate": 0.02,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 200,
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 200,
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 500,
+        "noise_rate": 0.0,
+        "correct": 10,
+        "inconsistent": 0,
+        "total": 10
+      },
+      {
+        "n_samples": 500,
+        "noise_rate": 0.01,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 500,
+        "noise_rate": 0.02,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 500,
+        "noise_rate": 0.05,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      },
+      {
+        "n_samples": 500,
+        "noise_rate": 0.1,
+        "correct": 0,
+        "inconsistent": 10,
+        "total": 10
+      }
+    ],
+    "robust_solver": [
+      {
+        "noise_rate": 0.0,
+        "basic_correct": 20,
+        "robust_correct": 20,
+        "improvement": 0,
+        "inconsistent": 0,
+        "total": 20
+      },
+      {
+        "noise_rate": 0.02,
+        "basic_correct": 0,
+        "robust_correct": 20,
+        "improvement": 20,
+        "inconsistent": 20,
+        "total": 20
+      },
+      {
+        "noise_rate": 0.05,
+        "basic_correct": 0,
+        "robust_correct": 20,
+        "improvement": 20,
+        "inconsistent": 20,
+        "total": 20
+      },
+      {
+        "noise_rate": 0.1,
+        "basic_correct": 0,
+        "robust_correct": 20,
+        "improvement": 20,
+        "inconsistent": 20,
+        "total": 20
+      },
+      {
+        "noise_rate": 0.15,
+        "basic_correct": 0,
+        "robust_correct": 13,
+        "improvement": 13,
+        "inconsistent": 20,
+        "total": 20
+      },
+      {
+        "noise_rate": 0.2,
+        "basic_correct": 0,
+        "robust_correct": 4,
+        "improvement": 4,
+        "inconsistent": 20,
+        "total": 20
+      }
+    ],
+    "noise_threshold": [
+      {
+        "noise_rate": 0.0,
+        "correct": 50,
+        "accuracy": 1.0,
+        "inconsistent": 0,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.01,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.02,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.03,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.04,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.05,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.06,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.07,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.08,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.09,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      },
+      {
+        "noise_rate": 0.1,
+        "correct": 0,
+        "accuracy": 0.0,
+        "inconsistent": 50,
+        "total": 50
+      }
+    ]
+  }
+}
