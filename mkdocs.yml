@@ -1,8 +1,8 @@
 site_name: SutroYaro
 site_description: Sutro Group - Energy-Efficient AI Training Research
-site_url: https://0bserver07.github.io/SutroYaro/
-repo_url: https://github.com/0bserver07/SutroYaro
-repo_name: 0bserver07/SutroYaro
+site_url: https://cybertronai.github.io/SutroYaro/
+repo_url: https://github.com/cybertronai/SutroYaro
+repo_name: cybertronai/SutroYaro
 
 theme:
   name: material
@@ -153,6 +153,6 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/0bserver07/SutroYaro
+      link: https://github.com/cybertronai/SutroYaro
     - icon: fontawesome/brands/telegram
       link: https://t.me/sutro_group

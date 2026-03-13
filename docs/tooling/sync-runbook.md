@@ -66,8 +66,8 @@ Output goes to `src/sparse_parity/telegram_sync/messages.json` (gitignored). Rea
 ### GitHub
 
 ```bash
-gh pr list --repo 0bserver07/SutroYaro
-gh issue list --repo 0bserver07/SutroYaro
+gh pr list --repo cybertronai/SutroYaro
+gh issue list --repo cybertronai/SutroYaro
 ```
 
 Review and respond to any new PRs or issues. See [automation docs](automation.md) for setup details.

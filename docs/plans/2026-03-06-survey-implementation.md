@@ -370,7 +370,7 @@ Go back to the top and add:
 
 33 experiments across 17 methods for energy-efficient learning on the simplest non-trivial task.
 
-**Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/0bserver07/SutroYaro)
+**Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/cybertronai/SutroYaro)
 ```
 
 **Step 3: Full anti-slop review**

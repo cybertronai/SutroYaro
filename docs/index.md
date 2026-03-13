@@ -29,7 +29,7 @@ All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagati
 
 ```bash
 # Clone and run
-git clone https://github.com/0bserver07/SutroYaro.git
+git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
 # Solve 20-bit sparse parity in 0.12s (SGD)
@@ -51,12 +51,12 @@ cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_
 | Why we built it this way | [Research as Navigation](research/navigation-thesis.md) |
 | Full protocol design | [Peer Research Protocol](research/peer-research-protocol.md) |
 | All 33 experiments ranked | [Practitioner's Field Guide](research/survey.md) |
-| What's been proven so far | [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) |
+| What's been proven so far | [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) |
 | Individual experiment findings | [Research > Findings](research/index.md) |
 | Group context and people | [Context](context.md) |
 | Tooling and setup | [Tooling](tooling/index.md) |
 | Meeting notes and Google Docs | [Meetings](meetings/index.md) |
-| How to contribute | [CONTRIBUTING.md](https://github.com/0bserver07/SutroYaro/blob/main/CONTRIBUTING.md) |
+| How to contribute | [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) |
 
 ## Quick Links
 

@@ -20,7 +20,7 @@ The system has five parts:
 
 ```bash
 # First time
-git clone https://github.com/0bserver07/SutroYaro.git
+git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
 # Already have the repo
@@ -113,6 +113,6 @@ Work in progress:
 | [Peer Research Protocol](peer-research-protocol.md) | Full design: two-layer architecture, log schema, nanoGPT migration |
 | [Research as Navigation](navigation-thesis.md) | The thesis: research is navigation, coding agents are the right tool (ELI5 through PhD) |
 | [Practitioner's Field Guide](survey.md) | All 33 experiments ranked with methodology |
-| [AGENT.md](https://github.com/0bserver07/SutroYaro/blob/main/AGENT.md) | The protocol any AI tool follows |
-| [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) | Every proven fact from 33 experiments |
-| [CONTRIBUTING.md](https://github.com/0bserver07/SutroYaro/blob/main/CONTRIBUTING.md) | How to submit your results via PR |
+| [AGENT.md](https://github.com/cybertronai/SutroYaro/blob/main/AGENT.md) | The protocol any AI tool follows |
+| [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) | Every proven fact from 33 experiments |
+| [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) | How to submit your results via PR |

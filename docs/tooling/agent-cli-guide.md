@@ -7,7 +7,7 @@ All tools use the same protocol (AGENT.md), the same locked harness (src/harness
 ## Prerequisites (all tools)
 
 ```bash
-git clone https://github.com/0bserver07/SutroYaro.git
+git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
 # Verify environment

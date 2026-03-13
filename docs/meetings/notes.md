@@ -91,7 +91,7 @@ See also: [Research overview](../research/index.md) for all experiment results b
 
 [Full notes](../google-docs/meeting-8-notes.md) · [AI notes](../google-docs/meeting-8-ai-notes.md) · [Google Doc](https://docs.google.com/document/d/12AnIc4XWH0OBloZCgShaaqg3oASXBVF3kLjegHhH0FI/edit?tab=t.0)
 
-- **Yad**: Demoed the Claude Code agentic harness ([video](https://www.youtube.com/watch?v=h8dAU8yngxM), [survey](https://0bserver07.github.io/SutroYaro/research/survey/), [github](https://github.com/0bserver07/SutroYaro)). Harness found 1000x faster solution via GF(2). Yaroslav [verified](../google-docs/yaroslav-verification.md) correctness and [visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/) the top algorithm.
+- **Yad**: Demoed the Claude Code agentic harness ([video](https://www.youtube.com/watch?v=h8dAU8yngxM), [survey](https://cybertronai.github.io/SutroYaro/research/survey/), [github](https://github.com/cybertronai/SutroYaro)). Harness found 1000x faster solution via GF(2). Yaroslav [verified](../google-docs/yaroslav-verification.md) correctness and [visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/) the top algorithm.
 - **Yaroslav**: Presented [Knowledge Sprint #2](../google-docs/yaroslav-knowledge-sprint-2.md) on energy metrics and the [bigger picture](../google-docs/bigger-picture.md) roadmap (3-axis cube: process, metric, problem).
 - **Michael**: Showed his [Claude approach](../google-docs/michael-claude-approach.md) which preferred 90s-era methods.
 - **Germain**: Demoed supervisor/researcher harness; solutions preferred 2010s methods.

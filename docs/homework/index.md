@@ -23,7 +23,7 @@ Full spec: [challenge-1-sparse-parity.md](../google-docs/challenge-1-sparse-pari
 - Discovered blank-slate approaches: Fourier solver 13x faster than SGD for small k
 - Documented prompting strategies for AI-assisted research
 
-See [Changelog](../changelog.md) for full version history and [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) for accumulated knowledge.
+See [Changelog](../changelog.md) for full version history and [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) for accumulated knowledge.
 
 ### Tips from the group
 - Keep iteration time <2 seconds. Use `fast.py` (numpy, 0.12s per solve)

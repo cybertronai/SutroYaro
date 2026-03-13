@@ -31,7 +31,7 @@ Copy the template and fill it in:
 cp findings/_template.md findings/exp_your_name.md
 ```
 
-The template asks for: hypothesis, config, results table, analysis, open questions. See any file in `findings/` for examples. This is the format that feeds into the [survey](https://0bserver07.github.io/SutroYaro/research/survey/).
+The template asks for: hypothesis, config, results table, analysis, open questions. See any file in `findings/` for examples. This is the format that feeds into the [survey](https://cybertronai.github.io/SutroYaro/research/survey/).
 
 ## Level 3: Full experiment with code (highest effort)
 
@@ -58,7 +58,7 @@ cp findings/_template.md findings/exp_yours.md
 Python 3.10+. No external dependencies for core experiments (pure Python + stdlib).
 
 ```bash
-git clone https://github.com/0bserver07/SutroYaro.git
+git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
 # Verify it works
@@ -80,7 +80,7 @@ Optional deps:
 
 Open questions live in [DISCOVERIES.md](DISCOVERIES.md) under "Open Questions." The [task tracker](docs/tasks/INDEX.md) has current priorities. Some starting points:
 
-- **Reproduce a result**: pick any experiment from the [survey](https://0bserver07.github.io/SutroYaro/research/survey/) and verify the numbers
+- **Reproduce a result**: pick any experiment from the [survey](https://cybertronai.github.io/SutroYaro/research/survey/) and verify the numbers
 - **Try a new algorithm**: check [proposed-approaches.md](docs/research/proposed-approaches.md) for untested ideas
 - **Improve the metric**: we just added DMC (Data Movement Complexity) alongside ARD. Both could use testing on more configs.
 - **Scale testing**: does your method work at n=50/k=5? n=100/k=10?

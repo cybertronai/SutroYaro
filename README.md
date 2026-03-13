@@ -2,7 +2,7 @@
 
 Research workspace for the [Sutro Group](https://t.me/sutro_group) -- energy-efficient AI training, meeting weekly at South Park Commons (SF).
 
-**Docs site**: https://0bserver07.github.io/SutroYaro/
+**Docs site**: https://cybertronai.github.io/SutroYaro/
 
 ## What This Is
 
@@ -12,7 +12,7 @@ Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} input
 
 ## Results So Far
 
-33 experiments, 12 wins, 15 losses, 5 inconclusive. See the [Practitioner's Field Guide](https://0bserver07.github.io/SutroYaro/research/survey/) for the full ranked results.
+33 experiments, 12 wins, 15 losses, 5 inconclusive. See the [Practitioner's Field Guide](https://cybertronai.github.io/SutroYaro/research/survey/) for the full ranked results.
 
 | Method | Time (n=20/k=3) | ARD | What it proves |
 |--------|-----------------|-----|----------------|
@@ -26,7 +26,7 @@ All 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation,
 ## Quick Start
 
 ```bash
-git clone https://github.com/0bserver07/SutroYaro.git
+git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
 # Solve 20-bit sparse parity in 0.12s (SGD)
@@ -165,7 +165,7 @@ findings/               # One markdown report per experiment
 
 ## Links
 
-- Docs site: https://0bserver07.github.io/SutroYaro/
+- Docs site: https://cybertronai.github.io/SutroYaro/
 - Telegram: https://t.me/sutro_group
 - Main code repo: https://github.com/cybertronai/sutro
 - Meetings: Mondays 18:00 at South Park Commons (380 Brannan St, SF)

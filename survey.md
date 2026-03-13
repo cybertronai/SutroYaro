@@ -2,7 +2,7 @@
 
 33 experiments (16 Phase 1 + 17 Phase 2) for energy-efficient learning on the simplest non-trivial task.
 
-**Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/0bserver07/SutroYaro)
+**Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/cybertronai/SutroYaro)
 
 ---
 

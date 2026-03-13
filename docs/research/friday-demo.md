@@ -139,4 +139,4 @@ One concrete example from our experiments: we tested 4 local learning rules (Heb
 | Full protocol design | [Peer Research Protocol](peer-research-protocol.md) |
 | The thesis (ELI5 to PhD) | [Research as Navigation](navigation-thesis.md) |
 | All 33 experiments ranked | [Practitioner's Field Guide](survey.md) |
-| GitHub repo | [0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro) |
+| GitHub repo | [cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro) |

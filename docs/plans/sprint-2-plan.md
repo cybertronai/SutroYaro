@@ -33,4 +33,4 @@ Sprint 1 showed that gradient fusion improves ARD by ~16%, but the real bottlene
 
 ## What's Next
 
-See [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) for open questions and [TODO.md](https://github.com/0bserver07/SutroYaro/blob/main/TODO.md) for remaining tasks.
+See [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) for open questions and [TODO.md](https://github.com/cybertronai/SutroYaro/blob/main/TODO.md) for remaining tasks.
