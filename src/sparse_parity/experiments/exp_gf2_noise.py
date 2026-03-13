@@ -124,7 +124,8 @@ def gf2_solve(x, y, n_bits):
     A = ((x + 1) / 2).astype(np.uint8)
     b = ((y + 1) / 2).astype(np.uint8)
 
-    # Try both b (odd k) and 1-b (even k)
+    # Try both parity conventions: y=+1 could mean XOR=0 (even) or XOR=1 (odd)
+    # We don't know which convention the data uses, so try both
     solutions = []
     for b_try in [b, (1 - b).astype(np.uint8)]:
         solution, rank = gf2_gauss_elim(A.copy(), b_try.copy())

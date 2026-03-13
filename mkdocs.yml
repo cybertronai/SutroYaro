@@ -100,6 +100,7 @@ nav:
           - LASSO: findings/exp_lasso.md
           - Decision Trees: findings/exp_decision_tree.md
           - GF(2) Gaussian Elimination: findings/exp_gf2.md
+          - GF(2) Noise Tolerance: findings/exp_gf2_noise.md
           - Random Projections: findings/exp_random_proj.md
           - Kushilevitz-Mansour: findings/exp_km.md
           - Hebbian Learning: findings/exp_hebbian.md
