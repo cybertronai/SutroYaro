@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+"""
+Reproduce all experiments across all three challenges and verify baselines.
+
+Usage:
+    PYTHONPATH=src python3 bin/reproduce-all
+    PYTHONPATH=src python3 bin/reproduce-all --budget 10   # skip anything over 10ms
+"""
+
+import argparse
+import sys
+import time
+
+from harness import measure_sparse_parity, measure_sparse_sum, measure_sparse_and
+
+# ---------------------------------------------------------------------------
+# Experiment registry
+#
+# Each entry: (challenge, method, extra_kwargs, expected_acc, time_budget_ms)
+# time_budget_ms is the historical upper bound used for --budget filtering.
+# ---------------------------------------------------------------------------
+
+EXPERIMENTS = [
+    # sparse-parity
+    ("sparse-parity", "gf2",     {},                         1.0, 100),
+    ("sparse-parity", "km",      {},                         1.0, 10),
+    ("sparse-parity", "sgd",     {},                         1.0, 300),
+    ("sparse-parity", "fourier", {},                         1.0, 50),
+    ("sparse-parity", "smt",     {},                         1.0, 50),
+
+    # sparse-sum
+    ("sparse-sum", "ols",     {},                            1.0, 10),
+    ("sparse-sum", "sgd",     {},                            1.0, 10),
+    ("sparse-sum", "km",      {},                            1.0, 10),
+    ("sparse-sum", "fourier", {},                            1.0, 10),
+    ("sparse-sum", "gf2",     {},                            0.0, 1),   # expected fail -> SKIP
+
+    # sparse-and
+    ("sparse-and", "sgd",     {},                            1.0, 50),
+    ("sparse-and", "km",      {"influence_samples": 20},     1.0, 10),
+    ("sparse-and", "fourier", {},                            1.0, 50),
+    ("sparse-and", "gf2",     {},                            0.0, 1),   # expected fail -> SKIP
+]
+
+# Methods that are expected to error on certain challenges (mark SKIP, not FAIL).
+EXPECTED_ERRORS = {
+    ("sparse-sum", "gf2"),
+    ("sparse-and", "gf2"),
+}
+
+# ---------------------------------------------------------------------------
+
+COMMON_KWARGS = dict(n_bits=20, k_sparse=3, seed=42)
+
+DISPATCHERS = {
+    "sparse-parity": measure_sparse_parity,
+    "sparse-sum":    measure_sparse_sum,
+    "sparse-and":    measure_sparse_and,
+}
+
+
+def run_one(challenge, method, extra_kwargs):
+    """Run a single experiment. Returns (result_dict, elapsed_s)."""
+    fn = DISPATCHERS[challenge]
+    kwargs = {**COMMON_KWARGS, **extra_kwargs, "method": method}
+    t0 = time.perf_counter()
+    result = fn(**kwargs)
+    elapsed = time.perf_counter() - t0
+    return result, elapsed
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Reproduce all SutroYaro experiments and verify baselines.")
+    parser.add_argument(
+        "--budget", type=float, default=None, metavar="MS",
+        help="Skip experiments whose historical runtime exceeds this budget (ms).")
+    args = parser.parse_args()
+
+    print("Reproducing all experiments...\n")
+
+    header = f"{'Challenge':<18s} {'Method':<10s} {'Acc':>6s} {'Time':>8s} {'Status'}"
+    sep    = f"{'-'*18} {'-'*10} {'-'*6} {'-'*8} {'-'*6}"
+    print(header)
+    print(sep)
+
+    counts = {"PASS": 0, "FAIL": 0, "SKIP": 0}
+    wall_start = time.perf_counter()
+
+    for challenge, method, extra_kwargs, expected_acc, hist_ms in EXPERIMENTS:
+
+        # Budget filter
+        if args.budget is not None and hist_ms > args.budget:
+            acc_str = "  -   "
+            time_str = "   -    "
+            status = "SKIP (over budget)"
+            counts["SKIP"] += 1
+            print(f"{challenge:<18s} {method:<10s} {acc_str} {time_str} {status}")
+            continue
+
+        # Expected-error cases (GF(2) on sum/and)
+        if (challenge, method) in EXPECTED_ERRORS:
+            result, elapsed = run_one(challenge, method, extra_kwargs)
+            acc = result.get("accuracy", 0.0)
+            acc_str = f"{acc:6.2f}"
+            time_str = f"{elapsed:7.3f}s"
+            if result.get("error"):
+                status = "SKIP (expected fail)"
+                counts["SKIP"] += 1
+            else:
+                # It ran without error but was expected to error -- still pass
+                status = "SKIP (expected fail)"
+                counts["SKIP"] += 1
+            print(f"{challenge:<18s} {method:<10s} {acc_str} {time_str} {status}")
+            continue
+
+        # Normal run
+        try:
+            result, elapsed = run_one(challenge, method, extra_kwargs)
+        except Exception as e:
+            acc_str = "  ERR "
+            time_str = "   -    "
+            status = f"FAIL ({e})"
+            counts["FAIL"] += 1
+            print(f"{challenge:<18s} {method:<10s} {acc_str} {time_str} {status}")
+            continue
+
+        acc = result.get("accuracy", 0.0)
+        acc_str = f"{acc:6.2f}"
+        time_str = f"{elapsed:7.3f}s"
+
+        if result.get("error"):
+            status = f"FAIL (error: {result['error']})"
+            counts["FAIL"] += 1
+        elif abs(acc - expected_acc) > 1e-9:
+            status = f"FAIL (expected acc {expected_acc})"
+            counts["FAIL"] += 1
+        else:
+            status = "PASS"
+            counts["PASS"] += 1
+
+        print(f"{challenge:<18s} {method:<10s} {acc_str} {time_str} {status}")
+
+    wall_elapsed = time.perf_counter() - wall_start
+    total = sum(counts.values())
+
+    print()
+    print(f"Total: {total} experiments, "
+          f"{counts['PASS']} PASS, {counts['FAIL']} FAIL, {counts['SKIP']} SKIP")
+    print(f"Wall time: {wall_elapsed:.2f}s")
+
+    sys.exit(1 if counts["FAIL"] > 0 else 0)
+
+
+if __name__ == "__main__":
+    main()

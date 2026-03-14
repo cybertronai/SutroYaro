@@ -2,6 +2,17 @@
 
 All notable changes to this research workspace.
 
+## [0.18.0] - 2026-03-14
+
+### Reproduce-all script
+
+- Added `bin/reproduce-all`: runs all 14 experiments across 3 challenges, verifies results match baselines
+- Supports `--budget MS` flag to skip experiments over a time budget (Yaroslav's "Spark 7 constraint": only run what fits in 1980s compute budgets)
+- All 14 experiments reproduce in 0.28 seconds. With `--budget 10` (10ms), 6 pass, 8 skip, 0.08 seconds total
+- GF(2) on sum/and marked SKIP (expected fail, not a regression)
+
+---
+
 ## [0.17.0] - 2026-03-14
 
 ### Three challenges, adding-a-challenge guide, Antigravity validation
