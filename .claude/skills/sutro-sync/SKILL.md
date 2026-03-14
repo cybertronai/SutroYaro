@@ -57,12 +57,46 @@ gh issue list --repo cybertronai/SutroYaro --state open
 
 Check for new PRs from contributors (Andy/zh4ngx, Michael, others). Review code, verify results are reproducible, check that DISCOVERIES.md is updated.
 
+## 4. Staleness check (before pushing)
+
+Check `docs/index.md` (homepage) for stale numbers and missing features:
+
+```python
+import re
+
+# Check experiment count matches DISCOVERIES.md
+with open('DISCOVERIES.md') as f:
+    disc = f.read()
+exp_count = len(re.findall(r'^\| exp_', disc, re.MULTILINE))
+
+with open('docs/index.md') as f:
+    index = f.read()
+
+# Flag if homepage says fewer experiments than DISCOVERIES.md has
+if f'{exp_count}' not in index:
+    print(f'WARNING: homepage may be stale. DISCOVERIES.md has {exp_count} experiments.')
+
+# Check challenge count
+challenges = ['sparse-parity', 'sparse-sum', 'sparse-and']
+for c in challenges:
+    if c not in index:
+        print(f'WARNING: homepage missing challenge: {c}')
+```
+
+Also check:
+- Does the homepage mention all `bin/` scripts?
+- Are the "Where to Find Things" links still valid?
+- Does the experiment count match?
+
+If anything is stale, update `docs/index.md` before pushing.
+
 ## Before pushing
 
-1. Update `docs/changelog.md` (bump version)
-2. `python3 -m mkdocs build` to verify no broken links
-3. `git push origin main`
-4. Deploy: `python3 -m mkdocs gh-deploy --force`
+1. Run staleness check above
+2. Update `docs/changelog.md` (bump version)
+3. `python3 -m mkdocs build` to verify no broken links
+4. Show the user the diff and wait for approval before `git push`
+5. Deploy: `python3 -m mkdocs gh-deploy --force`
 
 ## Tool-agnostic notes
 

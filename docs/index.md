@@ -2,19 +2,25 @@
 
 Research workspace for the **Sutro Group**, a study group exploring energy-efficient AI training. Weekly meetings at South Park Commons, San Francisco.
 
-## The Challenge
+## The Challenges
 
-The group picks simple learning tasks and tries to solve them with less energy. Challenge #1 is **sparse parity**: given n-bit inputs in {-1, +1}, find the k secret bits whose product determines the label. It is the simplest non-trivial learning problem, fast enough to iterate hundreds of times per hour, and structured enough to reveal real phenomena about memory access patterns and algorithm design.
+The group picks simple learning tasks and tries to solve them with less energy. Three challenges so far, all runnable in under 1 second:
 
-Standard config: n=20 bits, k=3 secret, 17 noise. Harder configs: n=50/k=3, n=20/k=5, n=100/k=10.
+| Challenge | Task | What it tests |
+|-----------|------|---------------|
+| **Sparse Parity** | y = product of k secret bits (XOR) | k-th order interactions, no local signal |
+| **Sparse Sum** | y = sum of k secret bits | First-order linear structure |
+| **Sparse AND** | y = logical AND of k secret bits | Class-imbalanced k-th order |
+
+Standard config: n=20 bits, k=3 secret, 17 noise. The [adding-a-challenge guide](research/adding-a-challenge.md) documents how any agent or contributor can add the next task.
 
 ## What We Found
 
-33 experiments across two phases. The full ranked results and methodology are in the [Practitioner's Field Guide](research/survey.md).
+34+ experiments across two phases, plus GPU energy validation. The full ranked results are in the [Practitioner's Field Guide](research/survey.md).
 
-**Phase 1** (16 experiments): Started with a broken SGD baseline (LR=0.5, stuck at 54%). Fixed hyperparameters to solve it in 0.12s. Optimized memory access patterns (ARD) within the SGD framework, hitting a ceiling at ~10% improvement because one tensor (W1) dominates 75% of all float reads. Built a cache simulator showing L2 eliminates all misses. Pivoted to new algorithms.
+**Phase 1** (16 experiments): Started with a broken SGD baseline (LR=0.5, stuck at 54%). Fixed hyperparameters to solve it in 0.12s. Optimized memory access patterns (ARD) within the SGD framework, hitting a ceiling at ~10% improvement because one tensor (W1) dominates 75% of all float reads. Pivoted to new algorithms.
 
-**Phase 2** (17 experiments): Tested algebraic, information-theoretic, local learning, hardware-aware, and alternative approaches in parallel. The result:
+**Phase 2** (17 experiments): Tested algebraic, information-theoretic, local learning, hardware-aware, and alternative approaches in parallel:
 
 | Method | Time (n=20/k=3) | Why it works |
 |--------|-----------------|-------------|
@@ -25,21 +31,29 @@ Standard config: n=20 bits, k=3 secret, 17 noise. Harder configs: n=50/k=3, n=20
 
 All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection, which local statistics cannot provide.
 
+**GPU energy validation**: Real power measurements on NVIDIA L4 via Modal Labs. SGD uses 18.7 joules, KM uses 144 millijoules (130x gap). ARD proxy tracks real energy within an order of magnitude. See [GPU energy baseline](findings/gpu_energy_baseline.md).
+
 ## Quick Start
 
 ```bash
-# Clone and run
 git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
-# Solve 20-bit sparse parity in 0.12s (SGD)
-PYTHONPATH=src python3 -m sparse_parity.fast
+# Verify all 14 experiments across 3 challenges in <1 second
+PYTHONPATH=src python3 bin/reproduce-all
 
-# Solve it in 509 microseconds (GF(2))
-PYTHONPATH=src python3 src/sparse_parity/experiments/exp_gf2.py
+# Run sparse parity with GF(2) (509 microseconds)
+PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3
 
-# Run your own experiment
-cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_mine.py
+# Run sparse sum (new challenge)
+PYTHONPATH=src python3 src/harness.py --challenge sparse-sum --method sgd
+
+# Measure real GPU energy via Modal Labs
+pip install modal && modal token set
+modal run bin/gpu_energy.py
+
+# Run autonomous agent loop
+bin/run-agent --tool claude --max 10
 ```
 
 ## Where to Find Things
@@ -47,14 +61,14 @@ cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_
 | What | Where |
 |------|-------|
 | **New here? Start here** | [What's New (March 2026)](research/whats-new-march-2026.md) |
+| All 34+ experiments ranked | [Practitioner's Field Guide](research/survey.md) |
+| Add a new challenge | [Adding a Challenge](research/adding-a-challenge.md) |
+| GPU energy results | [GPU Energy Baseline](findings/gpu_energy_baseline.md) |
 | Run experiments with any AI tool | [Agent CLI Guide](tooling/agent-cli-guide.md) |
-| Why we built it this way | [Research as Navigation](research/navigation-thesis.md) |
+| Scripts and toolkit | [Tooling](tooling/index.md) |
 | Full protocol design | [Peer Research Protocol](research/peer-research-protocol.md) |
-| All 33 experiments ranked | [Practitioner's Field Guide](research/survey.md) |
 | What's been proven so far | [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) |
 | Individual experiment findings | [Research > Findings](research/index.md) |
-| Group context and people | [Context](context.md) |
-| Tooling and setup | [Tooling](tooling/index.md) |
 | Meeting notes and Google Docs | [Meetings](meetings/index.md) |
 | How to contribute | [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) |
 
@@ -64,4 +78,5 @@ cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_
 |----------|------|
 | Telegram | [t.me/sutro_group](https://t.me/sutro_group) |
 | Code repo | [cybertronai/sutro](https://github.com/cybertronai/sutro) |
+| The Bigger Picture | [Yaroslav's roadmap](google-docs/bigger-picture.md) |
 | Meetings | Mondays 18:00 at South Park Commons (380 Brannan St) |

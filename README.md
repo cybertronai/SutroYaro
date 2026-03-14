@@ -1,6 +1,6 @@
 # SutroYaro
 
-Research workspace for the [Sutro Group](https://t.me/sutro_group) -- energy-efficient AI training, meeting weekly at South Park Commons (SF).
+Research workspace for the [Sutro Group](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0) -- energy-efficient AI training, meeting weekly at South Park Commons (SF).
 
 **Docs site**: https://cybertronai.github.io/SutroYaro/
 
