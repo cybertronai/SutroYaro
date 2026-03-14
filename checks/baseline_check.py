@@ -12,19 +12,24 @@ Usage:
 import sys
 
 try:
-    from harness import measure_sparse_parity
+    from harness import measure_sparse_parity, measure_sparse_and
 except ImportError:
     print("ERROR: Cannot import harness. Run with PYTHONPATH=src")
     sys.exit(1)
 
 baselines = [
     {"method": "gf2", "n_bits": 20, "k_sparse": 3, "expected_accuracy": 1.0,
-     "label": "GF(2) n=20/k=3"},
+     "label": "GF(2) n=20/k=3", "challenge": "parity"},
     {"method": "sgd", "n_bits": 20, "k_sparse": 3, "hidden": 200, "lr": 0.1,
      "max_epochs": 200, "n_train": 1000, "expected_accuracy": 0.95,
-     "label": "SGD n=20/k=3"},
+     "label": "SGD n=20/k=3", "challenge": "parity"},
     {"method": "km", "n_bits": 20, "k_sparse": 3, "n_train": 100,
-     "expected_accuracy": 1.0, "label": "KM n=20/k=3"},
+     "expected_accuracy": 1.0, "label": "KM n=20/k=3", "challenge": "parity"},
+    # Sparse AND baselines
+    {"method": "km", "n_bits": 20, "k_sparse": 3, "influence_samples": 20,
+     "expected_accuracy": 0.95, "label": "AND KM n=20/k=3", "challenge": "and"},
+    {"method": "fourier", "n_bits": 20, "k_sparse": 3,
+     "expected_accuracy": 1.0, "label": "AND Fourier n=20/k=3", "challenge": "and"},
 ]
 
 print("Establishing baselines on this machine...\n")
@@ -37,8 +42,12 @@ results = []
 for b in baselines:
     label = b.pop("label")
     expected = b.pop("expected_accuracy")
+    challenge = b.pop("challenge", "parity")
 
-    result = measure_sparse_parity(**b)
+    if challenge == "and":
+        result = measure_sparse_and(**b)
+    else:
+        result = measure_sparse_parity(**b)
     acc = result.get("accuracy", 0)
     ard = result.get("ard", "n/a")
     dmc = result.get("dmc", "n/a")

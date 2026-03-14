@@ -97,3 +97,18 @@ Tests whether the infrastructure generalizes. See `docs/research/adding-a-challe
 - [ ] Compare ARD of SGD on sum vs parity at n=20, 50, 100
 - [ ] Test if AGENT.md loop works on sparse sum without human help
 - [ ] Scale test: sparse sum at n=100/k=10
+
+---
+
+## Sparse AND (Challenge 3)
+
+New challenge: y = product((x[secret]+1)/2). Logical AND over {0,1}.
+Output is 1 only when ALL k secret bits are +1. P(y=1) = 1/2^k.
+Tests class-imbalanced k-th order interactions. See `docs/research/adding-a-challenge.md`.
+
+- [ ] SGD baseline on sparse AND (n=20, k=3)
+- [ ] KM influence baseline on sparse AND (increase influence_samples for low signal)
+- [ ] Fourier baseline on sparse AND
+- [ ] Compare SGD convergence: AND vs parity at same config
+- [ ] Test KM with more influence samples (5 → 20) to handle 1/2^(k-1) signal
+- [ ] Scale test: sparse AND at k=5 (P(y=1) = 3%, severe imbalance)

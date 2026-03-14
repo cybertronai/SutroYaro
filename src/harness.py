@@ -595,6 +595,7 @@ def _run_sum_km(config, secret, seed, influence_samples=5, **_kwargs):
 
 def _run_sum_fourier(config, secret, seed, **_kwargs):
     """Fourier on sparse sum. First-order coefficients are non-zero for secret bits."""
+    # NOTE: Do not modify this function — it belongs to sparse-sum.
     import numpy as np
 
     rng = np.random.RandomState(seed + 100)
@@ -630,6 +631,238 @@ def _run_sum_fourier(config, secret, seed, **_kwargs):
     }
 
 
+
+def measure_sparse_and(method, n_bits=20, k_sparse=3, hidden=200,
+                       lr=0.1, wd=0.01, batch_size=32, n_train=1000,
+                       max_epochs=200, seed=42, **kwargs):
+    """
+    Run a sparse AND experiment and return standardized metrics.
+
+    Sparse AND: y = product((x[secret]+1)/2). Maps {-1,+1} to {0,1} per bit,
+    then takes product (logical AND). Output is 1 only when ALL k secret bits
+    are +1. Highly asymmetric: P(y=1) = 1/2^k.
+
+    Returns dict with: accuracy, ard, dmc, time_s, total_floats, method, config
+    """
+    import numpy as np
+
+    config = Config(
+        n_bits=n_bits, k_sparse=k_sparse, hidden=hidden,
+        lr=lr, wd=wd, batch_size=batch_size,
+        n_train=n_train, n_test=200, max_epochs=max_epochs, seed=seed
+    )
+
+    rng_secret = np.random.RandomState(seed)
+    secret = sorted(rng_secret.choice(n_bits, k_sparse, replace=False).tolist())
+
+    start = time.perf_counter()
+
+    if method == "sgd":
+        result = _run_and_sgd(config, secret, seed, **kwargs)
+    elif method == "km":
+        result = _run_and_km(config, secret, seed, **kwargs)
+    elif method == "fourier":
+        result = _run_and_fourier(config, secret, seed, **kwargs)
+    elif method == "gf2":
+        result = {"accuracy": 0.0, "ard": None, "dmc": None,
+                  "total_floats": None, "found_secret": None,
+                  "error": "GF(2) only works on parity (XOR), not AND"}
+    else:
+        return {"error": f"Unknown method for sparse-and: {method}. Available: sgd, km, fourier, gf2", "method": method}
+
+    elapsed = time.perf_counter() - start
+
+    result["time_s"] = round(elapsed, 6)
+    result["method"] = method
+    result["challenge"] = "sparse-and"
+    result["config"] = {
+        "n_bits": n_bits, "k_sparse": k_sparse, "hidden": hidden,
+        "lr": lr, "wd": wd, "batch_size": batch_size,
+        "n_train": n_train, "max_epochs": max_epochs, "seed": seed,
+    }
+
+    return result
+
+
+def _run_and_sgd(config, secret, seed, **_kwargs):
+    """SGD on sparse AND. Neural net classification with BCE loss."""
+    import numpy as np
+
+    rng = np.random.RandomState(seed + 100)
+    x_tr = rng.choice([-1.0, 1.0], size=(config.n_train, config.n_bits))
+    y_tr = np.prod((x_tr[:, secret] + 1) / 2, axis=1).astype(np.float64)
+
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.prod((x_te[:, secret] + 1) / 2, axis=1).astype(np.float64)
+
+    # Two-layer net with sigmoid output for binary classification
+    std1 = np.sqrt(2.0 / config.n_bits)
+    std2 = np.sqrt(2.0 / config.hidden)
+    W1 = rng.randn(config.hidden, config.n_bits) * std1
+    b1 = np.zeros(config.hidden)
+    W2 = rng.randn(1, config.hidden) * std2
+    b2 = np.zeros(1)
+
+    tracker = MemTracker()
+    tracker.write("W1", W1.size)
+    tracker.write("b1", b1.size)
+    tracker.write("W2", W2.size)
+    tracker.write("b2", b2.size)
+
+    def sigmoid(z):
+        return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
+
+    best_acc = 0.0
+    for epoch in range(config.max_epochs):
+        perm = rng.permutation(config.n_train)
+        for start_idx in range(0, config.n_train, config.batch_size):
+            idx = perm[start_idx:start_idx + config.batch_size]
+            xb = x_tr[idx]
+            yb = y_tr[idx].reshape(-1, 1)
+
+            # Forward
+            tracker.read("W1")
+            tracker.read("b1")
+            h_pre = xb @ W1.T + b1
+            h = np.maximum(0, h_pre)  # ReLU
+
+            tracker.read("W2")
+            tracker.read("b2")
+            out = sigmoid(h @ W2.T + b2)
+
+            # BCE gradient
+            eps = 1e-7
+            d_out = (out - yb) / len(idx)
+
+            # Backward
+            dW2 = d_out.T @ h
+            db2 = d_out.sum(axis=0)
+            d_h = d_out @ W2
+            d_h_pre = d_h * (h_pre > 0).astype(np.float64)
+            dW1 = d_h_pre.T @ xb
+            db1 = d_h_pre.sum(axis=0)
+
+            # Update
+            if config.wd > 0:
+                dW1 += config.wd * W1
+                dW2 += config.wd * W2
+
+            tracker.write("W1", W1.size)
+            tracker.write("W2", W2.size)
+            W1 -= config.lr * dW1
+            b1 -= config.lr * db1
+            W2 -= config.lr * dW2
+            b2 -= config.lr * db2
+
+        # Check accuracy
+        h_te = np.maximum(0, x_te @ W1.T + b1)
+        out_te = sigmoid(h_te @ W2.T + b2).flatten()
+        y_pred_te = (out_te >= 0.5).astype(np.float64)
+        acc = float(np.mean(y_pred_te == y_te))
+        best_acc = max(best_acc, acc)
+        if acc >= 1.0:
+            break
+
+    found_secret = None  # Neural net does not expose feature IDs directly
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(best_acc, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": found_secret,
+        "epochs": epoch + 1,
+    }
+
+
+def _run_and_km(config, secret, seed, influence_samples=5, **_kwargs):
+    """KM influence on sparse AND. Flipping a secret bit changes output iff all other secret bits are +1."""
+    import numpy as np
+
+    rng = np.random.RandomState(seed + 100)
+    rng_inf = np.random.RandomState(seed + 500)
+    tracker = MemTracker()
+    influences = np.zeros(config.n_bits)
+
+    for i in range(config.n_bits):
+        x_batch = rng_inf.choice([-1.0, 1.0], size=(influence_samples, config.n_bits))
+        tracker.write(f"x_batch_{i}", x_batch.size)
+
+        y_orig = np.prod((x_batch[:, secret] + 1) / 2, axis=1)
+        tracker.read(f"x_batch_{i}")
+        tracker.write(f"y_orig_{i}", y_orig.size)
+
+        x_flipped = x_batch.copy()
+        x_flipped[:, i] *= -1
+        y_flipped = np.prod((x_flipped[:, secret] + 1) / 2, axis=1)
+        tracker.write(f"y_flip_{i}", y_flipped.size)
+
+        tracker.read(f"y_orig_{i}")
+        tracker.read(f"y_flip_{i}")
+        influences[i] = np.mean(np.abs(y_orig - y_flipped))
+        tracker.write(f"inf_{i}", 1)
+
+    top_k = sorted(np.argsort(influences)[-config.k_sparse:].tolist())
+
+    # Verify
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.prod((x_te[:, secret] + 1) / 2, axis=1)
+    y_pred = np.prod((x_te[:, top_k] + 1) / 2, axis=1)
+    accuracy = float(np.mean(y_pred == y_te))
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(accuracy, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": top_k,
+    }
+
+
+def _run_and_fourier(config, secret, seed, **_kwargs):
+    """Fourier on sparse AND. Checks all C(n,k) subsets for AND correlation."""
+    import numpy as np
+    from itertools import combinations
+
+    rng = np.random.RandomState(seed + 100)
+    n_samples = max(100, config.n_train)
+    x = rng.choice([-1.0, 1.0], size=(n_samples, config.n_bits))
+    y = np.prod((x[:, secret] + 1) / 2, axis=1)
+
+    tracker = MemTracker()
+    tracker.write("x", x.size)
+    tracker.write("y", y.size)
+
+    best_corr = -1
+    best_subset = None
+
+    for subset in combinations(range(config.n_bits), config.k_sparse):
+        tracker.read("x")
+        tracker.read("y")
+        y_candidate = np.prod((x[:, list(subset)] + 1) / 2, axis=1)
+        corr = np.mean(y == y_candidate)
+        if corr > best_corr:
+            best_corr = corr
+            best_subset = sorted(subset)
+
+    # Verify
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.prod((x_te[:, secret] + 1) / 2, axis=1)
+    y_pred = np.prod((x_te[:, best_subset] + 1) / 2, axis=1)
+    accuracy = float(np.mean(y_pred == y_te))
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(accuracy, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": best_subset,
+    }
+
+
 def print_result(result):
     """Print standardized output that agents can grep."""
     print(f"method: {result.get('method', 'unknown')}")
@@ -648,7 +881,7 @@ def print_result(result):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SutroYaro evaluation harness")
     parser.add_argument("--challenge", default="sparse-parity",
-                        choices=["sparse-parity", "sparse-sum"],
+                        choices=["sparse-parity", "sparse-sum", "sparse-and"],
                         help="Which challenge to run (default: sparse-parity)")
     parser.add_argument("--method", required=True, help="Method to evaluate")
     parser.add_argument("--n_bits", type=int, default=20)
@@ -681,6 +914,8 @@ if __name__ == "__main__":
 
     if args.challenge == "sparse-sum":
         result = measure_sparse_sum(**common)
+    elif args.challenge == "sparse-and":
+        result = measure_sparse_and(**common)
     else:
         result = measure_sparse_parity(**common)
 

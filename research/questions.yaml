@@ -117,6 +117,36 @@
   resolved_by: []
   prior: "This is the meta-question. If yes, adding nanoGPT is the same process."
 
+# --- Sparse AND questions ---
+
+- id: and-Q0.1
+  challenge: sparse-and
+  question: "What are the SGD/KM/Fourier baselines on sparse AND (n=20/k=3)?"
+  depends_on: []
+  resolved_by: []
+  prior: ""
+
+- id: and-Q1.1
+  challenge: sparse-and
+  question: "How does class imbalance (P(y=1) = 1/2^k) affect SGD convergence on sparse AND vs parity?"
+  depends_on: [and-Q0.1]
+  resolved_by: []
+  prior: "AND output is 1 only 1/2^k of the time. For k=3, only 12.5% positive. SGD may need more data or class-weighted loss."
+
+- id: and-Q1.2
+  challenge: sparse-and
+  question: "Does KM influence estimation work on AND despite the asymmetry?"
+  depends_on: [and-Q0.1]
+  resolved_by: []
+  prior: "Flipping a secret bit changes AND output only when all other secret bits are +1. Expected influence per secret bit = 1/2^(k-1)."
+
+- id: and-Q1.3
+  challenge: sparse-and
+  question: "How does ARD compare between AND and parity for the same method?"
+  depends_on: [and-Q0.1]
+  resolved_by: []
+  prior: "AND is a k-th order interaction like parity, but over {0,1} not {-1,+1}. Expect similar difficulty for gradient methods."
+
 # --- nanoGPT questions (future) ---
 # Uncomment when the group moves to the next challenge.
 #

@@ -88,6 +88,36 @@ metrics:
 #   Local learning rules that fail on parity should succeed here.
 #   See docs/research/adding-a-challenge.md for how this was added.
 
+# --- Sparse AND ---
+
+# challenge: sparse-and
+# version: 1
+#
+# methods:
+#   - sgd             # neural net classification (sigmoid output)
+#   - km              # influence estimation (flip changes AND iff all others +1)
+#   - fourier         # exhaustive C(n,k) subset check
+#   # gf2 does NOT work on AND (AND is not linear over GF(2))
+#
+# parameters:
+#   n_bits: [3, 10, 20, 30, 50, 100]
+#   k_sparse: [3, 5, 7, 10]
+#   hidden: [64, 200, 400, 1000]
+#   lr: [0.001, 0.01, 0.1, 0.5]
+#   n_train: [20, 100, 500, 1000, 5000]
+#   seed: [42, 123, 456, 789, 1337]
+#
+# metrics:
+#   primary: ard
+#   secondary: [dmc, time_s, accuracy, total_floats]
+#   locked_in: src/harness.py
+#
+# notes:
+#   y = product((x[secret]+1)/2). Maps {-1,+1} to {0,1}, then AND.
+#   Output is 1 only when ALL k secret bits are +1. P(y=1) = 1/2^k.
+#   Highly asymmetric classification. Class imbalance grows with k.
+#   See docs/research/adding-a-challenge.md for how this was added.
+
 # --- nanoGPT (future) ---
 # Uncomment when the group moves to the next challenge.
 #

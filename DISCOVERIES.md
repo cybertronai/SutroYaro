@@ -210,3 +210,39 @@ This tests whether the infrastructure generalizes to new tasks.
 
 1. Do local learning rules (Hebbian, Predictive Coding) succeed on sparse sum?
 2. How does ARD scale with n for sum vs parity?
+
+---
+
+## Challenge 3: Sparse AND
+
+y = product((x[secret]+1)/2). Maps {-1,+1} to {0,1} per bit, then takes product (logical AND).
+Output is 1 only when ALL k secret bits are +1. P(y=1) = 1/2^k.
+This is a highly asymmetric classification task — class imbalance grows exponentially with k.
+
+Unlike parity (XOR over {-1,+1}), AND is a conjunction over {0,1}.
+Both are k-th order interactions: the signal is invisible to methods that only
+detect lower-order statistics. But AND has severe class imbalance that parity does not.
+
+### Baselines (n=20, k=3, seed=42)
+
+| Method | Accuracy | ARD | Time | Notes |
+|--------|----------|-----|------|-------|
+| SGD (neural net) | 100% | 29,164 | 12.2ms | 4 epochs, sigmoid output |
+| KM influence (5 samples) | 81% | 92 | 1.3ms | Too few samples for 1/2^(k-1) signal |
+| KM influence (20 samples) | 100% | 367 | 1.3ms | Needs more samples than parity |
+| Fourier (exhaustive) | 100% | 11,980,500 | 17.1ms | C(20,3) subset checks |
+| GF(2) | 0% (fails) | -- | -- | AND is not linear over GF(2) |
+
+### Key differences from parity
+
+- AND maps to {0,1} vs parity's {-1,+1}. Both are k-th order interactions.
+- AND has severe class imbalance: P(y=1) = 1/2^k (12.5% for k=3, 3% for k=5).
+- Parity is balanced: P(y=+1) = P(y=-1) = 0.5 regardless of k.
+- GF(2) fails on AND because AND is not linear over GF(2).
+- KM influence per secret bit is 1/2^(k-1) for AND vs 1 for parity.
+
+### Open Questions
+
+1. Does class imbalance affect SGD convergence on AND vs parity?
+2. Does KM need more samples per bit to detect AND influence (1/2^(k-1) vs 1)?
+3. How does ARD compare between AND and parity for the same method?
