@@ -129,7 +129,7 @@ Examples
 
 Yaroslav: [[Yaroslav Sutro technical sprint #1 02mar26](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0)], [[Yaroslav Verification Sprint #1](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)]
 
-Yad: [[Setup Sutro Yaro with Claude Code \| Sparse Parity](https://www.youtube.com/watch?v=h8dAU8yngxM)] [[survey](https://0bserver07.github.io/SutroYaro/research/survey/)] [[github](https://github.com/0bserver07/SutroYaro)]
+Yad: [[Setup Sutro Yaro with Claude Code \| Sparse Parity](https://www.youtube.com/watch?v=h8dAU8yngxM)] [[survey](https://cybertronai.github.io/SutroYaro/research/survey/)] [[github](https://github.com/cybertronai/SutroYaro)]
 
 Michael: [[sutro_challenge_3_sparce parity results.docx](https://docs.google.com/document/d/13uAQfG_ola3vt1hHFo3A8ThUeV-nBVQK/edit)]
 

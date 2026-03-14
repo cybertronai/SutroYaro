@@ -65,7 +65,7 @@ Questions:
 
 ### Yad Konrad 
 
-[[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)]
+[[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)]
 
 \-\-\-\-\--
 
@@ -79,7 +79,7 @@ Verify Yad's result
 
 pushd \~/git0
 
-git clone https://github.com/0bserver07/SutroYaro
+git clone https://github.com/cybertronai/SutroYaro
 
 cd SutroYaro
 
@@ -97,7 +97,7 @@ Prompt:
 
 Take the following specification [[sutro group challenge #1: sparse parity](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0)]and the following solution: [[https://github.com/cybertronai/sutro/blob/main/exp_gf2_standalone.py](https://github.com/cybertronai/sutro/blob/main/exp_gf2_standalone.py)] , and the following output after running this solution. Give a critical analysis of the solution, whether it satisfies the constraints of the problem. Give potential pitfalls such as overfitting to the task and whether this advances us towards the goal.
 
-Comment on the higher level strategy (agentic loops in And whether the lessons of this approach (agentic loop) [[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)])
+Comment on the higher level strategy (agentic loops in And whether the lessons of this approach (agentic loop) [[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)])
 
 The overall goal: 
 
@@ -113,7 +113,7 @@ Compare the energy efficiency of the standalone scripts to the baseline sparse p
 
 15:05 \-- compare energy efficiency using claude
 
-\"[[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)]\"
+\"[[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)]\"
 
 prompt: Compare the energy efficiency of the standalone scripts to the baseline sparse parity benchmark. I'm interested in the average reuse distance. sparse_parity_benchmark.py vs exp_gf2_standalone.py
 

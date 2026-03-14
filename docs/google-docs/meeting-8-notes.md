@@ -8,9 +8,9 @@
 
 - Yaroslav talked about his knowledge [[sprint](https://docs.google.com/document/d/105FkE_U5_cXA1o8sxMGrj1NuTxysfSBTZsLB7vift-M/edit?tab=t.0#heading=h.p686ct9trrt)], and showed some [[slides](https://drive.google.com/file/d/1LSEWEmNsH5z25MeZs7vE6LAiI0r_zwIK/view?usp=sharing)]
 
-- Yad [[demo'ed](https://www.youtube.com/watch?v=h8dAU8yngxM)] his agentic harness, encouraged people to contribute on [[github](https://github.com/0bserver07/SutroYaro)]
+- Yad [[demo'ed](https://www.youtube.com/watch?v=h8dAU8yngxM)] his agentic harness, encouraged people to contribute on [[github](https://github.com/cybertronai/SutroYaro)]
 
-   - harness gave 1000x [[faster](https://0bserver07.github.io/SutroYaro/research/survey/)] faster solution, Yaroslav [[verified](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)] correctness, [[visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)] top algorithm
+   - harness gave 1000x [[faster](https://cybertronai.github.io/SutroYaro/research/survey/)] faster solution, Yaroslav [[verified](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)] correctness, [[visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)] top algorithm
 
 - Michael showed his Claude [[approach](https://docs.google.com/document/d/13uAQfG_ola3vt1hHFo3A8ThUeV-nBVQK/edit?rtpof=true&sd=true&tab=t.0)] which seemed to prefer methods from the 90s
 

@@ -115,7 +115,7 @@ Can modern AI
 
 ===============================================================================
 
-Yad's repro using Claude Code [[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)]
+Yad's repro using Claude Code [[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)]
 
 Germain's summary: 
 
