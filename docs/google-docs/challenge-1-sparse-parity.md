@@ -1,7 +1,7 @@
 !!! info "Cross-references"
     **Source**: [Google Doc](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0) · Homework assigned at [Meeting #7](meeting-7-notes.md).
     **Related research**: [Sprint 1 findings](../findings/sprint-1-findings.md) · [All experiment results](../research/index.md) · [Yaroslav Sprint 1](yaroslav-technical-sprint-1.md) · [Literature review](../research/sparse-parity-literature.md)
-    **Yad's reproduction**: [SutroYaro repo](https://github.com/0bserver07/SutroYaro) — 16 experiments, solved 20-bit k=3 in 0.12s
+    **Yad's reproduction**: [SutroYaro repo](https://github.com/cybertronai/SutroYaro) -- 33+ experiments, solved 20-bit k=3 in 509us (GF2)
 
 # Sutro Group Challenge #1 
 
