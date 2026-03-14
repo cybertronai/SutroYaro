@@ -355,6 +355,11 @@
             </a>
 </li>
 <li>
+<a class="md-tabs__dropdown-link" href="../../findings/exp_gf2_noise/">
+              GF(2) Noise Tolerance
+            </a>
+</li>
+<li>
 <a class="md-tabs__dropdown-link" href="../../findings/exp_random_proj/">
               Random Projections
             </a>
@@ -1465,6 +1470,18 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../findings/exp_gf2_noise/">
+<span class="md-ellipsis">
+    
+  
+    GF(2) Noise Tolerance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../findings/exp_random_proj/">
 <span class="md-ellipsis">
     
@@ -2262,7 +2279,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="sparse-parity-a-practitioners-field-guide">Sparse Parity: A Practitioner's Field Guide<a class="headerlink" href="#sparse-parity-a-practitioners-field-guide" title="Permanent link">¶</a></h1>
-<p>33 experiments (16 Phase 1 + 17 Phase 2) for energy-efficient learning on the simplest non-trivial task.</p>
+<p>34 experiments (16 Phase 1 + 17 Phase 2 + 1 follow-up) for energy-efficient learning on the simplest non-trivial task.</p>
 <p><strong>Sutro Group, Challenge #1</strong> | March 2026 | <a href="https://github.com/cybertronai/SutroYaro">Source code</a></p>
 <hr/>
 <h2 id="1-tldr">1. TL;DR<a class="headerlink" href="#1-tldr" title="Permanent link">¶</a></h2>
@@ -2668,6 +2685,7 @@
 </tbody>
 </table>
 <p>GF(2) Gaussian elimination treats each training sample as a linear equation over the binary field and row-reduces. The time is O(n * m) where m is the number of samples, independent of k. With 21 samples for n=20, it runs in 509 microseconds, which is 240x faster than SGD. For n=100/k=3, where Fourier would check 161,700 subsets, GF(2) solves in 8 milliseconds with 101 samples.</p>
+<p><strong>Noise limitation</strong>: Basic GF(2) fails at 1% label noise (inconsistent system). A robust subset-sampling variant recovers up to 10-15% noise by finding clean equation subsets. See <a href="../../findings/exp_gf2_noise/">exp_gf2_noise</a>.</p>
 <p>KM's influence estimation flips each bit independently and measures label change rate. Secret bits have influence 1.0. Non-secret bits have influence 0.0. This prunes the search from C(n,k) subsets to exactly 1, with O(n) queries. Its ARD of 1,585 is 724x better than Fourier's 1,147,375.</p>
 <p>SMT backtracking encodes parity as a constraint satisfaction problem. The k-1 pruning trick (once k-1 indices are fixed, the required last column is fully determined) reduces the search to ~2,146 nodes for n=100/k=3, far below the 161,700-subset space.</p>
 <h3 id="information-theoretic">Information-Theoretic<a class="headerlink" href="#information-theoretic" title="Permanent link">¶</a></h3>
@@ -3200,6 +3218,7 @@
 <li><a href="../../findings/exp_smt/">exp_smt: SMT/Backtracking</a></li>
 <li><a href="../../findings/exp_rl/">exp_rl: RL Bit Querying</a></li>
 <li><a href="../../findings/exp_mdl/">exp_mdl: MDL Compression</a></li>
+<li><a href="../../findings/exp_gf2_noise/">exp_gf2_noise: GF(2) with Noisy Labels</a></li>
 </ol>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">¶</a></h3>
 <ul>

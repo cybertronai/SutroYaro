@@ -640,6 +640,14 @@
       
         
           <li>
+            <a href="../findings/exp_gf2_noise/" class="md-tabs__dropdown-link">
+              GF(2) Noise Tolerance
+            </a>
+          </li>
+        
+      
+        
+          <li>
             <a href="../findings/exp_random_proj/" class="md-tabs__dropdown-link">
               Random Projections
             </a>
@@ -2496,6 +2504,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../findings/exp_gf2_noise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GF(2) Noise Tolerance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../findings/exp_random_proj/" class="md-nav__link">
         
   
@@ -3792,6 +3828,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0160-2026-03-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.16.0] - 2026-03-14
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.16.0] - 2026-03-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repo-migration-multi-topic-telegram-sync-and-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo migration, multi-topic Telegram sync, and skills
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0150-2026-03-11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3864,6 +3928,34 @@
     <span class="md-ellipsis">
       
         Meeting #8 docs and sync runbook
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0120-2026-03-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.12.0] - 2026-03-09
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.12.0] - 2026-03-09">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gf2-noise-tolerance-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GF(2) noise tolerance experiment
       
     </span>
   </a>
@@ -4240,6 +4332,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0160-2026-03-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.16.0] - 2026-03-14
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.16.0] - 2026-03-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repo-migration-multi-topic-telegram-sync-and-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo migration, multi-topic Telegram sync, and skills
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0150-2026-03-11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4312,6 +4432,34 @@
     <span class="md-ellipsis">
       
         Meeting #8 docs and sync runbook
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0120-2026-03-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.12.0] - 2026-03-09
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.12.0] - 2026-03-09">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gf2-noise-tolerance-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GF(2) noise tolerance experiment
       
     </span>
   </a>
@@ -4675,6 +4823,18 @@
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
 <p>All notable changes to this research workspace.</p>
+<h2 id="0160-2026-03-14">[0.16.0] - 2026-03-14<a class="headerlink" href="#0160-2026-03-14" title="Permanent link">&para;</a></h2>
+<h3 id="repo-migration-multi-topic-telegram-sync-and-skills">Repo migration, multi-topic Telegram sync, and skills<a class="headerlink" href="#repo-migration-multi-topic-telegram-sync-and-skills" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Moved repo from <code>0bserver07/SutroYaro</code> to <code>cybertronai/SutroYaro</code> (updated 15 files, git remote, GitHub Pages URL)</li>
+<li>Telegram sync now pulls 6 topics in priority order (chat-yad, chat-yaroslav, challenge #1, General, In-person, Introductions) to separate JSON files</li>
+<li>Added <code>sutro-sync</code> skill: session-start routine for Telegram, Google Docs, GitHub checks</li>
+<li>Added <code>sutro-context</code> skill: research context loader (DISCOVERIES.md, open questions, recent discussion)</li>
+<li>Re-synced all 15 Google Docs with upstream changes</li>
+<li>Both of Andy's PRs merged (#2 TODO cleanup, #3 GF(2) noise experiment), Issue #1 closed</li>
+<li>Deploy workflow confirmed working on new org</li>
+</ul>
+<hr />
 <h2 id="0150-2026-03-11">[0.15.0] - 2026-03-11<a class="headerlink" href="#0150-2026-03-11" title="Permanent link">&para;</a></h2>
 <h3 id="peer-research-protocol-and-autonomous-agent-infrastructure">Peer research protocol and autonomous agent infrastructure<a class="headerlink" href="#peer-research-protocol-and-autonomous-agent-infrastructure" title="Permanent link">&para;</a></h3>
 <p>Inspired by analysis of Karpathy's autoresearch and trevin-creator's Tiny-Lab, but built for multi-researcher use with our own naming conventions.</p>
@@ -4725,6 +4885,16 @@
 <li>Created sync runbook (<code>docs/tooling/sync-runbook.md</code>) with weekly/daily/per-session checklists</li>
 <li>Added GitHub PR/issue checking to CLAUDE.md "Before Pushing" checklist</li>
 <li>Total synced Google Docs: 15 (up from 9)</li>
+</ul>
+<hr />
+<h2 id="0120-2026-03-09">[0.12.0] - 2026-03-09<a class="headerlink" href="#0120-2026-03-09" title="Permanent link">&para;</a></h2>
+<h3 id="gf2-noise-tolerance-experiment">GF(2) noise tolerance experiment<a class="headerlink" href="#gf2-noise-tolerance-experiment" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Added exp_gf2_noise experiment testing algebraic solver with label noise</li>
+<li>Key finding: Basic GF(2) fails at 1% noise; robust subset-sampling recovers up to 10-15%</li>
+<li>New experiment: <code>src/sparse_parity/experiments/exp_gf2_noise.py</code></li>
+<li>Findings: <code>findings/exp_gf2_noise.md</code></li>
+<li>Updated DISCOVERIES.md with noise tolerance results</li>
 </ul>
 <hr />
 <h2 id="0110-2026-03-07">[0.11.0] - 2026-03-07<a class="headerlink" href="#0110-2026-03-07" title="Permanent link">&para;</a></h2>
