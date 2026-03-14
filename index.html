@@ -1197,10 +1197,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-challenge" class="md-nav__link">
+  <a href="#the-challenges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Challenge
+        The Challenges
       
     </span>
   </a>
@@ -3992,10 +3992,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-challenge" class="md-nav__link">
+  <a href="#the-challenges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Challenge
+        The Challenges
       
     </span>
   </a>
@@ -4068,13 +4068,39 @@
 
 <h1 id="sutroyaro">SutroYaro<a class="headerlink" href="#sutroyaro" title="Permanent link">&para;</a></h1>
 <p>Research workspace for the <strong>Sutro Group</strong>, a study group exploring energy-efficient AI training. Weekly meetings at South Park Commons, San Francisco.</p>
-<h2 id="the-challenge">The Challenge<a class="headerlink" href="#the-challenge" title="Permanent link">&para;</a></h2>
-<p>The group picks simple learning tasks and tries to solve them with less energy. Challenge #1 is <strong>sparse parity</strong>: given n-bit inputs in {-1, +1}, find the k secret bits whose product determines the label. It is the simplest non-trivial learning problem, fast enough to iterate hundreds of times per hour, and structured enough to reveal real phenomena about memory access patterns and algorithm design.</p>
-<p>Standard config: n=20 bits, k=3 secret, 17 noise. Harder configs: n=50/k=3, n=20/k=5, n=100/k=10.</p>
+<h2 id="the-challenges">The Challenges<a class="headerlink" href="#the-challenges" title="Permanent link">&para;</a></h2>
+<p>The group picks simple learning tasks and tries to solve them with less energy. Three challenges so far, all runnable in under 1 second:</p>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Task</th>
+<th>What it tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sparse Parity</strong></td>
+<td>y = product of k secret bits (XOR)</td>
+<td>k-th order interactions, no local signal</td>
+</tr>
+<tr>
+<td><strong>Sparse Sum</strong></td>
+<td>y = sum of k secret bits</td>
+<td>First-order linear structure</td>
+</tr>
+<tr>
+<td><strong>Sparse AND</strong></td>
+<td>y = logical AND of k secret bits</td>
+<td>Class-imbalanced k-th order</td>
+</tr>
+</tbody>
+</table>
+<p>Standard config: n=20 bits, k=3 secret, 17 noise. The <a href="research/adding-a-challenge/">adding-a-challenge guide</a> documents how any agent or contributor can add the next task.</p>
 <h2 id="what-we-found">What We Found<a class="headerlink" href="#what-we-found" title="Permanent link">&para;</a></h2>
-<p>33 experiments across two phases. The full ranked results and methodology are in the <a href="research/survey/">Practitioner's Field Guide</a>.</p>
-<p><strong>Phase 1</strong> (16 experiments): Started with a broken SGD baseline (LR=0.5, stuck at 54%). Fixed hyperparameters to solve it in 0.12s. Optimized memory access patterns (ARD) within the SGD framework, hitting a ceiling at ~10% improvement because one tensor (W1) dominates 75% of all float reads. Built a cache simulator showing L2 eliminates all misses. Pivoted to new algorithms.</p>
-<p><strong>Phase 2</strong> (17 experiments): Tested algebraic, information-theoretic, local learning, hardware-aware, and alternative approaches in parallel. The result:</p>
+<p>34+ experiments across two phases, plus GPU energy validation. The full ranked results are in the <a href="research/survey/">Practitioner's Field Guide</a>.</p>
+<p><strong>Phase 1</strong> (16 experiments): Started with a broken SGD baseline (LR=0.5, stuck at 54%). Fixed hyperparameters to solve it in 0.12s. Optimized memory access patterns (ARD) within the SGD framework, hitting a ceiling at ~10% improvement because one tensor (W1) dominates 75% of all float reads. Pivoted to new algorithms.</p>
+<p><strong>Phase 2</strong> (17 experiments): Tested algebraic, information-theoretic, local learning, hardware-aware, and alternative approaches in parallel:</p>
 <table>
 <thead>
 <tr>
@@ -4107,19 +4133,26 @@
 </tbody>
 </table>
 <p>All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection, which local statistics cannot provide.</p>
+<p><strong>GPU energy validation</strong>: Real power measurements on NVIDIA L4 via Modal Labs. SGD uses 18.7 joules, KM uses 144 millijoules (130x gap). ARD proxy tracks real energy within an order of magnitude. See <a href="findings/gpu_energy_baseline/">GPU energy baseline</a>.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Clone and run</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/cybertronai/SutroYaro.git
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>SutroYaro
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Solve 20-bit sparse parity in 0.12s (SGD)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>sparse_parity.fast
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Solve it in 509 microseconds (GF(2))</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>src/sparse_parity/experiments/exp_gf2.py
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Run your own experiment</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>cp<span class="w"> </span>src/sparse_parity/experiments/_template.py<span class="w"> </span>src/sparse_parity/experiments/exp_mine.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/cybertronai/SutroYaro.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>SutroYaro
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Verify all 14 experiments across 3 challenges in &lt;1 second</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Run sparse parity with GF(2) (509 microseconds)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>src/harness.py<span class="w"> </span>--method<span class="w"> </span>gf2<span class="w"> </span>--n_bits<span class="w"> </span><span class="m">20</span><span class="w"> </span>--k_sparse<span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Run sparse sum (new challenge)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>src/harness.py<span class="w"> </span>--challenge<span class="w"> </span>sparse-sum<span class="w"> </span>--method<span class="w"> </span>sgd
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># Measure real GPU energy via Modal Labs</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>pip<span class="w"> </span>install<span class="w"> </span>modal<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># Run autonomous agent loop</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>claude<span class="w"> </span>--max<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
 <h2 id="where-to-find-things">Where to Find Things<a class="headerlink" href="#where-to-find-things" title="Permanent link">&para;</a></h2>
 <table>
@@ -4135,20 +4168,28 @@
 <td><a href="research/whats-new-march-2026/">What's New (March 2026)</a></td>
 </tr>
 <tr>
+<td>All 34+ experiments ranked</td>
+<td><a href="research/survey/">Practitioner's Field Guide</a></td>
+</tr>
+<tr>
+<td>Add a new challenge</td>
+<td><a href="research/adding-a-challenge/">Adding a Challenge</a></td>
+</tr>
+<tr>
+<td>GPU energy results</td>
+<td><a href="findings/gpu_energy_baseline/">GPU Energy Baseline</a></td>
+</tr>
+<tr>
 <td>Run experiments with any AI tool</td>
 <td><a href="tooling/agent-cli-guide/">Agent CLI Guide</a></td>
 </tr>
 <tr>
-<td>Why we built it this way</td>
-<td><a href="research/navigation-thesis/">Research as Navigation</a></td>
+<td>Scripts and toolkit</td>
+<td><a href="tooling/">Tooling</a></td>
 </tr>
 <tr>
 <td>Full protocol design</td>
 <td><a href="research/peer-research-protocol/">Peer Research Protocol</a></td>
-</tr>
-<tr>
-<td>All 33 experiments ranked</td>
-<td><a href="research/survey/">Practitioner's Field Guide</a></td>
 </tr>
 <tr>
 <td>What's been proven so far</td>
@@ -4157,14 +4198,6 @@
 <tr>
 <td>Individual experiment findings</td>
 <td><a href="research/">Research &gt; Findings</a></td>
-</tr>
-<tr>
-<td>Group context and people</td>
-<td><a href="context/">Context</a></td>
-</tr>
-<tr>
-<td>Tooling and setup</td>
-<td><a href="tooling/">Tooling</a></td>
 </tr>
 <tr>
 <td>Meeting notes and Google Docs</td>
@@ -4192,6 +4225,10 @@
 <tr>
 <td>Code repo</td>
 <td><a href="https://github.com/cybertronai/sutro">cybertronai/sutro</a></td>
+</tr>
+<tr>
+<td>The Bigger Picture</td>
+<td><a href="google-docs/bigger-picture/">Yaroslav's roadmap</a></td>
 </tr>
 <tr>
 <td>Meetings</td>
