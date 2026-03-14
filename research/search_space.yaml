@@ -58,6 +58,36 @@ metrics:
     - total_floats
   locked_in: src/harness.py
 
+# --- Sparse Sum ---
+
+# challenge: sparse-sum
+# version: 1
+#
+# methods:
+#   - sgd             # linear regression (solves trivially)
+#   - km              # influence estimation (bit-flip changes sum by 2)
+#   - fourier         # first-order correlations (no need for C(n,k))
+#   # gf2 does NOT work on sum (sum is not linear over GF(2))
+#
+# parameters:
+#   n_bits: [3, 10, 20, 30, 50, 100]
+#   k_sparse: [3, 5, 7, 10]
+#   hidden: [64, 200, 400, 1000]
+#   lr: [0.001, 0.01, 0.1, 0.5]
+#   n_train: [20, 100, 500, 1000, 5000]
+#   seed: [42, 123, 456, 789, 1337]
+#
+# metrics:
+#   primary: ard
+#   secondary: [dmc, time_s, accuracy, total_floats]
+#   locked_in: src/harness.py
+#
+# notes:
+#   y = sum(x[secret_indices]). Output in [-k, k]. Regression, not classification.
+#   Each bit contributes independently (first-order structure).
+#   Local learning rules that fail on parity should succeed here.
+#   See docs/research/adding-a-challenge.md for how this was added.
+
 # --- nanoGPT (future) ---
 # Uncomment when the group moves to the next challenge.
 #

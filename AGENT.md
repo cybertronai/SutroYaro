@@ -46,6 +46,7 @@ REPEAT until TODO.md has no unchecked items or you hit max_experiments (20):
            - do NOT modify: tracker.py, cache_tracker.py, data.py,
              config.py, harness.py (LAB.md rule #9)
   5. RUN    experiment via src/harness.py
+           - use --challenge flag: sparse-parity (default) or sparse-sum
            - redirect output: python3 experiment.py > /tmp/run.log 2>&1
            - extract metrics: grep "ard\|dmc\|time\|accuracy" /tmp/run.log
   6. LOG    append one JSON line to research/log.jsonl

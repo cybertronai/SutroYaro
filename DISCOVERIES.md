@@ -179,3 +179,34 @@
 | exp_rl | 03-06 | RL learns what to read | SUCCESS: k reads per prediction | ARD=1 at inference |
 | exp_mdl | 03-06 | MDL finds secret | SUCCESS: noise-robust | 0 bits vs 499 bits |
 | exp_gf2_noise | 03-09 | GF(2) handles noise | SUCCESS: robust solver | 100% at 10% noise, fails at 20% |
+
+---
+
+## Challenge 2: Sparse Sum
+
+y = sum of x[secret_indices]. Output in [-k, k]. Regression, not classification.
+Unlike parity, each secret bit contributes independently (first-order signal).
+This tests whether the infrastructure generalizes to new tasks.
+
+### Baselines (n=20, k=3, seed=42)
+
+| Method | Accuracy | ARD | Time | Notes |
+|--------|----------|-----|------|-------|
+| SGD (gradient descent) | 100% | 20 | 2.6ms | 1 epoch, tracked steps |
+| OLS (least squares) | 100% | 20,980 | 2.5ms | One-shot matrix solve |
+| KM influence | 100% | 92 | 3.7ms | Same approach as parity |
+| Fourier (first-order) | 100% | 220,500 | 0.5ms | Only checks n bits, not C(n,k) |
+| GF(2) | 0% (fails) | -- | -- | Sum is not parity over GF(2) |
+
+### Key differences from parity
+
+- Sum is linear. Parity is k-th order. This is the fundamental distinction.
+- SGD solves sum in 1 epoch (vs ~40 for parity) with ARD of 20 (vs 17,976 for parity).
+- GF(2) fails on sum because sum is not linear over GF(2).
+- Fourier on sum only needs to check n individual bits, not C(n,k) subsets.
+- KM has the best ARD for exact methods (92 vs parity's 1,585).
+
+### Open Questions
+
+1. Do local learning rules (Hebbian, Predictive Coding) succeed on sparse sum?
+2. How does ARD scale with n for sum vs parity?

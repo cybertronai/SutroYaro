@@ -91,6 +91,32 @@
   resolved_by: []
   prior: "3.8% on 2-layer. Hypothesis: larger gain on deeper nets where activation storage creates longer reuse distances."
 
+# --- Sparse Sum questions ---
+
+- id: sum-Q0.1
+  question: "What are the SGD/KM/Fourier baselines on sparse sum (n=20/k=3)?"
+  depends_on: []
+  resolved_by: []
+  prior: "SGD 100% in 1.5ms, KM 100% in 1.1ms, Fourier 100% in 0.4ms. GF(2) fails (expected)."
+
+- id: sum-Q1.1
+  question: "Do local learning rules (Hebbian, Predictive Coding) succeed on sparse sum?"
+  depends_on: [sum-Q0.1]
+  resolved_by: []
+  prior: "All 4 local rules failed on parity because signal is k-th order. Sum has first-order signal, so they should work."
+
+- id: sum-Q1.2
+  question: "What is the ARD comparison between sum and parity for the same method (SGD, KM)?"
+  depends_on: [sum-Q0.1]
+  resolved_by: []
+  prior: "Sum should have lower ARD for methods that exploit linearity."
+
+- id: sum-Q1.3
+  question: "Does the infrastructure generalize? Can an agent run sparse sum experiments using AGENT.md without human help?"
+  depends_on: [sum-Q0.1]
+  resolved_by: []
+  prior: "This is the meta-question. If yes, adding nanoGPT is the same process."
+
 # --- nanoGPT questions (future) ---
 # Uncomment when the group moves to the next challenge.
 #

@@ -57,6 +57,7 @@ def measure_sparse_parity(method, n_bits=20, k_sparse=3, hidden=200,
 
     result["time_s"] = round(elapsed, 6)
     result["method"] = method
+    result["challenge"] = "sparse-parity"
     result["config"] = {
         "n_bits": n_bits, "k_sparse": k_sparse, "hidden": hidden,
         "lr": lr, "wd": wd, "batch_size": batch_size,
@@ -398,6 +399,237 @@ def _run_smt(config, **kwargs):
     }
 
 
+def measure_sparse_sum(method, n_bits=20, k_sparse=3, hidden=200,
+                       lr=0.1, wd=0.01, batch_size=32, n_train=1000,
+                       max_epochs=200, seed=42, **kwargs):
+    """
+    Run a sparse sum experiment and return standardized metrics.
+
+    Sparse sum: y = sum of x[secret_indices]. Output in [-k, k].
+    Unlike parity (product), sum has first-order structure -- each
+    secret bit contributes independently.
+
+    Returns dict with: accuracy, ard, dmc, time_s, total_floats, method, config
+    """
+    import numpy as np
+
+    config = Config(
+        n_bits=n_bits, k_sparse=k_sparse, hidden=hidden,
+        lr=lr, wd=wd, batch_size=batch_size,
+        n_train=n_train, n_test=200, max_epochs=max_epochs, seed=seed
+    )
+
+    rng_secret = np.random.RandomState(seed)
+    secret = sorted(rng_secret.choice(n_bits, k_sparse, replace=False).tolist())
+
+    start = time.perf_counter()
+
+    if method == "ols":
+        result = _run_sum_ols(config, secret, seed, **kwargs)
+    elif method == "sgd":
+        result = _run_sum_sgd(config, secret, seed, **kwargs)
+    elif method == "km":
+        result = _run_sum_km(config, secret, seed, **kwargs)
+    elif method == "fourier":
+        result = _run_sum_fourier(config, secret, seed, **kwargs)
+    elif method == "gf2":
+        result = {"accuracy": 0.0, "ard": None, "dmc": None,
+                  "total_floats": None, "found_secret": None,
+                  "error": "GF(2) only works on parity (product), not sum"}
+    else:
+        return {"error": f"Unknown method for sparse-sum: {method}. Available: ols, sgd, km, fourier, gf2", "method": method}
+
+    elapsed = time.perf_counter() - start
+
+    result["time_s"] = round(elapsed, 6)
+    result["method"] = method
+    result["challenge"] = "sparse-sum"
+    result["config"] = {
+        "n_bits": n_bits, "k_sparse": k_sparse, "hidden": hidden,
+        "lr": lr, "wd": wd, "batch_size": batch_size,
+        "n_train": n_train, "max_epochs": max_epochs, "seed": seed,
+    }
+
+    return result
+
+
+def _run_sum_ols(config, secret, seed, **_kwargs):
+    """OLS (ordinary least squares) on sparse sum. Solves in one shot."""
+    import numpy as np
+
+    rng = np.random.RandomState(seed + 100)
+    x_tr = rng.choice([-1.0, 1.0], size=(config.n_train, config.n_bits))
+    y_tr = np.sum(x_tr[:, secret], axis=1).astype(np.float64)
+
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.sum(x_te[:, secret], axis=1).astype(np.float64)
+
+    tracker = MemTracker()
+    tracker.write("x_tr", x_tr.size)
+    tracker.write("y_tr", y_tr.size)
+    tracker.read("x_tr")
+    tracker.read("y_tr")
+
+    w = np.linalg.lstsq(x_tr, y_tr, rcond=None)[0]
+    tracker.write("w", w.size)
+
+    tracker.read("w")
+    y_pred = x_te @ w
+    y_pred_rounded = np.round(y_pred).astype(int)
+    y_te_int = y_te.astype(int)
+    accuracy = float(np.mean(y_pred_rounded == y_te_int))
+
+    found_secret = sorted(np.where(np.abs(w) > 0.5)[0].tolist())
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(accuracy, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": found_secret,
+    }
+
+
+def _run_sum_sgd(config, secret, seed, **_kwargs):
+    """SGD on sparse sum. Gradient descent training loop for fair ARD comparison."""
+    import numpy as np
+
+    rng = np.random.RandomState(seed + 100)
+    x_tr = rng.choice([-1.0, 1.0], size=(config.n_train, config.n_bits))
+    y_tr = np.sum(x_tr[:, secret], axis=1).astype(np.float64)
+
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.sum(x_te[:, secret], axis=1).astype(np.float64)
+
+    # Linear model: y_pred = x @ w
+    w = rng.randn(config.n_bits) * 0.01
+
+    tracker = MemTracker()
+    tracker.write("w", w.size)
+
+    best_acc = 0.0
+    for epoch in range(config.max_epochs):
+        # Mini-batch SGD
+        perm = rng.permutation(config.n_train)
+        for start in range(0, config.n_train, config.batch_size):
+            idx = perm[start:start + config.batch_size]
+            xb = x_tr[idx]
+            yb = y_tr[idx]
+
+            tracker.read("w")
+            y_pred = xb @ w
+            err = y_pred - yb
+
+            grad = (2.0 / len(idx)) * (xb.T @ err)
+            if config.wd > 0:
+                grad += config.wd * w
+
+            tracker.write("w", w.size)
+            w -= config.lr * grad
+
+        # Check accuracy
+        y_pred_te = np.round(x_te @ w).astype(int)
+        acc = float(np.mean(y_pred_te == y_te.astype(int)))
+        best_acc = max(best_acc, acc)
+        if acc >= 1.0:
+            break
+
+    found_secret = sorted(np.where(np.abs(w) > 0.5)[0].tolist())
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(best_acc, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": found_secret,
+        "epochs": epoch + 1,
+    }
+
+
+def _run_sum_km(config, secret, seed, influence_samples=5, **_kwargs):
+    """KM influence on sparse sum. Bit-flip changes sum by 2 if bit is in secret."""
+    import numpy as np
+
+    rng = np.random.RandomState(seed + 100)
+    rng_inf = np.random.RandomState(seed + 500)
+    tracker = MemTracker()
+    influences = np.zeros(config.n_bits)
+
+    for i in range(config.n_bits):
+        x_batch = rng_inf.choice([-1.0, 1.0], size=(influence_samples, config.n_bits))
+        tracker.write(f"x_batch_{i}", x_batch.size)
+
+        y_orig = np.sum(x_batch[:, secret], axis=1)
+        tracker.read(f"x_batch_{i}")
+        tracker.write(f"y_orig_{i}", y_orig.size)
+
+        x_flipped = x_batch.copy()
+        x_flipped[:, i] *= -1
+        y_flipped = np.sum(x_flipped[:, secret], axis=1)
+        tracker.write(f"y_flip_{i}", y_flipped.size)
+
+        tracker.read(f"y_orig_{i}")
+        tracker.read(f"y_flip_{i}")
+        influences[i] = np.mean(np.abs(y_orig - y_flipped))
+        tracker.write(f"inf_{i}", 1)
+
+    top_k = sorted(np.argsort(influences)[-config.k_sparse:].tolist())
+
+    # Verify
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.sum(x_te[:, secret], axis=1).astype(int)
+    y_pred = np.sum(x_te[:, top_k], axis=1).astype(int)
+    accuracy = float(np.mean(y_pred == y_te))
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(accuracy, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": top_k,
+    }
+
+
+def _run_sum_fourier(config, secret, seed, **_kwargs):
+    """Fourier on sparse sum. First-order coefficients are non-zero for secret bits."""
+    import numpy as np
+
+    rng = np.random.RandomState(seed + 100)
+    n_samples = max(100, config.n_train)
+    x = rng.choice([-1.0, 1.0], size=(n_samples, config.n_bits))
+    y = np.sum(x[:, secret], axis=1)
+
+    tracker = MemTracker()
+    tracker.write("x", x.size)
+    tracker.write("y", y.size)
+
+    correlations = np.zeros(config.n_bits)
+    for i in range(config.n_bits):
+        tracker.read("x")
+        tracker.read("y")
+        correlations[i] = abs(np.mean(y * x[:, i]))
+
+    top_k = sorted(np.argsort(correlations)[-config.k_sparse:].tolist())
+
+    # Verify
+    x_te = rng.choice([-1.0, 1.0], size=(200, config.n_bits))
+    y_te = np.sum(x_te[:, secret], axis=1).astype(int)
+    y_pred = np.sum(x_te[:, top_k], axis=1).astype(int)
+    accuracy = float(np.mean(y_pred == y_te))
+
+    s = tracker.summary()
+    return {
+        "accuracy": round(accuracy, 4),
+        "ard": round(s["weighted_ard"], 1),
+        "dmc": round(s["dmc"], 1),
+        "total_floats": s["total_floats_accessed"],
+        "found_secret": top_k,
+    }
+
+
 def print_result(result):
     """Print standardized output that agents can grep."""
     print(f"method: {result.get('method', 'unknown')}")
@@ -415,6 +647,9 @@ def print_result(result):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SutroYaro evaluation harness")
+    parser.add_argument("--challenge", default="sparse-parity",
+                        choices=["sparse-parity", "sparse-sum"],
+                        help="Which challenge to run (default: sparse-parity)")
     parser.add_argument("--method", required=True, help="Method to evaluate")
     parser.add_argument("--n_bits", type=int, default=20)
     parser.add_argument("--k_sparse", type=int, default=3)
@@ -430,7 +665,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    result = measure_sparse_parity(
+    common = dict(
         method=args.method,
         n_bits=args.n_bits,
         k_sparse=args.k_sparse,
@@ -443,6 +678,11 @@ if __name__ == "__main__":
         seed=args.seed,
         influence_samples=args.influence_samples,
     )
+
+    if args.challenge == "sparse-sum":
+        result = measure_sparse_sum(**common)
+    else:
+        result = measure_sparse_parity(**common)
 
     if args.json:
         print(json.dumps(result, indent=2))

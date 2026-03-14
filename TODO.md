@@ -84,3 +84,16 @@ Can a systematic search over backward pass orderings find a better ARD than hand
 - `src/sparse_parity/train_perlayer.py`
 - `src/sparse_parity/tracker.py`
 - `findings/exp_pebble_game.md`
+
+---
+
+## Sparse Sum (Challenge 2)
+
+New challenge: y = sum(x[secret_indices]). First-order structure (unlike parity).
+Tests whether the infrastructure generalizes. See `docs/research/adding-a-challenge.md`.
+
+- [ ] Run Hebbian on sparse sum (expect success, unlike parity)
+- [ ] Run Predictive Coding on sparse sum (expect success)
+- [ ] Compare ARD of SGD on sum vs parity at n=20, 50, 100
+- [ ] Test if AGENT.md loop works on sparse sum without human help
+- [ ] Scale test: sparse sum at n=100/k=10
