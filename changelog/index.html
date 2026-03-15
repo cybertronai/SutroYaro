@@ -784,6 +784,14 @@
       
         
           <li>
+            <a href="../findings/exp_proxy_comparison/" class="md-tabs__dropdown-link">
+              Proxy vs Real Energy
+            </a>
+          </li>
+        
+      
+        
+          <li>
             <a href="../research/friday-demo/" class="md-tabs__dropdown-link">
               Friday Demo
             </a>
@@ -3024,6 +3032,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../findings/exp_proxy_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxy vs Real Energy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../research/friday-demo/" class="md-nav__link">
         
   
@@ -3900,6 +3936,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0200-2026-03-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.20.0] - 2026-03-14
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.20.0] - 2026-03-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proxy-vs-real-gpu-energy-comparison-issue-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy vs real GPU energy comparison (Issue #6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0190-2026-03-14" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4488,6 +4552,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0200-2026-03-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.20.0] - 2026-03-14
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.20.0] - 2026-03-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proxy-vs-real-gpu-energy-comparison-issue-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy vs real GPU energy comparison (Issue #6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0190-2026-03-14" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5063,6 +5155,16 @@
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
 <p>All notable changes to this research workspace.</p>
+<h2 id="0200-2026-03-14">[0.20.0] - 2026-03-14<a class="headerlink" href="#0200-2026-03-14" title="Permanent link">&para;</a></h2>
+<h3 id="proxy-vs-real-gpu-energy-comparison-issue-6">Proxy vs real GPU energy comparison (Issue #6)<a class="headerlink" href="#proxy-vs-real-gpu-energy-comparison-issue-6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Compared ARD, DMC, and wall-clock time against real GPU joules on NVIDIA L4</li>
+<li>Finding: wall-clock time perfectly predicts energy (r=1.000) at sparse parity scale because the GPU draws constant 16.1W</li>
+<li>ARD is decent (r=0.812) but breaks on streaming methods (Fourier). DMC is slightly worse (r=0.771)</li>
+<li>Recommendation: use time as primary energy proxy at this scale, keep ARD as secondary for understanding memory access patterns</li>
+<li>Findings: <code>findings/exp_proxy_comparison.md</code></li>
+</ul>
+<hr />
 <h2 id="0190-2026-03-14">[0.19.0] - 2026-03-14<a class="headerlink" href="#0190-2026-03-14" title="Permanent link">&para;</a></h2>
 <h3 id="gpu-energy-measurement-via-modal-labs">GPU energy measurement via Modal Labs<a class="headerlink" href="#gpu-energy-measurement-via-modal-labs" title="Permanent link">&para;</a></h3>
 <ul>
