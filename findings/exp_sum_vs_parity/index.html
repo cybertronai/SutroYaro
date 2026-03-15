@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/findings/exp_gf2_noise/">
+        <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/findings/exp_sum_vs_parity/">
       
       
-        <link rel="prev" href="../exp_gf2/">
+        <link rel="prev" href="../exp_sgd_speed/">
       
       
-        <link rel="next" href="../exp_random_proj/">
+        <link rel="next" href="../exp_proxy_comparison/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>GF(2) Noise Tolerance - SutroYaro</title>
+        <title>Sum vs Parity Comparison - SutroYaro</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#experiment-gf2-with-noisy-labels" class="md-skip">
+        <a href="#experiment-sparse-sum-vs-sparse-parity-all-methods-cpu-and-gpu" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GF(2) Noise Tolerance
+              Sum vs Parity Comparison
             
           </span>
         </div>
@@ -652,7 +652,7 @@
       
         
           <li>
-            <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
+            <a href="../exp_gf2_noise/" class="md-tabs__dropdown-link">
               GF(2) Noise Tolerance
             </a>
           </li>
@@ -788,7 +788,7 @@
       
         
           <li>
-            <a href="../exp_sum_vs_parity/" class="md-tabs__dropdown-link">
+            <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
               Sum vs Parity Comparison
             </a>
           </li>
@@ -2569,37 +2569,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GF(2) Noise Tolerance
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../exp_gf2_noise/" class="md-nav__link">
         
   
   
@@ -2615,181 +2588,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Config
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Results
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Results">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#experiment-1-basic-gf2-noise-sweep" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 1: Basic GF(2) Noise Sweep
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-2-more-samples-dont-help-basic-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 2: More Samples Don't Help Basic Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-3-robust-subset-sampling-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 3: Robust Subset-Sampling Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#algorithm-robust-gf2-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm: Robust GF(2) Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Analysis
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-is-gf2-so-fragile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why is GF(2) so fragile?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-does-subset-sampling-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why does subset sampling work?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#comparison-with-mdl" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparison with MDL
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#open-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open Questions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3247,10 +3045,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../exp_sum_vs_parity/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sum vs Parity Comparison
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3266,6 +3091,131 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-was-performed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What was performed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-was-produced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What was produced
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What was produced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu-numpy-5-seed-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU (numpy, 5-seed mean)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-pytorch-cuda-l4-4-run-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU (PyTorch CUDA, L4, 4-run mean)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-vs-cpu-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU vs CPU ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-it-be-reproduced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can it be reproduced?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4172,10 +4122,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#question" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Question
       
     </span>
   </a>
@@ -4183,10 +4133,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#config" class="md-nav__link">
+  <a href="#what-was-performed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Config
+        What was performed
       
     </span>
   </a>
@@ -4194,22 +4144,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#results" class="md-nav__link">
+  <a href="#what-was-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Results
+        What was produced
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Results">
+    <nav class="md-nav" aria-label="What was produced">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#experiment-1-basic-gf2-noise-sweep" class="md-nav__link">
+  <a href="#cpu-numpy-5-seed-mean" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Experiment 1: Basic GF(2) Noise Sweep
+        CPU (numpy, 5-seed mean)
       
     </span>
   </a>
@@ -4217,10 +4167,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#experiment-2-more-samples-dont-help-basic-solver" class="md-nav__link">
+  <a href="#gpu-pytorch-cuda-l4-4-run-mean" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Experiment 2: More Samples Don't Help Basic Solver
+        GPU (PyTorch CUDA, L4, 4-run mean)
       
     </span>
   </a>
@@ -4228,21 +4178,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#experiment-3-robust-subset-sampling-solver" class="md-nav__link">
+  <a href="#gpu-vs-cpu-ratio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Experiment 3: Robust Subset-Sampling Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#algorithm-robust-gf2-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm: Robust GF(2) Solver
+        GPU vs CPU ratio
       
     </span>
   </a>
@@ -4255,60 +4194,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
+  <a href="#can-it-be-reproduced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Analysis
+        Can it be reproduced?
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-is-gf2-so-fragile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why is GF(2) so fragile?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-does-subset-sampling-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why does subset sampling work?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#comparison-with-mdl" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparison with MDL
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#open-questions" class="md-nav__link">
+  <a href="#finding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Open Questions
+        Finding
       
     </span>
   </a>
@@ -4346,294 +4246,146 @@
   
 
 
-<h1 id="experiment-gf2-with-noisy-labels">Experiment: GF(2) with Noisy Labels<a class="headerlink" href="#experiment-gf2-with-noisy-labels" title="Permanent link">&para;</a></h1>
-<p><strong>Hypothesis</strong>: GF(2) Gaussian elimination assumes exact parity. With label noise, the linear system becomes inconsistent. We test at what noise rate it fails and whether robust methods can recover.</p>
-<p><strong>Date</strong>: 2026-03-09
-<strong>Status</strong>: SUCCESS (robust solver) / FAILED (basic solver)</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h1 id="experiment-sparse-sum-vs-sparse-parity-all-methods-cpu-and-gpu">Experiment: Sparse Sum vs Sparse Parity (All Methods, CPU and GPU)<a class="headerlink" href="#experiment-sparse-sum-vs-sparse-parity-all-methods-cpu-and-gpu" title="Permanent link">&para;</a></h1>
+<p><strong>Date</strong>: 2026-03-15
+<strong>Status</strong>: FINDING
+<strong>Related</strong>: Issue #4, Issue #5</p>
+<h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
+<p>Yaroslav asked: redo all experiments for sparse sum. How does every method compare between sum and parity, on both CPU and GPU?</p>
+<h2 id="what-was-performed">What was performed<a class="headerlink" href="#what-was-performed" title="Permanent link">&para;</a></h2>
+<p>Ran all available methods on both tasks (sparse parity and sparse sum) at n=20, k=3, seed=42.</p>
+<ul>
+<li>CPU: numpy harness (<code>bin/reproduce-all</code>), verified across 5 seeds</li>
+<li>GPU: PyTorch CUDA on NVIDIA L4 via Modal (<code>bin/gpu_energy.py</code>), 4 runs each</li>
+</ul>
+<h2 id="what-was-produced">What was produced<a class="headerlink" href="#what-was-produced" title="Permanent link">&para;</a></h2>
+<h3 id="cpu-numpy-5-seed-mean">CPU (numpy, 5-seed mean)<a class="headerlink" href="#cpu-numpy-5-seed-mean" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Method</th>
-<th>Noise Tolerance</th>
-<th>Notes</th>
+<th>Parity time</th>
+<th>Parity acc</th>
+<th>Sum time</th>
+<th>Sum acc</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Basic GF(2)</td>
-<td>0% (1% causes failure)</td>
-<td>Inconsistent system, no solution</td>
-</tr>
-<tr>
-<td>Robust (subset sampling)</td>
-<td>Up to 10-15%</td>
-<td>Finds clean subset of equations</td>
-</tr>
-<tr>
-<td>Robust at 15% noise</td>
-<td>65% accuracy</td>
-<td>Degraded but usable</td>
-</tr>
-<tr>
-<td>Robust at 20% noise</td>
-<td>20% accuracy</td>
-<td>Too much noise</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Key finding</strong>: GF(2) is extremely fragile to noise, but subset-sampling recovers the secret at moderate noise levels by finding clean equations.</p>
-<h2 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>n_bits</td>
-<td>20</td>
-</tr>
-<tr>
-<td>k_sparse</td>
-<td>3</td>
-</tr>
-<tr>
-<td>n_samples</td>
-<td>21-500 (varied)</td>
-</tr>
-<tr>
-<td>noise_rate</td>
-<td>0-30% (varied)</td>
-</tr>
-<tr>
-<td>seeds</td>
-<td>10-50 per config</td>
-</tr>
-<tr>
-<td>max_subsets</td>
-<td>100 (robust solver)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
-<h3 id="experiment-1-basic-gf2-noise-sweep">Experiment 1: Basic GF(2) Noise Sweep<a class="headerlink" href="#experiment-1-basic-gf2-noise-sweep" title="Permanent link">&para;</a></h3>
-<p>At n_samples=100, basic GF(2) with Gaussian elimination:</p>
-<table>
-<thead>
-<tr>
-<th>Noise Rate</th>
-<th>Correct</th>
-<th>Inconsistent</th>
-</tr>
-</thead>
-<tbody>
-<tr>
+<td>GF(2)</td>
+<td>0.5ms</td>
+<td>100%</td>
+<td>fails</td>
 <td>0%</td>
-<td>20/20</td>
-<td>0</td>
 </tr>
 <tr>
-<td>1%</td>
-<td>0/20</td>
-<td>20</td>
+<td>KM</td>
+<td>1.1ms</td>
+<td>100%</td>
+<td>0.7ms</td>
+<td>100%</td>
 </tr>
 <tr>
-<td>2%+</td>
-<td>0/20</td>
-<td>20</td>
+<td>OLS</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0.5ms</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Fourier</td>
+<td>12ms</td>
+<td>100%</td>
+<td>0.3ms</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>SGD (harness)</td>
+<td>142ms (40 ep)</td>
+<td>100%</td>
+<td>0.8ms (1 ep)</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Sign SGD</td>
+<td>29ms mean (unreliable)</td>
+<td>3-5/5</td>
+<td>3.7ms</td>
+<td>5/5</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Even 1 corrupted label out of 100 causes complete failure.</strong> The linear system over GF(2) has no solution when any equation is wrong.</p>
-<h3 id="experiment-2-more-samples-dont-help-basic-solver">Experiment 2: More Samples Don't Help Basic Solver<a class="headerlink" href="#experiment-2-more-samples-dont-help-basic-solver" title="Permanent link">&para;</a></h3>
+<h3 id="gpu-pytorch-cuda-l4-4-run-mean">GPU (PyTorch CUDA, L4, 4-run mean)<a class="headerlink" href="#gpu-pytorch-cuda-l4-4-run-mean" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>n_samples</th>
-<th>Noise 1%</th>
-<th>Noise 2%</th>
-<th>Noise 5%</th>
+<th>Method</th>
+<th>Parity time (5 runs)</th>
+<th>Sum time (4 runs)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>21</td>
-<td>9/10</td>
-<td>9/10</td>
-<td>4/10 INC</td>
+<td>GF(2)</td>
+<td>2.0ms (CPU, can't parallelize)</td>
+<td>2.7ms (fails on sum)</td>
 </tr>
 <tr>
-<td>30</td>
-<td>10/10</td>
-<td>10/10</td>
-<td>0/10 INC</td>
+<td>SGD</td>
+<td>1446ms, 37 epochs</td>
+<td>452ms, 1 epoch</td>
 </tr>
 <tr>
-<td>50</td>
-<td>10/10</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-</tr>
-<tr>
-<td>100</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-</tr>
-<tr>
-<td>500</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
+<td>KM</td>
+<td>869ms</td>
+<td>197ms</td>
 </tr>
 </tbody>
 </table>
-<p>Counter-intuitively, <strong>more samples make things worse</strong> for the basic solver. With 21 samples and 1% noise (0.21 expected flips), you might get lucky and have no flips. With 100 samples and 1% noise (1 expected flip), you're guaranteed inconsistency.</p>
-<h3 id="experiment-3-robust-subset-sampling-solver">Experiment 3: Robust Subset-Sampling Solver<a class="headerlink" href="#experiment-3-robust-subset-sampling-solver" title="Permanent link">&para;</a></h3>
-<p>The robust solver samples multiple subsets of n equations and votes on the most common solution:</p>
+<h3 id="gpu-vs-cpu-ratio">GPU vs CPU ratio<a class="headerlink" href="#gpu-vs-cpu-ratio" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Noise</th>
-<th>Basic GF(2)</th>
-<th>Robust</th>
-<th>Improvement</th>
+<th>Method</th>
+<th>Parity GPU/CPU</th>
+<th>Sum GPU/CPU</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0%</td>
-<td>20/20</td>
-<td>20/20</td>
-<td>+0</td>
+<td>SGD</td>
+<td>10x slower</td>
+<td>565x slower</td>
 </tr>
 <tr>
-<td>2%</td>
-<td>0/20</td>
-<td>20/20</td>
-<td>+20</td>
-</tr>
-<tr>
-<td>5%</td>
-<td>0/20</td>
-<td>20/20</td>
-<td>+20</td>
-</tr>
-<tr>
-<td>10%</td>
-<td>0/20</td>
-<td>20/20</td>
-<td>+20</td>
-</tr>
-<tr>
-<td>15%</td>
-<td>0/20</td>
-<td>13/20</td>
-<td>+13</td>
-</tr>
-<tr>
-<td>20%</td>
-<td>0/20</td>
-<td>4/20</td>
-<td>+4</td>
+<td>KM</td>
+<td>790x slower</td>
+<td>281x slower</td>
 </tr>
 </tbody>
 </table>
-<p><strong>The robust solver works because</strong>: With 100 samples and 10% noise, ~90 equations are clean. If we sample subsets of 20, we'll find at least one clean subset with high probability. The true solution appears in a majority of consistent subsets.</p>
-<h3 id="algorithm-robust-gf2-solver">Algorithm: Robust GF(2) Solver<a class="headerlink" href="#algorithm-robust-gf2-solver" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">gf2_solve_robust</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_bits</span><span class="p">,</span> <span class="n">max_subsets</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    For noisy data, sample multiple subsets of n equations and vote.</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>  <span class="c1"># Convert to GF(2)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">b</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">solution_counts</span> <span class="o">=</span> <span class="p">{}</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">random_subsets</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_bits</span><span class="p">,</span> <span class="n">max_subsets</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">solution</span><span class="p">,</span> <span class="n">rank</span> <span class="o">=</span> <span class="n">gf2_gauss_elim</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="k">if</span> <span class="n">solution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># consistent</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            <span class="n">solution_counts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">solution_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="c1"># Return most common solution</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">solution_counts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">solution_counts</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">return</span> <span class="n">best</span>
+<h2 id="can-it-be-reproduced">Can it be reproduced?<a class="headerlink" href="#can-it-be-reproduced" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># CPU (all methods, all challenges)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># GPU parity</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># GPU sum</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nv">TASK</span><span class="o">=</span>sum<span class="w"> </span>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
 </code></pre></div>
-<h2 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h2>
-<h3 id="why-is-gf2-so-fragile">Why is GF(2) so fragile?<a class="headerlink" href="#why-is-gf2-so-fragile" title="Permanent link">&para;</a></h3>
-<p>GF(2) Gaussian elimination solves A·s = b over the binary field. Each equation is:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>x[secret[0]] ⊕ x[secret[1]] ⊕ ... ⊕ x[secret[k-1]] = y
-</code></pre></div></p>
-<p>A single flipped label makes one equation wrong. In the augmented matrix [A|b], this creates a row where the A part is in the row space, but the b part doesn't match. The consistency check fails.</p>
-<h3 id="why-does-subset-sampling-work">Why does subset sampling work?<a class="headerlink" href="#why-does-subset-sampling-work" title="Permanent link">&para;</a></h3>
-<p>With m samples and noise rate p:
-- Expected clean samples: m·(1-p)
-- Probability a random n-subset is clean: (1-p)^n</p>
-<p>For m=100, p=0.10, n=20:
-- Clean samples: 90
-- P(clean subset) ≈ 0.9^20 ≈ 12%</p>
-<p>With 100 subset samples, we expect ~12 clean subsets, all producing the same (correct) solution. Wrong solutions appear in at most a few subsets. Majority voting filters them out.</p>
-<h3 id="comparison-with-mdl">Comparison with MDL<a class="headerlink" href="#comparison-with-mdl" title="Permanent link">&para;</a></h3>
-<p>DISCOVERIES.md notes that MDL is noise-robust at 5% noise. Comparison:</p>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>5% noise</th>
-<th>10% noise</th>
-<th>ARD</th>
-<th>Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MDL</td>
-<td>100%</td>
-<td>untested</td>
-<td>1,147,375</td>
-<td>0.013s</td>
-</tr>
-<tr>
-<td>GF(2) basic</td>
-<td>0%</td>
-<td>0%</td>
-<td>~500</td>
-<td>0.0005s</td>
-</tr>
-<tr>
-<td>GF(2) robust</td>
-<td>100%</td>
-<td>100%</td>
-<td>~500</td>
-<td>~0.01s</td>
-</tr>
-</tbody>
-</table>
-<p>GF(2) robust is comparable to MDL at 5% noise, faster at 0.01s vs 0.013s, and has 2000x better ARD (~500 vs 1,147,375).</p>
-<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p><strong>What's the theoretical noise threshold?</strong> The robust solver works up to ~15% empirically. Is there a closed-form bound?</p>
-</li>
-<li>
-<p><strong>Optimal subset count?</strong> We used 100 subsets. Fewer might work, reducing compute.</p>
-</li>
-<li>
-<p><strong>Comparison with error-correcting codes?</strong> LDPC or BCH codes are designed for exactly this problem. Would they be faster?</p>
-</li>
-<li>
-<p><strong>Higher k?</strong> With k=5 or k=7, the secret is larger (more bits in the solution). Does noise tolerance scale?</p>
-</li>
-</ol>
+<h2 id="finding">Finding<a class="headerlink" href="#finding" title="Permanent link">&para;</a></h2>
+<p><strong>Sum is trivial for every method. Parity is hard for SGD.</strong></p>
+<p>SGD solves sum in 1 epoch (0.8ms CPU) because the signal is first-order. Each secret bit contributes independently to the output. SGD solves parity in 40 epochs (142ms CPU) because it must discover the k-th order interaction through grokking.</p>
+<p>On GPU, both tasks are slower than CPU. The tensors are too small for CUDA. But the ratio is revealing: parity-SGD is 10x slower on GPU, sum-SGD is 565x slower. Sum finishes in 1 epoch so the entire GPU time is kernel launch overhead for a single pass through 1000 samples.</p>
+<p>GF(2) solves parity in 0.5ms but fails on sum entirely. This is correct: GF(2) exploits that parity is linear over the binary field. Sum is not parity over any field.</p>
+<p>Sign SGD is unreliable on parity (3/5 seeds at best config) but solves sum 5/5 every time at 3.7ms mean.</p>
+<p><strong>The 10ms budget</strong>: On CPU, every sum method fits. On parity, only GF(2) (0.5ms) and KM (1.1ms) fit. SGD and Fourier don't fit for parity. Sign SGD is borderline.</p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Experiment: <code>src/sparse_parity/experiments/exp_gf2_noise.py</code></li>
-<li>Results: <code>results/exp_gf2_noise/results.json</code></li>
-<li>This document: <code>findings/exp_gf2_noise.md</code></li>
+<li>This document: <code>findings/exp_sum_vs_parity.md</code></li>
+<li>CPU harness: <code>bin/reproduce-all</code></li>
+<li>GPU script: <code>bin/gpu_energy.py</code></li>
 </ul>
 
 
