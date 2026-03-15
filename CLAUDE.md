@@ -43,6 +43,27 @@ batch_size=32, n_train=1000, max_epochs=200
 
 Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
 
+## Nix Development Shell (Optional)
+
+For NixOS users (or those with flakes), a `flake.nix` provides a reproducible environment with python3 + numpy. Non-NixOS users can ignore the nix files.
+
+```bash
+nix develop
+python3 bin/reproduce-all
+```
+
+Or one-liner:
+```bash
+nix develop --command python3 bin/reproduce-all
+```
+
+For reproducibility, macOS/Linux users can install Nix via the Determinate Systems installer:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://install.determinate.systems/nix | sh -s -- install
+```
+
+This is informational (tells agents nix is available) rather than controlling (instructing behavior). Non-NixOS users can ignore and run `python3` directly.
+
 ## Key Findings
 
 **Phase 1 (16 experiments, SGD optimization):**
