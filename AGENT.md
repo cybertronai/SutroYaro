@@ -62,8 +62,16 @@ REPEAT until TODO.md has no unchecked items or you hit max_experiments (20):
 - **WIN**: primary metric improved over baseline
 - **LOSS**: experiment ran correctly, metric did not improve. This is a valid finding.
 - **INVALID**: experiment crashed, produced no measurements, or harness detected corruption. NOT a disproof. Log it, move on.
-- **INCONCLUSIVE**: result within noise margin (less than 2% delta). Log it, may need more seeds.
+- **INCONCLUSIVE**: result within noise margin (less than 2% delta), sample size under 10, p-value above 0.05, or hardware not stressed enough to produce valid measurements. Log it, may need more seeds or larger workloads.
 - **BASELINE**: reference measurement. One per method per challenge.
+
+## Integrity rules
+
+- Do not inflate results. If you have 6 data points, say "6 data points." Do not present borderline p-values as confident findings.
+- If the hardware is idle during measurement (constant power draw), the energy measurement is invalid for comparing algorithms. Say so.
+- Classify honestly. A weak result is INCONCLUSIVE, not a FINDING. A negative result is a LOSS, not a "partial success."
+- Do not post private conversation content (Telegram, DMs) to public locations (GitHub issues, PRs, docs).
+- Do not include private URLs (Modal dashboard, internal tools) in committed files.
 
 ## What you can change
 
