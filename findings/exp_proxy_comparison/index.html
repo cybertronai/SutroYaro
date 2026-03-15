@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/findings/exp_proxy_comparison/">
       
       
-        <link rel="prev" href="../gpu_energy_baseline/">
+        <link rel="prev" href="../session-2026-03-11/">
       
       
         <link rel="next" href="../../research/friday-demo/">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Proxy vs Real Energy - SutroYaro</title>
+        <title>GPU vs CPU for Sparse Parity - SutroYaro</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Proxy vs Real Energy
+              GPU vs CPU for Sparse Parity
             
           </span>
         </div>
@@ -780,16 +780,8 @@
       
         
           <li>
-            <a href="../gpu_energy_baseline/" class="md-tabs__dropdown-link">
-              GPU Energy Baseline
-            </a>
-          </li>
-        
-      
-        
-          <li>
             <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
-              Proxy vs Real Energy
+              GPU vs CPU for Sparse Parity
             </a>
           </li>
         
@@ -3009,34 +3001,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../gpu_energy_baseline/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPU Energy Baseline
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -3056,7 +3020,7 @@
   <span class="md-ellipsis">
     
   
-    Proxy vs Real Energy
+    GPU vs CPU for Sparse Parity
   
 
     
@@ -3074,7 +3038,7 @@
   <span class="md-ellipsis">
     
   
-    Proxy vs Real Energy
+    GPU vs CPU for Sparse Parity
   
 
     
@@ -3129,6 +3093,45 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="What was produced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-times-5-runs-on-nvidia-l4-via-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU times (5 runs on NVIDIA L4 via Modal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-vs-cpu-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU vs CPU comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4077,6 +4080,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="What was produced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-times-5-runs-on-nvidia-l4-via-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU times (5 runs on NVIDIA L4 via Modal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-vs-cpu-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU vs CPU comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4134,66 +4176,121 @@
 
 <h1 id="experiment-gpu-vs-cpu-for-sparse-parity-methods">Experiment: GPU vs CPU for Sparse Parity Methods<a class="headerlink" href="#experiment-gpu-vs-cpu-for-sparse-parity-methods" title="Permanent link">&para;</a></h1>
 <p><strong>Date</strong>: 2026-03-14
-<strong>Status</strong>: INCONCLUSIVE (proxy question) / FINDING (GPU overhead)
+<strong>Status</strong>: FINDING
 <strong>Issue</strong>: #6</p>
 <h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
-<p>Sub-question of "Is ARD or DMC the better energy proxy?" (Issue #6). Before comparing proxies, we needed to know: does GPU measurement produce useful energy data for sparse parity?</p>
+<p>Does running sparse parity methods on GPU (PyTorch CUDA) produce useful energy or performance data? Sub-question of "Is ARD or DMC the better energy proxy?"</p>
 <h2 id="what-was-performed">What was performed<a class="headerlink" href="#what-was-performed" title="Permanent link">&para;</a></h2>
-<p>Reimplemented three sparse parity methods (GF(2), SGD, KM) in PyTorch CUDA and ran them on an NVIDIA L4 via Modal Labs. Matched the numpy harness config: n=20, k=3, hidden=200, lr=0.1, wd=0.01, batch=32, hinge loss, seed=42.</p>
-<p>Earlier attempt used numpy on a GPU container (CPU-bound, GPU idle, data useless). This version uses PyTorch with tensors on CUDA so the GPU does the actual compute.</p>
+<p>Reimplemented three sparse parity methods (GF(2), SGD, KM) in PyTorch CUDA. Ran them on an NVIDIA L4 via Modal Labs, matching the numpy harness config: n=20, k=3, hidden=200, lr=0.1, wd=0.01, batch=32, hinge loss, seed=42.</p>
+<p>Ran 5 times to measure variance. Compared against CPU numpy baselines from <code>bin/reproduce-all</code>.</p>
 <h2 id="what-was-produced">What was produced<a class="headerlink" href="#what-was-produced" title="Permanent link">&para;</a></h2>
+<h3 id="gpu-times-5-runs-on-nvidia-l4-via-modal">GPU times (5 runs on NVIDIA L4 via Modal)<a class="headerlink" href="#gpu-times-5-runs-on-nvidia-l4-via-modal" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>GF(2)</th>
+<th>SGD (37 epochs)</th>
+<th>KM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1.7ms</td>
+<td>1014ms</td>
+<td>663ms</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2.1ms</td>
+<td>1676ms</td>
+<td>1016ms</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2.0ms</td>
+<td>1367ms</td>
+<td>844ms</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2.3ms</td>
+<td>1603ms</td>
+<td>899ms</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2.0ms</td>
+<td>1571ms</td>
+<td>921ms</td>
+</tr>
+<tr>
+<td><strong>Mean</strong></td>
+<td><strong>2.0ms</strong></td>
+<td><strong>1446ms</strong></td>
+<td><strong>869ms</strong></td>
+</tr>
+<tr>
+<td><strong>Std</strong></td>
+<td><strong>0.2ms</strong></td>
+<td><strong>254ms</strong></td>
+<td><strong>127ms</strong></td>
+</tr>
+</tbody>
+</table>
+<p>100% accuracy on all 5 runs, 37 epochs for SGD on all 5 runs.</p>
+<h3 id="gpu-vs-cpu-comparison">GPU vs CPU comparison<a class="headerlink" href="#gpu-vs-cpu-comparison" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Method</th>
-<th>Acc</th>
-<th>GPU time</th>
-<th>CPU time (numpy)</th>
+<th>CPU (numpy)</th>
+<th>GPU mean</th>
 <th>GPU/CPU ratio</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>GF(2)</td>
-<td>1.00</td>
-<td>1.7ms</td>
 <td>0.5ms</td>
-<td>3.4x slower</td>
+<td>2.0ms</td>
+<td>4x slower</td>
 </tr>
 <tr>
 <td>SGD</td>
-<td>1.00</td>
-<td>1014ms (37 epochs)</td>
-<td>142ms (40 epochs)</td>
-<td>7.1x slower</td>
+<td>142ms</td>
+<td>1446ms</td>
+<td>10x slower</td>
 </tr>
 <tr>
 <td>KM</td>
-<td>1.00</td>
-<td>663ms</td>
 <td>1.1ms</td>
-<td>603x slower</td>
+<td>869ms</td>
+<td>790x slower</td>
 </tr>
 </tbody>
 </table>
-<p>GPU drew 15.9W (near idle). Cost: $0.002 per run.</p>
+<h3 id="cost">Cost<a class="headerlink" href="#cost" title="Permanent link">&para;</a></h3>
+<p>$0.002-0.003 per run. Total for 5 runs: ~$0.012.</p>
 <h2 id="can-it-be-reproduced">Can it be reproduced?<a class="headerlink" href="#can-it-be-reproduced" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>modal
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># GPU (requires Modal account)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>modal
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># CPU baseline</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all
 </code></pre></div>
-<p>Requires Modal account. Costs under $0.01. The image builds PyTorch on first run (~90s), cached after that.</p>
 <h2 id="finding">Finding<a class="headerlink" href="#finding" title="Permanent link">&para;</a></h2>
-<p><strong>Sparse parity at n=20/k=3 is too small for GPU.</strong> All three methods are slower on GPU than CPU:</p>
+<p><strong>GPU is 4-790x slower than CPU for sparse parity at n=20/k=3.</strong> Consistent across 5 runs.</p>
 <ul>
-<li>GF(2) is sequential row reduction (XOR). CUDA can't parallelize it. Runs on CPU even when called from a GPU container.</li>
-<li>SGD has the same epoch count (37 vs 40) but each epoch is slower because the weight matrix (200x20) is too small for CUDA kernel launch overhead to amortize.</li>
-<li>KM is 603x slower because it does 20 independent small operations. Each one launches a CUDA kernel for a tiny tensor. The overhead dominates.</li>
+<li>GF(2) is sequential row reduction (XOR). Can't parallelize. Runs on CPU even inside a GPU container. 4x overhead from container/PyTorch setup.</li>
+<li>SGD has the same epoch count (37) but each epoch is 10x slower. The weight matrix (200x20) is too small for CUDA kernel launch overhead to amortize.</li>
+<li>KM is 790x slower. It runs 20 small independent operations, each launching a CUDA kernel for a tiny tensor.</li>
 </ul>
-<p>The GPU drew near-idle power (15.9W) because the compute units were barely used. Energy measurement via pynvml on the earlier run showed constant wattage across all methods, confirming the workloads don't stress the hardware.</p>
-<p><strong>The proxy comparison (ARD vs DMC vs joules) remains unanswered.</strong> It requires workloads large enough to produce variable GPU power draw. At sparse parity scale, the GPU adds overhead and the power reading is just idle draw times wall clock.</p>
-<p><strong>What this means for the project:</strong> GPU energy measurement becomes useful at nanoGPT scale. For sparse parity, CPU wall-clock time is the most honest performance metric. The <code>bin/gpu_energy.py</code> pipeline works and is ready for larger workloads.</p>
-<p>Yaroslav's direction of verifying picojoule numbers for register vs cache vs HBM operations requires CUDA/PTX kernels targeting specific memory tiers, not running Python methods on a GPU.</p>
+<p><strong>The ARD vs DMC proxy comparison is still unanswered.</strong> These workloads don't stress the GPU memory subsystem, so measuring GPU energy here tells you nothing about memory access patterns. That question needs nanoGPT-scale workloads.</p>
+<p><strong>What's useful:</strong> The <code>bin/gpu_energy.py</code> pipeline works (PyTorch on Modal, matching Yaroslav's gpu_toy.py pattern). When the group moves to nanoGPT, this script is the starting point. At sparse parity scale, use CPU wall-clock time.</p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Script: <code>bin/gpu_energy.py</code></li>

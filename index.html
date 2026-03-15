@@ -778,16 +778,8 @@
       
         
           <li>
-            <a href="findings/gpu_energy_baseline/" class="md-tabs__dropdown-link">
-              GPU Energy Baseline
-            </a>
-          </li>
-        
-      
-        
-          <li>
             <a href="findings/exp_proxy_comparison/" class="md-tabs__dropdown-link">
-              Proxy vs Real Energy
+              GPU vs CPU for Sparse Parity
             </a>
           </li>
         
@@ -3109,34 +3101,6 @@
   
   
     <li class="md-nav__item">
-      <a href="findings/gpu_energy_baseline/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPU Energy Baseline
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="findings/exp_proxy_comparison/" class="md-nav__link">
         
   
@@ -3144,7 +3108,7 @@
   <span class="md-ellipsis">
     
   
-    Proxy vs Real Energy
+    GPU vs CPU for Sparse Parity
   
 
     
@@ -4169,7 +4133,7 @@
 </tbody>
 </table>
 <p>All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection, which local statistics cannot provide.</p>
-<p><strong>GPU energy validation</strong>: Real power measurements on NVIDIA L4 via Modal Labs. SGD uses 18.7 joules, KM uses 144 millijoules (130x gap). ARD proxy tracks real energy within an order of magnitude. See <a href="findings/gpu_energy_baseline/">GPU energy baseline</a>.</p>
+<p><strong>GPU measurement</strong>: Ran methods on NVIDIA L4 via Modal Labs using PyTorch CUDA (5 runs). GPU is 4-790x slower than CPU at this problem size. Sparse parity tensors are too small for CUDA to help. See <a href="findings/exp_proxy_comparison/">GPU vs CPU findings</a>.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/cybertronai/SutroYaro.git
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>SutroYaro
@@ -4212,8 +4176,8 @@
 <td><a href="research/adding-a-challenge/">Adding a Challenge</a></td>
 </tr>
 <tr>
-<td>GPU energy results</td>
-<td><a href="findings/gpu_energy_baseline/">GPU Energy Baseline</a></td>
+<td>GPU vs CPU findings</td>
+<td><a href="findings/exp_proxy_comparison/">GPU vs CPU for Sparse Parity</a></td>
 </tr>
 <tr>
 <td>Run experiments with any AI tool</td>
