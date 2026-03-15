@@ -2,6 +2,18 @@
 
 All notable changes to this research workspace.
 
+## [0.20.0] - 2026-03-14
+
+### Proxy vs real GPU energy comparison (Issue #6)
+
+- Compared ARD, DMC, and wall-clock time against real GPU joules on NVIDIA L4
+- Finding: wall-clock time perfectly predicts energy (r=1.000) at sparse parity scale because the GPU draws constant 16.1W
+- ARD is decent (r=0.812) but breaks on streaming methods (Fourier). DMC is slightly worse (r=0.771)
+- Recommendation: use time as primary energy proxy at this scale, keep ARD as secondary for understanding memory access patterns
+- Findings: `findings/exp_proxy_comparison.md`
+
+---
+
 ## [0.19.0] - 2026-03-14
 
 ### GPU energy measurement via Modal Labs
