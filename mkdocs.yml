@@ -125,6 +125,7 @@ nav:
           - SGD Speed Sweep: findings/exp_sgd_speed.md
           - Sum vs Parity Comparison: findings/exp_sum_vs_parity.md
           - GPU vs CPU for Sparse Parity: findings/exp_proxy_comparison.md
+          - EGD (Egalitarian Gradient Descent): findings/exp_egd.md
           - Friday Demo: research/friday-demo.md
       - Plans:
           - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md

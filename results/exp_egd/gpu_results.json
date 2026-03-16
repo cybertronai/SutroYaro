@@ -1,0 +1,353 @@
+{
+  "parity_h200": {
+    "gpu": "NVIDIA L4",
+    "task": "parity",
+    "config": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "n_train": 1000,
+      "hidden": 200,
+      "lr_sgd": 0.1,
+      "lr_egd": 0.1,
+      "wd": 0.01,
+      "batch_size": 32,
+      "max_epochs": 200
+    },
+    "results": [
+      {
+        "method": "sgd",
+        "seed": 42,
+        "best_acc": 1.0,
+        "solve_epoch": 39,
+        "epoch_90": 35,
+        "total_epochs": 39,
+        "time_s": 1.439645,
+        "time_ms": 1439.64
+      },
+      {
+        "method": "egd",
+        "seed": 42,
+        "best_acc": 1.0,
+        "solve_epoch": 22,
+        "epoch_90": 16,
+        "total_epochs": 22,
+        "time_s": 1.561774,
+        "time_ms": 1561.77
+      },
+      {
+        "method": "sgd",
+        "seed": 43,
+        "best_acc": 1.0,
+        "solve_epoch": 36,
+        "epoch_90": 29,
+        "total_epochs": 36,
+        "time_s": 0.841673,
+        "time_ms": 841.67
+      },
+      {
+        "method": "egd",
+        "seed": 43,
+        "best_acc": 1.0,
+        "solve_epoch": 16,
+        "epoch_90": 10,
+        "total_epochs": 16,
+        "time_s": 0.967079,
+        "time_ms": 967.08
+      },
+      {
+        "method": "sgd",
+        "seed": 44,
+        "best_acc": 1.0,
+        "solve_epoch": 44,
+        "epoch_90": 37,
+        "total_epochs": 44,
+        "time_s": 1.008599,
+        "time_ms": 1008.6
+      },
+      {
+        "method": "egd",
+        "seed": 44,
+        "best_acc": 1.0,
+        "solve_epoch": 20,
+        "epoch_90": 13,
+        "total_epochs": 20,
+        "time_s": 1.203912,
+        "time_ms": 1203.91
+      },
+      {
+        "method": "sgd",
+        "seed": 45,
+        "best_acc": 1.0,
+        "solve_epoch": 46,
+        "epoch_90": 39,
+        "total_epochs": 46,
+        "time_s": 1.051425,
+        "time_ms": 1051.42
+      },
+      {
+        "method": "egd",
+        "seed": 45,
+        "best_acc": 1.0,
+        "solve_epoch": 16,
+        "epoch_90": 13,
+        "total_epochs": 16,
+        "time_s": 0.979819,
+        "time_ms": 979.82
+      },
+      {
+        "method": "sgd",
+        "seed": 46,
+        "best_acc": 1.0,
+        "solve_epoch": 43,
+        "epoch_90": 38,
+        "total_epochs": 43,
+        "time_s": 0.996758,
+        "time_ms": 996.76
+      },
+      {
+        "method": "egd",
+        "seed": 46,
+        "best_acc": 1.0,
+        "solve_epoch": 22,
+        "epoch_90": 16,
+        "total_epochs": 22,
+        "time_s": 1.321881,
+        "time_ms": 1321.88
+      }
+    ]
+  },
+  "parity_h50": {
+    "gpu": "NVIDIA L4",
+    "task": "parity",
+    "config": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "n_train": 500,
+      "hidden": 50,
+      "lr_sgd": 0.1,
+      "lr_egd": 0.1,
+      "wd": 0.01,
+      "batch_size": 32,
+      "max_epochs": 200
+    },
+    "results": [
+      {
+        "method": "sgd",
+        "seed": 42,
+        "best_acc": 1.0,
+        "solve_epoch": 198,
+        "epoch_90": 145,
+        "total_epochs": 198,
+        "time_s": 2.299604,
+        "time_ms": 2299.6
+      },
+      {
+        "method": "egd",
+        "seed": 42,
+        "best_acc": 1.0,
+        "solve_epoch": 99,
+        "epoch_90": 69,
+        "total_epochs": 99,
+        "time_s": 2.913384,
+        "time_ms": 2913.38
+      },
+      {
+        "method": "sgd",
+        "seed": 43,
+        "best_acc": 1.0,
+        "solve_epoch": 184,
+        "epoch_90": 156,
+        "total_epochs": 184,
+        "time_s": 2.18137,
+        "time_ms": 2181.37
+      },
+      {
+        "method": "egd",
+        "seed": 43,
+        "best_acc": 1.0,
+        "solve_epoch": 127,
+        "epoch_90": 95,
+        "total_epochs": 127,
+        "time_s": 3.690293,
+        "time_ms": 3690.29
+      },
+      {
+        "method": "sgd",
+        "seed": 44,
+        "best_acc": 1.0,
+        "solve_epoch": 134,
+        "epoch_90": 104,
+        "total_epochs": 134,
+        "time_s": 1.609516,
+        "time_ms": 1609.52
+      },
+      {
+        "method": "egd",
+        "seed": 44,
+        "best_acc": 1.0,
+        "solve_epoch": 91,
+        "epoch_90": 47,
+        "total_epochs": 91,
+        "time_s": 2.531916,
+        "time_ms": 2531.92
+      },
+      {
+        "method": "sgd",
+        "seed": 45,
+        "best_acc": 0.992,
+        "solve_epoch": -1,
+        "epoch_90": 176,
+        "total_epochs": 200,
+        "time_s": 2.330762,
+        "time_ms": 2330.76
+      },
+      {
+        "method": "egd",
+        "seed": 45,
+        "best_acc": 0.986,
+        "solve_epoch": -1,
+        "epoch_90": 59,
+        "total_epochs": 200,
+        "time_s": 2.890698,
+        "time_ms": 2890.7
+      },
+      {
+        "method": "sgd",
+        "seed": 46,
+        "best_acc": 1.0,
+        "solve_epoch": 141,
+        "epoch_90": 116,
+        "total_epochs": 141,
+        "time_s": 1.638369,
+        "time_ms": 1638.37
+      },
+      {
+        "method": "egd",
+        "seed": 46,
+        "best_acc": 0.994,
+        "solve_epoch": -1,
+        "epoch_90": 76,
+        "total_epochs": 200,
+        "time_s": 3.673253,
+        "time_ms": 3673.25
+      }
+    ]
+  },
+  "sum_h200": {
+    "gpu": "NVIDIA L4",
+    "task": "sum",
+    "config": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "n_train": 1000,
+      "hidden": 200,
+      "lr_sgd": 0.1,
+      "lr_egd": 0.1,
+      "wd": 0.01,
+      "batch_size": 32,
+      "max_epochs": 200
+    },
+    "results": [
+      {
+        "method": "sgd",
+        "seed": 42,
+        "best_acc": 0.0,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "time_s": 3.879602,
+        "time_ms": 3879.6
+      },
+      {
+        "method": "egd",
+        "seed": 42,
+        "best_acc": 1.0,
+        "solve_epoch": 27,
+        "epoch_90": 10,
+        "total_epochs": 27,
+        "time_s": 1.653331,
+        "time_ms": 1653.33
+      },
+      {
+        "method": "sgd",
+        "seed": 43,
+        "best_acc": 0.0,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "time_s": 3.889651,
+        "time_ms": 3889.65
+      },
+      {
+        "method": "egd",
+        "seed": 43,
+        "best_acc": 1.0,
+        "solve_epoch": 21,
+        "epoch_90": 10,
+        "total_epochs": 21,
+        "time_s": 1.281969,
+        "time_ms": 1281.97
+      },
+      {
+        "method": "sgd",
+        "seed": 44,
+        "best_acc": 0.0,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "time_s": 3.825346,
+        "time_ms": 3825.35
+      },
+      {
+        "method": "egd",
+        "seed": 44,
+        "best_acc": 1.0,
+        "solve_epoch": 17,
+        "epoch_90": 10,
+        "total_epochs": 17,
+        "time_s": 1.045185,
+        "time_ms": 1045.19
+      },
+      {
+        "method": "sgd",
+        "seed": 45,
+        "best_acc": 0.0,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "time_s": 3.831388,
+        "time_ms": 3831.39
+      },
+      {
+        "method": "egd",
+        "seed": 45,
+        "best_acc": 1.0,
+        "solve_epoch": 30,
+        "epoch_90": 9,
+        "total_epochs": 30,
+        "time_s": 1.793529,
+        "time_ms": 1793.53
+      },
+      {
+        "method": "sgd",
+        "seed": 46,
+        "best_acc": 0.0,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "time_s": 3.837486,
+        "time_ms": 3837.49
+      },
+      {
+        "method": "egd",
+        "seed": 46,
+        "best_acc": 1.0,
+        "solve_epoch": 27,
+        "epoch_90": 9,
+        "total_epochs": 27,
+        "time_s": 1.644775,
+        "time_ms": 1644.77
+      }
+    ]
+  }
+}

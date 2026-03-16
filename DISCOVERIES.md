@@ -64,6 +64,13 @@
 - **Sign SGD oscillates near 100%** on k=3 due to fixed step size. Reaches 99% but can't always close the gap. Learning rate decay would likely fix this. [exp_sign_sgd]
 - **The n^k sample complexity bound is pessimistic**: Standard SGD solves n=20/k=5 with only 5,000 samples, far below n^k=3,200,000. The practical frontier is much further than theory predicts. [exp_sign_sgd]
 
+### Egalitarian Gradient Descent (EGD)
+
+- **EGD halves the grokking plateau on parity**: 14 epochs to 90% vs SGD's 36 (2.6x fewer), 19 to solve vs 42 (2.2x fewer). SVD-normalizes gradients so all directions evolve at equal speed. lr=0.1 works for both. [exp_egd]
+- **EGD does not break 10ms**: SVD overhead per batch (~0.12ms) outweighs the epoch savings. GPU wall time 12% worse than SGD despite 2x fewer epochs (1,207ms vs 1,068ms on L4). [exp_egd]
+- **EGD is robust to gradient scale**: on sparse sum with MSE loss, SGD at lr=0.1 diverges (0/5 seeds) because gradients scale with target range [-3,3]. EGD solves 5/5 because SVD normalization removes magnitude. [exp_egd]
+- **Small hidden (50) is capacity-limited for both**: neither EGD nor SGD solves parity with hidden=50/n_train=500. The optimizer cannot compensate for insufficient capacity. [exp_egd]
+
 ### Curriculum Learning
 
 - **n-curriculum demolishes the n^k scaling wall**: Training on n=10 first then expanding W1 to n=50 solves in 20 total epochs vs 292 for direct training — **14.6x speedup**. [exp_curriculum]
@@ -179,6 +186,7 @@
 | exp_rl | 03-06 | RL learns what to read | SUCCESS: k reads per prediction | ARD=1 at inference |
 | exp_mdl | 03-06 | MDL finds secret | SUCCESS: noise-robust | 0 bits vs 499 bits |
 | exp_gf2_noise | 03-09 | GF(2) handles noise | SUCCESS: robust solver | 100% at 10% noise, fails at 20% |
+| exp_egd | 03-16 | EGD eliminates grokking plateau | PARTIAL: 2x fewer epochs but SVD overhead | 14 vs 36 ep to 90%, 12% slower wall |
 
 ---
 

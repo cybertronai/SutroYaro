@@ -2,6 +2,19 @@
 
 All notable changes to this research workspace.
 
+## [0.21.0] - 2026-03-16
+
+### Egalitarian Gradient Descent experiment (Issue #4)
+
+- Implemented EGD (arXiv:2510.04930): replaces gradient singular values with 1 via SVD, equalizing learning rates across all directions.
+- CPU experiment (`exp_egd.py`): EGD halves the grokking plateau. 14 epochs to 90% vs SGD's 33 (2.6x fewer). Solves in 21 vs 40. Both at lr=0.1.
+- GPU experiment (`gpu_egd.py` via Modal L4): EGD is 12% slower in wall time despite 2x fewer epochs. SVD overhead per batch outweighs epoch savings.
+- Sparse sum comparison: SGD diverges at lr=0.1 (0/5 seeds), EGD solves 5/5. SVD normalization removes gradient magnitude, preventing scale-related divergence.
+- Sub-10ms not achievable. Small hidden (50) is capacity-limited for both methods.
+- Findings: `findings/exp_egd.md`
+
+---
+
 ## [0.20.0] - 2026-03-15
 
 ### SGD speed sweep and research hypotheses (Issue #4)
