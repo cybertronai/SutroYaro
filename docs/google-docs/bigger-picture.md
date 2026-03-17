@@ -45,6 +45,20 @@ Raw Thoughts
 
 ([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
 
+Yaroslav Sutro planning sprint #1
+
+Objective
+
+Solve the energy problem of AI. Similar mission to [[https://ml.energy/](https://ml.energy/)] .
+
+Method
+
+Blank slate rewrite. Draw on [[experience](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0)] to prevent mistakes.
+
+Raw Thoughts
+
+([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
+
 # Mistakes 
 
 1. Too simple of an objective
@@ -91,7 +105,7 @@ To avoid \-- remove as many boundaries as possible. At some point, the problem b
 
 ## Building for the wrong future 
 
-Building software for the wrong hardware can take a while to fix. Python still uses GIL, 20 years after multiple cores were introduced. B-tree/LST tree transition due to HDD-\>SSH transition was 10 years delayed ([[notebook](https://notebooklm.google.com/notebook/61ba75d6-72cb-4229-bc87-5af19f2ed778)]).
+Building software for the wrong hardware can take a while to fix. Python still uses GIL, 20 years after multiple cores were introduced. B-tree/LST tree transition due to HDD-\>SSD transition was 10 years delayed ([[notebook](https://notebooklm.google.com/notebook/61ba75d6-72cb-4229-bc87-5af19f2ed778)]).
 
 The field of deep learning settled on the core algorithms in the 1980s when we had 1 thread and computation was the primary bottleneck. Today, the bottleneck is memory.
 
@@ -129,7 +143,7 @@ Examples
 
 Yaroslav: [[Yaroslav Sutro technical sprint #1 02mar26](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0)], [[Yaroslav Verification Sprint #1](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)]
 
-Yad: [[Setup Sutro Yaro with Claude Code \| Sparse Parity](https://www.youtube.com/watch?v=h8dAU8yngxM)] [[survey](https://cybertronai.github.io/SutroYaro/research/survey/)] [[github](https://github.com/cybertronai/SutroYaro)]
+Yad: [[Setup Sutro Yaro with Claude Code \| Sparse Parity](https://www.youtube.com/watch?v=h8dAU8yngxM)] [[survey](https://0bserver07.github.io/SutroYaro/research/survey/)] [[github](https://github.com/0bserver07/SutroYaro)]
 
 Michael: [[sutro_challenge_3_sparce parity results.docx](https://docs.google.com/document/d/13uAQfG_ola3vt1hHFo3A8ThUeV-nBVQK/edit)]
 

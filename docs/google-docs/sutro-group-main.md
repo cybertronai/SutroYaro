@@ -174,6 +174,36 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Fix this
 
 [Homework for next Monday]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Fix this in a way that maximizes benefit to humanity.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 26]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
 # [embedded image] 
 
 # General 
@@ -195,6 +225,8 @@ AI search \-- [[How to find things in Sutro group](https://docs.google.com/docum
 Meeting in SPC main floor
 
 Notes: [[sutro meeting #1 19jan26 (energy-efficient training)](https://docs.google.com/document/d/1ZsH26hVvbZBOshwA1KgdX5AK5zw9W0CzqZuXLa5fIlo/edit?tab=t.0)]
+
+About me: [[About Me: energy-efficient learning](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0#heading=h.cdeox1s0xsl1)]
 
 ## Meeting #2, 26 Jan 26 
 
@@ -246,7 +278,7 @@ Emmett's results: [[doc](https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_f
 
 Overall Meeting notes: [[sutro meeting #6 meeting notes](https://docs.google.com/document/d/1OXd_-RweVbHzjqTA2UF05mEs8iJZQiqKeU3QHU_DMdc/edit?tab=t.0)]
 
-## Meeting #7, 02 Mar 26 
+## Meeting #7, 02 Mar 19 
 
 Talking about sparse parity task ([[Yaroslav Sutro technical sprint #1 02mar26](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0)])
 
@@ -264,7 +296,7 @@ Notes: [[Sutro meeting #8 notes](https://docs.google.com/document/d/12AnIc4XWH0O
 
 - Yaroslav talked about his knowledge [[sprint](https://docs.google.com/document/d/105FkE_U5_cXA1o8sxMGrj1NuTxysfSBTZsLB7vift-M/edit?tab=t.0#heading=h.p686ct9trrt)], and showed some [[slides](https://drive.google.com/file/d/1LSEWEmNsH5z25MeZs7vE6LAiI0r_zwIK/view?usp=sharing)]
 
-- Yad [[demo'ed](https://www.youtube.com/watch?v=h8dAU8yngxM)] his agentic harness, encouraged people to contribute on [[github](https://github.com/cybertronai/SutroYaro)]
+- Yad [[demo'ed](https://www.youtube.com/watch?v=h8dAU8yngxM)] his agentic harness, encouraged people to contribute on [[github](https://github.com/0bserver07/SutroYaro)]
 
    - harness gave 1000x [[https://cybertronai.github.io/SutroYaro/research/survey/](https://cybertronai.github.io/SutroYaro/research/survey/)] faster solution, Yaroslav [[verified](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)] correctness, [[visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)] top algorithm
 
@@ -283,3 +315,7 @@ Notes: [[Sutro meeting #8 notes](https://docs.google.com/document/d/12AnIc4XWH0O
 ### Longer-term plan 
 
 [[Yaroslav's sutro planning sprint #1](https://docs.google.com/document/d/1oSTIM0h1-THnb3fZ6Cz5o86DQx6n44si1q4BkP2lfSA/edit?tab=t.0)]
+
+## Meeting #9, 16 Mar 26 
+
+Agenda: [[sutro meeting final #1 16mar26](https://docs.google.com/document/d/1yCRuRGHJi9rNanqtPVf6sR-PYgm6iE4ZxGd2E7Q7FEY/edit?tab=t.0#heading=h.odcdl41cq6qx)]

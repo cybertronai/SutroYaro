@@ -184,11 +184,13 @@ Sunday 9am, energy costs , 32 byte min but need 2KB request to amortize row acti
 
 ## Ding: Data movement complexity 
 
+(paper) Ding - data movement complexity [[notebook](https://notebooklm.google.com/notebook/78b74c92-0a68-43c8-8f75-e1a480d75983)]
+
 DMC4ML: Data Movement Complexity for Machine Learning
 
-[[https://notebooklm.google.com/notebook/78b74c92-0a68-43c8-8f75-e1a480d75983](https://notebooklm.google.com/notebook/78b74c92-0a68-43c8-8f75-e1a480d75983)]
+Beyond Time Complexity: Data Movement Complexity Analysis for Matrix Multiplication [[arxiv](https://arxiv.org/pdf/2203.02536)] [[youtube](https://www.youtube.com/watch?v=nHN5OQdHUpI)]
 
-implementing continuous LRU 
+critical analysis:
 
 [[gemini](https://gemini.google.com/app/dd521e6c449eaa16)]
 

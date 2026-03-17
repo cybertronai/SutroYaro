@@ -19,6 +19,10 @@ Following Meeting #7 homework, from [[Sutro Group](https://docs.google.com/docum
 
 TLDR; there's a 1000x faster solution that is discovereable by agents.
 
+Following Meeting #7 homework, from [[Sutro Group](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0#heading=h.mw2co1cau175)]
+
+TLDR; there's a 1000x faster solution that is discovereable by agents.
+
 # Raw Log 
 
 ### Michael Keating 
@@ -65,7 +69,7 @@ Questions:
 
 ### Yad Konrad 
 
-[[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)]
+[[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)]
 
 \-\-\-\-\--
 
@@ -79,7 +83,7 @@ Verify Yad's result
 
 pushd \~/git0
 
-git clone https://github.com/cybertronai/SutroYaro
+git clone https://github.com/0bserver07/SutroYaro
 
 cd SutroYaro
 
@@ -97,7 +101,7 @@ Prompt:
 
 Take the following specification [[sutro group challenge #1: sparse parity](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0)]and the following solution: [[https://github.com/cybertronai/sutro/blob/main/exp_gf2_standalone.py](https://github.com/cybertronai/sutro/blob/main/exp_gf2_standalone.py)] , and the following output after running this solution. Give a critical analysis of the solution, whether it satisfies the constraints of the problem. Give potential pitfalls such as overfitting to the task and whether this advances us towards the goal.
 
-Comment on the higher level strategy (agentic loops in And whether the lessons of this approach (agentic loop) [[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)])
+Comment on the higher level strategy (agentic loops in And whether the lessons of this approach (agentic loop) [[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)])
 
 The overall goal: 
 
@@ -113,7 +117,7 @@ Compare the energy efficiency of the standalone scripts to the baseline sparse p
 
 15:05 \-- compare energy efficiency using claude
 
-\"[[https://github.com/cybertronai/SutroYaro](https://github.com/cybertronai/SutroYaro)]\"
+\"[[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)]\"
 
 prompt: Compare the energy efficiency of the standalone scripts to the baseline sparse parity benchmark. I'm interested in the average reuse distance. sparse_parity_benchmark.py vs exp_gf2_standalone.py
 
@@ -135,9 +139,9 @@ gemini: [[https://gemini.google.com/app/9622ae290dae0047](https://gemini.google.
 
 notebook: [[https://notebooklm.google.com/notebook/a606c630-dbf2-44d6-852f-ed43bf411b82](https://notebooklm.google.com/notebook/a606c630-dbf2-44d6-852f-ed43bf411b82)]
 
-understanding visualization : [[https://aistudio.google.com/apps/ec58fdc1-db78-4011-9abe-f79af0545f24?showPreview=true&showAssistant=true](https://aistudio.google.com/apps/ec58fdc1-db78-4011-9abe-f79af0545f24?showPreview=true&showAssistant=true)]
+understanding visualization : 
 
-published [[app](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)]
+published [[app](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)] ([[raw](https://aistudio.google.com/apps/ec58fdc1-db78-4011-9abe-f79af0545f24?showPreview=true&showAssistant=true)])
 
 Walk me through the solution \-- [[https://gemini.google.com/app/ac245afae642cac0](https://gemini.google.com/app/ac245afae642cac0)] [[shared](https://gemini.google.com/share/896ba5270dd6)]
 
