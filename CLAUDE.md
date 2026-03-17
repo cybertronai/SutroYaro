@@ -125,7 +125,7 @@ Full sync workflow: [docs/tooling/sync-runbook.md](docs/tooling/sync-runbook.md)
 
 ## Contributing
 
-Multiple people contribute via PRs (fork and branch). See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
+Multiple people contribute via PRs (fork and branch). See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide and [docs/branch-workflow.md](docs/branch-workflow.md) for branch naming, locked files, and agent permissions.
 
 - **`contributions/`** — Drop raw results here in any format. No template needed.
 - **`findings/_template.md`** — Standalone findings template for structured reports.

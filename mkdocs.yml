@@ -61,6 +61,8 @@ markdown_extensions:
 nav:
   - Home:
       - Overview: index.md
+      - Getting Started: getting-started.md
+      - Branch Workflow: branch-workflow.md
       - Context: context.md
       - Goals: goals.md
   - Learning:
