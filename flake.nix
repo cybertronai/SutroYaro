@@ -20,9 +20,8 @@
             buildInputs = [
               (pkgs.python3.withPackages (p: [ p.numpy ]))
             ];
-
             shellHook = ''
-              export PYTHONPATH=$PWD/src
+              export PYTHONPATH=$PWD/src:$PYTHONPATH
             '';
           };
         });
