@@ -2,6 +2,37 @@
 
 All notable changes to this research workspace.
 
+## [0.22.0] - 2026-03-22
+
+### DMC baseline sweep, optimization, and infrastructure (Issues #15-#22)
+
+**Headline: DMC rankings disagree with ARD. New best method found.**
+
+- **DMC baseline sweep** (#17): Measured all 5 methods across 3 challenges (sparse-parity, sparse-sum, sparse-and). 14 total runs. GF2 wins DMC on parity (8,607) despite KM winning ARD (92). Fourier's DMC is 78 billion (9M times worse than GF2).
+- **DMC optimization** (#22): KM-min achieves DMC of 3,578 -- 58% lower than GF2 baseline. Single influence sample per bit suffices because parity influence is deterministic (exactly 0 or 1). Also discovered GF2's harness-measured DMC is artificially low (true DMC with fine-grained tracking: 189,056).
+- **fast.py tracker integration** (#15): Added optional `tracker` parameter to fast.py. Zero overhead when disabled. Reports ARD 7,210 / DMC 850,131 for default config.
+- **Scoreboard backfill** (#16): Filled DMC values for 21 of 35 scoreboard rows. 12 rows marked `needs_measurement`. Added `dmc_source` column to distinguish measured vs estimated values.
+- **DMC visualization** (#18): Created `src/plot_dmc.py` with 3 plots: DMC-vs-ARD scatter, parity ranking bar chart, cross-challenge comparison. Output in `results/plots/`.
+- **Weekly catch-up section**: Added `docs/catchups/` with first entry (Mar 16-22). Covers Meeting #9 outcomes, Telegram activity, infrastructure inventory.
+- **Meeting #9 notes synced**: Added internal notes doc to Google Docs sync pipeline.
+- **Public Domain license** (#20): Added Unlicense to repo root.
+- **8 new GitHub issues** created: #15-#22 covering DMC infrastructure, optimization, RL env prototype, license, and Mar 30 meeting prep.
+
+### Results
+
+| Method | ARD | DMC | Rank shift |
+|--------|-----|-----|------------|
+| KM-min (new) | 20 | 3,578 | -- (new best) |
+| GF2 | 420 | 8,607 | ARD #2, DMC #1 (was) |
+| KM (5 samples) | 92 | 20,633 | ARD #1, DMC #2 |
+| SGD | 8,504 | 1,278,460 | Same |
+| Fourier | 11,980,500 | 78,140,662,852 | Same |
+
+- Findings: `findings/exp_dmc_optimize.md`, `results/dmc_baseline_sweep.md`
+- Plots: `results/plots/dmc_vs_ard.png`, `dmc_ranking_parity.png`, `dmc_cross_challenge.png`
+
+---
+
 ## [0.21.0] - 2026-03-16
 
 ### Egalitarian Gradient Descent experiment (Issue #4)

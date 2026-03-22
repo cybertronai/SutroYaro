@@ -59,6 +59,62 @@ Raw Thoughts
 
 ([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
 
+Yaroslav Sutro planning sprint #1
+
+Objective
+
+Solve the energy problem of AI. Similar mission to [[https://ml.energy/](https://ml.energy/)] .
+
+Method
+
+Blank slate rewrite. Draw on [[experience](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0)] to prevent mistakes.
+
+Raw Thoughts
+
+([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
+
+Yaroslav Sutro planning sprint #1
+
+Objective
+
+Solve the energy problem of AI. Similar mission to [[https://ml.energy/](https://ml.energy/)] .
+
+Method
+
+Blank slate rewrite. Draw on [[experience](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0)] to prevent mistakes.
+
+Raw Thoughts
+
+([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
+
+Yaroslav Sutro planning sprint #1
+
+Objective
+
+Solve the energy problem of AI. Similar mission to [[https://ml.energy/](https://ml.energy/)] .
+
+Method
+
+Blank slate rewrite. Draw on [[experience](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0)] to prevent mistakes.
+
+Raw Thoughts
+
+([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
+
+Yaroslav Sutro planning sprint #1
+
+Objective
+
+Solve the energy problem of AI. Similar mission to [[https://ml.energy/](https://ml.energy/)] .
+
+Method
+
+Blank slate rewrite. Draw on [[experience](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0)] to prevent mistakes.
+
+Raw Thoughts
+
+([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
+
 # Mistakes 
 
 1. Too simple of an objective

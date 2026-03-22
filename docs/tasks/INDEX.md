@@ -1,6 +1,6 @@
 # Open Tasks
 
-Feedback from Meeting #8, Telegram, and Google Docs. Created 2026-03-11.
+Feedback from Meetings #8-9, Telegram, and Google Docs. Updated 2026-03-22.
 
 | # | Task | Priority | Status | File |
 |---|------|----------|--------|------|
@@ -10,3 +10,5 @@ Feedback from Meeting #8, Telegram, and Google Docs. Created 2026-03-11.
 | 4 | Reproduce Germain's depth-1/hidden-64 ARD result | MEDIUM | DONE | [004-germain-depth1.md](004-germain-depth1.md) |
 | 5 | Linear classifier for parity (arXiv:2309.06979) | MEDIUM | REVIEWED | [005-linear-classifier.md](005-linear-classifier.md) |
 | 6 | Prep homework for next Monday (present results/process) | HIGH | IN PROGRESS | [006-homework-monday.md](006-homework-monday.md) |
+| 7 | Homework for Meeting #10: DMC baseline + optimization | HIGH | TODO | [007-homework-meeting10.md](007-homework-meeting10.md) |
+| 8 | Pre-experiment plan: DMC comparison, RL env, license | MEDIUM | TODO | [008-pre-experiment-plan.md](008-pre-experiment-plan.md) |
