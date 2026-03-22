@@ -380,10 +380,121 @@ class SutroYaroEnv(gymnasium.Env):
             }
 
 
+class MultiChallengeEnv(gymnasium.Env):
+    """
+    Cycles through multiple challenges, one per episode.
+
+    Each reset advances to the next challenge in the list. After all
+    challenges have been used, the cycle wraps around. Within each
+    episode, the behavior is identical to SutroYaroEnv for that challenge.
+
+    The observation space is the same as SutroYaroEnv. The ``info`` dict
+    returned by reset/step includes ``cycle_index`` and ``challenges``
+    so the agent can track progress across the full challenge cycle.
+    """
+
+    metadata = {"render_modes": ["human"]}
+
+    def __init__(
+        self,
+        challenges=None,
+        budget_per=10,
+        n_bits=20,
+        k_sparse=3,
+        metric="dmc",
+        seed=42,
+        harness_timeout=10.0,
+        render_mode=None,
+    ):
+        super().__init__()
+
+        if challenges is None:
+            challenges = list(CHALLENGE_MAP)  # all three
+        for c in challenges:
+            assert c in CHALLENGE_MAP, f"Unknown challenge: {c}"
+
+        self.challenges = challenges
+        self.budget_per = budget_per
+        self.n_bits = n_bits
+        self.k_sparse = k_sparse
+        self.metric = metric
+        self._seed = seed
+        self.harness_timeout = harness_timeout
+        self.render_mode = render_mode
+
+        # Cycle state
+        self._cycle_index = 0  # which challenge we are on (wraps)
+
+        # The inner env does the real work
+        self._inner = SutroYaroEnv(
+            challenge=self.challenges[0],
+            n_bits=n_bits,
+            k_sparse=k_sparse,
+            metric=metric,
+            budget=budget_per,
+            seed=seed,
+            harness_timeout=harness_timeout,
+            render_mode=render_mode,
+        )
+
+        # Mirror spaces from inner env
+        self.observation_space = self._inner.observation_space
+        self.action_space = self._inner.action_space
+
+    # ------------------------------------------------------------------
+    # Gymnasium API
+    # ------------------------------------------------------------------
+
+    def reset(self, seed=None, options=None):
+        # Determine current challenge
+        challenge = self.challenges[self._cycle_index % len(self.challenges)]
+
+        # Reconfigure the inner env for this challenge
+        self._inner.challenge = challenge
+        self._inner._challenge_idx = CHALLENGE_MAP.index(challenge)
+        self._inner.budget = self.budget_per
+
+        if seed is not None:
+            self._seed = seed
+
+        obs, info = self._inner.reset(seed=seed, options=options)
+
+        # Add multi-challenge context to info
+        info["cycle_index"] = self._cycle_index
+        info["challenges"] = self.challenges
+        info["challenges_completed"] = self._cycle_index
+
+        # Advance cycle for next reset
+        self._cycle_index += 1
+
+        return obs, info
+
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self._inner.step(action)
+        info["cycle_index"] = self._cycle_index - 1  # current (already advanced)
+        info["challenges"] = self.challenges
+        return obs, reward, terminated, truncated, info
+
+    def render(self):
+        self._inner.render()
+
+    @property
+    def experiment_log(self):
+        return self._inner.experiment_log
+
+    def close(self):
+        self._inner.close()
+
+
 # ---------------------------------------------------------------------------
 # Gymnasium registration
 # ---------------------------------------------------------------------------
 gymnasium.register(
     id="SutroYaro/SparseParity-v0",
     entry_point="sparse_parity.eval.env:SutroYaroEnv",
+)
+
+gymnasium.register(
+    id="SutroYaro/MultiChallenge-v0",
+    entry_point="sparse_parity.eval.env:MultiChallengeEnv",
 )

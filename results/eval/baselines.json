@@ -14,7 +14,7 @@
       1337
     ]
   },
-  "total_time_s": 2.17,
+  "total_time_s": 2.26,
   "results": [
     {
       "agent": "RandomAgent",
@@ -58,7 +58,50 @@
             "km",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 47,
+            "max_possible": 49,
+            "percentage": 95.92,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 14,
+                "max": 16,
+                "details": "Failures observed: random_proj(2pt), evolutionary(2pt), curriculum(2pt), mutual_info(2pt), lasso(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 3/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 12 tried, best=gf2 (DMC=8,607), score 47.0/49"
+          }
         },
         {
           "total_reward": 15.7291,
@@ -71,7 +114,50 @@
             "smt",
             "gf2"
           ],
-          "n_discovered": 4
+          "n_discovered": 4,
+          "grade": {
+            "total_score": 42,
+            "max_possible": 49,
+            "percentage": 85.71,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 13,
+                "max": 16,
+                "details": "Failures observed: random_proj(2pt), mdl(2pt), perlayer(2pt), genetic_prog(2pt), lasso(2pt), rl(2pt), forward_forward(1pt)"
+              },
+              "efficiency": {
+                "score": 2,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 11/16"
+              },
+              "exploration_breadth": {
+                "score": 4,
+                "max": 5,
+                "details": "4 methods solved: fourier, gf2, km, smt"
+              }
+            },
+            "summary": "4 methods solved out of 11 tried, best=gf2 (DMC=8,607), score 42.0/49"
+          }
         },
         {
           "total_reward": 10.1198,
@@ -83,7 +169,50 @@
             "gf2",
             "fourier"
           ],
-          "n_discovered": 3
+          "n_discovered": 3,
+          "grade": {
+            "total_score": 34,
+            "max_possible": 49,
+            "percentage": 69.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2"
+              },
+              "identified_local_learning_failure": {
+                "score": 1,
+                "max": 5,
+                "details": "Observed 6 method failure(s) (curriculum, evolutionary, genetic_prog, perlayer, rl, sign_sgd) but did not try forward_forward"
+              },
+              "found_metric_disagreement": {
+                "score": 2,
+                "max": 5,
+                "details": "Only solved one side: gf2. Need both km and gf2 solved to observe metric disagreement."
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 11,
+                "max": 16,
+                "details": "Failures observed: curriculum(1pt), genetic_prog(2pt), evolutionary(2pt), sign_sgd(2pt), perlayer(2pt), rl(2pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 4/16"
+              },
+              "exploration_breadth": {
+                "score": 3,
+                "max": 5,
+                "details": "3 methods solved: fourier, gf2, sgd"
+              }
+            },
+            "summary": "3 methods solved out of 9 tried, best=gf2 (DMC=8,607), score 34.0/49"
+          }
         },
         {
           "total_reward": 3.9337,
@@ -94,7 +223,50 @@
             "smt",
             "sgd"
           ],
-          "n_discovered": 2
+          "n_discovered": 2,
+          "grade": {
+            "total_score": 38,
+            "max_possible": 49,
+            "percentage": 77.55,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 0,
+                "max": 5,
+                "details": "Never tried km or gf2"
+              },
+              "optimized_beyond_baseline": {
+                "score": 0,
+                "max": 3,
+                "details": "Best DMC was 1,278,460 (sgd), not below SGD baseline of 1,278,460"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: genetic_prog(2pt), perlayer(2pt), lasso(2pt), evolutionary(2pt), mdl(2pt), forward_forward(2pt), curriculum(2pt), mutual_info(2pt), sign_sgd(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (sgd, DMC=1,278,460) found at step 3/16"
+              },
+              "exploration_breadth": {
+                "score": 2,
+                "max": 5,
+                "details": "2 methods solved: sgd, smt"
+              }
+            },
+            "summary": "2 methods solved out of 11 tried, best=sgd (DMC=1,278,460), score 38.0/49"
+          }
         },
         {
           "total_reward": 14.956,
@@ -108,9 +280,60 @@
             "km",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 44,
+            "max_possible": 49,
+            "percentage": 89.8,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 13,
+                "max": 16,
+                "details": "Failures observed: random_proj(2pt), sign_sgd(2pt), forward_forward(2pt), perlayer(2pt), evolutionary(2pt), lasso(2pt), mdl(1pt)"
+              },
+              "efficiency": {
+                "score": 3,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 7/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 12 tried, best=gf2 (DMC=8,607), score 44.0/49"
+          }
         }
-      ]
+      ],
+      "grading": {
+        "mean_score": 41.0,
+        "std_score": 4.56,
+        "min_score": 34.0,
+        "max_score": 47.0,
+        "mean_percentage": 83.7,
+        "max_possible": 49
+      }
     },
     {
       "agent": "GreedyAgent",
@@ -154,7 +377,50 @@
             "smt",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 48,
+            "max_possible": 49,
+            "percentage": 97.96,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), curriculum(2pt), forward_forward(2pt), lasso(2pt), mdl(2pt), mutual_info(2pt), random_proj(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 48.0/49"
+          }
         },
         {
           "total_reward": 10.2098,
@@ -168,7 +434,50 @@
             "smt",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 48,
+            "max_possible": 49,
+            "percentage": 97.96,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), curriculum(2pt), forward_forward(2pt), lasso(2pt), mdl(2pt), mutual_info(2pt), random_proj(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 48.0/49"
+          }
         },
         {
           "total_reward": 10.2098,
@@ -182,7 +491,50 @@
             "smt",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 48,
+            "max_possible": 49,
+            "percentage": 97.96,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), curriculum(2pt), forward_forward(2pt), lasso(2pt), mdl(2pt), mutual_info(2pt), random_proj(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 48.0/49"
+          }
         },
         {
           "total_reward": 10.2098,
@@ -196,7 +548,50 @@
             "smt",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 48,
+            "max_possible": 49,
+            "percentage": 97.96,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), curriculum(2pt), forward_forward(2pt), lasso(2pt), mdl(2pt), mutual_info(2pt), random_proj(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 48.0/49"
+          }
         },
         {
           "total_reward": 10.2098,
@@ -210,9 +605,60 @@
             "smt",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 48,
+            "max_possible": 49,
+            "percentage": 97.96,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), curriculum(2pt), forward_forward(2pt), lasso(2pt), mdl(2pt), mutual_info(2pt), random_proj(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 48.0/49"
+          }
         }
-      ]
+      ],
+      "grading": {
+        "mean_score": 48.0,
+        "std_score": 0.0,
+        "min_score": 48.0,
+        "max_score": 48.0,
+        "mean_percentage": 98.0,
+        "max_possible": 49
+      }
     },
     {
       "agent": "OracleAgent",
@@ -256,7 +702,50 @@
             "sgd",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 49,
+            "max_possible": 49,
+            "percentage": 100.0,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), curriculum(2pt), sign_sgd(2pt), mutual_info(2pt), lasso(2pt), random_proj(2pt), mdl(2pt), forward_forward(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 49.0/49"
+          }
         },
         {
           "total_reward": 0.8864,
@@ -270,7 +759,50 @@
             "sgd",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 49,
+            "max_possible": 49,
+            "percentage": 100.0,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), curriculum(2pt), sign_sgd(2pt), mutual_info(2pt), lasso(2pt), random_proj(2pt), mdl(2pt), forward_forward(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 49.0/49"
+          }
         },
         {
           "total_reward": 0.8864,
@@ -284,7 +816,50 @@
             "sgd",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 49,
+            "max_possible": 49,
+            "percentage": 100.0,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), curriculum(2pt), sign_sgd(2pt), mutual_info(2pt), lasso(2pt), random_proj(2pt), mdl(2pt), forward_forward(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 49.0/49"
+          }
         },
         {
           "total_reward": 0.8864,
@@ -298,7 +873,50 @@
             "sgd",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 49,
+            "max_possible": 49,
+            "percentage": 100.0,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), curriculum(2pt), sign_sgd(2pt), mutual_info(2pt), lasso(2pt), random_proj(2pt), mdl(2pt), forward_forward(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 49.0/49"
+          }
         },
         {
           "total_reward": 0.8864,
@@ -312,9 +930,60 @@
             "sgd",
             "fourier"
           ],
-          "n_discovered": 5
+          "n_discovered": 5,
+          "grade": {
+            "total_score": 49,
+            "max_possible": 49,
+            "percentage": 100.0,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 16,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), curriculum(2pt), sign_sgd(2pt), mutual_info(2pt), lasso(2pt), random_proj(2pt), mdl(2pt), forward_forward(2pt), rl(2pt), genetic_prog(2pt), evolutionary(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "5 methods solved: fourier, gf2, km, sgd, smt"
+              }
+            },
+            "summary": "5 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 49.0/49"
+          }
         }
-      ]
+      ],
+      "grading": {
+        "mean_score": 49.0,
+        "std_score": 0.0,
+        "min_score": 49.0,
+        "max_score": 49.0,
+        "mean_percentage": 100.0,
+        "max_possible": 49
+      }
     }
   ]
 }
