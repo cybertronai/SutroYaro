@@ -128,6 +128,7 @@ nav:
           - Sum vs Parity Comparison: findings/exp_sum_vs_parity.md
           - GPU vs CPU for Sparse Parity: findings/exp_proxy_comparison.md
           - EGD (Egalitarian Gradient Descent): findings/exp_egd.md
+          - DMC Optimization: findings/exp_dmc_optimize.md
           - Friday Demo: research/friday-demo.md
       - Plans:
           - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md
@@ -152,8 +153,13 @@ nav:
           - Yaroslav Verification (GF2): google-docs/yaroslav-verification.md
           - Michael's Claude Approach: google-docs/michael-claude-approach.md
           - Meeting 9 - Agenda: google-docs/meeting-9-agenda.md
+          - Meeting 9 - Notes: google-docs/meeting-9-notes.md
           - The Bigger Picture: google-docs/bigger-picture.md
           - How to Search: google-docs/how-to-search.md
+  - Weekly Catch-Up:
+      - Overview: catchups/index.md
+      - 2026-03-22: catchups/2026-03-22.md
+      - Meeting 10 Report: catchups/meeting-10-report.md
   - Changelog: changelog.md
 
 extra_css:

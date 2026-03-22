@@ -186,9 +186,13 @@ Sunday 9am, energy costs , 32 byte min but need 2KB request to amortize row acti
 
 (paper) Ding - data movement complexity [[notebook](https://notebooklm.google.com/notebook/78b74c92-0a68-43c8-8f75-e1a480d75983)]
 
-DMC4ML: Data Movement Complexity for Machine Learning
+DMC4ML: Data Movement Complexity for Machine Learning [[arxiv](https://arxiv.org/abs/2312.14441)]
 
-Beyond Time Complexity: Data Movement Complexity Analysis for Matrix Multiplication [[arxiv](https://arxiv.org/pdf/2203.02536)] [[youtube](https://www.youtube.com/watch?v=nHN5OQdHUpI)]
+Beyond Time Complexity: Data Movement Complexity Analysis for Matrix Multiplication [[arxiv](https://arxiv.org/pdf/2203.02536)]
+
+Donovan Snyder [[video](https://drive.google.com/file/d/1GS0zeBfNhyW7Qv76ItbFD1pKLfja7zWm/view)]
+
+Wesley Smith [[youtube](https://www.youtube.com/watch?v=nHN5OQdHUpI)]
 
 critical analysis:
 
@@ -197,3 +201,9 @@ critical analysis:
 [[deepthink](https://gemini.google.com/app/46aec643d10abc8d)] \-- python implementation ([[shared](https://gemini.google.com/share/7aefdb4a99b2)])
 
 [[chatgpt](https://chatgpt.com/c/69ada12a-bd68-8323-b846-82a31aad6746)]
+
+chatgpt 1: VLSI-like recommend [[https://chatgpt.com/share/69c03384-43bc-8011-b83c-361b48f9e2c3](https://chatgpt.com/share/69c03384-43bc-8011-b83c-361b48f9e2c3)]
+
+chatgpt 2: [[https://chatgpt.com/c/69ada12a-bd68-8323-b846-82a31aad6746](https://chatgpt.com/c/69ada12a-bd68-8323-b846-82a31aad6746)]
+
+Extending to parallel processors? [[https://gemini.google.com/app/4ab0c4db6fe7f3c6](https://gemini.google.com/app/4ab0c4db6fe7f3c6)]

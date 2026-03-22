@@ -204,6 +204,138 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Fix this
 
 [Homework for next Monday]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally openway.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 26]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally openway.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 26]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
 # [embedded image] 
 
 # General 
@@ -319,3 +451,13 @@ Notes: [[Sutro meeting #8 notes](https://docs.google.com/document/d/12AnIc4XWH0O
 ## Meeting #9, 16 Mar 26 
 
 Agenda: [[sutro meeting final #1 16mar26](https://docs.google.com/document/d/1yCRuRGHJi9rNanqtPVf6sR-PYgm6iE4ZxGd2E7Q7FEY/edit?tab=t.0#heading=h.odcdl41cq6qx)]
+
+Meeting video: [[https://www.youtube.com/watch?v=vdQ3NkEiOt8](https://www.youtube.com/watch?v=vdQ3NkEiOt8)]
+
+Meeting [[notes](https://docs.google.com/document/d/1xD6sQbG6TnGifKWUbshcN2Yd1MSF_q3O7aEnI6p-JFE/edit?tab=t.0)] (internal)
+
+### Homework for next Monday 
+
+1. Get agents to improve [[sutro group challenge #1: sparse parity](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0)] using Data Movement distance  (Ding [[paper](https://arxiv.org/pdf/2312.14441)]) as the proxy for energy)
+
+2. Iterate on prompts and meta-approaches to be able to solve this quickly \-- make it possible to quickly go from \"metric specification\" + \"problem specification\" to a successful sequence of experiments

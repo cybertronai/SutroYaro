@@ -1,0 +1,162 @@
+{
+  "sweep_info": {
+    "date": "2026-03-22",
+    "issue": "#17",
+    "description": "DMC baseline sweep across all methods and challenges",
+    "config": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "hidden": 200,
+      "lr": 0.1,
+      "wd": 0.01,
+      "batch_size": 32,
+      "n_train": 1000,
+      "max_epochs": 200,
+      "seed": 42
+    }
+  },
+  "results": [
+    {
+      "method": "sgd",
+      "challenge": "sparse-parity",
+      "accuracy": 1.0,
+      "ard": 8503.7,
+      "dmc": 1278460.3,
+      "total_floats": 24470,
+      "time_s": 0.320668,
+      "epochs": 49
+    },
+    {
+      "method": "gf2",
+      "challenge": "sparse-parity",
+      "accuracy": 1.0,
+      "ard": 420.0,
+      "dmc": 8607.4,
+      "total_floats": 860,
+      "time_s": 0.047497,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "km",
+      "challenge": "sparse-parity",
+      "accuracy": 1.0,
+      "ard": 91.8,
+      "dmc": 20632.5,
+      "total_floats": 4420,
+      "time_s": 0.048965,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "fourier",
+      "challenge": "sparse-parity",
+      "accuracy": 1.0,
+      "ard": 11980500.0,
+      "dmc": 78140662851.9,
+      "total_floats": 23961000,
+      "time_s": 0.066364,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "smt",
+      "challenge": "sparse-parity",
+      "accuracy": 1.0,
+      "ard": 3360.0,
+      "dmc": 348336.1,
+      "total_floats": 6720,
+      "time_s": 0.047604,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "ols",
+      "challenge": "sparse-sum",
+      "accuracy": 1.0,
+      "ard": 20980.0,
+      "dmc": 3043278.6,
+      "total_floats": 42040,
+      "time_s": 0.000688,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "sgd",
+      "challenge": "sparse-sum",
+      "accuracy": 1.0,
+      "ard": 20.0,
+      "dmc": 2862.2,
+      "total_floats": 1300,
+      "time_s": 0.000562,
+      "epochs": 1,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "km",
+      "challenge": "sparse-sum",
+      "accuracy": 1.0,
+      "ard": 91.8,
+      "dmc": 20632.5,
+      "total_floats": 4420,
+      "time_s": 0.00118,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "fourier",
+      "challenge": "sparse-sum",
+      "accuracy": 1.0,
+      "ard": 220500.0,
+      "dmc": 187661232.5,
+      "total_floats": 441000,
+      "time_s": 0.000569,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "gf2",
+      "challenge": "sparse-sum",
+      "accuracy": 0.0,
+      "ard": null,
+      "dmc": null,
+      "total_floats": null,
+      "time_s": 0.000001,
+      "error": "GF(2) only works on parity (product), not sum"
+    },
+    {
+      "method": "sgd",
+      "challenge": "sparse-and",
+      "accuracy": 1.0,
+      "ard": 29163.8,
+      "dmc": 52885889.9,
+      "total_floats": 1105329,
+      "time_s": 0.010898,
+      "epochs": 4
+    },
+    {
+      "method": "km",
+      "challenge": "sparse-and",
+      "accuracy": 0.81,
+      "ard": 91.8,
+      "dmc": 20632.5,
+      "total_floats": 4420,
+      "time_s": 0.001019,
+      "found_secret": [8, 17, 19],
+      "note": "KM failed to find correct secret (found [8,17,19] instead of [0,15,17]). Only 5 influence samples may be too few for AND where P(output changes) = 1/2^(k-1)."
+    },
+    {
+      "method": "fourier",
+      "challenge": "sparse-and",
+      "accuracy": 1.0,
+      "ard": 11980500.0,
+      "dmc": 78140662851.9,
+      "total_floats": 23961000,
+      "time_s": 0.017536,
+      "found_secret": [0, 15, 17]
+    },
+    {
+      "method": "gf2",
+      "challenge": "sparse-and",
+      "accuracy": 0.0,
+      "ard": null,
+      "dmc": null,
+      "total_floats": null,
+      "time_s": 0.000001,
+      "error": "GF(2) only works on parity (XOR), not AND"
+    }
+  ]
+}
