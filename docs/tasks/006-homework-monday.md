@@ -1,7 +1,7 @@
 # Task 6: Prep homework for next Monday
 
 **Priority**: HIGH
-**Status**: IN PROGRESS
+**Status**: SUPERSEDED by Task 007 (Meeting #10 homework)
 **Source**: Meeting #8 homework, The Bigger Picture
 
 ## Context

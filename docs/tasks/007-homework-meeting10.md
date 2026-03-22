@@ -1,7 +1,7 @@
 # Task 007: Homework for Meeting #10
 
 **Priority**: HIGH
-**Status**: TODO
+**Status**: DONE
 **Due**: Monday 2026-03-23 (Meeting #10)
 **Source**: Meeting #9 homework assignment
 
@@ -16,25 +16,25 @@ From Meeting #9:
 
 ### DMC Baseline Sweep
 
-- [ ] Run DMC measurement for GF(2) Gaussian Elimination
-- [ ] Run DMC measurement for KM Influence Estimation
-- [ ] Run DMC measurement for SGD (standard config: n=20, k=3, hidden=200, lr=0.1)
-- [ ] Run DMC measurement for SMT Backtracking
-- [ ] Run DMC measurement for Fourier/Walsh-Hadamard
-- [ ] Compile comparison table: method / accuracy / DMC / ARD / wall time
+- [x] Run DMC measurement for GF(2) Gaussian Elimination
+- [x] Run DMC measurement for KM Influence Estimation
+- [x] Run DMC measurement for SGD (standard config: n=20, k=3, hidden=200, lr=0.1)
+- [x] Run DMC measurement for SMT Backtracking
+- [x] Run DMC measurement for Fourier/Walsh-Hadamard
+- [x] Compile comparison table: method / accuracy / DMC / ARD / wall time
 
 ### DMC Optimization
 
-- [ ] Pick the most promising method for DMC optimization
-- [ ] Run at least one experiment targeting DMC reduction
-- [ ] Record results in findings format (hypothesis, method, result, key number)
-- [ ] Update DISCOVERIES.md if findings answer an open question
+- [x] Pick the most promising method for DMC optimization
+- [x] Run at least one experiment targeting DMC reduction
+- [x] Record results in findings format (hypothesis, method, result, key number)
+- [x] Update DISCOVERIES.md if findings answer an open question
 
 ### Presentation Prep
 
-- [ ] Prepare results summary (table + key insight)
-- [ ] Note any differences between DMC ranking and ARD ranking
-- [ ] Record video or prepare demo if presenting async
+- [x] Prepare results summary (table + key insight)
+- [x] Note any differences between DMC ranking and ARD ranking
+- [x] Record video or prepare demo if presenting async
 
 ## Context
 

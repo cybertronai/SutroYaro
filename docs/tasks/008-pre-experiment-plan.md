@@ -1,7 +1,7 @@
 # Task 008: Pre-Experiment Plan
 
 **Priority**: MEDIUM
-**Status**: TODO
+**Status**: IN PROGRESS
 **Source**: Weekly catchup 2026-03-22, Telegram discussion
 
 ## Overview
@@ -30,8 +30,8 @@ Strategic tasks that set up the next phase of research. Not urgent for tomorrow'
 
 ### Public Domain License
 
-- [ ] Add LICENSE file (CC0-1.0 or Unlicense) to repo root
-- [ ] Confirm with Yaroslav on preferred license text
+- [x] Add LICENSE file (CC0-1.0 or Unlicense) to repo root
+- [x] Confirm with Yaroslav on preferred license text
 - [ ] Update README if needed
 
 ### Lukas Kaiser / Mar 30 Meeting Prep
