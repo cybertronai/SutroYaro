@@ -390,7 +390,7 @@
       "method": "km",
       "challenge": "sparse-parity",
       "accuracy": 1.0,
-      "ard": 1585,
+      "ard": 92,
       "dmc": 20633,
       "time_s": 0.006,
       "category": "algebraic",

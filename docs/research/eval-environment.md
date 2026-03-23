@@ -33,7 +33,7 @@ The agent picks methods to solve sparse parity (and two related problems). Each 
 
 The problem is small (solves in under a second) but the method space is large (16 options across 4 categories) and many methods fail. An agent that tries SGD first, then discovers GF(2) solves it 240x faster, then notices KM has better reuse distance but worse total data movement, has made three real research discoveries.
 
-We know the answers. 34 experiments have been run. The grading rubric checks whether the agent rediscovered what we already know.
+We know the answers. 36 experiments have been run. The grading rubric checks whether the agent rediscovered what we already know.
 
 ## How this compares to existing benchmarks
 
@@ -41,7 +41,7 @@ Most agent benchmarks test code generation. PrimeIntellect's 105 community envir
 
 This environment tests something different: experiment selection. The agent does not write code. It picks which method to run, observes the result, and decides what to try next. The grading rubric checks whether the agent made specific discoveries (found the algebraic solver, noticed the metric disagreement, observed that local learning fails), not whether it produced correct code.
 
-We can grade this because we have ground truth. Most research environments cannot score an agent's trajectory because the optimal policy is unknown. Here, 34 experiments establish what works, what fails, and why.
+We can grade this because we have ground truth. Most research environments cannot score an agent's trajectory because the optimal policy is unknown. Here, 36 experiments establish what works, what fails, and why.
 
 ## Environments
 

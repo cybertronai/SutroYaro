@@ -49,9 +49,12 @@ LOCAL_LEARNING_METHODS = {
     "hebbian", "predictive_coding", "equilibrium_prop", "target_prop"
 }
 
-# Methods in the harness that are known to fail on sparse-parity (acc < 0.95)
-# Only includes methods available in METHOD_MAP (env.py action space)
-KNOWN_FAILURE_METHODS_PARITY = {"forward_forward"}
+# Methods that fail on sparse-parity (acc < 0.95) in the 16-method action space.
+# forward_forward: local learning can't coordinate multi-layer features (58.5%)
+# perlayer: often times out before grokking triggers
+# sign_sgd: conservative lr=0.01, often times out
+# genetic_prog: needle-in-haystack, usually doesn't find the secret
+KNOWN_FAILURE_METHODS_PARITY = {"forward_forward", "perlayer", "sign_sgd", "genetic_prog"}
 
 # SGD baseline DMC for sparse-parity
 SGD_BASELINE_DMC = 1_278_460
@@ -251,7 +254,7 @@ class DiscoveryGrader:
         Agent must have tried at least 2 methods that fail and 1 that succeeds.
         """
         max_pts = 5
-        known_fail_methods = {"forward_forward", "genetic_prog", "perlayer", "sign_sgd"}
+        known_fail_methods = KNOWN_FAILURE_METHODS_PARITY
         observed_failures = known_fail_methods & failed_set
         has_success = len(failed_set) < len(set(e["method"] for e in log))
 
