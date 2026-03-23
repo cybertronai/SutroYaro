@@ -97,3 +97,4 @@ Key math: parity over {-1,+1} maps to XOR over {0,1}. For odd k, y_bit = XOR(x_b
 
 - Experiment: `src/sparse_parity/experiments/exp_gf2.py`
 - Results: `results/exp_gf2/results.json`
+- Interactive visualization (Yaroslav): https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/

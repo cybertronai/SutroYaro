@@ -46,6 +46,7 @@ Yaroslav presents the Sutro Group roadmap, introduces the DMC metric, reviews Ya
 - [Yad's Session 1](sesh-1.md) (recorded same week)
 - [EGD Experiment Findings](../findings/exp_egd.md)
 - [GF(2) Findings](../findings/exp_gf2.md)
+- [GF(2) Interactive Visualization](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/) (Yaroslav, AI Studio)
 - [Yaroslav Verification Sprint](../google-docs/yaroslav-verification.md)
 
 ## Transcript
