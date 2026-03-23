@@ -5,8 +5,13 @@
  * Outputs JSON per Claude Code hook protocol.
  */
 
+// Measurement code that should not be edited during experiments (LAB.md rule #9).
+// harness.py is NOT locked here because it needs legitimate edits when adding
+// new methods. Rule #9 enforcement for harness.py relies on LAB.md and PR review.
+//
+// Future: a smarter approach could check if the current branch is an experiment
+// branch (exp-*) vs a development branch, and only lock files on experiment branches.
 const LOCKED_FILES = [
-  "src/harness.py",
   "src/sparse_parity/tracker.py",
   "src/sparse_parity/cache_tracker.py",
   "src/sparse_parity/data.py",

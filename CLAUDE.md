@@ -97,6 +97,17 @@ This is informational (tells agents nix is available) rather than controlling (i
 
 See [docs/research/peer-research-protocol.md](docs/research/peer-research-protocol.md) for the full design.
 
+## Agent Infrastructure
+
+Hooks, rules, and skills that make Claude Code sessions more effective. See [docs/research/agent-infrastructure.md](docs/research/agent-infrastructure.md) for the full docs.
+
+- **Hooks**: session-start (shows status), security-guard (blocks locked measurement code and destructive commands), session-end (session summary)
+- **Rules**: experiment reproducibility (seeds, config, environment), agent coordination (parallel dispatch, file ownership)
+- **Skills**: run-experiment (two-phase protocol), weekly-catchup, prepare-meeting
+- **Config**: `.claude/settings.json`
+
+Other coding agents (Gemini, Codex) don't run the hooks but can read the rules and skills.
+
 ## Automation
 
 | Script | What it does | Docs |

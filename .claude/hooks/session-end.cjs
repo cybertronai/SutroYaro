@@ -1,60 +1,45 @@
 #!/usr/bin/env node
 /**
  * Session-end hook: summarizes what changed during the session.
- * Outputs JSON per Claude Code hook protocol.
  */
 
-const { execSync } = require("child_process");
-
-function run(cmd) {
-  try {
-    return execSync(cmd, { encoding: "utf8", timeout: 5000 }).trim();
-  } catch {
-    return null;
-  }
-}
+const common = require("./hook-common.cjs");
+const fs = require("fs");
+const path = require("path");
 
 function main() {
-  const lines = [];
-  lines.push("--- Session Summary ---");
+  const cwd = process.cwd();
+  const lines = ["--- Session Summary ---"];
 
-  const uncommitted = run("git diff --shortstat");
-  const staged = run("git diff --cached --shortstat");
-  if (uncommitted) lines.push(`Uncommitted: ${uncommitted}`);
+  const git = common.getGitInfo(cwd);
+  if (git.diff) lines.push(`Uncommitted: ${git.diff}`);
+
+  const staged = common.run("git diff --cached --shortstat", cwd);
   if (staged) lines.push(`Staged: ${staged}`);
 
-  const recentCommits = run('git log --oneline -3 --format="%h %s"');
+  const recentCommits = common.run('git log --oneline -3 --format="%h %s"', cwd);
   if (recentCommits) {
     lines.push("Recent commits:");
     recentCommits.split("\n").forEach((c) => lines.push(`  ${c}`));
   }
 
-  const indexMtime = run(
-    'stat -f "%Sm" -t "%s" docs/tasks/INDEX.md 2>/dev/null'
-  );
-  if (indexMtime) {
-    const ageHours = (Date.now() / 1000 - parseInt(indexMtime)) / 3600;
+  const indexPath = path.join(cwd, "docs", "tasks", "INDEX.md");
+  if (fs.existsSync(indexPath)) {
+    const stat = fs.statSync(indexPath);
+    const ageHours = (Date.now() - stat.mtimeMs) / 3600000;
     if (ageHours > 24) {
-      lines.push(
-        `Tasks INDEX.md last updated ${Math.floor(ageHours / 24)} days ago`
-      );
+      lines.push(`Tasks INDEX.md last updated ${Math.floor(ageHours / 24)} days ago`);
     }
   }
 
-  const unpushed = run(
-    "git log --oneline @{upstream}..HEAD 2>/dev/null | wc -l"
-  );
+  const unpushed = common.run("git log --oneline @{upstream}..HEAD 2>/dev/null | wc -l", cwd);
   if (unpushed && parseInt(unpushed.trim()) > 0) {
     lines.push(`Unpushed commits: ${unpushed.trim()}`);
   }
 
   lines.push("---");
 
-  const result = {
-    continue: true,
-    systemMessage: lines.join("\n"),
-  };
-  console.log(JSON.stringify(result));
+  console.log(JSON.stringify({ continue: true, systemMessage: lines.join("\n") }));
   process.exit(0);
 }
 
