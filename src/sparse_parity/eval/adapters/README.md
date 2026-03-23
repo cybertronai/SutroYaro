@@ -136,6 +136,48 @@ Key components:
 - **Tools**: reused from `anthropic_tools.py` (run_experiment, check_status, read_experiment_log)
 - **Completion parser**: extracts tool calls from JSON blocks or function-call syntax in the agent's output
 
+### `huggingface.py` -- HuggingFace Spaces Gradio leaderboard
+
+Interactive web app that displays baseline results, lets users submit
+a simple agent (by selecting methods in order), runs the eval, and
+shows discovery grades with per-category breakdown.
+
+```bash
+# Install
+pip install gradio
+
+# Run locally
+PYTHONPATH=src python src/sparse_parity/eval/adapters/huggingface.py
+```
+
+Or deploy to HuggingFace Spaces:
+
+1. Create a new Space (select Gradio SDK)
+2. Copy the `eval/` directory and this file
+3. Add `requirements.txt`: `gradio`, `gymnasium`, `numpy`
+4. The app launches automatically
+
+The adapter does NOT require `gradio` at import time. If gradio is
+missing, the module imports successfully but `create_app()` raises
+`ImportError` with installation instructions.
+
+Or use programmatically:
+
+```python
+from sparse_parity.eval.adapters.huggingface import create_app
+
+app = create_app()
+app.launch(share=True)  # creates a public link
+```
+
+Key features:
+
+- **Leaderboard tab**: shows baseline agents (Random, Greedy, Oracle) with mean reward, best method, best DMC, and discovery score
+- **Try It tab**: enter a comma-separated method sequence, click Run, see experiment results and discovery grade
+- **About tab**: explains the eval, grading rubric, and links to the repo
+- **Answer Key tab**: shows the ground truth (rubric categories, method list, key facts)
+- **Live updates**: your submission appears on the leaderboard table alongside baselines
+
 ## When to use which adapter
 
 | Situation | Adapter |
@@ -144,15 +186,16 @@ Key components:
 | Quick one-off eval of a Claude model | `run_anthropic_eval()` |
 | Running evals through the Inspect framework | `inspect_task.py` |
 | Publishing to PrimeIntellect Environment Hub | `primeintellect.py` |
+| Interactive web leaderboard / HuggingFace Spaces | `huggingface.py` |
 | Integrating with another platform | Use `anthropic_tools.py` as a template |
 
 ## Architecture
 
 ```
-Platform (Anthropic API, Inspect, PrimeIntellect, ...)
+Platform (Anthropic API, Inspect, PrimeIntellect, HF Spaces, ...)
     |
     v
-Adapter (anthropic_tools.py, inspect_task.py, primeintellect.py)
+Adapter (anthropic_tools.py, inspect_task.py, primeintellect.py, huggingface.py)
     |
     v
 SutroYaroEnv (env.py)  -- Gymnasium interface
@@ -173,4 +216,6 @@ Harness (harness.py)    -- actual experiment runner
 - [Inspect framework docs](https://inspect.ai-safety-institute.org.uk/)
 - [PrimeIntellect verifiers](https://github.com/PrimeIntellect-ai/verifiers)
 - [PrimeIntellect community environments](https://github.com/PrimeIntellect-ai/community-environments)
+- [HuggingFace Spaces](https://huggingface.co/spaces)
+- [Gradio docs](https://www.gradio.app/docs)
 - [SutroYaro eval README](../README.md)
