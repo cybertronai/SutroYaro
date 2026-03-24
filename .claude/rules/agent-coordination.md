@@ -35,3 +35,10 @@ Do not auto-commit from sub-agents. The main agent reviews and commits.
 If task B needs results from task A, never run them in parallel. Check the dependency before dispatching.
 
 Example: "run baseline sweep" must complete before "optimize based on baseline results." These are sequential even though they could technically be dispatched to different agents.
+
+## After merging an experiment PR
+
+1. Check if the result warrants a changelog entry. Add one if it changes the best known method, maps a new frontier, answers an open question, or is a first contribution from a new researcher. Skip if it confirms what's already known.
+2. If the contributor used `Status: COMPLETED` instead of `SUCCESS/PARTIAL/FAILED`, note it in the review but don't block the merge.
+3. If the contributor put findings in `findings/` instead of `docs/findings/`, note it but don't block (the repo historically used both paths).
+4. If the result is significant, mention it in the next weekly catch-up or meeting report.

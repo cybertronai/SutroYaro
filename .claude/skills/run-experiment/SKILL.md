@@ -5,6 +5,14 @@ description: Use when running a new experiment. Follows the two-phase protocol f
 
 # Run Experiment
 
+## Experiment types
+
+**New method**: not in the registry (search_space.yaml). Create a new experiment file from the template. Add the method to the registry if it works.
+
+**Existing method, new config**: method is in the registry but you're testing a different configuration (different n, k, hyperparameters). Use the existing experiment code or copy and modify.
+
+Either way, the steps and output format are the same.
+
 ## Steps
 
 1. Read DISCOVERIES.md. Check what's already proven. Do not repeat existing experiments.
@@ -19,11 +27,22 @@ description: Use when running a new experiment. Follows the two-phase protocol f
 
 6. Verify. Re-run with a different seed. If the result only holds on one seed, note that.
 
-7. Write Phase 2 findings. Create `docs/findings/{exp_id}.md` using the template from LAB.md. Reference the results JSON. Add analysis and impact.
+7. Write Phase 2 findings. Create `docs/findings/{exp_id}.md` using the template from LAB.md. Use `Status: SUCCESS | PARTIAL | FAILED` (not "COMPLETED"). Reference the results JSON. Add analysis and impact.
 
-8. Update DISCOVERIES.md if the finding answers an open question or establishes a new fact.
+8. Classify in research/log.jsonl. Use `"class": "WIN"` only if the result is a clear improvement. Use `"PARTIAL"` for mixed results. Use `"LOSS"` for negative results. All three are valid findings.
 
-9. Add to research/log.jsonl.
+9. Update DISCOVERIES.md if the finding answers an open question or establishes a new fact.
+
+## After merge: changelog and reporting
+
+Not every experiment needs a changelog entry. After a PR is merged, the reviewing agent decides:
+
+- **Add to changelog** if the result changes the best known method, maps a new frontier, answers an open question from DISCOVERIES.md, or is the first contribution from a new researcher.
+- **Skip changelog** if the result confirms what's already known or is a minor null result.
+
+The changelog entry goes in `docs/changelog.md` with the next version number, a short description of the finding, and a link to the findings doc. The reviewing agent writes this on merge, not the contributor.
+
+If the result is significant enough for a meeting presentation, use the prepare-meeting skill to compile it into a report.
 
 ## Checklist
 
@@ -33,6 +52,6 @@ description: Use when running a new experiment. Follows the two-phase protocol f
 - [ ] Experiment run with seed recorded
 - [ ] results.json saved with config + environment
 - [ ] Verified with different seed
-- [ ] Findings doc written in docs/findings/
+- [ ] Findings doc written in docs/findings/ with Status: SUCCESS/PARTIAL/FAILED
+- [ ] log.jsonl updated with correct class (WIN/PARTIAL/LOSS)
 - [ ] DISCOVERIES.md updated if applicable
-- [ ] log.jsonl updated
