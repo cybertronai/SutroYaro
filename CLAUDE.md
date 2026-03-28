@@ -22,13 +22,14 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).
 - **CacheTracker**: Extended MemTracker with LRU cache simulation for realistic energy estimates.
+- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. See `src/sparse_parity/tracked_numpy.py` and `docs/research/tracked-numpy-design.md`.
 
 ## Current Best Methods
 
 | Method | Time (n=20/k=3) | ARD | DMC | Notes |
 |--------|-----------------|-----|-----|-------|
 | KM-min (1 sample) | ~0.001s | 20 | 3,578 | New DMC leader. 1 influence sample suffices for parity. |
-| GF(2) Gaussian Elimination | 509 us | ~420 | 8,607 | 240x faster than SGD, k-independent. Harness under-counts; true DMC ~189K. |
+| GF(2) Gaussian Elimination | 509 us | ~420 | ~203K | 240x faster than SGD, k-independent. Auto-tracked via TrackedArray; old harness reported 8,607. |
 | KM Influence Estimation | 0.001-0.006s | 92 | 20,633 | ARD leader. 5 influence samples per bit. |
 | SMT Backtracking | 0.002s | 3,360 | 348,336 | Constraint satisfaction approach |
 | SGD (baseline) | 0.12s | 8,504 | 1,278,460 | LR=0.1, batch=32, hidden=200 |

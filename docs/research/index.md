@@ -40,6 +40,7 @@ The protocol is challenge-agnostic: it works for sparse parity now and nanoGPT l
 - [x] Scaling frontier: [SGD breaks at n^k > 100K](../findings/exp_d_scaling.md)
 - [x] Blank-slate approaches: [Fourier](../findings/exp_fourier.md), [evolutionary](../findings/exp_evolutionary.md), [feature selection](../findings/exp_feature_select.md)
 - [x] [17 proposed approaches](proposed-approaches.md): all completed, results in [survey](survey.md)
+- [x] Auto-instrumented DMD tracking: [TrackedArray](tracked-numpy.md) wraps numpy so every operation records reads/writes automatically, removing manual instrumentation errors
 - [ ] Deeper networks (5-10 layers) where FF's locality advantage may appear
 - [ ] Hybrid approaches for k=8-9 (combinatorial search with pruning)
 

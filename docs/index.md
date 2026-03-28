@@ -70,6 +70,7 @@ bin/run-agent --tool claude --max 10
 | What's been proven so far | [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) |
 | Individual experiment findings | [Research > Findings](research/index.md) |
 | Meeting notes and Google Docs | [Meetings](meetings/index.md) |
+| Auto DMD tracking | [Auto-instrumented DMD Tracking](research/tracked-numpy.md) |
 | How to contribute | [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) |
 
 ## Quick Links

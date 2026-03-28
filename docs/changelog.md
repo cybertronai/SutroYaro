@@ -2,6 +2,20 @@
 
 All notable changes to this research workspace.
 
+## [0.26.0] - 2026-03-28
+
+### Auto-instrumented DMD tracking (PR #65, Yaroslav)
+
+- **TrackedArray**: numpy ndarray wrapper that auto-tracks all arithmetic operations (matmul, add, multiply, etc.) without manual instrumentation. 310 lines.
+- **LRUStackTracker**: true per-element LRU stack distance tracker matching Ding et al. Definition 2.1. 184 lines.
+- **GF(2) under-counting fixed**: harness reported DMC 8,607 but actual DMC with all row operations tracked is ~203K. TrackedArray captures every intermediate access the old harness missed.
+- **Verified against known examples**: paper example (abbbca) and exact (a+b)+a prediction both match expected stack distances.
+- **29 tests** covering TrackedArray operations, LRU stack correctness, and end-to-end DMC computation.
+- **Telegram safety guard**: posting disabled by default; requires `TELEGRAM_POST_ENABLED=1` to send messages.
+- **bin/tg-auth**: new script for interactive MTProto login.
+
+---
+
 ## [0.25.0] - 2026-03-24
 
 ### GrokFast + Curriculum scaling frontier (PR #53, SethTS)
