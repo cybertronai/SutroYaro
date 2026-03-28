@@ -338,7 +338,7 @@ def test_lru_paper_example():
 
 
 def test_lru_a_plus_b_plus_a():
-    """(a+b)+a with LRU tracker. Second read of a has dist=3 (not 6).
+    """(a+b)+a with LRU tracker. Reads observe stack without modifying it.
 
     Trace (size-1 arrays):
 
@@ -346,16 +346,16 @@ def test_lru_a_plus_b_plus_a():
         write b: stack=[b,a]                      cold, dist=2
 
         c = a + b:
-        read a:  stack=[a,b]       a was at pos 2, dist=2
-        read b:  stack=[b,a]       b was at pos 2, dist=2
+        read a:  a at pos 2, dist=2               stack unchanged [b,a]
+        read b:  b at pos 1, dist=1               stack unchanged [b,a]
         write c: stack=[c,b,a]                    cold, dist=3
 
         d = c + a:
-        read c:  stack=[c,b,a]     c was at pos 1, dist=1
-        read a:  stack=[a,c,b]     a was at pos 3, dist=3
-        write d: stack=[d,a,c,b]                  cold, dist=4
+        read c:  c at pos 1, dist=1               stack unchanged [c,b,a]
+        read a:  a at pos 3, dist=3               stack unchanged [c,b,a]
+        write d: stack=[d,c,b,a]                  cold, dist=4
 
-    Read DMD = sqrt(2) + sqrt(2) + sqrt(1) + sqrt(3) = 5.5605
+    Read DMD = sqrt(2) + sqrt(1) + sqrt(1) + sqrt(3) = 5.1463
     """
     tracker = LRUStackTracker()
     a = TrackedArray(np.array([1.0]), 'a', tracker)
@@ -365,7 +365,7 @@ def test_lru_a_plus_b_plus_a():
     np.testing.assert_array_equal(np.asarray(d), [7.0])
 
     s = tracker.summary()
-    expected_read_dmd = math.sqrt(2) + math.sqrt(2) + math.sqrt(1) + math.sqrt(3)
+    expected_read_dmd = math.sqrt(2) + math.sqrt(1) + math.sqrt(1) + math.sqrt(3)
 
     assert s['reads'] == 4
     assert s['writes'] == 4

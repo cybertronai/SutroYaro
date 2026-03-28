@@ -37,39 +37,46 @@ class LRUStackTracker:
         self._n_accesses = 0  # individual element accesses
         self._n_cold = 0
 
-    def _access_element(self, element_id):
-        """Access one element. Returns (stack_distance, is_cold).
+    def _write_element(self, element_id):
+        """Write one element. Moves it to top of LRU stack.
 
-        stack_distance is 1-indexed position in the LRU stack.
-        For cold misses (first access), returns (len(stack)+1, True).
+        Returns (stack_distance, is_cold).
         """
         if element_id in self._pos:
             idx = self._pos[element_id]
             dist = idx + 1  # 1-indexed
-            # Remove from current position
             self._stack.pop(idx)
-            # Update positions of elements that shifted
             for i in range(idx, len(self._stack)):
                 self._pos[self._stack[i]] = i
             is_cold = False
         else:
-            # Cold miss: element not in stack
             dist = len(self._stack) + 1
             is_cold = True
 
-        # Insert at top (index 0)
         self._stack.insert(0, element_id)
-        # Update all positions (everything shifted right by 1)
         for i in range(len(self._stack)):
             self._pos[self._stack[i]] = i
 
         return dist, is_cold
 
+    def _read_element(self, element_id):
+        """Read one element. Observes its stack position without moving it.
+
+        Returns (stack_distance, is_cold).
+        """
+        if element_id in self._pos:
+            idx = self._pos[element_id]
+            dist = idx + 1  # 1-indexed
+            return dist, False
+        else:
+            dist = len(self._stack) + 1
+            return dist, True
+
     def write(self, name, size):
         """Write size floats to buffer. Each float is pushed onto the LRU stack."""
         distances = []
         for i in range(size):
-            dist, is_cold = self._access_element((name, i))
+            dist, is_cold = self._write_element((name, i))
             dmd = math.sqrt(dist)
             self._total_dmd += dmd
             if is_cold:
@@ -81,7 +88,10 @@ class LRUStackTracker:
         self._n_writes += 1
 
     def read(self, name, size=None):
-        """Read size floats from buffer. Returns list of per-element stack distances."""
+        """Read size floats from buffer. Observes stack positions without moving.
+
+        Returns list of per-element stack distances.
+        """
         if size is None:
             # Infer from last write
             for typ, n, s, _ in reversed(self._events):
@@ -92,7 +102,7 @@ class LRUStackTracker:
                 size = 0
         distances = []
         for i in range(size):
-            dist, is_cold = self._access_element((name, i))
+            dist, is_cold = self._read_element((name, i))
             dmd = math.sqrt(dist)
             self._total_dmd += dmd
             if is_cold:
