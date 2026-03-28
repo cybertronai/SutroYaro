@@ -37,13 +37,13 @@ Step 1: write a       stack = [a]             free
 Step 2: write b       stack = [a, b]          free
 
 Step 3: compute a + b
-  read a:  a is at position 2    dist = 2    stack unchanged [a, b]
-  read b:  b is at position 1    dist = 1    stack unchanged [a, b]
+  read a:  a is at position -2   dist = 2    stack unchanged [a, b]
+  read b:  b is at position -1   dist = 1    stack unchanged [a, b]
   write c: c goes to top         stack = [a, b, c]
 
 Step 4: compute c + a
-  read c:  c is at position 1    dist = 1    stack unchanged [a, b, c]
-  read a:  a is at position 3    dist = 3    stack unchanged [a, b, c]
+  read c:  c is at position -1   dist = 1    stack unchanged [a, b, c]
+  read a:  a is at position -3   dist = 3    stack unchanged [a, b, c]
   write d: d goes to top         stack = [a, b, c, d]
 ```
 
