@@ -6,11 +6,12 @@ All notable changes to this research workspace.
 
 ### Auto-instrumented DMD tracking (PR #65, Yaroslav)
 
-- **TrackedArray**: numpy ndarray wrapper that auto-tracks all arithmetic operations (matmul, add, multiply, etc.) without manual instrumentation. 310 lines.
-- **LRUStackTracker**: true per-element LRU stack distance tracker matching Ding et al. Definition 2.1. 184 lines.
-- **GF(2) under-counting fixed**: harness reported DMC 8,607 but actual DMC with all row operations tracked is ~203K. TrackedArray captures every intermediate access the old harness missed.
-- **Verified against known examples**: paper example (abbbca) and exact (a+b)+a prediction both match expected stack distances.
-- **29 tests** covering TrackedArray operations, LRU stack correctness, and end-to-end DMC computation.
+- **TrackedArray**: numpy ndarray wrapper that auto-tracks all operations without manual instrumentation. Wrap inputs, run unmodified code, read DMD.
+- **LRUStackTracker**: true per-element LRU stack distances matching Ding et al. Definition 2.1. Writes place data on the stack (free). Only reads cost DMD = sqrt(stack_distance). No cold misses -- inputs arrive pre-loaded.
+- **GF(2) under-counting fixed**: harness reported DMC 8,607 but actual DMD with all row operations tracked is ~203K.
+- **Verified against known examples**: paper example (abbbca, dist=3) and exact (a+b)+a prediction (DMD = 5.146).
+- **30 tests** organized by concern: wrapper mechanics, indexing, numpy functions, LRU metric, GF(2) integration.
+- **Docs**: user-facing page at `research/tracked-numpy.md`, design doc at `research/tracked-numpy-design.md`.
 - **Telegram safety guard**: posting disabled by default; requires `TELEGRAM_POST_ENABLED=1` to send messages.
 - **bin/tg-auth**: new script for interactive MTProto login.
 
