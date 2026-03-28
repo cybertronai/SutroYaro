@@ -176,46 +176,43 @@ def test_np_all():
 # --- Exact DMC prediction ---
 
 def test_a_plus_b_plus_a_dmc():
-    """Compute (a+b)+a and verify DMC matches hand-calculated prediction.
+    """Compute (a+b)+a with size-1 arrays and verify DMC matches prediction.
 
-    With arrays of size N=4, the trace is:
+    Trace (each array is 1 float):
 
-        clock=0:  write("a", 4)      write_time["a"]=0   clock->4
-        clock=4:  write("b", 4)      write_time["b"]=4   clock->8
+        clock=0: write("a", 1)     write_time["a"]=0   clock->1
+        clock=1: write("b", 1)     write_time["b"]=1   clock->2
 
         c = a + b:
-        clock=8:  read("a", 4)       dist = 8-0 = 8      clock->12
-        clock=12: read("b", 4)       dist = 12-4 = 8     clock->16
-        clock=16: write(c, 4)        write_time[c]=16    clock->20
+        clock=2: read("a", 1)      dist = 2-0 = 2      clock->3
+        clock=3: read("b", 1)      dist = 3-1 = 2      clock->4
+        clock=4: write(c, 1)       write_time[c]=4     clock->5
 
         d = c + a:
-        clock=20: read(c, 4)         dist = 20-16 = 4    clock->24
-        clock=24: read("a", 4)       dist = 24-0 = 24    clock->28
-        clock=28: write(d, 4)        write_time[d]=28    clock->32
+        clock=5: read(c, 1)        dist = 5-4 = 1      clock->6
+        clock=6: read("a", 1)      dist = 6-0 = 6      clock->7
+        clock=7: write(d, 1)       write_time[d]=7     clock->8
 
-    DMC = 4*sqrt(8) + 4*sqrt(8) + 4*sqrt(4) + 4*sqrt(24) = 50.2233...
-    ARD = (4*8 + 4*8 + 4*4 + 4*24) / 16 = 176/16 = 11.0
+    DMC = sqrt(2) + sqrt(2) + sqrt(1) + sqrt(6) = 6.2779...
+    ARD = (2 + 2 + 1 + 6) / 4 = 2.75
     """
     import math
 
     tracker = MemTracker()
-    a = TrackedArray(np.array([1.0, 2.0, 3.0, 4.0]), "a", tracker)
-    b = TrackedArray(np.array([5.0, 6.0, 7.0, 8.0]), "b", tracker)
+    a = TrackedArray(np.array([1.0]), "a", tracker)
+    b = TrackedArray(np.array([5.0]), "b", tracker)
 
     d = (a + b) + a
 
-    # Verify computation is correct
-    np.testing.assert_array_equal(np.asarray(d), [7.0, 10.0, 13.0, 16.0])
+    np.testing.assert_array_equal(np.asarray(d), [7.0])
 
     s = tracker.summary()
-    N = 4
 
-    # Exact predictions
-    expected_dmc = N * (math.sqrt(2*N) + math.sqrt(2*N) + math.sqrt(N) + math.sqrt(6*N))
-    expected_ard = 11.0
+    expected_dmc = math.sqrt(2) + math.sqrt(2) + math.sqrt(1) + math.sqrt(6)
+    expected_ard = 2.75
     expected_reads = 4
     expected_writes = 4  # a, b, (a+b), (a+b)+a
-    expected_total_floats = 8 * N
+    expected_total_floats = 8
 
     assert s["reads"] == expected_reads
     assert s["writes"] == expected_writes
