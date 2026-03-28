@@ -75,17 +75,36 @@ For in-place operations (`np.add(a, b, out=c)`), the write goes to the existing 
 
 ### Matrix multiply (`@`, `np.dot`, `np.matmul`)
 
-`c = A @ b` where A is (m, n) and b is (n,).
+`C = A @ B` where A is (m, n) and B is (n, l).
 
 | Step | Tracker call | Size |
 |------|-------------|------|
 | Read A | `read("A", m*n)` | All elements of A |
-| Read b | `read("b", n)` | All elements of b |
-| Write c | `write("c", m)` | Result vector |
+| Read B | `read("B", n*l)` | All elements of B |
+| Write C | `write("C", m*l)` | Result matrix |
 
-DMD = sum of sqrt(stack_distance) for each element of A and b. The cost depends on where A and b sit in the stack relative to other data. If A was written recently, its elements are near the top (low distance, low DMD). If other data was written after A, its elements are deeper (high distance, high DMD).
+DMD = sum of sqrt(stack_distance) for each element of A and B. The cost depends on where A and B sit in the stack relative to other data.
 
-Note: numpy implements matmul as a single call, so TrackedArray records one bulk read of A and one of b. It does not model the inner loop access pattern (which row of A is read with which element of b). This is array-level tracking, not instruction-level.
+**Theoretical DMD for naive n x n matmul** (Smith, Goldfarb, Ding 2022, arXiv:2203.02536):
+
+```
+DMD_naive = ~(n^4)
+```
+
+The exact formula is `(n^3 * sqrt(2n)) + (n^3 - 2n^2 + n) * sqrt(n^2 + 2n)`. The n^4 scaling comes from n^3 multiply-add operations, each paying ~sqrt(n) for accessing elements that are ~n positions deep in the stack. Better algorithms reduce this:
+
+| Algorithm | Time | DMD | Source |
+|-----------|------|-----|--------|
+| Naive (triple-loop) | O(n^3) | ~n^4 | Smith et al. 2022, Sec 5.1 |
+| Tiled (D x D tiles) | O(n^3) | ~n^4/D + n^3*sqrt(D) | Theorem 3 |
+| Recursive | O(n^3) | ~13.5 * n^3.5 | Theorem 4 |
+| Recursive + temp reuse | O(n^3) | ~11.9 * n^3.33 | Theorem 5 |
+| Strassen | O(n^2.8) | ~6.5 * n^3.4 | Theorem 6 |
+| Strassen + temp reuse | O(n^2.8) | ~15.4 * n^3.23 | Theorem 7 |
+
+Key insight: all six algorithms have the same or similar time complexity, but DMD reveals large differences in data movement cost. Recursive MM with temp reuse achieves n^3.33 vs naive's n^4.
+
+**What TrackedArray measures**: numpy implements matmul as a single call, so TrackedArray records one bulk read of A and one of B. This corresponds to the naive access pattern. It does not model tiled or recursive inner-loop reuse. For small matrices (as in our experiments), this is accurate. For large matrices, the true DMD may be lower if numpy's BLAS backend uses tiled or recursive algorithms internally.
 
 ### Indexing and slicing
 
