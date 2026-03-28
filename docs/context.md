@@ -20,11 +20,11 @@ Sparse parity is the "drosophila" of learning tasks:
 
 ### Phase 1: SGD optimization (16 experiments)
 
-The 20-bit problem was "unsolvable" at LR=0.5. At LR=0.1 it solves in 5 epochs. From there we optimized ARD within the SGD framework, hitting a ceiling at ~10% because W1 accounts for 75% of all float reads. Forward-Forward has 25x worse ARD than backprop for 2-layer networks. Curriculum learning broke the scaling wall (n=50). The cache simulator showed L2 eliminates all misses.
+The 20-bit problem was "unsolvable" at LR=0.5. At LR=0.1 it solves in 5 epochs. From there we optimized data movement within the SGD framework, hitting a ceiling at ~10% because W1 accounts for 75% of all float reads. Curriculum learning broke the scaling wall (n=50). The cache simulator showed L2 eliminates all misses.
 
 ### Phase 2: Broad search (17 experiments)
 
-Parity is linear over GF(2). GF(2) Gaussian elimination solves in 509 microseconds, 240x faster than SGD. Kushilevitz-Mansour influence estimation achieves ARD 1,585 (724x better than Fourier). All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) fail at chance level because parity requires k-th order interaction detection.
+Parity is linear over GF(2). GF(2) Gaussian elimination solves in 9ms with DMD 153,745. SMT backtracking is the DMD leader at 19,532. Kushilevitz-Mansour at 27,165. All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) fail at chance level because parity requires k-th order interaction detection.
 
 ### Phase 3: GrokFast (3 experiments, by Seth Stafford)
 
@@ -39,7 +39,7 @@ For small k, sparse parity is a search problem, not a learning problem. The neur
 Yaroslav's [roadmap](google-docs/bigger-picture.md) defines three axes of progress:
 
 1. **Process** (orange): improve how agents find better algorithms. Multiple members built independent harnesses (Claude Code, Replit Research OS, plain Claude). The process itself is the product.
-2. **Metric** (green): make the energy proxy more realistic. Started with ARD, added DMC (Data Movement Complexity, Ding et al.). Next step: actual GPU measurement on an H100.
+2. **Metric** (green): make the energy proxy more realistic. Now using DMD (Data Movement Distance, Ding et al.) with per-element LRU stack tracking via [TrackedArray](research/tracked-numpy.md). Next step: actual GPU measurement on an H100.
 3. **Problem** (blue): make the task harder. Sparse parity is practice. The final exam is energy-efficient training of [nanoGPT](https://github.com/karpathy/nanoGPT).
 
 Take small steps along one axis at a time to keep complexity manageable. The group explicitly avoids premature partitioning (optimizing training but not inference, or math but not kernels).
@@ -62,7 +62,7 @@ gantt
     Meeting 9 - Roadmap + GF(2)       :m9, 2026-03-16, 1d
     Meeting 10 - DMC Results          :m10, 2026-03-23, 1d
     section Research
-    Sprint 1 (ARD baseline)           :s1, 2026-03-02, 1d
+    Sprint 1 (data movement baseline) :s1, 2026-03-02, 1d
     Sprint 2 (solve 20-bit)           :s2, 2026-03-03, 2d
     Phase 1 (16 experiments)          :p1, 2026-03-04, 2d
     Phase 2 (17 parallel agents)      :p2, 2026-03-06, 1d
@@ -81,7 +81,7 @@ gantt
 | **Yad** | Created this repo (SutroYaro), built the Claude Code autonomous research lab: parallel agent teams, experiment templates, DISCOVERIES.md knowledge accumulation |
 | **Yaroslav** | Sutro Group founder, technical sprints, algorithm work, [cybertronai/sutro](https://github.com/cybertronai/sutro) |
 | **Emmett** | Aster agentic loop framework, 2x energy improvement on microgpt |
-| **G B** | Architecture experiments (depth-1/hidden-64, ARD ~33-35) |
+| **G B** | Architecture experiments (depth-1/hidden-64) |
 | **Germaine** | Presentations, implementations |
 | **Andy Zhang** | ML consultant, GitHub contributor ([zh4ngx](https://github.com/zh4ngx)), GF(2) noise experiment, TODO cleanup |
 | **Michael Keating** | Former energy tech CEO (Scoot), Claude-based sparse parity approach |

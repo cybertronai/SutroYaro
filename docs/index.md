@@ -18,16 +18,18 @@ Standard config: n=20 bits, k=3 secret, 17 noise. The [adding-a-challenge guide]
 
 36 experiments across three phases, plus GPU energy validation. The full ranked results are in the [Practitioner's Field Guide](research/survey.md).
 
-**Phase 1** (16 experiments): Started with a broken SGD baseline (LR=0.5, stuck at 54%). Fixed hyperparameters to solve it in 0.12s. Optimized memory access patterns (ARD) within the SGD framework, hitting a ceiling at ~10% improvement because one tensor (W1) dominates 75% of all float reads. Pivoted to new algorithms.
+**Phase 1** (16 experiments): Started with a broken SGD baseline (LR=0.5, stuck at 54%). Fixed hyperparameters to solve it in 0.12s. Optimized data movement within the SGD framework, hitting a ceiling because one tensor (W1) dominates 75% of all float reads. Pivoted to new algorithms.
 
 **Phase 2** (17 experiments): Tested algebraic, information-theoretic, local learning, hardware-aware, and alternative approaches in parallel:
 
-| Method | Time (n=20/k=3) | Why it works |
-|--------|-----------------|-------------|
-| GF(2) Gaussian Elimination | 509 us | Parity is linear over the binary field. Row-reduce. |
-| Kushilevitz-Mansour | 0.001-0.006s | Flip each bit, measure label change. Secret bits have influence 1.0. |
-| SMT Backtracking | 0.002s | Constraint satisfaction with k-1 pruning. |
-| SGD (baseline) | 0.12s | The neural network solves it, just 240x slower. |
+| Method | Time (n=20/k=3) | DMD | Why it works |
+|--------|-----------------|-----|-------------|
+| SMT Backtracking | 0.002s | 19,532 | Constraint satisfaction with k-1 pruning. |
+| Kushilevitz-Mansour | 0.001s | 27,165 | Flip each bit, measure label change. |
+| GF(2) Gaussian Elimination | 0.009s | 153,745 | Parity is linear over the binary field. |
+| SGD (baseline) | 0.089s | est. | The neural network solves it, just slower. |
+
+DMD = Data Movement Distance ([Ding et al.](https://arxiv.org/abs/2312.14441)), measured via [TrackedArray](research/tracked-numpy.md). Lower is better.
 
 All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection, which local statistics cannot provide.
 
