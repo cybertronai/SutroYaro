@@ -46,13 +46,11 @@ The `tracking_context` context manager solves a bootstrapping problem: `np.zeros
 
 Data Movement Distance (DMD) is defined in Ding et al. (arXiv:2312.14441, Definition 2.1). It measures the cost of each memory access using an LRU stack model.
 
-Every float lives in an LRU stack ordered by recency of writes. When a float is accessed:
+Every float lives in an LRU stack ordered by recency of writes:
 
-- **Writes** move the element to the top of the stack (position 1).
-- **Reads** observe the element's position but do not move it.
-- **Cold misses** (first access to an element not yet in the stack) have distance = `len(stack) + 1`.
-
-The DMD of a single access is `sqrt(stack_distance)`. The total Data Movement Complexity (DMC) of an algorithm is the sum of all DMDs.
+- **Writes** move the element to the top of the stack. Writes are free (no DMD cost). Inputs arrive pre-loaded on the stack.
+- **Reads** observe the element's position but do not move it. DMD = `sqrt(stack_distance)`.
+- **Total DMD** of an algorithm = sum of all read DMDs.
 
 From the paper: "in `abbbca`, the reuse distance of the second `a` is 3. Its DMD is sqrt(3)."
 
@@ -148,5 +146,4 @@ Methods:
 |------|-----------|
 | `src/sparse_parity/lru_tracker.py` | LRUStackTracker (per-element LRU stack) |
 | `src/sparse_parity/tracked_numpy.py` | TrackedArray + tracking_context |
-| `src/sparse_parity/tracker.py` | MemTracker (old clock-based, kept for backward compat) |
-| `tests/test_tracked_numpy.py` | 29 tests covering wrapper mechanics, indexing, numpy functions, LRU metrics, and GF(2) integration |
+| `tests/test_tracked_numpy.py` | 30 tests covering wrapper mechanics, indexing, numpy functions, LRU metrics, and GF(2) integration |

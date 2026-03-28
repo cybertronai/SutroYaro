@@ -3,7 +3,6 @@
 import math
 import numpy as np
 import pytest
-from sparse_parity.tracker import MemTracker
 from sparse_parity.lru_tracker import LRUStackTracker
 from sparse_parity.tracked_numpy import TrackedArray, tracking_context, reset_counter
 
@@ -30,19 +29,19 @@ def gf2_data():
 
 
 # =============================================================================
-# TrackedArray: wrapper mechanics (uses MemTracker for simplicity)
+# TrackedArray: wrapper mechanics
 # =============================================================================
 
 class TestTrackedArrayPropagation:
     """TrackedArray wraps results so tracking propagates through operations."""
 
     def test_creation_records_write(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         TrackedArray(np.zeros(10), "buf", tracker)
         assert tracker.summary()["writes"] == 1
 
     def test_ufunc(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 2, 3]), "a", tracker)
         b = TrackedArray(np.array([4, 5, 6]), "b", tracker)
         c = a + b
@@ -50,7 +49,7 @@ class TestTrackedArrayPropagation:
         assert c._tracker is tracker
 
     def test_xor(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 0, 1], dtype=np.uint8), "a", tracker)
         b = TrackedArray(np.array([0, 1, 1], dtype=np.uint8), "b", tracker)
         c = a ^ b
@@ -58,12 +57,12 @@ class TestTrackedArrayPropagation:
         np.testing.assert_array_equal(np.asarray(c), [1, 1, 0])
 
     def test_comparison(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 0, 1], dtype=np.uint8), "a", tracker)
         assert isinstance(a == 1, TrackedArray)
 
     def test_copy(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 2, 3]), "a", tracker)
         c = a.copy()
         assert isinstance(c, TrackedArray)
@@ -71,14 +70,14 @@ class TestTrackedArrayPropagation:
         assert c._buf_name != a._buf_name
 
     def test_astype(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1.0, 2.0]), "a", tracker)
         b = a.astype(np.uint8)
         assert isinstance(b, TrackedArray)
         assert b._tracker is tracker
 
     def test_transpose_is_zero_cost_view(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([[1, 2], [3, 4]]), "a", tracker)
         writes_before = tracker.summary()["writes"]
         b = a.T
@@ -87,7 +86,7 @@ class TestTrackedArrayPropagation:
         assert tracker.summary()["writes"] == writes_before
 
     def test_tolist(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 2, 3]), "a", tracker)
         assert a.tolist() == [1, 2, 3]
         assert tracker.summary()["reads"] >= 1
@@ -97,22 +96,22 @@ class TestTrackedArrayIndexing:
     """Indexing tracks the size of the actual slice accessed."""
 
     def test_slice_tracks_slice_size(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.arange(100), "a", tracker)
         row = a[10:20]
         assert isinstance(row, TrackedArray)
-        reads = [(s, d) for t, _, s, _, d in tracker._events if t == "R"]
+        reads = [(s, dists) for t, _, s, dists in tracker._events if t == "R"]
         assert reads[0][0] == 10  # size of slice, not 100
 
     def test_scalar_tracks_size_1(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.arange(100), "a", tracker)
         _ = a[5]
-        reads = [(s, d) for t, _, s, _, d in tracker._events if t == "R"]
+        reads = [(s, dists) for t, _, s, dists in tracker._events if t == "R"]
         assert reads[0][0] == 1
 
     def test_setitem(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.arange(10, dtype=np.uint8), "a", tracker)
         b = TrackedArray(np.array([99, 98, 97], dtype=np.uint8), "b", tracker)
         a[0:3] = b
@@ -121,7 +120,7 @@ class TestTrackedArrayIndexing:
         assert s["writes"] >= 3  # initial a, initial b, setitem write
 
     def test_row_swap(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         arr = TrackedArray(
             np.array([[1, 2], [3, 4], [5, 6]], dtype=np.uint8), "arr", tracker
         )
@@ -133,20 +132,20 @@ class TestTrackingContext:
     """tracking_context patches numpy constructors to return TrackedArrays."""
 
     def test_patches_zeros(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         with tracking_context(tracker):
             z = np.zeros((3, 4))
             assert isinstance(z, TrackedArray)
             assert z._tracker is tracker
 
     def test_restores_zeros(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         with tracking_context(tracker):
             pass
         assert not isinstance(np.zeros((3, 4)), TrackedArray)
 
     def test_patches_ones(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         with tracking_context(tracker):
             assert isinstance(np.ones(5), TrackedArray)
 
@@ -155,43 +154,43 @@ class TestNumpyFunctions:
     """numpy functions on TrackedArrays record reads and wrap outputs."""
 
     def test_where(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 0, 1, 0], dtype=np.uint8), "a", tracker)
         result = np.where(a == 1)
         assert isinstance(result, tuple)
 
     def test_prod(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([[1, 2], [3, 4]]), "a", tracker)
         result = np.prod(a, axis=1)
         assert isinstance(result, TrackedArray)
         np.testing.assert_array_equal(np.asarray(result), [2, 12])
 
     def test_sum(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 2, 3, 4]), "a", tracker)
         assert np.sum(a) == 10
 
     def test_all(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([True, True, True]), "a", tracker)
         assert np.all(a) is np.bool_(True)
 
     def test_mean(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1.0, 2.0, 3.0, 4.0]), "a", tracker)
         assert np.mean(a) == 2.5
         assert tracker.summary()["reads"] >= 1
 
     def test_sort(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([3, 1, 2]), "a", tracker)
         result = np.sort(a)
         assert isinstance(result, TrackedArray)
         np.testing.assert_array_equal(np.asarray(result), [1, 2, 3])
 
     def test_concatenate(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 2]), "a", tracker)
         b = TrackedArray(np.array([3, 4]), "b", tracker)
         result = np.concatenate([a, b])
@@ -199,7 +198,7 @@ class TestNumpyFunctions:
         np.testing.assert_array_equal(np.asarray(result), [1, 2, 3, 4])
 
     def test_zeros_like(self):
-        tracker = MemTracker()
+        tracker = LRUStackTracker()
         a = TrackedArray(np.array([1, 2, 3]), "a", tracker)
         result = np.zeros_like(a)
         assert isinstance(result, TrackedArray)

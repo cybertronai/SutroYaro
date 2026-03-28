@@ -2,7 +2,7 @@
 
 Wraps numpy arrays so that every operation (ufuncs, indexing, slicing,
 numpy functions) automatically records reads and writes on a tracker.
-Works with both LRUStackTracker (recommended) and MemTracker (legacy).
+Use with LRUStackTracker for true per-element LRU stack distances.
 
 Usage:
     from sparse_parity.tracked_numpy import TrackedArray, tracking_context
@@ -88,7 +88,7 @@ class TrackedArray(np.ndarray):
     """ndarray subclass that auto-records reads/writes on a tracker.
 
     Works with any tracker that has write(name, size) and read(name, size)
-    methods (LRUStackTracker or MemTracker).
+    methods.
 
     Every operation that reads this array records a tracker.read().
     Every operation that produces a new array records a tracker.write().
