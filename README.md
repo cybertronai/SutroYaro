@@ -51,17 +51,14 @@ Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} input
 
 ## Results So Far
 
-36 experiments across 3 challenges. Two metrics: ARD (average reuse distance) and DMC (data movement complexity, Ding et al. arXiv:2312.14441).
+36 experiments across 3 challenges. Energy metric: DMD (Data Movement Distance, Ding et al. [arXiv:2312.14441](https://arxiv.org/abs/2312.14441)), auto-measured via [TrackedArray](https://cybertronai.github.io/SutroYaro/research/tracked-numpy/).
 
-| Method | Time | ARD | DMC | What it proves |
-|--------|------|-----|-----|----------------|
-| KM-min (1 sample) | ~0.001s | 20 | 3,578 | New DMC leader. Parity influence is deterministic. |
-| GF(2) Gaussian Elimination | 509 us | 420 | 8,607 | Parity is linear over GF(2). 240x faster than SGD. |
-| KM Influence Estimation | 0.006s | 92 | 20,633 | O(n) not O(C(n,k)). ARD leader. |
-| SGD (baseline) | 0.12s | 8,504 | 1,278,460 | The neural net solves it, just the hard way. |
-| Fourier | 0.066s | 11.9M | 78.1B | Fast wall time, catastrophic data movement. |
-
-DMC and ARD rankings disagree. KM wins ARD (smallest reuse distance per access). GF(2) wins DMC (least total data movement). KM-min beats both by exploiting deterministic influence.
+| Method | Time | DMD | What it proves |
+|--------|------|-----|----------------|
+| SMT Backtracking | 0.002s | 19,532 | DMD leader. Constraint satisfaction touches small slices. |
+| KM Influence Estimation | 0.001s | 27,165 | O(n) not O(C(n,k)). Flip each bit, measure label change. |
+| GF(2) Gaussian Elimination | 0.009s | 153,745 | Parity is linear over GF(2). |
+| SGD (baseline) | 0.089s | est. | The neural net solves it, just the hard way. |
 
 All 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection.
 
@@ -131,7 +128,9 @@ src/
   harness.py              # Locked evaluation harness (5 methods, CLI)
   sparse_parity/
     fast.py               # Numpy solver (0.12s, optional tracker)
-    tracker.py            # ARD/DMC measurement (MemTracker)
+    tracker.py            # Legacy MemTracker
+    lru_tracker.py        # DMD measurement (LRUStackTracker)
+    tracked_numpy.py      # Auto-instrumented numpy wrapper
     cache_tracker.py      # Cache-aware energy model
     experiments/          # All 36 experiment scripts
     eval/                 # Gymnasium RL environment
@@ -149,8 +148,8 @@ research/
   log.jsonl               # Machine-readable experiment log
 
 results/
-  scoreboard.tsv          # Leaderboard with DMC column
-  plots/                  # DMC vs ARD visualizations
+  scoreboard.tsv          # Leaderboard with DMD column
+  plots/                  # DMD visualizations
   eval/                   # Baseline evaluation results
 
 docs/
