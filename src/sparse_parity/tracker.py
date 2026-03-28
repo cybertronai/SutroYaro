@@ -52,10 +52,17 @@ class MemTracker:
         weighted_ard = total_float_dist / total_floats if total_floats > 0 else 0
 
         # Data Movement Complexity (Ding et al., arXiv:2312.14441)
-        # DMC = sum of sqrt(stack_distance) for each float accessed.
-        # Our distances are already in floats (stack distance), so:
-        # For a read of `size` floats with distance `dist`, DMC contribution = size * sqrt(dist).
+        # Approximate DMC: treats all floats in a buffer as having the same
+        # stack distance. DMC contribution = size * sqrt(dist).
         total_dmc = sum(s * math.sqrt(d) for _, s, d in reads)
+
+        # Granular DMD (Definition 2.1 in the paper): each float has its own
+        # position in the LRU stack. A buffer of size S written at time T and
+        # read at distance D occupies stack positions D, D+1, ..., D+S-1.
+        # Granular DMD = sum_{i=0}^{S-1} sqrt(D + i) for each read.
+        total_granular_dmd = 0.0
+        for _, size, dist in reads:
+            total_granular_dmd += sum(math.sqrt(dist + i) for i in range(size))
 
         per_buffer = {}
         for name, size, dist in reads:
@@ -76,6 +83,7 @@ class MemTracker:
             'writes': len(writes),
             'weighted_ard': weighted_ard,
             'dmc': total_dmc,
+            'granular_dmd': total_granular_dmd,
             'total_floats_read': total_floats,
             'per_buffer': per_buffer,
         }
@@ -94,6 +102,7 @@ class MemTracker:
         print(f"  Operations: {s['reads']} reads, {s['writes']} writes")
         print(f"  Weighted ARD: {s['weighted_ard']:,.0f} floats")
         print(f"  DMC (Data Movement Complexity): {s['dmc']:,.0f}")
+        print(f"  Granular DMD: {s['granular_dmd']:,.0f}")
         if s['per_buffer']:
             print(f"\n  {'Buffer':<12} {'Size':>8} {'Reads':>5} {'Avg Dist':>10} {'Min':>8} {'Max':>8}")
             print(f"  {'─'*12} {'─'*8} {'─'*5} {'─'*10} {'─'*8} {'─'*8}")

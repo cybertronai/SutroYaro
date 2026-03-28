@@ -58,6 +58,15 @@ Each operation is modeled as:
 
 This matches the MemTracker's existing clock model: clock advances by `size` floats per read or write, and reuse distance = clock difference between write and subsequent read of the same buffer.
 
+### Two DMD metrics
+
+The tracker reports both:
+
+- **`dmc`** (approximate): For a read of S floats at distance D, contribution = `S * sqrt(D)`. Treats all floats in a buffer as having the same stack distance.
+- **`granular_dmd`** (Definition 2.1 in Ding et al.): Each float has its own LRU stack position. A buffer of S floats written at time T and read at distance D occupies stack positions D, D+1, ..., D+S-1. Contribution = `sum_{i=0}^{S-1} sqrt(D + i)`.
+
+For size-1 buffers these are identical. For larger buffers, granular_dmd > dmc because sqrt is concave (Jensen's inequality: sum of sqrt > n*sqrt of average).
+
 ### Comparison with manual tracking
 
 | Method | DMC (n=20, k=3) | Notes |
