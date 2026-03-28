@@ -12,6 +12,7 @@ DMC = sum of all DMDs.
 """
 
 import math
+from collections import defaultdict
 
 
 class LRUStackTracker:
@@ -42,21 +43,29 @@ class LRUStackTracker:
         """Write one element. Moves it to top of LRU stack.
 
         Returns (stack_distance, is_cold).
+
+        Pop from old position + insert at 0 means:
+        - Elements before the old position shift right by 1
+        - Elements after the old position stay put
+        So only positions 0..old_idx need updating.
+        For cold misses (new elements), all existing positions shift right by 1.
         """
         if element_id in self._pos:
             idx = self._pos[element_id]
             dist = idx + 1  # 1-indexed
             self._stack.pop(idx)
-            for i in range(idx, len(self._stack)):
+            self._stack.insert(0, element_id)
+            # Update only positions 0 through idx (the moved range)
+            for i in range(idx + 1):
                 self._pos[self._stack[i]] = i
             is_cold = False
         else:
             dist = len(self._stack) + 1
+            self._stack.insert(0, element_id)
+            # New element: everything shifted right by 1
+            for i in range(len(self._stack)):
+                self._pos[self._stack[i]] = i
             is_cold = True
-
-        self._stack.insert(0, element_id)
-        for i in range(len(self._stack)):
-            self._pos[self._stack[i]] = i
 
         return dist, is_cold
 
@@ -66,25 +75,36 @@ class LRUStackTracker:
         Returns (stack_distance, is_cold).
         """
         if element_id in self._pos:
-            idx = self._pos[element_id]
-            dist = idx + 1  # 1-indexed
-            return dist, False
+            return self._pos[element_id] + 1, False
         else:
-            dist = len(self._stack) + 1
-            return dist, True
+            return len(self._stack) + 1, True
 
-    def write(self, name, size):
-        """Write size floats to buffer. Each float is pushed onto the LRU stack."""
+    def _access_elements(self, name, size, move_to_top):
+        """Common logic for read/write over a buffer's elements.
+
+        Args:
+            name: buffer name
+            size: number of floats
+            move_to_top: if True, elements are written (moved to stack top);
+                         if False, elements are read (positions observed only).
+
+        Returns list of per-element stack distances.
+        """
+        accessor = self._write_element if move_to_top else self._read_element
         distances = []
         for i in range(size):
-            dist, is_cold = self._write_element((name, i))
-            dmd = math.sqrt(dist)
-            self._total_dmd += dmd
+            dist, is_cold = accessor((name, i))
+            self._total_dmd += math.sqrt(dist)
             if is_cold:
-                self._total_cold_dmd += dmd
+                self._total_cold_dmd += math.sqrt(dist)
                 self._n_cold += 1
             distances.append(dist)
             self._n_accesses += 1
+        return distances
+
+    def write(self, name, size):
+        """Write size floats to buffer. Each float is pushed onto the LRU stack."""
+        distances = self._access_elements(name, size, move_to_top=True)
         self._events.append(('W', name, size, distances))
         self._n_writes += 1
 
@@ -101,31 +121,21 @@ class LRUStackTracker:
                     break
             else:
                 size = 0
-        distances = []
-        for i in range(size):
-            dist, is_cold = self._read_element((name, i))
-            dmd = math.sqrt(dist)
-            self._total_dmd += dmd
-            if is_cold:
-                self._total_cold_dmd += dmd
-                self._n_cold += 1
-            distances.append(dist)
-            self._n_accesses += 1
+        distances = self._access_elements(name, size, move_to_top=False)
         self._events.append(('R', name, size, distances))
         self._n_reads += 1
         return distances
 
     def summary(self):
         """Return summary metrics."""
-        read_events = [(n, s, dists) for typ, n, s, dists in self._events if typ == 'R']
+        per_buffer = defaultdict(lambda: {'distances': []})
+        for typ, name, size, dists in self._events:
+            if typ == 'R':
+                per_buffer[name]['size'] = size
+                per_buffer[name]['distances'].extend(dists)
 
-        per_buffer = {}
-        for name, size, dists in read_events:
-            if name not in per_buffer:
-                per_buffer[name] = {'size': size, 'distances': []}
-            per_buffer[name]['distances'].extend(dists)
-
-        for name, info in per_buffer.items():
+        # Compute stats for each buffer
+        for info in per_buffer.values():
             dists = info['distances']
             if dists:
                 info['avg_dist'] = sum(dists) / len(dists)
@@ -145,7 +155,7 @@ class LRUStackTracker:
             'writes': self._n_writes,
             'cold_misses': self._n_cold,
             'stack_size': len(self._stack),
-            'per_buffer': per_buffer,
+            'per_buffer': dict(per_buffer),
         }
 
     def to_json(self):

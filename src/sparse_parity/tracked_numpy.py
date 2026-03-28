@@ -43,6 +43,16 @@ def get_active_tracker():
     return getattr(_local, 'tracker', None)
 
 
+def _wrap_as_tracked(result, tracker, prefix="result"):
+    """Wrap a numpy array as a TrackedArray with a fresh name and record a write."""
+    name = _auto_name(prefix)
+    out = result.view(TrackedArray)
+    out._tracker = tracker
+    out._buf_name = name
+    tracker.write(name, result.size)
+    return out
+
+
 @contextmanager
 def tracking_context(tracker):
     """Set a thread-local active tracker so np.zeros etc. produce TrackedArrays.
@@ -55,48 +65,23 @@ def tracking_context(tracker):
 
     # Patch numpy constructors that don't take array args
     # (so __array_function__ never fires for them)
-    _orig_zeros = np.zeros
-    _orig_ones = np.ones
-    _orig_empty = np.empty
+    _constructors = {'zeros': np.zeros, 'ones': np.ones, 'empty': np.empty}
 
-    def _patched_zeros(shape, dtype=float, order='C', **kw):
-        result = _orig_zeros(shape, dtype=dtype, order=order, **kw)
-        name = _auto_name("zeros")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
+    def _make_patch(orig, prefix):
+        def _patched(shape, dtype=float, order='C', **kw):
+            result = orig(shape, dtype=dtype, order=order, **kw)
+            return _wrap_as_tracked(result, tracker, prefix)
+        return _patched
 
-    def _patched_ones(shape, dtype=float, order='C', **kw):
-        result = _orig_ones(shape, dtype=dtype, order=order, **kw)
-        name = _auto_name("ones")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-
-    def _patched_empty(shape, dtype=float, order='C', **kw):
-        result = _orig_empty(shape, dtype=dtype, order=order, **kw)
-        name = _auto_name("empty")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-
-    np.zeros = _patched_zeros
-    np.ones = _patched_ones
-    np.empty = _patched_empty
+    for name, orig in _constructors.items():
+        setattr(np, name, _make_patch(orig, name))
 
     try:
         yield tracker
     finally:
         _local.tracker = old
-        np.zeros = _orig_zeros
-        np.ones = _orig_ones
-        np.empty = _orig_empty
+        for name, orig in _constructors.items():
+            setattr(np, name, orig)
 
 
 class TrackedArray(np.ndarray):
@@ -135,12 +120,7 @@ class TrackedArray(np.ndarray):
             return result
         if self._tracker is None:
             return result
-        name = _auto_name(prefix)
-        out = result.view(TrackedArray)
-        out._tracker = self._tracker
-        out._buf_name = name
-        self._tracker.write(name, result.size)
-        return out
+        return _wrap_as_tracked(result, self._tracker, prefix)
 
     # --- ufunc interception (handles +, -, *, ^, ==, <, >, etc.) ---
 
@@ -178,7 +158,7 @@ class TrackedArray(np.ndarray):
 
         # If output was written in-place, record the write on existing buffer
         if out_args:
-            for o_orig, o_plain in zip(out_args, plain_kwargs['out']):
+            for o_orig in out_args:
                 if isinstance(o_orig, TrackedArray) and o_orig._tracker is not None:
                     o_orig._tracker.write(o_orig._buf_name, o_orig.size)
             # Return the original TrackedArray for in-place ops
@@ -188,12 +168,7 @@ class TrackedArray(np.ndarray):
 
         # Wrap result
         if isinstance(result, np.ndarray):
-            name = _auto_name(ufunc.__name__)
-            out = result.view(TrackedArray)
-            out._tracker = tracker
-            out._buf_name = name
-            tracker.write(name, result.size)
-            return out
+            return _wrap_as_tracked(result, tracker, ufunc.__name__)
         elif isinstance(result, tuple):
             return tuple(
                 self._make_tracked(r, ufunc.__name__) if isinstance(r, np.ndarray) else r
@@ -219,12 +194,7 @@ class TrackedArray(np.ndarray):
             read_size = result.size if isinstance(result, np.ndarray) else 1
             self._tracker.read(self._buf_name, read_size)
             if isinstance(result, np.ndarray):
-                name = _auto_name("slice")
-                out = result.view(TrackedArray)
-                out._tracker = self._tracker
-                out._buf_name = name
-                self._tracker.write(name, result.size)
-                return out
+                return _wrap_as_tracked(result, self._tracker, "slice")
         return result
 
     def __setitem__(self, key, value):
@@ -288,21 +258,6 @@ def implements(np_function):
     return decorator
 
 
-def _find_tracker(*args):
-    """Find the tracker from any TrackedArray in args."""
-    for a in args:
-        if isinstance(a, TrackedArray) and a._tracker is not None:
-            return a._tracker
-    return None
-
-
-def _record_reads(*args):
-    """Record reads for all TrackedArray args."""
-    for a in args:
-        if isinstance(a, TrackedArray):
-            a._record_read()
-
-
 def _strip_tracked(arg):
     """Recursively strip TrackedArrays from an arg, recording reads. Returns (plain, tracker)."""
     if isinstance(arg, TrackedArray):
@@ -340,163 +295,16 @@ def _default_array_function(func, args, kwargs):
     result = func(*plain_args, **plain_kwargs)
 
     if tracker is not None and isinstance(result, np.ndarray):
-        name = _auto_name(func.__name__)
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.zeros)
-def tracked_zeros(shape, dtype=float, order='C'):
-    result = np.zeros(shape, dtype=dtype, order=order)
-    tracker = get_active_tracker()
-    if tracker is not None:
-        name = _auto_name("zeros")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
+        return _wrap_as_tracked(result, tracker, func.__name__)
     return result
 
 
 @implements(np.zeros_like)
 def tracked_zeros_like(a, dtype=None, order='K', subok=True, shape=None):
+    """zeros_like needs a custom handler: it should NOT record a read on the input
+    (it only inspects shape/dtype, not data)."""
     tracker = a._tracker if isinstance(a, TrackedArray) else None
     result = np.zeros_like(np.asarray(a), dtype=dtype, order=order, subok=False, shape=shape)
     if tracker is not None:
-        name = _auto_name("zeros_like")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.where)
-def tracked_where(condition, x=None, y=None):
-    tracker = _find_tracker(condition, x, y) if x is not None else _find_tracker(condition)
-    _record_reads(condition)
-    if x is not None:
-        _record_reads(x, y)
-
-    cond_plain = np.asarray(condition)
-    if x is None:
-        return np.where(cond_plain)
-
-    x_plain = np.asarray(x) if isinstance(x, np.ndarray) else x
-    y_plain = np.asarray(y) if isinstance(y, np.ndarray) else y
-    result = np.where(cond_plain, x_plain, y_plain)
-
-    if tracker is not None and isinstance(result, np.ndarray):
-        name = _auto_name("where")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.prod)
-def tracked_prod(a, axis=None, **kwargs):
-    if isinstance(a, TrackedArray):
-        a._record_read()
-        tracker = a._tracker
-    else:
-        tracker = None
-    result = np.prod(np.asarray(a), axis=axis, **kwargs)
-    if tracker is not None and isinstance(result, np.ndarray):
-        name = _auto_name("prod")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.sum)
-def tracked_sum(a, axis=None, **kwargs):
-    if isinstance(a, TrackedArray):
-        a._record_read()
-        tracker = a._tracker
-    else:
-        tracker = None
-    result = np.sum(np.asarray(a), axis=axis, **kwargs)
-    if tracker is not None and isinstance(result, np.ndarray):
-        name = _auto_name("sum")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.mean)
-def tracked_mean(a, axis=None, **kwargs):
-    if isinstance(a, TrackedArray):
-        a._record_read()
-        tracker = a._tracker
-    else:
-        tracker = None
-    result = np.mean(np.asarray(a), axis=axis, **kwargs)
-    if tracker is not None and isinstance(result, np.ndarray):
-        name = _auto_name("mean")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.all)
-def tracked_all(a, axis=None, **kwargs):
-    if isinstance(a, TrackedArray):
-        a._record_read()
-    return np.all(np.asarray(a), axis=axis, **kwargs)
-
-
-@implements(np.sort)
-def tracked_sort(a, axis=-1, **kwargs):
-    if isinstance(a, TrackedArray):
-        a._record_read()
-        tracker = a._tracker
-    else:
-        tracker = None
-    result = np.sort(np.asarray(a), axis=axis, **kwargs)
-    if tracker is not None:
-        name = _auto_name("sort")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
-    return result
-
-
-@implements(np.concatenate)
-def tracked_concatenate(arrays, axis=0, **kwargs):
-    tracker = None
-    plain = []
-    for a in arrays:
-        if isinstance(a, TrackedArray):
-            a._record_read()
-            if tracker is None:
-                tracker = a._tracker
-        plain.append(np.asarray(a))
-    result = np.concatenate(plain, axis=axis, **kwargs)
-    if tracker is not None:
-        name = _auto_name("concatenate")
-        out = result.view(TrackedArray)
-        out._tracker = tracker
-        out._buf_name = name
-        tracker.write(name, result.size)
-        return out
+        return _wrap_as_tracked(result, tracker, "zeros_like")
     return result
