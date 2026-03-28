@@ -1,8 +1,6 @@
 # Auto-instrumented DMD Tracking
 
-TrackedArray wraps `np.ndarray` so that every numpy operation -- arithmetic, indexing, slicing, function calls -- automatically records memory reads and writes on an LRU stack tracker. You wrap your inputs, run unmodified numpy code, and get per-element Data Movement Distance (DMD) metrics out the other end.
-
-This replaces manual `tracker.read()` / `tracker.write()` calls, which were error-prone and required instrumenting every algorithm by hand.
+TrackedArray wraps `np.ndarray` so that every numpy operation automatically records memory reads and writes on an LRU stack tracker. Wrap your inputs, run unmodified numpy code, and get Data Movement Distance (DMD) out the other end. No manual instrumentation needed.
 
 ## Quick start
 
@@ -12,39 +10,15 @@ from sparse_parity.tracked_numpy import TrackedArray, tracking_context
 from sparse_parity.lru_tracker import LRUStackTracker
 
 tracker = LRUStackTracker()
-
-# Raw numpy arrays (your algorithm's inputs)
-A_raw = np.array([[1, 0, 1], [0, 1, 1]], dtype=np.int8)
-b_raw = np.array([1, 0], dtype=np.int8)
-
 with tracking_context(tracker):
     A = TrackedArray(A_raw, "A", tracker)
     b = TrackedArray(b_raw, "b", tracker)
-    # Run any numpy code -- all ops auto-tracked
-    result = A @ b
+    result = my_algorithm(A, b)  # unmodified code
 
-s = tracker.summary()
-print(f"Read DMD: {s['read_dmd']:.1f}")
-print(f"Total DMD: {s['granular_dmd']:.1f}")
+print(tracker.summary()["dmd"])
 ```
 
-The `tracking_context` is needed so that constructors like `np.zeros` and `np.ones` inside your algorithm return TrackedArrays instead of plain arrays. Any array derived from a TrackedArray (through ufuncs, indexing, or numpy functions) is itself a TrackedArray on the same tracker.
-
-## How it works
-
-Three interception layers capture all numpy operations:
-
-1. **`__array_ufunc__`** catches all ufuncs: `+`, `-`, `*`, `^`, `==`, `<`, etc. Each TrackedArray input triggers a `tracker.read()`. The output gets a `tracker.write()`. In-place ops (`out=`) write back to the existing buffer name.
-
-2. **`__array_function__`** catches numpy functions: `np.where`, `np.prod`, `np.sum`, `np.all`, `np.sort`, `np.concatenate`, etc. A default handler covers any unregistered function.
-
-3. **`__getitem__` / `__setitem__`** catches indexing, slicing, and fancy indexing. `__getitem__` records a read sized to the actual slice (not the whole array). `__setitem__` records a read of the source and a write to the target slice.
-
-The `tracking_context` context manager solves a bootstrapping problem: `np.zeros(shape)` has no array arguments, so `__array_function__` never fires. Inside the context, constructors (`np.zeros`, `np.ones`, `np.empty`) are monkey-patched to return TrackedArrays. Patches revert on exit.
-
-## The metric: Data Movement Distance
-
-Data Movement Distance (DMD) is defined in Ding et al. (arXiv:2312.14441, Definition 2.1). It measures the cost of each memory access using an LRU stack model.
+## The metric: DMD (Ding et al., arXiv:2312.14441)
 
 Every float lives in an LRU stack ordered by recency of writes:
 
@@ -73,8 +47,6 @@ Step 4: compute c + a
   write d: d goes to top         stack = [a, b, c, d]
 ```
 
-Read DMD calculation:
-
 | Read | Stack distance | DMD contribution |
 |------|---------------|-----------------|
 | a (in a+b) | 2 | sqrt(2) = 1.414 |
@@ -82,9 +54,113 @@ Read DMD calculation:
 | c (in c+a) | 1 | sqrt(1) = 1.000 |
 | a (in c+a) | 3 | sqrt(3) = 1.732 |
 
-**Read DMD = 1.414 + 1.000 + 1.000 + 1.732 = 5.146**
+**DMD = 1.414 + 1.000 + 1.000 + 1.732 = 5.146**
 
-Note: the second read of `a` has distance 3 (not 6). There are only 3 elements in the stack, so `a` cannot be deeper than position 3.
+## Tracked operations
+
+Every numpy operation on a TrackedArray is decomposed into reads (inputs) and writes (outputs). The table below shows how each operation class maps to tracker calls. The DMD cost comes entirely from the reads.
+
+### Elementwise operations (ufuncs)
+
+`c = a + b`, `c = a * b`, `c = a ^ b`, `a == 1`, etc.
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Read each input | `read(a, len(a))`, `read(b, len(b))` | Full array |
+| Write result | `write(c, len(c))` | Full array |
+
+DMD = sum of sqrt(stack_distance) for each element of `a` and `b`. The write of `c` is free.
+
+For in-place operations (`np.add(a, b, out=c)`), the write goes to the existing buffer `c` instead of creating a new one.
+
+### Matrix multiply (`@`, `np.dot`, `np.matmul`)
+
+`c = A @ b` where A is (m, n) and b is (n,).
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Read A | `read("A", m*n)` | All elements of A |
+| Read b | `read("b", n)` | All elements of b |
+| Write c | `write("c", m)` | Result vector |
+
+DMD = sum of sqrt(stack_distance) for each element of A and b. The cost depends on where A and b sit in the stack relative to other data. If A was written recently, its elements are near the top (low distance, low DMD). If other data was written after A, its elements are deeper (high distance, high DMD).
+
+Note: numpy implements matmul as a single call, so TrackedArray records one bulk read of A and one of b. It does not model the inner loop access pattern (which row of A is read with which element of b). This is array-level tracking, not instruction-level.
+
+### Indexing and slicing
+
+`row = A[i]`, `block = A[2:5, :]`, `val = A[i, j]`
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Read source | `read("A", slice_size)` | Size of the actual slice, not the whole array |
+| Write result | `write("slice", slice_size)` | The extracted slice |
+
+Scalar access (`A[i, j]`) records a read of size 1. Row access (`A[i]`) records a read of size n. This matters for GF(2) Gaussian elimination where the pivot search does many scalar reads.
+
+### Assignment (`__setitem__`)
+
+`A[i] = row`, `A[0:3] = B[0:3]`
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Read source value | `read("row", len(row))` | If source is TrackedArray |
+| Write target slice | `write("A", slice_size)` | Size of the written region |
+
+### Reductions (`np.sum`, `np.prod`, `np.mean`, `np.all`)
+
+`s = np.sum(A)`, `p = np.prod(A, axis=1)`
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Read input | `read("A", len(A))` | Full array |
+| Write result | `write("result", result_size)` | Scalar or reduced array |
+
+### Constructors (`np.zeros`, `np.ones`, `np.empty`)
+
+Inside a `tracking_context`, these return TrackedArrays:
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Write new array | `write("zeros", size)` | Full array |
+
+No read. The data is freshly created and placed on the stack.
+
+### Zero-cost operations
+
+These do **not** record any reads or writes:
+
+- **Transpose** (`.T`): Returns a view sharing the same buffer name. No data movement.
+- **`np.zeros_like(a)`**: Creates a new buffer but does not read `a` (only inspects shape/dtype).
+
+### Copy and type conversion
+
+`b = a.copy()`, `b = a.astype(np.uint8)`
+
+| Step | Tracker call | Size |
+|------|-------------|------|
+| Read source | `read("a", len(a))` | Full array |
+| Write copy | `write("copy", len(a))` | Full array |
+
+## How it works
+
+Three interception layers capture all numpy operations:
+
+1. **`__array_ufunc__`** catches ufuncs (`+`, `-`, `*`, `^`, `==`, `<`, `@`, etc.). Each TrackedArray input triggers a `tracker.read()`. The output gets a `tracker.write()`.
+
+2. **`__array_function__`** catches numpy functions (`np.where`, `np.prod`, `np.sum`, `np.sort`, `np.concatenate`, etc.). A default handler records reads for all TrackedArray inputs and wraps the output.
+
+3. **`__getitem__` / `__setitem__`** catches indexing and slicing. Reads are sized to the actual slice accessed.
+
+The `tracking_context` context manager monkey-patches `np.zeros`, `np.ones`, and `np.empty` to return TrackedArrays. Patches revert on exit. Any array derived from a TrackedArray inherits tracking automatically.
+
+## GF(2) results
+
+| Method | DMD | Notes |
+|--------|-----|-------|
+| Manual harness (I/O only) | 8,607 | Missed elimination loop |
+| Yad's honest estimate | 189,056 | Manual count of row operations |
+| TrackedArray auto | ~203,000 | All ops tracked |
 
 ## API reference
 
@@ -94,56 +170,38 @@ Note: the second read of `a` has distance 3 (not 6). There are only 3 elements i
 TrackedArray(data, name, tracker)
 ```
 
-- `data` -- a numpy array (or anything `np.asarray` accepts)
-- `name` -- string identifier for this buffer (used in per-buffer reports)
+- `data` -- a numpy array
+- `name` -- string identifier for this buffer
 - `tracker` -- an `LRUStackTracker` instance
 
-The constructor calls `tracker.write(name, size)` to register the initial data.
+The constructor calls `tracker.write(name, size)` to place the data on the stack.
 
 ### tracking_context
 
 ```python
 with tracking_context(tracker):
-    # np.zeros, np.ones, np.empty return TrackedArrays here
-    ...
+    ...  # np.zeros, np.ones, np.empty return TrackedArrays
 ```
-
-Monkey-patches numpy constructors for the duration of the block. Thread-safe (uses `threading.local`).
 
 ### LRUStackTracker
 
-```python
-tracker = LRUStackTracker()
-```
-
-Methods:
-
-- `tracker.write(name, size)` -- write `size` floats, pushing each to the top of the LRU stack.
-- `tracker.read(name, size)` -- read `size` floats, observing stack positions without moving them. Returns list of per-element stack distances.
-- `tracker.summary()` -- returns a dict with all metrics.
-- `tracker.report()` -- prints a formatted report to stdout.
-
-### summary() fields
-
-| Field | Type | Meaning |
-|-------|------|---------|
-| `dmd` | float | Total DMD (reads only -- writes are free) |
-| `reads` | int | Number of read operations (not elements) |
-| `writes` | int | Number of write operations (not elements) |
-| `stack_size` | int | Current number of elements in the LRU stack |
-| `per_buffer` | dict | Per-buffer breakdown with `avg_dist`, `min_dist`, `max_dist`, `read_count`, `dmd` |
+- `tracker.write(name, size)` -- place `size` floats on the stack (free).
+- `tracker.read(name, size)` -- observe stack positions, accumulate DMD. Returns list of per-element distances.
+- `tracker.summary()` -- returns dict with `dmd`, `reads`, `writes`, `stack_size`, `per_buffer`.
+- `tracker.report()` -- prints formatted report.
 
 ## Limitations
 
-- **Performance overhead.** LRUStackTracker is O(n) per element access where n is the stack size. GF(2) Gaussian elimination with n=20 takes about 12 seconds under tracking. This is a measurement tool, not a production runtime.
-- **Pure-python loops.** Scalar access like `aug[row, col] == 1` generates per-element tracking events. Correct but slow and verbose in event logs.
-- **Non-numpy code.** Values extracted as plain Python scalars (`int(arr[0])`) leave the tracking world. Subsequent operations on those scalars are not tracked.
-- **Constructor coverage.** Only `np.zeros`, `np.ones`, and `np.empty` are patched inside `tracking_context`. Other constructors (`np.arange`, `np.linspace`, etc.) return plain arrays.
+- **Performance overhead.** O(n) per element access where n = stack size. GF(2) with n=20 takes ~24s under tracking. For measurement, not production.
+- **Array-level granularity.** Matmul records one bulk read of each input, not the per-element access pattern of the inner loop.
+- **Pure-python loops.** Scalar access like `aug[row, col] == 1` generates per-element tracking events.
+- **Non-numpy code.** Values extracted as plain Python scalars leave the tracking world.
+- **Constructor coverage.** Only `np.zeros`, `np.ones`, `np.empty` are patched. `np.arange`, `np.linspace`, etc. return plain arrays.
 
 ## Files
 
 | File | What it is |
 |------|-----------|
-| `src/sparse_parity/lru_tracker.py` | LRUStackTracker (per-element LRU stack) |
+| `src/sparse_parity/lru_tracker.py` | LRUStackTracker |
 | `src/sparse_parity/tracked_numpy.py` | TrackedArray + tracking_context |
-| `tests/test_tracked_numpy.py` | 30 tests covering wrapper mechanics, indexing, numpy functions, LRU metrics, and GF(2) integration |
+| `tests/test_tracked_numpy.py` | 30 tests |

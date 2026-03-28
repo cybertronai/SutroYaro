@@ -11,7 +11,7 @@ All notable changes to this research workspace.
 - **GF(2) under-counting fixed**: harness reported DMC 8,607 but actual DMD with all row operations tracked is ~203K.
 - **Verified against known examples**: paper example (abbbca, dist=3) and exact (a+b)+a prediction (DMD = 5.146).
 - **30 tests** organized by concern: wrapper mechanics, indexing, numpy functions, LRU metric, GF(2) integration.
-- **Docs**: user-facing page at `research/tracked-numpy.md`, design doc at `research/tracked-numpy-design.md`.
+- **Docs**: `research/tracked-numpy.md` with worked examples and per-operation DMD breakdown.
 - **Telegram safety guard**: posting disabled by default; requires `TELEGRAM_POST_ENABLED=1` to send messages.
 - **bin/tg-auth**: new script for interactive MTProto login.
 
