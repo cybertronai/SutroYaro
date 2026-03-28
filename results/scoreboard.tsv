@@ -17,9 +17,9 @@ yad-015	yad	2026-03-04	sparse-parity	fourier	WIN	1.0	1147375	78140662852~	0.009	
 yad-016	yad	2026-03-06	sparse-parity	mutual_info	LOSS	1.0	1147375	78140662852~	0.033	Mutual information detects parity better than Fourier	estimated_fourier
 yad-017	yad	2026-03-06	sparse-parity	lasso	WIN	1.0	None	78140662852~	0.005	LASSO on interaction features finds parity	estimated_fourier
 yad-018	yad	2026-03-06	sparse-parity	sgd	LOSS	0.925	None	needs_measurement	None	Decision trees learn parity via greedy splits	needs_measurement
-yad-019	yad	2026-03-06	sparse-parity	gf2	WIN	1.0	500	8607~	0.000509	GF(2) Gaussian elimination solves parity algebraically	estimated_gf2
+yad-019	yad	2026-03-06	sparse-parity	gf2	WIN	1.0	500	153745	0.000509	GF(2) Gaussian elimination solves parity algebraically	lru_tracked
 yad-020	yad	2026-03-06	sparse-parity	random_proj	INCONCLUSIVE	1.0	None	78140662852~	None	Monte Carlo Fourier subsampling reduces eval count	estimated_fourier
-yad-021	yad	2026-03-06	sparse-parity	km	WIN	1.0	1585	20633~	0.006	KM influence estimation finds secret in O(n)	estimated_km
+yad-021	yad	2026-03-06	sparse-parity	km	WIN	1.0	1585	27165	0.006	KM influence estimation finds secret in O(n)	lru_tracked
 yad-022	yad	2026-03-06	sparse-parity	sgd	LOSS	0.5	None	needs_measurement	None	Hebbian learning detects parity via local correlations	needs_measurement
 yad-023	yad	2026-03-06	sparse-parity	sgd	LOSS	0.55	370000	needs_measurement	None	Predictive coding has lower ARD than backprop	needs_measurement
 yad-024	yad	2026-03-06	sparse-parity	sgd	LOSS	0.6	None	needs_measurement	None	Equilibrium propagation solves parity with local updates	needs_measurement
@@ -28,7 +28,7 @@ yad-026	yad	2026-03-06	sparse-parity	sgd	LOSS	1.0	19200	needs_measurement	None	T
 yad-027	yad	2026-03-06	sparse-parity	sgd	INCONCLUSIVE	1.0	None	needs_measurement	None	Pebble game finds optimal execution order for energy	needs_measurement
 yad-028	yad	2026-03-06	sparse-parity	sgd	LOSS	0.55	None	needs_measurement	None	Binary weights solve parity with fewer ops	needs_measurement
 yad-029	yad	2026-03-06	sparse-parity	genetic_prog	WIN	1.0	0	needs_measurement	None	GP evolves exact symbolic solution	needs_measurement
-yad-030	yad	2026-03-06	sparse-parity	smt	WIN	1.0	2000	348336~	0.002	SMT/backtracking constraint solver finds secret	estimated_smt
+yad-030	yad	2026-03-06	sparse-parity	smt	WIN	1.0	2000	19532	0.002	SMT/backtracking constraint solver finds secret	lru_tracked
 yad-031	yad	2026-03-06	sparse-parity	rl	WIN	1.0	1	needs_measurement	None	RL learns to query only the relevant bits	needs_measurement
 yad-032	yad	2026-03-06	sparse-parity	mdl	LOSS	1.0	None	78140662852~	0.012	MDL finds secret via compression	estimated_fourier
 yad-033	yad	2026-03-11	sparse-parity	sgd	LOSS	1.0	2129	1278460~	None	Germain's hidden=64 is a locality win	estimated_sgd
