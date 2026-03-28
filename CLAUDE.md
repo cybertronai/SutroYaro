@@ -104,6 +104,22 @@ See [docs/research/peer-research-protocol.md](docs/research/peer-research-protoc
 | `sync_telegram.ts` | Pulls Telegram group thread messages to JSON | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `.traces/export_sessions.py` | Exports Claude Code session traces | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `bin/review-cycle` | Cross-model experiment review (supervisor/researcher dialogue) | See below |
+
+### Review Cycle Quick Reference
+
+```bash
+# Codex supervises Claude's work (last 5 experiments, 3-turn dialogue)
+bin/review-cycle --tool codex --researcher-tool claude --last 5
+
+# Gemini supervises with more dialogue turns
+bin/review-cycle --tool gemini --researcher-tool claude --last 10 --turns 5
+
+# Preview prompts without launching agents
+bin/review-cycle --dry-run --last 3
+
+# Output: research/reviews/review-{timestamp}.md
+```
 
 ### Telegram Sync Quick Reference
 
