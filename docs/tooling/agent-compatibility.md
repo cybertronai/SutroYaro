@@ -10,7 +10,7 @@ This page tracks what works, what doesn't, and remaining gaps.
 |-------|------|-------------|----------|
 | Claude Code | `CLAUDE.md` | Yes, at project root | ✅ |
 | Codex CLI | `CODEX.md` | Yes, via `.codex/config.toml` | ✅ |
-| Gemini CLI | `GEMINI.md` | Needs verification | ❓ |
+| Gemini CLI | `GEMINI.md` | Yes. Uses `@google/gemini-cli` (v0.35.3+). Not to be confused with the non-existent `@anthropic-ai/gemini-cli`. Runs via `bunx` or `npx`. | ✅ Runs, file verified present |
 | Cursor | `.cursorrules` | Yes, editor extension | ❓ |
 | Qwen Code | — | No documented convention | ❌ |
 | Antigravity | — | Rewrites problems instead of following harness | ❌ |
