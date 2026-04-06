@@ -2,8 +2,8 @@ import { TelegramClient } from "@mtcute/bun";
 import { tl } from "@mtcute/tl";
 import { existsSync, writeFileSync } from "fs";
 import { join } from "path";
-import { homedir } from "os";
 import { openDb, upsertTopic, getLastMessageId, insertMessages, exportTopicJson } from "./db";
+import { loadEnv, SESSION_PATH } from "./env";
 
 // --- Config ---
 const CHANNEL_USERNAME = "sutro_group";
@@ -16,8 +16,6 @@ const TOPICS_TO_SYNC = [
   "In-person meetings",
   "Introductions",
 ];
-
-const SESSION_PATH = join(homedir(), ".telegram-sync-cli", "session_1.db");
 
 function slugify(title: string): string {
   return title
@@ -77,16 +75,18 @@ async function fetchTopicMessages(
 }
 
 export async function sync(options: { exportJson?: boolean; fullSync?: boolean } = {}) {
+  loadEnv();
+
   const API_ID = parseInt(process.env.TELEGRAM_API_ID ?? "0", 10);
   const API_HASH = process.env.TELEGRAM_API_HASH ?? "";
 
   if (!API_ID || !API_HASH) {
-    console.error("Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env");
+    console.error("Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env or shell environment.");
     process.exit(1);
   }
 
   if (!existsSync(SESSION_PATH)) {
-    console.error(`Session not found at ${SESSION_PATH}. Run 'tg auth login' first.`);
+    console.error(`Session not found at ${SESSION_PATH}. Run 'bin/tg-auth' first.`);
     process.exit(1);
   }
 

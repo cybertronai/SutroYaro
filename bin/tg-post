@@ -8,9 +8,12 @@
  *   bin/tg-post --topic-id 813 "Hello from my bot"
  *   echo "Multi-line message" | bin/tg-post --topic agent-updates
  *
- * Requires TELEGRAM_BOT_TOKEN in .env
- * Requires SUTRO_GROUP_CHAT_ID in .env (get via: bin/tg-post --get-chat-id)
+ * Requires TELEGRAM_BOT_TOKEN in .env or shell env
+ * Requires SUTRO_GROUP_CHAT_ID in .env or shell env (get via: bin/tg-post --get-chat-id)
  */
+import { loadEnv } from "../src/telegram/env";
+
+loadEnv();
 
 const TELEGRAM_API = "https://api.telegram.org";
 
@@ -48,7 +51,7 @@ Rate limits: 20 msgs/min per group, 1 msg/sec per chat.
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 if (!BOT_TOKEN) {
-  console.error("Set TELEGRAM_BOT_TOKEN in .env (get one from @BotFather)");
+  console.error("Set TELEGRAM_BOT_TOKEN in .env or shell environment (get one from @BotFather)");
   process.exit(1);
 }
 
@@ -91,7 +94,7 @@ if (args.includes("--get-chat-id")) {
 
 const CHAT_ID = process.env.SUTRO_GROUP_CHAT_ID;
 if (!CHAT_ID) {
-  console.error("Set SUTRO_GROUP_CHAT_ID in .env (run 'bin/tg-post --get-chat-id' to find it)");
+  console.error("Set SUTRO_GROUP_CHAT_ID in .env or shell environment (run 'bin/tg-post --get-chat-id' to find it)");
   process.exit(1);
 }
 

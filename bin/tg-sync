@@ -1,5 +1,9 @@
 #!/usr/bin/env bun
+import { existsSync } from "fs";
 import { sync } from "../src/telegram/sync";
+import { loadEnv, SESSION_PATH } from "../src/telegram/env";
+
+loadEnv();
 
 const args = process.argv.slice(2);
 const exportJson = args.includes("--export-json");
@@ -16,12 +20,17 @@ Options:
   -h, --help     Show this help
 
 First run does a full backfill. Subsequent runs fetch only new messages.
-Requires TELEGRAM_API_ID and TELEGRAM_API_HASH in .env.
-Requires a session from 'tg auth login'.
+Requires TELEGRAM_API_ID and TELEGRAM_API_HASH (.env or shell env).
+Requires a session from 'bin/tg-auth'.
 
 Database: telegram.db (project root, .gitignored)
 `);
   process.exit(0);
+}
+
+if (!existsSync(SESSION_PATH)) {
+  console.error(`Session not found at ${SESSION_PATH}. Run 'bin/tg-auth' first.`);
+  process.exit(1);
 }
 
 sync({ exportJson, fullSync });

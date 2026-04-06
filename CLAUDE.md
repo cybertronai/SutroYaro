@@ -135,7 +135,7 @@ Other coding agents (Gemini, Codex) don't run the hooks but can read the rules a
 bun install
 # On NixOS: credentials come from sops-nix via flake shellHook, no .env needed
 # On other systems: cp .env.example .env and fill in credentials
-tg auth login
+bin/tg-auth
 
 # Sync messages to SQLite (incremental)
 bin/tg-sync

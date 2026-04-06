@@ -1,19 +1,20 @@
 #!/usr/bin/env bun
 import { TelegramClient } from "@mtcute/bun";
 import { mkdirSync } from "fs";
-import { join } from "path";
-import { homedir } from "os";
+import { dirname } from "path";
+import { loadEnv, SESSION_PATH } from "../src/telegram/env";
+
+loadEnv();
 
 const API_ID = parseInt(process.env.TELEGRAM_API_ID ?? "0", 10);
 const API_HASH = process.env.TELEGRAM_API_HASH ?? "";
 
 if (!API_ID || !API_HASH) {
-  console.error("Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env");
+  console.error("Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env or shell environment.");
   process.exit(1);
 }
 
-const SESSION_DIR = join(homedir(), ".telegram-sync-cli");
-const SESSION_PATH = join(SESSION_DIR, "session_1.db");
+const SESSION_DIR = dirname(SESSION_PATH);
 mkdirSync(SESSION_DIR, { recursive: true });
 
 const client = new TelegramClient({
