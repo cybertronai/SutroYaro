@@ -13,7 +13,7 @@ This is a **literature review**, not integration. Each agent independently extra
 
 ## Tasks
 
-- [ ] **Agent 1 (Systems Architect — Kimi)**: Read `docs/agent-prompts/asi-evolve/memory-kimi.md`, follow instructions, write to `docs/research/asi-evolve/kimi_asi_memory.md`
+- [x] **Agent 1 (Systems Architect — Kimi)**: Read `docs/agent-prompts/asi-evolve/memory-kimi.md`, follow instructions, write to `docs/research/asi-evolve/kimi_asi_memory.md`
 - [ ] **Agent 2 (Implementation Engineer — Qwen)**: Read `docs/agent-prompts/asi-evolve/execution-qwen.md`, follow instructions, write to `docs/research/asi-evolve/qwen_asi_execution.md`
 - [ ] **Agent 3 (Algorithms Expert — Claude/GLM)**: Read `docs/agent-prompts/asi-evolve/algorithms-claude.md`, follow instructions, write to `docs/research/asi-evolve/claude_asi_algorithms.md`
 - [ ] **Agent 4 (Synthesis — Gemini)**: Read all 3 findings from above, follow `docs/agent-prompts/asi-evolve/synthesis-gemini.md`, write to `docs/research/asi-evolve/integration-plan.md`
