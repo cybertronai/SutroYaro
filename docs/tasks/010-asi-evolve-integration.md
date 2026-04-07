@@ -1,4 +1,4 @@
-# Task 10: ASI-Evolve Integration into SutroYaro Workflow
+# Task 10: ASI-Evolve Paper Review — Lessons for SutroYaro
 
 **Priority**: HIGH
 **Status**: IN PROGRESS
@@ -7,14 +7,16 @@
 
 ## Context
 
-ASI-Evolve is a closed-loop autonomous AI-for-AI research framework combining learn-design-experiment-analyze cycles with a cognition base and analyzer. We already have the building blocks: evaluation harness (`harness.py`), Gymnasium env (`SutroYaro/SparseParity-v0`), ByteDMD metric, `DISCOVERIES.md` knowledge base, Telegram/Google Docs sync. The question: can we close the loop?
+ASI-Evolve is a closed-loop autonomous AI-for-AI research framework combining learn-design-experiment-analyze cycles with a cognition base and analyzer. We already have the building blocks: evaluation harness (`harness.py`), ByteDMD metric, `DISCOVERIES.md` knowledge base, agent prompt system.
+
+This is a **literature review**, not integration. Each agent independently extracts lessons from the paper relevant to our lab (memory systems, execution design, algorithm search). A synthesis agent combines findings into a report of potentially adoptable practices. No code changes, no pipeline construction.
 
 ## Tasks
 
-- [ ] **Agent 1 (Systems Architect — Kimi)**: Map ASI-Evolve's "Cognition Base" and "Analyzer" onto SutroYaro's existing markdown files (`DISCOVERIES.md`, `CLAUDE.md`, Telegram sync). Produce `findings/kimi_asi_memory.md`.
-- [ ] **Agent 2 (Implementation Engineer — Qwen)**: Design the orchestration to wrap `harness.py` + Gym env in an ASI-Evolve evolutionary loop. Produce `findings/qwen_asi_execution.md`.
-- [ ] **Agent 3 (Algorithms Expert — Claude/GLM)**, Focus on how ASI-Evolve discovered SOTA architectures and RL algorithms. What mutation operators/search constraints would yield ByteDMD-optimal learning rules for sparse parity? Produce `findings/claude_asi_algorithms.md`.
-- [ ] **Agent 4 (Synthesis — Gemini)**: Combine all 3 reports into execution plan: `docs/research/asi-evolve-integration.md`.
+- [ ] **Agent 1 (Systems Architect — Kimi)**: Read `docs/agent-prompts/asi-evolve/memory-kimi.md`, follow instructions, write to `docs/research/asi-evolve/kimi_asi_memory.md`
+- [ ] **Agent 2 (Implementation Engineer — Qwen)**: Read `docs/agent-prompts/asi-evolve/execution-qwen.md`, follow instructions, write to `docs/research/asi-evolve/qwen_asi_execution.md`
+- [ ] **Agent 3 (Algorithms Expert — Claude/GLM)**: Read `docs/agent-prompts/asi-evolve/algorithms-claude.md`, follow instructions, write to `docs/research/asi-evolve/claude_asi_algorithms.md`
+- [ ] **Agent 4 (Synthesis — Gemini)**: Read all 3 findings from above, follow `docs/agent-prompts/asi-evolve/synthesis-gemini.md`, write to `docs/research/asi-evolve/integration-plan.md`
 
 ## References
 

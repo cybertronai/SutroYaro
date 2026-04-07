@@ -7,6 +7,6 @@ Then, read the paper 'ASI-Evolve: AI Accelerates AI' (arXiv:2603.29640). Focus s
 
 We have a locked evaluation harness (`src/harness.py`) and a Gymnasium environment (`SutroYaro/SparseParity-v0`) that grades agents on solving sparse parity using the ByteDMD metric (which wraps Python objects to track LRU stack depth). Read the ByteDMD implementation at https://github.com/cybertronai/ByteDMD for details on how the metric was hardened against agents bypassing the wrapper.
 
-Write a report titled `findings/qwen_asi_execution.md` that outlines the orchestration needed to wrap our existing Gym environment in an ASI-Evolve evolutionary loop. How does the agent parse the specific ByteDMD stack trace output to figure out *why* an algorithm was penalized?
+Write a report in `docs/research/asi-evolve/qwen_asi_execution.md` that outlines the orchestration needed to wrap our existing Gym environment in an ASI-Evolve loop. How does the agent parse the specific ByteDMD stack trace output to figure out *why* an algorithm was penalized?
 
-**CRITICAL CONSTRAINT**: This is a design analysis only. DO NOT write code. DO NOT modify `harness.py` or any `src/` files. Write only to `findings/qwen_asi_execution.md`.
+**CRITICAL CONSTRAINT**: This is a design analysis only. DO NOT write code. DO NOT modify `harness.py` or any `src/` files. Write only to `docs/research/asi-evolve/qwen_asi_execution.md`.
