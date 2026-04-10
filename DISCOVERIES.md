@@ -130,6 +130,8 @@
 - **Predictive coding has 18x worse ARD than backprop** (370K vs 20K on n=20/k=3). 15 inference iterations re-read weight matrices ~32 times. [exp_predictive_coding]
 - **Equilibrium propagation is 2,300x slower than SGD** and fails due to tanh saturation. 60 relaxation iterations (30 free + 30 clamped) per training step. [exp_equilibrium_prop]
 - **Target propagation suffers "target collapse"**: the linear inverse G2 produces input-independent targets. ARD is 1.1-1.6x worse than backprop due to extra buffers. [exp_target_prop]
+- **NoProp (diffusion-style local learning) solves parity but doesn't beat SGD+Curriculum**: NoProp trains T=5 independent layers as denoisers — no inter-layer backprop. It solves the same regimes as SGD but is consistently slower than SGD+Curriculum (33 vs 25 ep on n=20/k=5, 42 vs 34 ep on n=50/k=5) and ~6.5x worse on total DMD. The curriculum is doing the work; the learning rule doesn't matter. [exp_noprop]
+- **Curriculum neutralizes the learning-rule bottleneck**: once curriculum is added to both SGD and NoProp, NoProp adds nothing. The bottleneck for sparse parity is n-scaling (noise dimensions dominating the gradient), not the form of the local loss. Any method that pairs with curriculum solves the problem; any that doesn't fails. [exp_noprop, exp_grokfast_curriculum]
 
 ### Hardware-Aware Methods
 
