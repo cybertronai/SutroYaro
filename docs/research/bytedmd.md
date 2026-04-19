@@ -2,6 +2,10 @@
 
 ByteDMD is the new primary energy-cost metric for sparse parity submissions. Pure Python, byte-granularity, deterministic. Source of truth: [cybertronai/ByteDMD](https://github.com/cybertronai/ByteDMD). Vendored locally at `src/bytedmd/`.
 
+## Why DMD instead of FLOPs
+
+FLOP counts can mislead. Strassen's matrix multiplication is sub-cubic in FLOPs (O(n^2.81)) but its access pattern is cache-unfriendly, so recursive cache-aware matmul (O(n^3) FLOPs) wins under DMD. Same with attention: Flash Attention beats naive attention even though both are O(n^2). On 2D VLSI, multiplying two n×n matrices is O(n^3) in energy regardless of algorithm, so going below cubic in FLOPs doesn't buy sub-cubic energy. Data movement is what we measure.
+
 ## Why it replaces TrackedArray
 
 TrackedArray hooks numpy operations. It works, but values can escape into numpy's C extensions (e.g. `np.asarray()`, bit-packed ints), and it tracks at element granularity which doesn't reflect the cost difference between a uint8 and a float64.
