@@ -16,7 +16,7 @@ Sparse parity is the "drosophila" of learning tasks:
 
 ## What We Found
 
-36 experiments across three phases. Full ranked results in the [Practitioner's Field Guide](research/survey.md).
+37 experiments across three phases. Full ranked results in the [Practitioner's Field Guide](research/survey.md).
 
 ### Phase 1: SGD optimization (16 experiments)
 
@@ -83,9 +83,9 @@ gantt
 | **Emmett** | Aster agentic loop framework, 2x energy improvement on microgpt |
 | **G B** | Architecture experiments (depth-1/hidden-64) |
 | **Germaine** | Presentations, implementations |
-| **Andy Zhang** | ML consultant, GitHub contributor ([zh4ngx](https://github.com/zh4ngx)), GF(2) noise experiment, TODO cleanup |
+| **Andy Zhang** | ML consultant, GitHub contributor ([zh4ngx](https://github.com/zh4ngx)), agent infrastructure docs (GEMINI.md, agent compatibility tracking, Muon-review task), GF(2) noise experiment |
 | **Michael Keating** | Former energy tech CEO (Scoot), Claude-based sparse parity approach |
-| **Seth Stafford** | GrokFast experiments (3 merged PRs: v2, curriculum compound, scaling frontier), healthcare AI |
+| **Seth Stafford** | GrokFast and NoProp experiments (PRs: v2, curriculum compound, scaling frontier, NoProp vs Forward-Forward), healthcare AI |
 | **Barak** | Modal workflow |
 | **Jamie Simon** | Forward-Forward implementation |
 | **Jonathan Belay** | Deterministic methods, spectral graph theory |

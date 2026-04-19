@@ -165,7 +165,7 @@
   <text x="705" y="582" text-anchor="middle" font-size="9" fill="#333">Adapters: Anthropic tools, PrimeIntellect, HuggingFace</text>
 
   <rect x="560" y="598" width="290" height="28" rx="4" fill="#e3f2fd" stroke="#42a5f5"/>
-  <text x="705" y="616" text-anchor="middle" font-size="9" fill="#333">Answer key: 36 experiments as ground truth</text>
+  <text x="705" y="616" text-anchor="middle" font-size="9" fill="#333">Answer key: 37 experiments as ground truth</text>
 
   <!-- ===== ROW 5: Feedback loop ===== -->
   <rect x="180" y="660" width="540" height="35" rx="8" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1.5"/>

@@ -14,6 +14,10 @@ The group picks simple learning tasks and tries to solve them with less energy. 
 
 Standard config: n=20 bits, k=3 secret, 17 noise. The [adding-a-challenge guide](research/adding-a-challenge.md) documents how any agent or contributor can add the next task.
 
+## Where the Active Research Lives
+
+This repo is the **lab notebook** for the group's Phase 1 and Phase 2 work. The live research front has migrated to [cybertronai/ByteDMD/experiments/grid](https://github.com/cybertronai/ByteDMD/tree/dev/experiments/grid) — Yaroslav's collection of self-contained experiments built around the new ByteDMD metric. If you want the current edge of the work, start there. SutroYaro stays the home for accumulated findings, the autonomous-research lab, the public site, and the [sparse parity challenge](https://github.com/cybertronai/sparse-parity-challenge).
+
 ## What We Found
 
 36 experiments across three phases, plus GPU energy validation. The full ranked results are in the [Practitioner's Field Guide](research/survey.md).

@@ -4,7 +4,7 @@ Research notes and literature review for the Sutro Group.
 
 ## Research as Navigation
 
-**[Research as Navigation](navigation-thesis.md)** is the thesis behind this project: research is primarily a navigation problem (finding the right question, method, comparison), and coding agents are the first tool that can navigate autonomously because they read state, execute experiments, write results, and loop. The page walks through this idea from ELI5 to PhD level, with examples from our 36 experiments.
+**[Research as Navigation](navigation-thesis.md)** is the thesis behind this project: research is primarily a navigation problem (finding the right question, method, comparison), and coding agents are the first tool that can navigate autonomously because they read state, execute experiments, write results, and loop. The page walks through this idea from ELI5 to PhD level, with examples from our 37 experiments.
 
 ## Autonomous Research Infrastructure
 
@@ -20,14 +20,14 @@ Key infrastructure:
 | `src/harness.py` | Locked evaluation (5 methods, CLI). Agents cannot modify. |
 | `bin/run-agent` | Tool-agnostic launcher with looped mode for overnight runs |
 | `bin/analyze-log` | Progress report and chart from experiment log |
-| `research/log.jsonl` | 36 experiments in machine-readable format |
+| `research/log.jsonl` | 37 experiments in machine-readable format |
 | `research/search_space.yaml` | What the agent can vary, per challenge |
 
 The protocol is challenge-agnostic: it works for sparse parity now and nanoGPT later. See the [full design doc](peer-research-protocol.md) for the nanoGPT migration proposal.
 
 ## Survey
 
-**[Sparse Parity: A Practitioner's Field Guide](survey.md)** ranks all 36 experiments (16 Phase 1 + 17 Phase 2 + 3 GrokFast), provides a decision framework for picking methods, and documents the full AI research process including parallel agent dispatch.
+**[Sparse Parity: A Practitioner's Field Guide](survey.md)** ranks all 37 experiments (16 Phase 1 + 17 Phase 2 + 4 SethTS follow-ons), provides a decision framework for picking methods, and documents the full AI research process including parallel agent dispatch.
 
 ## Topics
 

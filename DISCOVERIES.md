@@ -155,8 +155,10 @@
 
 DMC baseline rankings (sparse parity, n=20, k=3):
 
-| Method | ARD | DMC | Total Floats |
-|--------|-----|-----|-------------|
+> ⚠️ **Pre-ByteDMD numbers.** Measured under legacy element-level TrackedArray. ByteDMD became the primary metric on 2026-04-15 (PR #80) and these methods have not yet been re-measured under it. Absolute numbers and rankings may shift. See [docs/research/bytedmd.md](docs/research/bytedmd.md).
+
+| Method | ARD | DMC (legacy) | Total Floats |
+|--------|-----|--------------|-------------|
 | KM-min (1 sample) | 20 | 3,578 | 1,600 |
 | KM-inplace | 30 | 4,319 | 1,200 |
 | GF2 (harness) | 420 | 8,607 | 860 |

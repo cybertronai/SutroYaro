@@ -12,7 +12,7 @@ Three things happen in the workspace:
 
 **Agents run experiments.** A coding agent reads CLAUDE.md and DISCOVERIES.md, picks a method, runs it against the locked harness, measures DMC (data movement cost), and writes up the finding. The two-phase protocol separates raw numbers (results.json) from interpretation (findings.md). LAB.md defines the rules. The run-experiment skill defines the steps.
 
-**Agents get evaluated.** The eval environment (Gymnasium) wraps the same experiments into a benchmark. An agent picks from 16 methods, observes DMC, and gets graded on 12 categories (72 points). Did it find GF(2)? Did it notice local learning fails? Did it observe the ARD/DMC ranking disagreement? The answer key has 36 experiments as ground truth.
+**Agents get evaluated.** The eval environment (Gymnasium) wraps the same experiments into a benchmark. An agent picks from 16 methods, observes DMC, and gets graded on 12 categories (72 points). Did it find GF(2)? Did it notice local learning fails? Did it observe the ARD/DMC ranking disagreement? The answer key has 37 experiments as ground truth.
 
 **Humans review and merge.** Contributors submit PRs. The reviewing agent checks locked files, findings format, log classification. If the result is significant, it gets a changelog entry. If not, it still merges. The weekly catch-up summarizes what happened across Telegram, Google Docs, and GitHub.
 
@@ -29,7 +29,7 @@ CLAUDE.md ───────────────────────�
     │         Metric isolation          Don't edit tracker.py/harness.py
     │
     ├── DISCOVERIES.md ─────────────── What's proven (read before every experiment)
-    │     └── 36 experiments            DMC rankings, failure modes, scaling walls
+    │     └── 37 experiments            DMC rankings, failure modes, scaling walls
     │
     ├── AGENT.md ───────────────────── Autonomous loop protocol
     │     └── Pick hypothesis           From TODO.md or questions.yaml
@@ -50,7 +50,7 @@ CLAUDE.md ───────────────────────�
     │     ├── grader.py                 12 categories, 72 points
     │     ├── registry.py               Add methods without editing env.py
     │     ├── backends.py               Local / Modal / Remote
-    │     ├── answer_key.json           36 experiments as ground truth
+    │     ├── answer_key.json           37 experiments as ground truth
     │     └── adapters/                 Anthropic, PrimeIntellect, HuggingFace
     │
     └── Automation ─────────────────── Sync and reporting
@@ -115,6 +115,6 @@ The workspace itself is the product. Improving how agents find better algorithms
 | [Agent infrastructure](agent-infrastructure.md) | Hooks, rules, skills, V2 diagram |
 | [Adding a challenge](adding-a-challenge.md) | Step-by-step for new problems |
 | [Adding an eval challenge](adding-an-eval-challenge.md) | Registry, answer key, baselines |
-| [Survey](survey.md) | All 33 experiments ranked |
+| [Survey](survey.md) | All 37 experiments ranked |
 | [Context](../context.md) | Group history, timeline, people |
 | [Peer research protocol](peer-research-protocol.md) | Multi-researcher workflow |
