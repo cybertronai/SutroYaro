@@ -14,18 +14,12 @@ Load current project state before running experiments, reviewing PRs, or writing
 
 2. Check recent Telegram activity (if synced):
 
-```python
-import json
-for f in ['chat-yad.json', 'chat-yaroslav.json', 'challenge-1-sparse-parity.json']:
-    path = f'src/sparse_parity/telegram_sync/{f}'
-    try:
-        msgs = json.load(open(path))
-        print(f'\n=== {f} (last 3) ===')
-        for m in msgs[:3]:
-            print(f"  [{m['date'][:10]}] {m['sender']}: {m['text'][:150]}")
-    except FileNotFoundError:
-        print(f'{f} not found -- run: bun run sync_telegram.ts')
+```bash
+test -f telegram.db && sqlite3 telegram.db \
+  "SELECT date, sender, text FROM messages ORDER BY date DESC LIMIT 10;"
 ```
+
+If `telegram.db` is missing or stale, run `bin/tg-sync`.
 
 3. Check GitHub for open work:
 
@@ -42,11 +36,12 @@ gh issue list --repo cybertronai/SutroYaro --state open
 
 | Fact | Value |
 |------|-------|
-| Best method | GF(2) Gaussian elimination, 509us, ARD ~500 |
-| Best energy proxy | DMC (Data Movement Complexity, Ding et al.) |
-| Experiments done | 33+ (see `research/log.jsonl`) |
-| Open questions | Bottom of DISCOVERIES.md (Q7, Q11-Q13 still open) |
-| Next milestone | Energy-efficient nanoGPT training ("final exam") |
+| Fastest historical method | GF(2) Gaussian elimination, 509us, ARD ~420 |
+| Primary energy metric | ByteDMD, byte-granularity LRU stack cost |
+| Legacy metrics | ARD and DMC values remain useful for historical comparisons |
+| Experiments done | 37+ (see `research/log.jsonl` and `docs/research/survey.md`) |
+| Open questions | Bottom of `DISCOVERIES.md` |
+| Next milestone | ByteDMD-aware sparse parity and nanoGPT experiments |
 | Meeting cadence | Mondays 18:00 at South Park Commons |
 
 ## Sync Routine
@@ -54,12 +49,14 @@ gh issue list --repo cybertronai/SutroYaro --state open
 Run at session start and before any push:
 
 ```bash
-# Telegram (daily)
-bun run sync_telegram.ts
+# Telegram (daily, incremental SQLite sync)
+bin/tg-sync
 
-# Or use the targeted read/send scripts:
-bun telegram/tg-read.ts --topic "General" --limit 10
-bun telegram/tg-send.ts --topic "agents" --message "Status update"
+# Query recent messages
+sqlite3 telegram.db "SELECT date, sender, text FROM messages ORDER BY date DESC LIMIT 10"
+
+# Post status updates when configured
+bin/tg-post --topic agent-updates "Status update"
 
 # Google Docs (weekly, after Monday meetings)
 python3 src/sync_google_docs.py
