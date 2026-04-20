@@ -26,6 +26,8 @@
                 p.mkdocs-mermaid2-plugin
                 p.pymdown-extensions
               ]))
+              # Claude Code hooks
+              pkgs.nodejs
               # Telegram sync
               pkgs.bun
               # Google Docs sync

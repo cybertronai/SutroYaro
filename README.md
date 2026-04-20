@@ -23,6 +23,10 @@ gemini --yolo
 codex --full-auto
 ```
 
+> **About `--dangerously-skip-permissions` (and `--yolo`, `--full-auto`).** These flags let the agent run Python, edit files, and call tools without asking for approval each step. The workspace is designed for this mode because experiments require running code in tight loops. The agent can still not push to main, cannot delete results, and cannot modify locked measurement files (see LAB.md rule #9). If you prefer manual review, omit the flag and approve each action. First-time users running on a shared or production machine should start without the flag.
+
+For a step-by-step walkthrough — cloning, first experiment, running the harness, submitting a PR — see [Getting Started](https://cybertronai.github.io/SutroYaro/getting-started/).
+
 Then ask the agent anything: "What is this about?", "How do I run experiments?", "What are the latest findings?"
 
 The agent reads `CLAUDE.md` (or equivalent) to understand the workspace, syncs Telegram and Google Docs for context, and can run experiments autonomously. See the [one-hour walkthrough video](https://www.youtube.com/live/L3PamTTQFGk) for a demo.
@@ -48,6 +52,8 @@ PYTHONPATH=src python3 src/sparse_parity/eval/run_eval.py
 A structured workspace where multiple people use different AI tools (Claude Code, Gemini CLI, Codex, Antigravity) to run experiments on shared challenges. A locked evaluation harness ensures comparable results. Findings accumulate in DISCOVERIES.md.
 
 Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} inputs), plus sparse sum and sparse AND.
+
+[![Submit Solution](https://img.shields.io/badge/Submit_a_Solution-blue?style=for-the-badge)](https://github.com/cybertronai/sparse-parity-challenge/issues/new?template=submission.yml)
 
 ## Results So Far
 

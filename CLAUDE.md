@@ -12,7 +12,7 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **CONTRIBUTING.md** — How external contributors submit experiments and findings
 - **TODO.md** — Open research tasks
 - **docs/tasks/INDEX.md** — Current task tracker with priorities
-- **docs/research/survey.md** — Practitioner's Field Guide ranking all 36 experiments
+- **docs/research/survey.md** — Practitioner's Field Guide ranking all 37 experiments
 - **docs/research/peer-research-protocol.md** — Full design doc for multi-researcher autonomous research
 
 ## Core Concepts
@@ -22,12 +22,15 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).
 - **CacheTracker**: Extended MemTracker with LRU cache simulation for realistic energy estimates.
-- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. See `docs/research/tracked-numpy.md`.
+- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. Legacy element-level metric. See `docs/research/tracked-numpy.md`.
+- **ByteDMD (primary metric, new)**: Pure Python tracer at `src/bytedmd/`. Wraps Python values; traces Python-level ops via dunders. Byte-granularity LRU stack with simultaneous pricing and eager liveness compaction. Reads cost `ceil(sqrt(depth))`; writes are free. Spec/reference: https://github.com/cybertronai/ByteDMD. Use `bytedmd(func, args)` for cost or `traced_eval(func, args)` for the trace. Submissions to the challenge should use Python ops (no numpy) to be fully tracked.
 
 ## Current Best Methods
 
-| Method | Time (n=20/k=3) | ARD | DMC | Notes |
-|--------|-----------------|-----|-----|-------|
+> ⚠️ **Pre-ByteDMD numbers.** The DMC values below were measured under the legacy element-level TrackedArray. ByteDMD (byte-granularity) became the primary metric on 2026-04-15 (PR #80) and these methods have not been re-measured under it yet. Treat as historical rankings; absolute numbers and relative ordering may shift. See [docs/research/bytedmd.md](docs/research/bytedmd.md) for the current metric.
+
+| Method | Time (n=20/k=3) | ARD | DMC (legacy) | Notes |
+|--------|-----------------|-----|--------------|-------|
 | KM-min (1 sample) | ~0.001s | 20 | 3,578 | New DMC leader. 1 influence sample suffices for parity. |
 | GF(2) Gaussian Elimination | 509 us | ~420 | ~203K | 240x faster than SGD, k-independent. Auto-tracked via TrackedArray; old harness reported 8,607. |
 | KM Influence Estimation | 0.001-0.006s | 92 | 20,633 | ARD leader. 5 influence samples per bit. |
@@ -105,7 +108,7 @@ The eval environment tests whether an AI agent can do energy-efficient ML resear
 - **Guide**: See `AGENT_EVAL.md` for adding challenges, methods, running evals
 - **Quick test**: `PYTHONPATH=src python3 -c "import gymnasium as gym; import sparse_parity.eval; env = gym.make('SutroYaro/SparseParity-v0', metric='dmc', budget=10); obs, info = env.reset(); obs, r, _, _, info = env.step(5); print(info)"`
 - **Environments**: `SutroYaro/SparseParity-v0` (single challenge), `SutroYaro/MultiChallenge-v0` (all three)
-- **Ground truth**: 36 experiments, 72-point grading rubric (12 categories)
+- **Ground truth**: 37 experiments, 72-point grading rubric (12 categories)
 - **Docs**: `docs/research/eval-environment.md`
 
 ## Agent Infrastructure
@@ -188,5 +191,7 @@ When reviewing PRs: check that results are reproducible, findings follow the tem
 
 ## Related Repos
 
+- https://github.com/cybertronai/ByteDMD — Primary metric. **Active research front lives at [`experiments/grid`](https://github.com/cybertronai/ByteDMD/tree/dev/experiments/grid)** (Yaroslav's self-contained experiments).
 - https://github.com/cybertronai/sutro — Main code repo with sparse_parity_benchmark.py
-- https://github.com/cybertronai/SutroYaro — This research workspace
+- https://github.com/cybertronai/SutroYaro — This research workspace (Phase 1/2 lab notebook + autonomous research infrastructure + public site)
+- https://github.com/cybertronai/sparse-parity-challenge — Submission pipeline: submit a solve() function via GitHub Issue, auto-evaluated under ByteDMD

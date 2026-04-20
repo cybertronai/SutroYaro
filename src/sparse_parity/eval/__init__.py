@@ -24,3 +24,17 @@ from sparse_parity.eval import registry  # noqa: F401
 # 3. Set the module-level NUM_METHODS snapshot now that defaults are loaded.
 import sparse_parity.eval.env as _env_module
 _env_module.NUM_METHODS = len(registry.list_methods())
+
+
+def register_all():
+    """Gymnasium entry point (see pyproject.toml ``gymnasium.envs``).
+
+    Importing this module already calls ``gymnasium.register(...)`` at the
+    bottom of ``env.py``, so this function is a no-op most of the time.
+    It exists so Gymnasium's plugin loader has a stable callable to
+    invoke; re-calling it is safe because ``gymnasium.register`` will
+    overwrite (or refuse) duplicate ids without raising.
+    """
+    # Touching these names keeps linters happy and guarantees the
+    # side-effectful ``env`` module is on ``sys.modules``.
+    _ = (SutroYaroEnv, MultiChallengeEnv)

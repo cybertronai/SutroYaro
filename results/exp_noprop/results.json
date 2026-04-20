@@ -1,0 +1,648 @@
+{
+  "n20_k5": {
+    "sgd": {
+      "label": "SGD (hinge)",
+      "solve_rate": 1.0,
+      "avg_epochs": 69.6,
+      "avg_time": 0.27926,
+      "accs": [
+        0.95,
+        0.955,
+        0.96,
+        0.96,
+        0.96
+      ],
+      "epochs": [
+        69,
+        68,
+        78,
+        61,
+        72
+      ],
+      "times": [
+        0.2788,
+        0.2683,
+        0.3242,
+        0.2455,
+        0.2795
+      ]
+    },
+    "noprop": {
+      "label": "NoProp (T=5, noise=[0.9, 0.7, 0.5, 0.3, 0.1])",
+      "solve_rate": 1.0,
+      "avg_epochs": 90.2,
+      "avg_time": 1.7936,
+      "accs": [
+        0.955,
+        0.95,
+        0.96,
+        0.96,
+        0.96
+      ],
+      "epochs": [
+        108,
+        77,
+        107,
+        78,
+        81
+      ],
+      "times": [
+        2.0547,
+        1.5615,
+        2.1167,
+        1.5733,
+        1.6618
+      ]
+    },
+    "sgd_curriculum": {
+      "label": "SGD + Curriculum [10->20]",
+      "solve_rate": 1.0,
+      "avg_epochs": 24.8,
+      "avg_time": 0.1069,
+      "accs": [
+        0.96,
+        0.96,
+        0.965,
+        0.965,
+        0.96
+      ],
+      "epochs": [
+        20,
+        29,
+        29,
+        29,
+        17
+      ],
+      "times": [
+        0.0899,
+        0.1265,
+        0.1188,
+        0.1259,
+        0.0734
+      ]
+    },
+    "noprop_curriculum": {
+      "label": "NoProp + Curriculum [10->20]",
+      "solve_rate": 1.0,
+      "avg_epochs": 33.0,
+      "avg_time": 0.6165200000000001,
+      "accs": [
+        0.975,
+        0.965,
+        0.96,
+        0.95,
+        0.95
+      ],
+      "epochs": [
+        43,
+        31,
+        36,
+        32,
+        23
+      ],
+      "times": [
+        0.789,
+        0.5762,
+        0.6839,
+        0.5955,
+        0.438
+      ]
+    }
+  },
+  "n50_k3": {
+    "sgd": {
+      "label": "SGD (hinge)",
+      "solve_rate": 1.0,
+      "avg_epochs": 58.2,
+      "avg_time": 0.29062,
+      "accs": [
+        0.955,
+        0.96,
+        0.955,
+        0.97,
+        0.965
+      ],
+      "epochs": [
+        43,
+        66,
+        68,
+        47,
+        67
+      ],
+      "times": [
+        0.217,
+        0.3262,
+        0.3422,
+        0.2379,
+        0.3298
+      ]
+    },
+    "noprop": {
+      "label": "NoProp (T=5, noise=[0.9, 0.7, 0.5, 0.3, 0.1])",
+      "solve_rate": 1.0,
+      "avg_epochs": 42.0,
+      "avg_time": 1.13324,
+      "accs": [
+        0.95,
+        0.95,
+        0.97,
+        0.98,
+        0.955
+      ],
+      "epochs": [
+        41,
+        45,
+        37,
+        45,
+        42
+      ],
+      "times": [
+        1.047,
+        1.2059,
+        0.9677,
+        1.2658,
+        1.1798
+      ]
+    },
+    "sgd_curriculum": {
+      "label": "SGD + Curriculum [10->30->50]",
+      "solve_rate": 1.0,
+      "avg_epochs": 10.2,
+      "avg_time": 0.05122,
+      "accs": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "epochs": [
+        12,
+        9,
+        10,
+        9,
+        11
+      ],
+      "times": [
+        0.0615,
+        0.046,
+        0.0509,
+        0.044,
+        0.0537
+      ]
+    },
+    "noprop_curriculum": {
+      "label": "NoProp + Curriculum [10->30->50]",
+      "solve_rate": 1.0,
+      "avg_epochs": 7.8,
+      "avg_time": 0.17515999999999998,
+      "accs": [
+        0.98,
+        0.98,
+        1.0,
+        1.0,
+        0.995
+      ],
+      "epochs": [
+        8,
+        8,
+        8,
+        6,
+        9
+      ],
+      "times": [
+        0.1707,
+        0.1794,
+        0.1808,
+        0.1362,
+        0.2087
+      ]
+    }
+  },
+  "n50_k5": {
+    "sgd": {
+      "label": "SGD (hinge)",
+      "solve_rate": 0.0,
+      "avg_epochs": 1000.0,
+      "avg_time": 4.972700000000001,
+      "accs": [
+        0.625,
+        0.575,
+        0.595,
+        0.58,
+        0.585
+      ],
+      "epochs": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "times": [
+        5.1471,
+        4.9305,
+        4.9178,
+        4.9112,
+        4.9569
+      ]
+    },
+    "noprop": {
+      "label": "NoProp (T=5, noise=[0.9, 0.7, 0.5, 0.3, 0.1])",
+      "solve_rate": 0.0,
+      "avg_epochs": 1000.0,
+      "avg_time": 27.278160000000003,
+      "accs": [
+        0.6,
+        0.0,
+        0.555,
+        0.575,
+        0.555
+      ],
+      "epochs": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "times": [
+        26.4572,
+        27.3396,
+        29.7491,
+        26.0945,
+        26.7504
+      ]
+    },
+    "sgd_curriculum": {
+      "label": "SGD + Curriculum [10->30->50]",
+      "solve_rate": 1.0,
+      "avg_epochs": 33.8,
+      "avg_time": 0.15786,
+      "accs": [
+        0.955,
+        0.955,
+        0.95,
+        0.95,
+        0.98
+      ],
+      "epochs": [
+        33,
+        36,
+        27,
+        31,
+        42
+      ],
+      "times": [
+        0.15,
+        0.1613,
+        0.1337,
+        0.1488,
+        0.1955
+      ]
+    },
+    "noprop_curriculum": {
+      "label": "NoProp + Curriculum [10->30->50]",
+      "solve_rate": 1.0,
+      "avg_epochs": 42.2,
+      "avg_time": 0.88168,
+      "accs": [
+        0.955,
+        0.96,
+        0.955,
+        0.95,
+        0.99
+      ],
+      "epochs": [
+        51,
+        41,
+        44,
+        36,
+        39
+      ],
+      "times": [
+        1.1758,
+        0.8217,
+        0.8682,
+        0.7416,
+        0.8011
+      ]
+    }
+  },
+  "dmd": {
+    "sgd": {
+      "total_floats_accessed": 28069,
+      "reads": 21,
+      "writes": 17,
+      "weighted_ard": 8746.890136890137,
+      "dmc": 1255587.2412410413,
+      "total_floats_read": 14245,
+      "per_buffer": {
+        "x": {
+          "size": 20,
+          "distances": [
+            21,
+            6848
+          ],
+          "avg_dist": 3434.5,
+          "min_dist": 21,
+          "max_dist": 6848,
+          "read_count": 2
+        },
+        "W1": {
+          "size": 4000,
+          "distances": [
+            4442,
+            16069
+          ],
+          "avg_dist": 10255.5,
+          "min_dist": 4442,
+          "max_dist": 16069,
+          "read_count": 2
+        },
+        "b1": {
+          "size": 200,
+          "distances": [
+            4442
+          ],
+          "avg_dist": 4442.0,
+          "min_dist": 4442,
+          "max_dist": 4442,
+          "read_count": 1
+        },
+        "h_pre": {
+          "size": 200,
+          "distances": [
+            200,
+            2007
+          ],
+          "avg_dist": 1103.5,
+          "min_dist": 200,
+          "max_dist": 2007,
+          "read_count": 2
+        },
+        "h": {
+          "size": 200,
+          "distances": [
+            200,
+            606
+          ],
+          "avg_dist": 403.0,
+          "min_dist": 200,
+          "max_dist": 606,
+          "read_count": 2
+        },
+        "W2": {
+          "size": 200,
+          "distances": [
+            5242,
+            5849,
+            11269
+          ],
+          "avg_dist": 7453.333333333333,
+          "min_dist": 5242,
+          "max_dist": 11269,
+          "read_count": 3
+        },
+        "b2": {
+          "size": 1,
+          "distances": [
+            5242
+          ],
+          "avg_dist": 5242.0,
+          "min_dist": 5242,
+          "max_dist": 5242,
+          "read_count": 1
+        },
+        "out": {
+          "size": 1,
+          "distances": [
+            1
+          ],
+          "avg_dist": 1.0,
+          "min_dist": 1,
+          "max_dist": 1,
+          "read_count": 1
+        },
+        "y": {
+          "size": 1,
+          "distances": [
+            5224
+          ],
+          "avg_dist": 5224.0,
+          "min_dist": 5224,
+          "max_dist": 5224,
+          "read_count": 1
+        },
+        "dout": {
+          "size": 1,
+          "distances": [
+            1,
+            402
+          ],
+          "avg_dist": 201.5,
+          "min_dist": 1,
+          "max_dist": 402,
+          "read_count": 2
+        },
+        "dh": {
+          "size": 200,
+          "distances": [
+            200
+          ],
+          "avg_dist": 200.0,
+          "min_dist": 200,
+          "max_dist": 200,
+          "read_count": 1
+        },
+        "dh_pre": {
+          "size": 200,
+          "distances": [
+            200
+          ],
+          "avg_dist": 200.0,
+          "min_dist": 200,
+          "max_dist": 200,
+          "read_count": 1
+        },
+        "gW2": {
+          "size": 200,
+          "distances": [
+            5821
+          ],
+          "avg_dist": 5821.0,
+          "min_dist": 5821,
+          "max_dist": 5821,
+          "read_count": 1
+        },
+        "gW1": {
+          "size": 4000,
+          "distances": [
+            8800
+          ],
+          "avg_dist": 8800.0,
+          "min_dist": 8800,
+          "max_dist": 8800,
+          "read_count": 1
+        }
+      }
+    },
+    "noprop": {
+      "total_floats_accessed": 29273,
+      "reads": 21,
+      "writes": 18,
+      "weighted_ard": 9145.363171010978,
+      "dmc": 1339693.0830036893,
+      "total_floats_read": 14847,
+      "per_buffer": {
+        "x_aug": {
+          "size": 21,
+          "distances": [
+            22,
+            7051
+          ],
+          "avg_dist": 3536.5,
+          "min_dist": 22,
+          "max_dist": 7051,
+          "read_count": 2
+        },
+        "W1": {
+          "size": 4200,
+          "distances": [
+            4644,
+            16673
+          ],
+          "avg_dist": 10658.5,
+          "min_dist": 4644,
+          "max_dist": 16673,
+          "read_count": 2
+        },
+        "b1": {
+          "size": 200,
+          "distances": [
+            4644
+          ],
+          "avg_dist": 4644.0,
+          "min_dist": 4644,
+          "max_dist": 4644,
+          "read_count": 1
+        },
+        "h_pre": {
+          "size": 200,
+          "distances": [
+            200,
+            2008
+          ],
+          "avg_dist": 1104.0,
+          "min_dist": 200,
+          "max_dist": 2008,
+          "read_count": 2
+        },
+        "h": {
+          "size": 200,
+          "distances": [
+            200,
+            606
+          ],
+          "avg_dist": 403.0,
+          "min_dist": 200,
+          "max_dist": 606,
+          "read_count": 2
+        },
+        "W2": {
+          "size": 200,
+          "distances": [
+            5444,
+            6052,
+            11673
+          ],
+          "avg_dist": 7723.0,
+          "min_dist": 5444,
+          "max_dist": 11673,
+          "read_count": 3
+        },
+        "b2": {
+          "size": 1,
+          "distances": [
+            5444
+          ],
+          "avg_dist": 5444.0,
+          "min_dist": 5444,
+          "max_dist": 5444,
+          "read_count": 1
+        },
+        "pred": {
+          "size": 1,
+          "distances": [
+            1
+          ],
+          "avg_dist": 1.0,
+          "min_dist": 1,
+          "max_dist": 1,
+          "read_count": 1
+        },
+        "y": {
+          "size": 1,
+          "distances": [
+            5425
+          ],
+          "avg_dist": 5425.0,
+          "min_dist": 5425,
+          "max_dist": 5425,
+          "read_count": 1
+        },
+        "err": {
+          "size": 1,
+          "distances": [
+            1,
+            403
+          ],
+          "avg_dist": 202.0,
+          "min_dist": 1,
+          "max_dist": 403,
+          "read_count": 2
+        },
+        "dh": {
+          "size": 200,
+          "distances": [
+            200
+          ],
+          "avg_dist": 200.0,
+          "min_dist": 200,
+          "max_dist": 200,
+          "read_count": 1
+        },
+        "dh_pre": {
+          "size": 200,
+          "distances": [
+            200
+          ],
+          "avg_dist": 200.0,
+          "min_dist": 200,
+          "max_dist": 200,
+          "read_count": 1
+        },
+        "gW2": {
+          "size": 200,
+          "distances": [
+            6023
+          ],
+          "avg_dist": 6023.0,
+          "min_dist": 6023,
+          "max_dist": 6023,
+          "read_count": 1
+        },
+        "gW1": {
+          "size": 4200,
+          "distances": [
+            9200
+          ],
+          "avg_dist": 9200.0,
+          "min_dist": 9200,
+          "max_dist": 9200,
+          "read_count": 1
+        }
+      }
+    }
+  }
+}

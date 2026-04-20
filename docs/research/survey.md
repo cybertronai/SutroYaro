@@ -1,6 +1,6 @@
 # Sparse Parity: A Practitioner's Field Guide
 
-36 experiments (16 Phase 1 + 17 Phase 2 + 3 GrokFast) for energy-efficient learning on the simplest non-trivial task.
+37 experiments (16 Phase 1 + 17 Phase 2 + 4 SethTS follow-ons) for energy-efficient learning on the simplest non-trivial task.
 
 **Sutro Group, Challenge #1** | March 2026 | [Source code](https://github.com/cybertronai/SutroYaro)
 
