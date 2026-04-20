@@ -1,7 +1,7 @@
 # Task 9: Muon Optimizer Literature Review
 
 **Priority**: MEDIUM
-**Status**: IN PROGRESS
+**Status**: DONE
 **Agent**: Antigravity
 **Source**: Yaroslav's Information Bottleneck podcast interview (April 1), search_space.yaml (listed but untested)
 
@@ -13,11 +13,11 @@ Muon appears in `research/search_space.yaml` but was never tested. The question:
 
 ## Tasks
 
-- [ ] Read the Muon paper (https://kellerjordan.github.io/posts/muon/)
-- [ ] Study ByteDMD metric (https://github.com/cybertronai/ByteDMD)
-- [ ] Analyze whether Newton-Schulz iteration reduces byte-level data movement vs Adam
-- [ ] Assess whether Muon helps on small networks (hidden=200) or only large LLMs
-- [ ] Write findings to `findings/exp_muon_review.md` using the agent prompt scaffold
+- [x] Read the Muon paper (https://kellerjordan.github.io/posts/muon/)
+- [x] Study ByteDMD metric (https://github.com/cybertronai/ByteDMD)
+- [x] Analyze whether Newton-Schulz iteration reduces byte-level data movement vs Adam
+- [x] Assess whether Muon helps on small networks (hidden=200) or only large LLMs
+- [x] Write findings to `docs/findings/exp_muon_review.md` using the agent prompt scaffold
 
 ## References
 
