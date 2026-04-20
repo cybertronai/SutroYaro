@@ -4,7 +4,7 @@ How we use Claude Code as a research automation tool for the Sutro Group.
 
 ## How It Works
 
-![Agent Workflow](../diagrams/agent-workflow.png)
+![Agent Workflow](../diagrams/agent-workflow.svg)
 
 The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads those, surveys the problem space, then dispatches isolated sub-agents in parallel. Each sub-agent gets one approach, the experiment template, and shared modules. No sub-agent sees another's results. Outputs feed back into DISCOVERIES.md for the next round.
 

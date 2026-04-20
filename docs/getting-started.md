@@ -70,7 +70,26 @@ Three options:
 "Read docs/research/adding-a-challenge.md and add a sparse-majority challenge"
 ```
 
-## 5. Run experiments
+## 5. Run your first experiment
+
+Before picking a new task, reproduce an existing result end-to-end. This verifies your environment and shows you the full loop in about two minutes.
+
+```bash
+# Step 1 — run the GF(2) solver
+PYTHONPATH=src python3 src/sparse_parity/experiments/exp_gf2.py
+```
+
+You should see accuracy of 100% and a wall-clock time near 509 microseconds (hardware varies; anything under a few milliseconds is fine). Compare against [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) — GF(2) is listed as the exact-solver baseline.
+
+```bash
+# Step 2 — change one variable and rerun
+# Edit n_bits from 20 to 50 inside exp_gf2.py (or pass via the harness)
+PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 50 --k_sparse 3
+```
+
+Still 100% accuracy, slightly slower. GF(2) is k-independent and scales past n=100. That is a reproduced experiment. You now know the full cycle: read a result, run it, perturb one variable, observe, compare.
+
+### Run more experiments
 
 The agent uses the harness. If using nix, PYTHONPATH is set automatically:
 
@@ -98,6 +117,30 @@ Every experiment produces:
 ## 7. Submit your work
 
 See [branch workflow](branch-workflow.md) for how to create a branch and submit a PR.
+
+## Claude Code skills
+
+Skills are reusable agent workflows stored in `.claude/skills/`. Claude Code surfaces them automatically when the trigger condition fits. If you want to invoke one directly, tell the agent "use the `<skill>` skill."
+
+| Skill | When to use |
+|-------|-------------|
+| `sutro-context` | Start of any research task. Loads DISCOVERIES.md, open questions, recent Telegram discussion. |
+| `sutro-sync` | Start of a session and before pushing. Syncs Telegram, Google Docs, and GitHub state. |
+| `run-experiment` | Running a new experiment. Enforces the two-phase protocol from LAB.md. |
+| `weekly-catchup` | Start of a weekly session. Generates the week's summary. |
+| `prepare-meeting` | Before a Sutro Group meeting. Compiles results into a presentation. |
+| `info-defrag` | Weekly or pre-release. Hunts stale numbers and outdated descriptions. |
+| `anti-slop-guide` | Drafting or reviewing prose. Removes AI writing tells. |
+
+Browse `.claude/skills/` for the full list and implementation details.
+
+## About the energy metric
+
+The primary metric is **ByteDMD** (byte-granularity Data Movement Distance). It replaces the older element-level DMC as of 2026-04-15. See [docs/research/bytedmd.md](research/bytedmd.md) and the [ByteDMD repo](https://github.com/cybertronai/ByteDMD). Write submissions in pure Python ops so the tracer can see every read and write; numpy calls are invisible to ByteDMD.
+
+## About the eval environment
+
+The eval environment (`SutroYaro/SparseParity-v0`) is for testing whether an AI agent can navigate the method space — it grades agent behavior, not method quality. Use it if you are building or benchmarking an agent. If you are just running experiments, you do not need it. See [AGENT_EVAL.md](https://github.com/cybertronai/SutroYaro/blob/main/AGENT_EVAL.md).
 
 ## Existing docs
 

@@ -82,6 +82,8 @@ nav:
   - Research:
       - Overview: research/index.md
       - System Overview: research/system-overview.md
+      - "Repo Layout (Mermaid)": research/repo-layout.md
+      - "Interactive Repo Tree": research/repo-tree.md
       - "What's New": research/whats-new-march-2026.md
       - Research as Navigation: research/navigation-thesis.md
       - Peer Research Protocol: research/peer-research-protocol.md

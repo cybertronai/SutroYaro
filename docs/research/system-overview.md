@@ -32,6 +32,9 @@ CLAUDE.md ───────────────────────�
     │     └── 37 experiments            DMC rankings, failure modes, scaling walls
     │
     ├── AGENT.md ───────────────────── Autonomous loop protocol
+    │     ├── AGENTS.md                 Multi-agent variant
+    │     ├── CODEX.md                  Codex-specific entry point
+    │     ├── CONTEXT.md                Shared problem context
     │     └── Pick hypothesis           From TODO.md or questions.yaml
     │         Run against harness       search_space.yaml bounds
     │         Classify result           WIN / PARTIAL / LOSS
@@ -45,6 +48,31 @@ CLAUDE.md ───────────────────────�
     │     │                             prepare-meeting
     │     └── settings.json             Hook configuration
     │
+    ├── src/ ───────────────────────── Code
+    │     ├── bytedmd/                  Vendored ByteDMD (primary metric since
+    │     │                             2026-04-15). Byte-granularity LRU stack.
+    │     ├── sparse_parity/            Main package
+    │     │     ├── harness.py          Locked evaluation harness
+    │     │     ├── tracker.py          Element-level memory tracker (legacy)
+    │     │     ├── cache_tracker.py    LRU cache + Bill Dally energy model
+    │     │     ├── tracked_numpy.py    TrackedArray (legacy auto DMD)
+    │     │     ├── lru_tracker.py      Stack-distance backend
+    │     │     ├── metrics.py          ARD / DMC reporting
+    │     │     ├── data.py, config.py  Locked data + config
+    │     │     ├── model.py, fast.py   numpy MLP + fast train loop
+    │     │     ├── train.py            Reference SGD trainer
+    │     │     ├── train_fused.py      Fused-op variant
+    │     │     ├── train_perlayer.py   Per-layer accounting variant
+    │     │     ├── run.py              Single-experiment entry
+    │     │     ├── experiments/        Per-experiment scripts (one per method)
+    │     │     ├── eval/               Gymnasium env (see below)
+    │     │     ├── reference/          Reference implementations
+    │     │     └── telegram_sync/      Python sync helpers
+    │     ├── telegram/                 TS sync (db.ts, env.ts, sync.ts)
+    │     ├── harness.py                Top-level harness shim
+    │     ├── sync_google_docs.py       Pull Google Docs to markdown
+    │     └── plot_dmc.py               DMC plot helpers
+    │
     ├── src/sparse_parity/eval/ ────── Eval environment
     │     ├── env.py                    Gymnasium: SparseParity-v0
     │     ├── grader.py                 12 categories, 72 points
@@ -53,11 +81,62 @@ CLAUDE.md ───────────────────────�
     │     ├── answer_key.json           37 experiments as ground truth
     │     └── adapters/                 Anthropic, PrimeIntellect, HuggingFace
     │
+    ├── research/ ──────────────────── Autonomous research state
+    │     ├── log.jsonl                 Append-only experiment log (37 entries)
+    │     ├── questions.yaml            Open-question dependency graph
+    │     ├── search_space.yaml         Bounded mutation space per challenge
+    │     ├── sparse-parity-literature.md
+    │     └── README.md
+    │
+    ├── findings/ ──────────────────── 38 finding files (exp_*.md), one per
+    │                                   experiment. Templates start with `_`.
+    │
+    ├── contributions/ ─────────────── Drop-zone for raw external contributions.
+    │                                   No template required.
+    │
+    ├── tests/ ─────────────────────── Unit tests (ByteDMD + sparse_parity)
+    │
+    ├── bin/ ───────────────────────── Operational scripts
+    │     ├── reproduce-all             Re-run all canonical experiments
+    │     ├── run-agent                 Launch autonomous agent cycle
+    │     ├── analyze-log               Summarize log.jsonl
+    │     ├── merge-findings            Import contributor log entries via PR
+    │     ├── tg-sync, tg-post, tg-auth Telegram CLI
+    │     └── gpu_egd.py, gpu_energy.py GPU energy probes
+    │
+    ├── checks/ ────────────────────── Pre-flight verification
+    │     ├── env_check.py              Environment sanity check
+    │     └── baseline_check.py         Re-establish baselines on this machine
+    │
+    ├── docs/ ──────────────────────── MkDocs site source
+    │     ├── index.md, context.md, changelog.md, getting-started.md,
+    │     │   goals.md, learning-guide.md, branch-workflow.md, references.md
+    │     ├── research/                 This page lives here
+    │     ├── findings/                 Curated finding write-ups (site)
+    │     ├── tasks/                    Current task tracker (INDEX.md)
+    │     ├── catchups/                 Weekly catch-ups
+    │     ├── meeting-notes/, meetings/ Meeting records
+    │     ├── sessions/                 Video transcripts and chapters
+    │     ├── lectures/, homework/      Learning material
+    │     ├── agent-prompts/            Reusable prompts
+    │     ├── plans/                    Design docs
+    │     ├── google-docs/              Mirror of synced Google Docs
+    │     ├── tooling/                  Automation runbooks
+    │     ├── results/                  Result write-ups
+    │     ├── diagrams/, stylesheets/   Assets
+    │     └── overrides/ (repo root)    MkDocs theme overrides
+    │
     └── Automation ─────────────────── Sync and reporting
           ├── sync_telegram.ts          Pull Telegram messages
-          ├── sync_google_docs.py       Pull Google Docs to markdown
+          ├── index.ts                  TS entry shared by sync scripts
+          ├── package.json              bun deps for TS tooling
+          ├── pyproject.toml            Python package metadata
+          ├── flake.nix                 Reproducible Nix dev shell
+          ├── mkdocs.yml                Site build config
+          ├── src/sync_google_docs.py   Pull Google Docs to markdown
           ├── docs/catchups/            Weekly summaries
-          └── docs/sessions/            Video transcripts and chapters
+          ├── docs/sessions/            Video transcripts and chapters
+          └── telegram.db               SQLite mirror (gitignored)
 ```
 
 ## The two costs
@@ -87,14 +166,54 @@ The workspace measures two costs:
 | File | Who reads it | What it does |
 |------|-------------|-------------|
 | CLAUDE.md | All agents | Problem context, methods table, best results |
+| AGENTS.md | Multi-agent runs | Coordination entry point for parallel agents |
+| CODEX.md | Codex sessions | Codex-specific context shim |
+| CONTEXT.md | All agents | Shared problem context referenced by entry files |
 | LAB.md | Agents running experiments | Protocol, rules, templates |
 | AGENT.md | Autonomous agent loop | Pick hypothesis, run, classify, log |
 | AGENT_EVAL.md | Agents using the eval env | How to add methods, run evals, read grading |
+| CONTRIBUTING.md | External contributors | PR workflow, fork-and-branch, locked files |
 | DISCOVERIES.md | Everyone, before every experiment | Proven facts, open questions |
 | TODO.md | Agents looking for work | Hypothesis queue |
+| README.md | First-time visitors | Repo orientation |
 | .claude/settings.json | Claude Code | Hook configuration |
 | .claude/rules/*.md | Claude Code | Reproducibility, coordination constraints |
 | .claude/skills/*/SKILL.md | Claude Code | Workflow definitions |
+| src/bytedmd/ | Agents measuring cost | Vendored ByteDMD tracer (primary metric) |
+| src/sparse_parity/harness.py | All experiments | Locked evaluation harness (do not edit in PRs) |
+| src/sparse_parity/tracker.py | Tracker internals | Element-level memory tracker (legacy) |
+| src/sparse_parity/cache_tracker.py | Energy estimates | LRU cache + Bill Dally pJ model |
+| src/sparse_parity/tracked_numpy.py | Auto-instrumented runs | TrackedArray wrapper for numpy (legacy DMD) |
+| src/sparse_parity/lru_tracker.py | Stack-distance backend | Backs ARD/DMC accounting |
+| src/sparse_parity/metrics.py | Reporting | ARD / DMC reporting helpers |
+| src/sparse_parity/data.py, config.py | All experiments | Locked benchmark spec |
+| src/sparse_parity/experiments/ | Experiment authors | One script per method (n=20, k=3) |
+| src/sparse_parity/eval/ | Eval-mode agents | Gymnasium env, grader, registry, adapters |
+| src/telegram/ | Telegram sync | TS modules: db.ts, env.ts, sync.ts |
+| research/log.jsonl | Autonomous loop | Append-only experiment log (37 entries) |
+| research/questions.yaml | Autonomous loop | Open-question dependency graph |
+| research/search_space.yaml | Autonomous loop | Bounded mutation space per challenge |
+| findings/exp_*.md | Reviewers, future agents | Per-experiment finding write-ups |
+| contributions/ | External contributors | Drop-zone for raw results, no template required |
+| tests/ | CI and agents | Unit tests for ByteDMD and sparse_parity |
+| bin/reproduce-all | Anyone validating results | Re-run all canonical experiments |
+| bin/run-agent | Autonomous loop | Launch one agent cycle |
+| bin/analyze-log | Reviewers | Summarize log.jsonl |
+| bin/merge-findings | Reviewers | Import contributor log entries via PR |
+| bin/tg-sync, tg-post, tg-auth | Telegram automation | Pull messages, post to topics, auth flow |
+| bin/gpu_egd.py, gpu_energy.py | Future GPU work | GPU energy probes |
+| checks/env_check.py | Pre-flight | Environment sanity check |
+| checks/baseline_check.py | Pre-flight | Re-establish baselines on this machine |
+| docs/tasks/INDEX.md | Anyone picking work | Current task tracker |
+| docs/research/survey.md | Method browsers | Practitioner field guide ranking 37 experiments |
+| docs/findings/ | Site readers | Curated finding write-ups |
+| docs/catchups/ | Weekly readers | Weekly catch-up summaries |
+| docs/google-docs/ | Sync consumers | Mirror of synced Google Docs |
+| mkdocs.yml | Site build | Navigation and theme config |
+| flake.nix | NixOS users | Reproducible dev shell (python3 + numpy) |
+| pyproject.toml | Python users | Package metadata and deps |
+| package.json, index.ts, sync_telegram.ts | Telegram tooling | bun runtime entry for TS sync |
+| telegram.db | Local query | SQLite mirror of Telegram (gitignored) |
 
 ## What still needs to happen
 
