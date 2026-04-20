@@ -30,7 +30,7 @@ def _label(x, secret):
 
 def measure_majority_vote(method, n_bits=20, k_sparse=3, hidden=200,
                           lr=0.1, wd=0.01, batch_size=32, n_train=1000,
-                          max_epochs=200, seed=42, **kwargs):
+                          max_epochs=200, seed=42, influence_samples=5):
     """
     Run a sparse majority-vote experiment and return standardized metrics.
 
@@ -48,11 +48,11 @@ def measure_majority_vote(method, n_bits=20, k_sparse=3, hidden=200,
     start = time.perf_counter()
 
     if method == "sgd":
-        result = _run_sgd(config, secret, seed, **kwargs)
+        result = _run_sgd(config, secret, seed)
     elif method == "km":
-        result = _run_km(config, secret, seed, **kwargs)
+        result = _run_km(config, secret, seed, influence_samples=influence_samples)
     elif method == "fourier":
-        result = _run_fourier(config, secret, seed, **kwargs)
+        result = _run_fourier(config, secret, seed)
     elif method in ("gf2", "smt"):
         result = {
             "accuracy": 0.0, "ard": None, "dmc": None,
@@ -80,7 +80,7 @@ def measure_majority_vote(method, n_bits=20, k_sparse=3, hidden=200,
     return result
 
 
-def _run_sgd(config, secret, seed, **_kwargs):
+def _run_sgd(config, secret, seed):
     """Linear-model SGD with a sign read-out.  Baseline for majority-vote."""
     rng = np.random.RandomState(seed + 100)
     x_tr = rng.choice([-1.0, 1.0], size=(config.n_train, config.n_bits))
@@ -133,7 +133,7 @@ def _run_sgd(config, secret, seed, **_kwargs):
     }
 
 
-def _run_km(config, secret, seed, influence_samples=5, **_kwargs):
+def _run_km(config, secret, seed, influence_samples=5):
     """Bit-flip influence: for majority, flipping a secret bit flips the
     sign only when it is the deciding vote."""
     rng = np.random.RandomState(seed + 100)
@@ -177,7 +177,7 @@ def _run_km(config, secret, seed, influence_samples=5, **_kwargs):
     }
 
 
-def _run_fourier(config, secret, seed, **_kwargs):
+def _run_fourier(config, secret, seed):
     """First-order Fourier correlation.  Secret bits have non-zero
     correlation with sign(sum)."""
     rng = np.random.RandomState(seed + 100)

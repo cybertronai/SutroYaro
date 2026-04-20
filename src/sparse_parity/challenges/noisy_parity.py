@@ -36,7 +36,8 @@ def _noisy_labels(rng, clean, noise_rate):
 
 def measure_noisy_parity(method, n_bits=20, k_sparse=3, hidden=200,
                          lr=0.1, wd=0.01, batch_size=32, n_train=1000,
-                         max_epochs=200, seed=42, noise_rate=0.1, **kwargs):
+                         max_epochs=200, seed=42, noise_rate=0.1,
+                         influence_samples=20):
     """
     Run a noisy-parity experiment.
 
@@ -63,13 +64,13 @@ def measure_noisy_parity(method, n_bits=20, k_sparse=3, hidden=200,
     start = time.perf_counter()
 
     if method == "sgd":
-        result = _run_sgd(config, secret, seed, noise_rate, **kwargs)
+        result = _run_sgd(config, secret, seed, noise_rate)
     elif method == "km":
-        result = _run_km(config, secret, seed, noise_rate, **kwargs)
+        result = _run_km(config, secret, seed, noise_rate, influence_samples=influence_samples)
     elif method == "fourier":
-        result = _run_fourier(config, secret, seed, noise_rate, **kwargs)
+        result = _run_fourier(config, secret, seed, noise_rate)
     elif method == "gf2":
-        result = _run_gf2(config, secret, seed, noise_rate, **kwargs)
+        result = _run_gf2(config, secret, seed, noise_rate)
     else:
         return {
             "error": (
@@ -92,7 +93,7 @@ def measure_noisy_parity(method, n_bits=20, k_sparse=3, hidden=200,
     return result
 
 
-def _run_sgd(config, secret, seed, noise_rate, **_kwargs):
+def _run_sgd(config, secret, seed, noise_rate):
     """Two-layer ReLU net with MSE loss, trained on noisy labels."""
     rng = np.random.RandomState(seed + 100)
     x_tr = rng.choice([-1.0, 1.0], size=(config.n_train, config.n_bits))
@@ -172,7 +173,7 @@ def _run_sgd(config, secret, seed, noise_rate, **_kwargs):
     }
 
 
-def _run_km(config, secret, seed, noise_rate, influence_samples=20, **_kwargs):
+def _run_km(config, secret, seed, noise_rate, influence_samples=20):
     """KM-style influence estimated from paired queries.
 
     With noise, a single-pair influence is unreliable.  We average over
@@ -221,7 +222,7 @@ def _run_km(config, secret, seed, noise_rate, influence_samples=20, **_kwargs):
     }
 
 
-def _run_fourier(config, secret, seed, noise_rate, **_kwargs):
+def _run_fourier(config, secret, seed, noise_rate):
     """Walsh-Hadamard correlation: noise attenuates the true coefficient
     by factor (1 - 2p) but keeps it dominant for moderate p."""
     from itertools import combinations
@@ -266,7 +267,7 @@ def _run_fourier(config, secret, seed, noise_rate, **_kwargs):
     }
 
 
-def _run_gf2(config, secret, seed, noise_rate, **_kwargs):
+def _run_gf2(config, secret, seed, noise_rate):
     """Plain GF(2) Gaussian elimination; expected to fail once noise
     flips enough equations that the linear system is inconsistent.  We
     keep it so the comparison is explicit rather than silently absent."""

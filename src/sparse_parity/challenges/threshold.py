@@ -27,7 +27,8 @@ def _label(x, secret, t):
 
 def measure_threshold(method, n_bits=20, k_sparse=3, hidden=200,
                       lr=0.1, wd=0.01, batch_size=32, n_train=1000,
-                      max_epochs=200, seed=42, threshold=None, **kwargs):
+                      max_epochs=200, seed=42, threshold=None,
+                      influence_samples=5):
     """
     Run a sparse threshold experiment.
 
@@ -55,11 +56,11 @@ def measure_threshold(method, n_bits=20, k_sparse=3, hidden=200,
     start = time.perf_counter()
 
     if method == "sgd":
-        result = _run_sgd(config, secret, seed, threshold, **kwargs)
+        result = _run_sgd(config, secret, seed, threshold)
     elif method == "km":
-        result = _run_km(config, secret, seed, threshold, **kwargs)
+        result = _run_km(config, secret, seed, threshold, influence_samples=influence_samples)
     elif method == "fourier":
-        result = _run_fourier(config, secret, seed, threshold, **kwargs)
+        result = _run_fourier(config, secret, seed, threshold)
     elif method in ("gf2", "smt"):
         result = {
             "accuracy": 0.0, "ard": None, "dmc": None,
@@ -88,7 +89,7 @@ def measure_threshold(method, n_bits=20, k_sparse=3, hidden=200,
     return result
 
 
-def _run_sgd(config, secret, seed, threshold, **_kwargs):
+def _run_sgd(config, secret, seed, threshold):
     """Linear SGD with a threshold read-out at inference."""
     rng = np.random.RandomState(seed + 100)
     x_tr = rng.choice([-1.0, 1.0], size=(config.n_train, config.n_bits))
@@ -145,7 +146,7 @@ def _run_sgd(config, secret, seed, threshold, **_kwargs):
     }
 
 
-def _run_km(config, secret, seed, threshold, influence_samples=5, **_kwargs):
+def _run_km(config, secret, seed, threshold, influence_samples=5):
     """Bit-flip influence for the threshold label."""
     rng = np.random.RandomState(seed + 100)
     rng_inf = np.random.RandomState(seed + 500)
@@ -188,7 +189,7 @@ def _run_km(config, secret, seed, threshold, influence_samples=5, **_kwargs):
     }
 
 
-def _run_fourier(config, secret, seed, threshold, **_kwargs):
+def _run_fourier(config, secret, seed, threshold):
     """First-order Fourier correlation for threshold."""
     rng = np.random.RandomState(seed + 100)
     n_samples = max(100, config.n_train)
