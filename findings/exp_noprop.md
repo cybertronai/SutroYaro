@@ -63,6 +63,13 @@ If we train each layer independently as a denoiser (NoProp), then (a) the denois
 - NoProp+Curriculum: ~1.92M (42 ep × 5 layers × 9,145) — 6.5x SGD+C
 - FF+Curriculum: ~27.7M (310 ep × 89,232) — 93x SGD+C, and only 80% solve rate
 
+> **Metric caveat**: DMD figures above use the legacy element-level `MemTracker`
+> (charges reads + writes at array granularity), not ByteDMD (primary metric since
+> PR #80, Apr 15 2026). Absolute numbers will shift under ByteDMD — writes are
+> free and granularity is per-byte — but the structural ordering (FF >> NoProp ≈ SGD
+> per step, FF >> NoProp+C >> SGD+C total) is expected to hold. Re-measurement
+> under ByteDMD is tracked as a follow-up.
+
 ## Analysis
 
 ### NoProp vs FF (Yaro's question: "Does denoising objective help at all?")
