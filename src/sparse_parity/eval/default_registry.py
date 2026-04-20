@@ -37,6 +37,24 @@ def _harness_sparse_and(**kwargs):
     return _import_harness().measure_sparse_and(**kwargs)
 
 
+# Issue #7 challenges live in a sibling package so we do not have to
+# touch the locked harness.py (LAB.md rule #9).  These wrappers import
+# lazily for the same reason _import_harness() does.
+def _challenge_majority_vote(**kwargs):
+    from sparse_parity.challenges.majority_vote import measure_majority_vote
+    return measure_majority_vote(**kwargs)
+
+
+def _challenge_threshold(**kwargs):
+    from sparse_parity.challenges.threshold import measure_threshold
+    return measure_threshold(**kwargs)
+
+
+def _challenge_noisy_parity(**kwargs):
+    from sparse_parity.challenges.noisy_parity import measure_noisy_parity
+    return measure_noisy_parity(**kwargs)
+
+
 def register_default_challenges():
     """Register the three built-in challenges."""
     register_challenge(
@@ -78,6 +96,55 @@ def register_default_challenges():
             "n_bits": 20, "k_sparse": 3, "hidden": 200,
             "lr": 0.1, "wd": 0.01, "batch_size": 32,
             "n_train": 1000, "max_epochs": 200, "seed": 42,
+        },
+    )
+
+    # --- Issue #7: additional task variations ------------------------------
+
+    register_challenge(
+        "majority-vote",
+        harness_fn=_challenge_majority_vote,
+        description=(
+            "Learn sign(sum(x[secret])). Binary output with first-order "
+            "signal. Tests threshold detection when k is odd or ties are "
+            "broken deterministically."
+        ),
+        default_config={
+            "n_bits": 20, "k_sparse": 3, "hidden": 200,
+            "lr": 0.1, "wd": 0.01, "batch_size": 32,
+            "n_train": 1000, "max_epochs": 200, "seed": 42,
+        },
+    )
+
+    register_challenge(
+        "threshold",
+        harness_fn=_challenge_threshold,
+        description=(
+            "Learn 1 if sum(x[secret]) >= t else -1. Parameterized "
+            "difficulty via threshold t (default k_sparse - 1). "
+            "t=0 recovers majority-vote; t=k recovers sparse-AND."
+        ),
+        default_config={
+            "n_bits": 20, "k_sparse": 3, "hidden": 200,
+            "lr": 0.1, "wd": 0.01, "batch_size": 32,
+            "n_train": 1000, "max_epochs": 200, "seed": 42,
+            "threshold": 2,  # k_sparse - 1 for default k_sparse=3
+        },
+    )
+
+    register_challenge(
+        "noisy-parity",
+        harness_fn=_challenge_noisy_parity,
+        description=(
+            "Learn prod(x[secret]) from TRAINING labels flipped i.i.d. "
+            "at rate noise_rate. Test labels are clean. Tests robustness "
+            "of parity-detecting methods (LPN regime)."
+        ),
+        default_config={
+            "n_bits": 20, "k_sparse": 3, "hidden": 200,
+            "lr": 0.1, "wd": 0.01, "batch_size": 32,
+            "n_train": 1000, "max_epochs": 200, "seed": 42,
+            "noise_rate": 0.1,
         },
     )
 
