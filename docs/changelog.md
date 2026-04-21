@@ -2,6 +2,63 @@
 
 All notable changes to this research workspace.
 
+## [0.28.0] - 2026-04-20
+
+### Issue sprint and repo hygiene
+
+- **14 open issues closed** against repo evidence in a single triage pass: #4, #6, #21, #24, #25, #26, #28, #29, #31, #58, #64, #67, #69, #71. Each close comment links to the file, PR, or finding that resolved it.
+- **Branch protection enabled** on `main`: 1 required approval, admin override, no force-push, no deletion. Closes #71.
+- **5 stale branches deleted** after merge or intentional close: `YAD/adopt-bytedmd`, `yaroslav/tracked-numpy`, `v-alpha`, `YAD/telegram-sqlite`, `fix/claude-md-people-handles`. Closes #69.
+
+### Parallel-agent sprint (PR #82, Yad)
+
+- **`bin/complexity-check`**: repo size + file-count snapshot, appends JSONL to `.complexity-log.jsonl`, flags >10% python-line growth. Closes #8.
+- **`bin/score-all`**: discovers `solve_*.py` submissions, runs each under `bytedmd()`, writes sorted TSV to `results/scoreboard.tsv`. Closes #61 (the GF(2) undercount piece was moot post-ByteDMD).
+- **LAB.md two-phase results section**: evidence bundle in `results/<exp_id>/`, narrative in `findings/<exp_id>.md`. Closes #27.
+- **Onboarding pass**: first-experiment walkthrough in `docs/getting-started.md`, skills table, `--dangerously-skip-permissions` explanation, ByteDMD note, `AGENT.md` redirect to `LAB.md` for humans. Closes #56.
+- **Skills scaffolding**: `examples/` subdirs added to 4 skills missing them, `references/` subdirs on all 6 skills pointing at canonical docs (`LAB.md`, `AGENT.md`, `DISCOVERIES.md`, `sync-runbook.md`, `telegram-setup.md`, `bytedmd.md`). Closes #30.
+- **Pip entry points**: `[project.optional-dependencies]` (`eval`, `modal`, `dev`, `all`) and `[project.entry-points."gymnasium.envs"]` wired through `sparse_parity.eval:register_all`. Closes #43.
+- **Three new challenges**: `majority-vote`, `threshold`, `noisy-parity` in `src/sparse_parity/challenges/` using the existing registry pattern. LAB.md rule #9 respected (`src/harness.py` untouched). `measure_*` signatures reject unknown kwargs (no silent `**kwargs` typo swallowing). Closes #7.
+
+### Repo diagrams with pan/zoom (PR #83)
+
+- **`docs/research/repo-layout.md`**: Mermaid graph of the four-layer workspace (Docs / Code / Ops / Artifacts / Site) with `svg-pan-zoom` controls (＋ − ⤾ buttons, scroll to zoom, drag to pan).
+- **`docs/research/repo-tree.md`**: interactive D3.js click-to-expand tree with native `d3-zoom` and the same control scheme.
+- **`docs/diagrams/`**: dropped stale v1 agent-workflow files, promoted v2 to canonical.
+
+### Agent compatibility (PR #72, Andy)
+
+- **`GEMINI.md`** added for Gemini CLI / Antigravity agents, matching the existing `CLAUDE.md` / `CODEX.md` / `AGENTS.md` set. Closes #13.
+- **`AGENTS.md`** context reference fix (PR #74).
+
+### NoProp + Forward-Forward follow-up (PR #79, Seth)
+
+- Forward-Forward baseline added alongside the NoProp experiment. Denoising beats contrastive in this setting.
+- Both experiments flagged as measured under legacy MemTracker, not ByteDMD — pending re-run once metrics stabilise.
+
+### ASI-Evolve research reports (PR #81)
+
+- Three parallel-agent reports mapping the ASI-Evolve evolutionary framework onto SutroYaro's ByteDMD-optimized learning rule search.
+- Agent prompts at `docs/agent-prompts/asi-evolve/{algorithms-claude, memory-kimi, execution-*}.md`.
+
+### Muon review prompt (PR #73)
+
+- Reusable review prompt for Muon-related contributions.
+- Muon findings moved from `findings/` to canonical `docs/findings/` path.
+
+### Dev-shell and environment
+
+- `.envrc` restored for direnv auto-loading of the Nix devShell.
+- `nodejs` added to the devShell so Claude Code hooks can run.
+
+### Specs posted as follow-up comments
+
+- **#77** — ByteDMD microbenchmark spec for DeepSeek Engram's <3% SSD offload claim.
+- **#9** — Modal nanoGPT energy baseline spec: `bin/gpu_energy_nanogpt.py` + L4 GPU + nvidia-smi integration.
+- **#14** — Post-task Telegram notify hook spec: `.claude/hooks/post-task-notify.cjs` on `Stop` event, triple-gated.
+- **#54** — Pikiclaw evaluation criteria before building a custom PR-review pipeline from scratch.
+- **#5** — Flagged `--challenge` flag gap in `bin/run-agent` for sparse-sum and sparse-and challenges.
+
 ## [0.27.0] - 2026-04-14
 
 ### ByteDMD adopted as primary metric
