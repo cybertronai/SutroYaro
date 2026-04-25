@@ -2,6 +2,54 @@
 
 All notable changes to this research workspace.
 
+## [0.29.0] - 2026-04-25
+
+### ByteDMD floor-gap survey (PR #87 Seth + PR #88 Yad)
+
+Answers Yaroslav's Apr 20 question: *how far are current solutions from the ByteDMD floor?*
+
+| Method | ByteDMD | vs read-n floor (n=20: 70) | Geometric LB (0.3849×) | Correct |
+|--------|--------:|---------------------------:|----------------------:|:-------:|
+| KM-min (1 sample/bit) | **268** | 3.8× | 103 | ✓ |
+| GF(2) Gauss elim | 101,501 | 1,450× | 39,068 | ✓ |
+| Fourier (Walsh, N=50) | 5,156,954 | 73,671× | 1,984,912 | ✓ |
+| SGD demo (tiny) | 84,592 | 1,208× | 32,559 | ✗ (chance level) |
+
+- **Pure-Python implementations** so ByteDMD tracks every read (no numpy escape hatches). KM-min and GF(2) shipped first via Seth's PR #87; Fourier + SGD-demo + the geometric LB column shipped via PR #88 stacked on top. Both squashed into `main` together.
+- **Geometric lower bound factor (0.3849)** wired in per Yaroslav's 2026-04-23 clarification — `0.3849 × measured ByteDMD` lower-bounds the actual VLSI allocation cost of the "best" oracle allocator. Requires live-byte counting (current ByteDMD post-PR #80). Proof: Gemini DeepThink, reviewed with Toranosuke Ozawa at [`cybertronai/ByteDMD/.../tarjan-detailed-part1.pdf`](https://github.com/cybertronai/ByteDMD/blob/dev/gemini/tarjan-detailed-part1.pdf).
+- **Headline finding**: KM-min sits at 3.8× the floor (with oracle-paired inputs); algebraic methods span 3 orders of magnitude. Fourier's cost is dominated by O(C(n,k)) subset enumeration. SGD-demo with a converging config would be 3-4 orders higher than the chance-level number shown.
+- Open question on PR #87: Q2 (oracle-query KM-min as fair reference floor even though not benchmark-submittable) — still awaiting Yaroslav.
+
+### Nix devShell + Task 11 docs (PR #84, PR #85, Andy)
+
+- **PR #84**: `pkgs.sqlite` added to the Nix devShell so `sqlite3` CLI is one `nix develop` away. Used by `sutro-sync` / `weekly-catchup` / `prepare-meeting` skills for `telegram.db` queries.
+- **PR #85**: DeepSeek Engram offload observation promoted from issue #77 into durable docs at `docs/tasks/Task 11/` (task spec + reusable agent prompt + findings path), following the #73 / Muon pattern. Discoverable to non-GitHub-indexed agents (Gemini, Qwen, Kimi).
+
+### Issue cleanup pass (9 more closed)
+
+- **Closed against PR #82 evidence** (sprint work landed earlier but issues weren't auto-closed): #7, #8, #27, #30, #43, #56, #61.
+- **Closed in favor of Task 11 promotion**: #77 (now lives at `docs/tasks/Task 11/`).
+- **Closed as superseded** with explanatory comment: #60 (philoengineer's Telegram MTProto CLI scripts, replaced by SQLite-backed `bin/tg-{sync,post,auth}` from v0.26.0).
+
+### `follow-up` label introduced
+
+Yellow `#FBCA04`, description "Spec posted, awaiting follow-up implementation." Applied to remaining open issues that have substantive specs but haven't been built yet: #5, #14, #54.
+
+### Documentation hygiene
+
+- **Broken mkdocs link fixed** in `docs/tasks/009-muon-review.md` — `../../research/search_space.yaml` (lives outside docs tree) replaced with a GitHub URL. `mkdocs build --strict` now passes clean (only the unrelated MkDocs 2.0 framework deprecation banner remains).
+- **Google Docs sync committed** (PR #89) — 13 doc files refreshed (+937 lines across meeting notes, knowledge sprints, bigger-picture); `docs/references_auto.md` link harvest +184 entries; `docs/superpowers/plans/2026-03-16-egd-sparse-parity.md` (March plan that was untracked); root `package-lock.json` checked in next to its `package.json`.
+
+### Pull requests landed
+
+| PR | Title | Author |
+|----|-------|--------|
+| #84 | Add sqlite to devShell for telegram.db queries | @zh4ngx |
+| #85 | docs: Task 11 — DeepSeek Engram offload ByteDMD verification | @zh4ngx |
+| #87 | exp: ByteDMD floor-gap survey — KM-min 268 vs GF(2) 101,501 | @SethTS |
+| #88 | exp: extend floor-gap survey with Fourier + SGD-demo + geometric LB | @0bserver07 |
+| #89 | docs(sync): Google Docs refresh + untracked plans/lockfile cleanup | @0bserver07 |
+
 ## [0.28.0] - 2026-04-20
 
 ### Issue sprint and repo hygiene
