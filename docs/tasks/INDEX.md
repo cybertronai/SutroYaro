@@ -14,3 +14,4 @@ Feedback from Meetings #8-11, Telegram, and Google Docs. Updated 2026-04-19.
 | 8 | Pre-experiment plan: DMC comparison, RL env, license | MEDIUM | IN PROGRESS | [008-pre-experiment-plan.md](008-pre-experiment-plan.md) |
 | 9 | Muon optimizer literature review (ByteDMD-aware) | MEDIUM | DONE | [009-muon-review.md](009-muon-review.md) |
 | 10 | ASI-Evolve paper review — autonomous loop lessons | HIGH | IN PROGRESS | [010-asi-evolve-integration.md](010-asi-evolve-integration.md) |
+| 11 | DeepSeek Engram offload — ByteDMD verification | MEDIUM | OPEN | [011-engram-offload-bytedmd.md](011-engram-offload-bytedmd.md) |
