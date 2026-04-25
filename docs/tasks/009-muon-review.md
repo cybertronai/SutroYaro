@@ -26,4 +26,4 @@ Muon appears in `research/search_space.yaml` but was never tested. The question:
 - ByteDMD: https://github.com/cybertronai/ByteDMD
 - ByteDMD test cases: https://github.com/cybertronai/ByteDMD-examples
 - Learning guide mention: [docs/learning-guide.md](../learning-guide.md)
-- Search space: [research/search_space.yaml](../../research/search_space.yaml)
+- Search space: [`research/search_space.yaml`](https://github.com/cybertronai/SutroYaro/blob/main/research/search_space.yaml) (lives outside the docs tree)
