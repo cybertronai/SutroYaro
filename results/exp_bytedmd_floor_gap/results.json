@@ -1,0 +1,25 @@
+{
+  "experiment": "exp_bytedmd_floor_gap",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "seed": 42
+  },
+  "results": {
+    "km_min": {
+      "bytedmd": 268,
+      "correct": true,
+      "n_samples": 40,
+      "elapsed_ms": 0.4
+    },
+    "gf2": {
+      "bytedmd": 101501,
+      "correct": true,
+      "n_samples": 21,
+      "elapsed_ms": 216.2
+    }
+  },
+  "floor_read_k": 5,
+  "floor_read_n": 70,
+  "note": "Yaroslav's geometric lower bound ~0.33 not yet incorporated \u2014 units TBD, see PR review"
+}
