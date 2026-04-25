@@ -137,7 +137,54 @@ Open questions live in [DISCOVERIES.md](DISCOVERIES.md) under "Open Questions." 
 - Describe what you tried and what happened
 - Someone (human or AI) will review and merge
 
-No CI gates. No test coverage requirements. The only hard rule is: don't break existing experiments.
+`main` is now branch-protected: PRs require **1 approval** before merge. Repo admins can override for hotfixes (`gh pr merge --admin`). Force-push and branch deletion are blocked.
+
+The only CI gate today: `diagram-staleness.yml` (see "Updating the repo diagrams" below). No test coverage requirements. Hard rule: don't break existing experiments.
+
+## Updating the repo diagrams
+
+The two diagrams on the docs site —
+[Repo Layout](https://cybertronai.github.io/SutroYaro/research/repo-layout/) (Mermaid)
+and [Interactive Repo Tree](https://cybertronai.github.io/SutroYaro/research/repo-tree/) (D3) —
+are generated from a single YAML.
+
+**Don't edit the `.md` files directly.** They have `BEGIN_AUTOGEN` / `END_AUTOGEN` markers around the data blocks; anything between is rewritten by the generator.
+
+```bash
+# 1. Edit the source of truth
+$EDITOR docs/research/_diagrams.yaml
+
+# 2. Regenerate both diagrams
+bin/regen-diagrams
+
+# 3. Commit YAML + regenerated .md files together
+git add docs/research/_diagrams.yaml docs/research/repo-{tree,layout}.md
+git commit -m "diagrams: ..."
+```
+
+CI (`diagram-staleness.yml`) fails any PR where the `.md` files have drifted from a fresh regen. The error message tells you to run `bin/regen-diagrams` locally and commit.
+
+**What's auto-counted** (don't hardcode these in the YAML):
+- `{findings_count}` — number of `findings/exp_*.md` files
+- `{experiments_jsonl_count}` — line count of `research/log.jsonl`
+- `{task_count}` — number of `docs/tasks/[0-9]*-*.md` files
+
+## Releases and version tags
+
+Versions are recorded in [`docs/changelog.md`](docs/changelog.md) following [Semantic Versioning](https://semver.org/) and the [Keep a Changelog](https://keepachangelog.com/) format.
+
+Each released version has a matching annotated git tag (`v0.29.0`, `v0.28.0`, etc.) pointing at the changelog commit that shipped it. Browse them via `git tag -l 'v*'` or on the [GitHub releases page](https://github.com/cybertronai/SutroYaro/releases).
+
+When you add a new release entry to `docs/changelog.md`, the workflow is:
+
+```bash
+# After the changelog PR merges to main
+git fetch origin --tags
+git tag -a v0.X.0 <merge-commit-sha> -m "v0.X.0"
+git push origin v0.X.0
+```
+
+Tag the **merge commit** that landed the changelog entry, not your feature branch.
 
 ## Questions
 

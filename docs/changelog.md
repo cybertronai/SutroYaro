@@ -35,6 +35,26 @@ Answers Yaroslav's Apr 20 question: *how far are current solutions from the Byte
 
 Yellow `#FBCA04`, description "Spec posted, awaiting follow-up implementation." Applied to remaining open issues that have substantive specs but haven't been built yet: #5, #14, #54.
 
+### Auto-generated repo diagrams (PR #91)
+
+Both `docs/research/repo-tree.md` (D3 interactive tree) and `docs/research/repo-layout.md` (Mermaid graph) now regenerate from `docs/research/_diagrams.yaml` via [`bin/regen-diagrams`](https://github.com/cybertronai/SutroYaro/blob/main/bin/regen-diagrams). Pan/zoom HTML and JS are untouched — only the data blocks (between `BEGIN_AUTOGEN` / `END_AUTOGEN` markers) get rewritten.
+
+CI workflow [`diagram-staleness.yml`](https://github.com/cybertronai/SutroYaro/blob/main/.github/workflows/diagram-staleness.yml) runs `bin/regen-diagrams --check` on PRs that touch the YAML or generated files; fails the build if a regen would change anything, with the fix in the error message.
+
+**Drift caught on first regen:**
+- `findings_count`: hardcoded `38` → actual `41` (auto-counted via glob)
+- `task_count`: hardcoded "specs 1-10 + INDEX" → actual `11`
+- Tree was missing `GEMINI.md` (added Apr 21 via PR #72)
+- Tree was missing `challenges/` (added Apr 20 via PR #82)
+- `bin/` was missing `complexity-check`, `score-all`, `regen-diagrams`
+
+**Auto-counts** computed at regen time:
+- `findings_count`: glob `findings/exp_*.md`
+- `experiments_jsonl_count`: line count of `research/log.jsonl`
+- `task_count`: glob `docs/tasks/[0-9]*-*.md`
+
+**Contributor workflow:** edit `_diagrams.yaml` → run `bin/regen-diagrams` → commit YAML + regenerated `.md` files. CI catches PRs that edit the YAML without regen-ing.
+
 ### Documentation hygiene
 
 - **Broken mkdocs link fixed** in `docs/tasks/009-muon-review.md` — `../../research/search_space.yaml` (lives outside docs tree) replaced with a GitHub URL. `mkdocs build --strict` now passes clean (only the unrelated MkDocs 2.0 framework deprecation banner remains).
@@ -49,6 +69,7 @@ Yellow `#FBCA04`, description "Spec posted, awaiting follow-up implementation." 
 | #87 | exp: ByteDMD floor-gap survey — KM-min 268 vs GF(2) 101,501 | @SethTS |
 | #88 | exp: extend floor-gap survey with Fourier + SGD-demo + geometric LB | @0bserver07 |
 | #89 | docs(sync): Google Docs refresh + untracked plans/lockfile cleanup | @0bserver07 |
+| #91 | diagrams: single source of truth + bin/regen-diagrams + CI staleness check | @0bserver07 |
 
 ## [0.28.0] - 2026-04-20
 
