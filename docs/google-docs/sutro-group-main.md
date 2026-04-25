@@ -378,6 +378,94 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Address 
 
 [Meeting #12, 06 Mar26]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+[Meeting #10, 23 Mar 26]
+
+[Meeting #11, 30 Mar 26]
+
+[Meeting #12, 06 Apr 26]
+
+[Meeting #13, 13 apr 26]
+
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+[Meeting #10, 23 Mar 26]
+
+[Meeting #11, 30 Mar 26]
+
+[Meeting #12, 06 Apr 26]
+
+[Meeting #13, 13 apr 26]
+
 # [embedded image] 
 
 # General 
@@ -527,3 +615,13 @@ Homework for next Monday:
 Agenda: [[Sutro #12 agenda](https://docs.google.com/document/d/1Qd6rAO41Jabc2g7grnW8uxVQ9_RJ95KX5ZNp7XTgHtk/edit?tab=t.0)]
 
 Lessons from making [[https://github.com/cybertronai/ByteDMD](https://github.com/cybertronai/ByteDMD)]
+
+## Meeting #13, 13 apr 26 
+
+agenda: [[sutro #13 agenda](https://docs.google.com/document/d/15GGkMaShMrU7dXOdqfwu8E8Qw__yh7UwGb4j5m8jlww/edit?tab=t.0)]
+
+## Meeting #14, 20 Apr 26 
+
+agenda: yaroslav ([[notes](https://docs.google.com/document/d/1QEQJIouhHiT5bB7LaDXfvgXvkTt6vB20ujRQiHRsoCo/edit?usp=sharing)]), Subutai Ahmad (Learning in pyramidal neurons [[slides](https://drive.google.com/file/d/1rVSXmXk269J54ec8_iL_Vo4yB-7DZstZ/view?usp=sharing)])
+
+## Meeting #15, 27 Apr 26
