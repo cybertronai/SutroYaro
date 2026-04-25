@@ -142,6 +142,8 @@ Research communication avoid algorithms for learning
 
 [[https://chatgpt.com/c/69acbb1e-4e74-8322-a0fb-349e5961cf40](https://chatgpt.com/c/69acbb1e-4e74-8322-a0fb-349e5961cf40)]
 
+([[public](https://chatgpt.com/share/69dff880-dd64-83e8-a86c-d12899ede6fd)])
+
 ### Ranking heuristics for LRU cache reuse 
 
 16:22 Ask about other heuristics [[gemini](https://gemini.google.com/app/cf721afd6b73481a)] 
