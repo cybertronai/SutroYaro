@@ -13,101 +13,225 @@ Click any node with children to expand or collapse it. Internal (directory-like)
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (function () {
-  // Hardcoded tree data for SutroYaro repo.
+  // BEGIN_AUTOGEN treeData (regenerate via bin/regen-diagrams)
   const treeData = {
-    name: "SutroYaro",
-    children: [
-      {
-        name: "Top-level docs",
-        children: [
-          { name: "README.md" },
-          { name: "CLAUDE.md" },
-          { name: "LAB.md" },
-          { name: "AGENT.md" },
-          { name: "DISCOVERIES.md" },
-          { name: "TODO.md" },
-          { name: "CONTRIBUTING.md" },
-          { name: "AGENTS.md" },
-          { name: "CODEX.md" },
-          { name: "AGENT_EVAL.md" }
-        ]
-      },
-      {
-        name: "src/",
-        children: [
-          { name: "bytedmd/  (primary metric, vendored)" },
-          {
-            name: "sparse_parity/",
-            children: [
-              { name: "harness.py" },
-              { name: "tracker.py" },
-              { name: "cache_tracker.py" },
-              { name: "tracked_numpy.py" },
-              { name: "train.py" },
-              { name: "train_fused.py" },
-              { name: "train_perlayer.py" },
-              { name: "fast.py" },
-              { name: "model.py" },
-              { name: "data.py" },
-              { name: "config.py" },
-              { name: "eval/" },
-              { name: "experiments/" },
-              { name: "telegram_sync/" }
-            ]
-          },
-          { name: "telegram/" }
-        ]
-      },
-      {
-        name: "bin/",
-        children: [
-          { name: "reproduce-all" },
-          { name: "run-agent" },
-          { name: "analyze-log" },
-          { name: "tg-sync" },
-          { name: "tg-post" },
-          { name: "tg-auth" },
-          { name: "merge-findings" }
-        ]
-      },
-      {
-        name: "checks/",
-        children: [
-          { name: "env_check.py" },
-          { name: "baseline_check.py" }
-        ]
-      },
-      { name: "tests/" },
-      {
-        name: "research/",
-        children: [
-          { name: "log.jsonl  (37 experiments)" },
-          { name: "questions.yaml" },
-          { name: "search_space.yaml" }
-        ]
-      },
-      { name: "findings/  (38 exp_*.md files)" },
-      { name: "results/" },
-      { name: "contributions/" },
-      {
-        name: "docs/  (mkdocs site)",
-        children: [
-          { name: "index.md" },
-          { name: "context.md" },
-          { name: "changelog.md" },
-          { name: "research/" },
-          { name: "findings/" },
-          { name: "catchups/" },
-          { name: "meetings/" },
-          { name: "google-docs/" },
-          { name: "agent-prompts/" },
-          { name: "tasks/" },
-          { name: "tooling/" },
-          { name: "diagrams/" }
-        ]
-      }
-    ]
-  };
+  "name": "SutroYaro",
+  "children": [
+    {
+      "name": "Top-level docs",
+      "children": [
+        {
+          "name": "README.md"
+        },
+        {
+          "name": "CLAUDE.md"
+        },
+        {
+          "name": "LAB.md"
+        },
+        {
+          "name": "AGENT.md"
+        },
+        {
+          "name": "DISCOVERIES.md"
+        },
+        {
+          "name": "TODO.md"
+        },
+        {
+          "name": "CONTRIBUTING.md"
+        },
+        {
+          "name": "AGENTS.md"
+        },
+        {
+          "name": "CODEX.md"
+        },
+        {
+          "name": "GEMINI.md"
+        },
+        {
+          "name": "AGENT_EVAL.md"
+        }
+      ]
+    },
+    {
+      "name": "src/",
+      "children": [
+        {
+          "name": "bytedmd/  (primary metric, vendored)"
+        },
+        {
+          "name": "sparse_parity/",
+          "children": [
+            {
+              "name": "harness.py"
+            },
+            {
+              "name": "tracker.py"
+            },
+            {
+              "name": "cache_tracker.py"
+            },
+            {
+              "name": "tracked_numpy.py"
+            },
+            {
+              "name": "train.py"
+            },
+            {
+              "name": "train_fused.py"
+            },
+            {
+              "name": "train_perlayer.py"
+            },
+            {
+              "name": "fast.py"
+            },
+            {
+              "name": "model.py"
+            },
+            {
+              "name": "data.py"
+            },
+            {
+              "name": "config.py"
+            },
+            {
+              "name": "eval/"
+            },
+            {
+              "name": "experiments/"
+            },
+            {
+              "name": "challenges/"
+            },
+            {
+              "name": "telegram_sync/"
+            }
+          ]
+        },
+        {
+          "name": "telegram/"
+        }
+      ]
+    },
+    {
+      "name": "bin/",
+      "children": [
+        {
+          "name": "reproduce-all"
+        },
+        {
+          "name": "run-agent"
+        },
+        {
+          "name": "analyze-log"
+        },
+        {
+          "name": "complexity-check"
+        },
+        {
+          "name": "score-all"
+        },
+        {
+          "name": "regen-diagrams"
+        },
+        {
+          "name": "tg-sync"
+        },
+        {
+          "name": "tg-post"
+        },
+        {
+          "name": "tg-auth"
+        },
+        {
+          "name": "merge-findings"
+        }
+      ]
+    },
+    {
+      "name": "checks/",
+      "children": [
+        {
+          "name": "env_check.py"
+        },
+        {
+          "name": "baseline_check.py"
+        }
+      ]
+    },
+    {
+      "name": "tests/"
+    },
+    {
+      "name": "research/",
+      "children": [
+        {
+          "name": "log.jsonl  (37 experiments)"
+        },
+        {
+          "name": "questions.yaml"
+        },
+        {
+          "name": "search_space.yaml"
+        }
+      ]
+    },
+    {
+      "name": "findings/  (41 exp_*.md files)"
+    },
+    {
+      "name": "results/"
+    },
+    {
+      "name": "contributions/"
+    },
+    {
+      "name": "docs/  (mkdocs site)",
+      "children": [
+        {
+          "name": "index.md"
+        },
+        {
+          "name": "context.md"
+        },
+        {
+          "name": "changelog.md"
+        },
+        {
+          "name": "research/"
+        },
+        {
+          "name": "findings/"
+        },
+        {
+          "name": "catchups/"
+        },
+        {
+          "name": "meetings/"
+        },
+        {
+          "name": "google-docs/"
+        },
+        {
+          "name": "agent-prompts/"
+        },
+        {
+          "name": "tasks/  (11 tasks)"
+        },
+        {
+          "name": "tooling/"
+        },
+        {
+          "name": "diagrams/"
+        }
+      ]
+    }
+  ]
+};
+  // END_AUTOGEN treeData
 
   function render() {
     const container = document.getElementById("tree-viz");
