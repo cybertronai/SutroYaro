@@ -186,6 +186,8 @@ git push origin v0.X.0
 
 Tag the **merge commit** that landed the changelog entry, not your feature branch.
 
+**Tag coverage:** v0.16.0, v0.17.0, v0.23.0, v0.24.0, v0.25.0, v0.27.0, v0.28.0, v0.29.0. Earlier releases (v0.5.0–v0.15.0, v0.18.0–v0.22.0, v0.26.0) are documented in `docs/changelog.md` but have no git tags — the corresponding commits couldn't be unambiguously identified retroactively. Use the changelog as the authoritative source for those versions.
+
 ## Questions
 
 Ask in the [Telegram group](https://t.me/sutro_group) or open a GitHub issue.
