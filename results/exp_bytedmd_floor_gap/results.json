@@ -3,23 +3,49 @@
   "config": {
     "n_bits": 20,
     "k_sparse": 3,
-    "seed": 42
+    "seed": 42,
+    "fourier_n_samples": 50
   },
   "results": {
     "km_min": {
       "bytedmd": 268,
       "correct": true,
       "n_samples": 40,
-      "elapsed_ms": 0.4
+      "elapsed_ms": 0.5,
+      "geometric_lower_bound": 103.2
     },
     "gf2": {
       "bytedmd": 101501,
       "correct": true,
       "n_samples": 21,
-      "elapsed_ms": 216.2
+      "elapsed_ms": 153.4,
+      "geometric_lower_bound": 39067.7
+    },
+    "fourier": {
+      "bytedmd": 5156954,
+      "correct": true,
+      "n_samples": 50,
+      "elapsed_ms": 37503.1,
+      "geometric_lower_bound": 1984911.6
+    },
+    "sgd_demo": {
+      "bytedmd": 84592,
+      "correct": false,
+      "config": {
+        "hidden": 4,
+        "batch": 4,
+        "n_train": 8,
+        "epochs": 2,
+        "lr": 0.3
+      },
+      "elapsed_ms": 351.8,
+      "note": "tiny config; accuracy at chance level \u2014 number shown for floor-gap chart only",
+      "geometric_lower_bound": 32559.5
     }
   },
   "floor_read_k": 5,
   "floor_read_n": 70,
-  "note": "Yaroslav's geometric lower bound ~0.33 not yet incorporated \u2014 units TBD, see PR review"
+  "geometric_lower_bound_factor": 0.3849,
+  "geometric_lower_bound_source": "https://github.com/cybertronai/ByteDMD/blob/dev/gemini/tarjan-detailed-part1.pdf",
+  "note": "Geometric LB requires live-byte counting (current ByteDMD post-PR #80). SGD demo is a tiny non-converging config \u2014 see results.sgd_demo.note."
 }
