@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+"""
+Regenerate the auto-managed diagram blocks in:
+
+- docs/research/repo-tree.md   (D3 interactive tree, treeData object)
+- docs/research/repo-layout.md (Mermaid graph, subgraphs + edges)
+
+Source of truth: docs/research/_diagrams.yaml.
+
+Run after editing the YAML, or after structural repo changes that should
+be reflected in the labels (new top-level dirs, renamed packages, etc.).
+
+Usage:
+    bin/regen-diagrams              # rewrite both target files
+    bin/regen-diagrams --check      # exit non-zero if rewrite would change anything
+                                    # (used by CI to catch stale diagrams)
+
+Idempotence: running twice with no edits in between produces no diff.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+try:
+    import yaml  # PyYAML
+except ImportError:
+    sys.stderr.write(
+        "regen-diagrams: PyYAML required. Install with `pip install pyyaml` "
+        "or run inside the Nix devShell.\n"
+    )
+    sys.exit(2)
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+YAML_PATH = REPO_ROOT / "docs" / "research" / "_diagrams.yaml"
+TREE_MD_PATH = REPO_ROOT / "docs" / "research" / "repo-tree.md"
+LAYOUT_MD_PATH = REPO_ROOT / "docs" / "research" / "repo-layout.md"
+
+TREE_BEGIN = "// BEGIN_AUTOGEN treeData (regenerate via bin/regen-diagrams)"
+TREE_END = "// END_AUTOGEN treeData"
+LAYOUT_BEGIN = "<!-- BEGIN_AUTOGEN mermaidLayout (regenerate via bin/regen-diagrams) -->"
+LAYOUT_END = "<!-- END_AUTOGEN mermaidLayout -->"
+
+
+# ---------------------------------------------------------------------------
+# Auto-counts
+# ---------------------------------------------------------------------------
+
+def _count_glob(pattern: str) -> int:
+    """Count files matched by a glob, relative to the repo root."""
+    matches = list(REPO_ROOT.glob(pattern))
+    return sum(1 for m in matches if m.is_file())
+
+
+def _count_lines(rel_path: str) -> int:
+    """Count non-empty lines of a file relative to the repo root."""
+    p = REPO_ROOT / rel_path
+    if not p.exists():
+        return 0
+    with p.open("r", encoding="utf-8", errors="replace") as f:
+        return sum(1 for line in f if line.strip())
+
+
+def compute_auto_counts(spec: dict) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for name, cfg in (spec.get("auto_counts") or {}).items():
+        if "glob" in cfg:
+            counts[name] = _count_glob(cfg["glob"])
+        elif cfg.get("type") == "lines":
+            counts[name] = _count_lines(cfg["file"])
+        else:
+            sys.stderr.write(f"regen-diagrams: unknown auto_count config for {name}\n")
+            sys.exit(2)
+    return counts
+
+
+def interpolate(s: str, counts: dict[str, int]) -> str:
+    """Replace {placeholder} occurrences with corresponding count values."""
+    out = s
+    for k, v in counts.items():
+        out = out.replace("{" + k + "}", str(v))
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Tree (D3) builder
+# ---------------------------------------------------------------------------
+
+def _normalize_tree_node(node, counts: dict[str, int]) -> dict:
+    """A node is either a bare string (leaf) or a dict {name, children?}."""
+    if isinstance(node, str):
+        return {"name": interpolate(node, counts)}
+    if not isinstance(node, dict):
+        raise TypeError(f"tree node must be str or dict, got {type(node).__name__}")
+    out: dict = {"name": interpolate(node["name"], counts)}
+    if "children" in node and node["children"]:
+        out["children"] = [_normalize_tree_node(c, counts) for c in node["children"]]
+    return out
+
+
+def build_tree_data(spec: dict, counts: dict[str, int]) -> dict:
+    tree_spec = spec["tree"]
+    return {
+        "name": tree_spec["root"],
+        "children": [_normalize_tree_node(g, counts) for g in tree_spec["groups"]],
+    }
+
+
+def render_tree_block(tree_data: dict) -> str:
+    """Render the JS object literal that goes between the AUTOGEN markers."""
+    pretty = json.dumps(tree_data, indent=2, ensure_ascii=False)
+    return f"  const treeData = {pretty};"
+
+
+# ---------------------------------------------------------------------------
+# Mermaid (layout) builder
+# ---------------------------------------------------------------------------
+
+def _esc_label(label: str) -> str:
+    """Escape characters that confuse Mermaid node label parsing."""
+    return label.replace('"', '&quot;')
+
+
+def render_mermaid_block(spec: dict, counts: dict[str, int]) -> str:
+    layout = spec["layout"]
+    direction = layout.get("direction", "LR")
+    lines: list[str] = []
+    lines.append("```mermaid")
+    lines.append(f"graph {direction}")
+
+    for layer in layout["layers"]:
+        title = interpolate(layer["title"], counts)
+        lines.append(f'    subgraph {layer["id"]}["{_esc_label(title)}"]')
+        for node in layer["nodes"]:
+            label = interpolate(node["label"], counts)
+            lines.append(f'        {node["id"]}["{_esc_label(label)}"]')
+        lines.append("    end")
+        lines.append("")
+
+    for edge in layout["edges"]:
+        label = interpolate(edge["label"], counts)
+        lines.append(f'    {edge["from"]} -.{label}.-> {edge["to"]}')
+    lines.append("")
+
+    for layer in layout["layers"]:
+        lines.append(f'    style {layer["id"]} {layer["style"]}')
+
+    lines.append("```")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Splice helpers
+# ---------------------------------------------------------------------------
+
+def splice(source: str, begin_marker: str, end_marker: str, replacement: str, file_label: str) -> str:
+    """Replace text between begin_marker and end_marker (exclusive of markers).
+
+    Indentation: keep whatever leading whitespace the BEGIN_marker line has,
+    apply it to the END_marker line too. The replacement is inserted as-is
+    on its own lines.
+    """
+    begin_idx = source.find(begin_marker)
+    end_idx = source.find(end_marker)
+    if begin_idx < 0 or end_idx < 0:
+        raise SystemExit(
+            f"regen-diagrams: missing AUTOGEN markers in {file_label}\n"
+            f"  expected: {begin_marker}\n"
+            f"            ...generated content...\n"
+            f"            {end_marker}"
+        )
+    if end_idx < begin_idx:
+        raise SystemExit(
+            f"regen-diagrams: AUTOGEN markers out of order in {file_label}"
+        )
+
+    # Find the newline at the end of the BEGIN marker line.
+    after_begin = source.find("\n", begin_idx)
+    if after_begin < 0:
+        raise SystemExit(f"regen-diagrams: BEGIN marker has no trailing newline in {file_label}")
+
+    # Find the start of the END marker line.
+    end_line_start = source.rfind("\n", 0, end_idx) + 1
+
+    return source[: after_begin + 1] + replacement + "\n" + source[end_line_start:]
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Exit non-zero if rewriting would change either target file (CI mode).",
+    )
+    args = parser.parse_args()
+
+    with YAML_PATH.open("r", encoding="utf-8") as f:
+        spec = yaml.safe_load(f)
+
+    counts = compute_auto_counts(spec)
+
+    tree_data = build_tree_data(spec, counts)
+    tree_block = render_tree_block(tree_data)
+    mermaid_block = render_mermaid_block(spec, counts)
+
+    targets = [
+        (TREE_MD_PATH, TREE_BEGIN, TREE_END, tree_block),
+        (LAYOUT_MD_PATH, LAYOUT_BEGIN, LAYOUT_END, mermaid_block),
+    ]
+
+    changed = False
+    for path, begin, end, replacement in targets:
+        original = path.read_text(encoding="utf-8")
+        rewritten = splice(original, begin, end, replacement, str(path.relative_to(REPO_ROOT)))
+        if rewritten != original:
+            changed = True
+            if args.check:
+                sys.stderr.write(
+                    f"regen-diagrams --check: {path.relative_to(REPO_ROOT)} is stale.\n"
+                    f"Run `bin/regen-diagrams` and commit the result.\n"
+                )
+            else:
+                path.write_text(rewritten, encoding="utf-8")
+                print(f"regen-diagrams: rewrote {path.relative_to(REPO_ROOT)}")
+        else:
+            if not args.check:
+                print(f"regen-diagrams: {path.relative_to(REPO_ROOT)} unchanged")
+
+    if args.check:
+        return 1 if changed else 0
+
+    print(f"regen-diagrams: counts → {counts}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

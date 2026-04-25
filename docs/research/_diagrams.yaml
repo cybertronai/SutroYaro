@@ -1,0 +1,167 @@
+# Single source of truth for the auto-generated repo diagrams.
+#
+# Both `docs/research/repo-tree.md` (D3 interactive tree) and
+# `docs/research/repo-layout.md` (Mermaid box-and-arrow graph) are
+# regenerated from this file by `bin/regen-diagrams`.
+#
+# Edit this file → run `bin/regen-diagrams` → commit the changes.
+# CI will fail any PR where the generated files don't match a fresh regen
+# of this YAML.
+
+# Auto-counts: glob patterns whose match counts get interpolated below
+# wherever a placeholder like `{findings_count}` appears.
+auto_counts:
+  findings_count:
+    glob: "findings/exp_*.md"
+  experiments_jsonl_count:
+    file: "research/log.jsonl"
+    type: "lines"
+  task_count:
+    glob: "docs/tasks/[0-9]*-*.md"
+
+# ============================================================================
+# repo-tree.md (D3 interactive tree)
+# ============================================================================
+#
+# Top-level groups with explicit children. The generator emits this as a
+# JS object literal that the D3 hierarchy consumes.
+tree:
+  root: SutroYaro
+  groups:
+    - name: "Top-level docs"
+      children:
+        - "README.md"
+        - "CLAUDE.md"
+        - "LAB.md"
+        - "AGENT.md"
+        - "DISCOVERIES.md"
+        - "TODO.md"
+        - "CONTRIBUTING.md"
+        - "AGENTS.md"
+        - "CODEX.md"
+        - "GEMINI.md"
+        - "AGENT_EVAL.md"
+    - name: "src/"
+      children:
+        - "bytedmd/  (primary metric, vendored)"
+        - name: "sparse_parity/"
+          children:
+            - "harness.py"
+            - "tracker.py"
+            - "cache_tracker.py"
+            - "tracked_numpy.py"
+            - "train.py"
+            - "train_fused.py"
+            - "train_perlayer.py"
+            - "fast.py"
+            - "model.py"
+            - "data.py"
+            - "config.py"
+            - "eval/"
+            - "experiments/"
+            - "challenges/"
+            - "telegram_sync/"
+        - "telegram/"
+    - name: "bin/"
+      children:
+        - "reproduce-all"
+        - "run-agent"
+        - "analyze-log"
+        - "complexity-check"
+        - "score-all"
+        - "regen-diagrams"
+        - "tg-sync"
+        - "tg-post"
+        - "tg-auth"
+        - "merge-findings"
+    - name: "checks/"
+      children:
+        - "env_check.py"
+        - "baseline_check.py"
+    - name: "tests/"
+    - name: "research/"
+      children:
+        - "log.jsonl  ({experiments_jsonl_count} experiments)"
+        - "questions.yaml"
+        - "search_space.yaml"
+    - name: "findings/  ({findings_count} exp_*.md files)"
+    - name: "results/"
+    - name: "contributions/"
+    - name: "docs/  (mkdocs site)"
+      children:
+        - "index.md"
+        - "context.md"
+        - "changelog.md"
+        - "research/"
+        - "findings/"
+        - "catchups/"
+        - "meetings/"
+        - "google-docs/"
+        - "agent-prompts/"
+        - "tasks/  ({task_count} tasks)"
+        - "tooling/"
+        - "diagrams/"
+
+# ============================================================================
+# repo-layout.md (Mermaid box-and-arrow graph)
+# ============================================================================
+#
+# Five layers + edges between them. Each layer is rendered as a Mermaid
+# `subgraph`; each node becomes a node line; edges become `from -.label.-> to`.
+layout:
+  direction: LR
+  layers:
+    - id: DOCS
+      title: "Top-level Docs - read-first stack"
+      style: "fill:#fde7c4,stroke:#d4a85a,color:#000"
+      nodes:
+        - { id: README, label: "README.md" }
+        - { id: CLAUDE, label: "CLAUDE.md" }
+        - { id: LAB, label: "LAB.md" }
+        - { id: AGENT, label: "AGENT.md" }
+        - { id: DISC, label: "DISCOVERIES.md" }
+        - { id: TODO, label: "TODO.md" }
+        - { id: CONTRIB, label: "CONTRIBUTING.md" }
+        - { id: TOOLS, label: "AGENTS.md / CODEX.md / GEMINI.md / AGENT_EVAL.md" }
+    - id: CODE
+      title: "src/ - Code"
+      style: "fill:#c8e6c9,stroke:#4a8c4f,color:#000"
+      nodes:
+        - { id: BYTEDMD, label: "bytedmd/<br/>primary metric, vendored" }
+        - { id: SP, label: "sparse_parity/<br/>harness, tracker, training, eval, experiments, challenges" }
+        - { id: TG, label: "telegram/<br/>TS sync" }
+    - id: OPS
+      title: "Ops + Tests"
+      style: "fill:#dcedc8,stroke:#7a9a52,color:#000"
+      nodes:
+        - { id: BIN, label: "bin/<br/>reproduce-all, run-agent, tg-sync, regen-diagrams" }
+        - { id: CHECKS, label: "checks/<br/>env_check, baseline_check" }
+        - { id: TESTS, label: "tests/" }
+    - id: ARTIFACTS
+      title: "Research Artifacts"
+      style: "fill:#bbdefb,stroke:#4a7fb8,color:#000"
+      nodes:
+        - { id: RESEARCH, label: "research/<br/>log.jsonl ({experiments_jsonl_count} entries), questions.yaml, search_space.yaml" }
+        - { id: FINDINGS, label: "findings/<br/>{findings_count} per-experiment reports" }
+        - { id: RESULTS, label: "results/<br/>raw numeric outputs" }
+        - { id: CONTRIBDIR, label: "contributions/<br/>external drop-zone" }
+    - id: SITE
+      title: "docs/ - mkdocs site"
+      style: "fill:#e1bee7,stroke:#8e5ba0,color:#000"
+      nodes:
+        - { id: DRESEARCH, label: "research/<br/>findings, surveys, system overviews" }
+        - { id: DFINDINGS, label: "findings/<br/>per-experiment site pages" }
+        - { id: DCATCH, label: "catchups/<br/>weekly summaries" }
+        - { id: DMEET, label: "meetings/, meeting-notes/, lectures/" }
+        - { id: DGOOGLE, label: "google-docs/<br/>synced" }
+        - { id: DPROMPTS, label: "agent-prompts/" }
+        - { id: DTASKS, label: "tasks/<br/>{task_count} task specs + INDEX" }
+        - { id: DTOOL, label: "tooling/<br/>telegram, automation, agent compat" }
+        - { id: DDIAG, label: "diagrams/<br/>SVGs" }
+  edges:
+    - { from: CLAUDE, to: CODE, label: "points to" }
+    - { from: LAB, to: CODE, label: "governs" }
+    - { from: AGENT, to: ARTIFACTS, label: "drives" }
+    - { from: CODE, to: ARTIFACTS, label: "writes" }
+    - { from: ARTIFACTS, to: SITE, label: "published as" }
+    - { from: DOCS, to: SITE, label: "surfaced on" }
