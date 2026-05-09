@@ -106,3 +106,36 @@ The **representational + algorithmic baseline pair** for v2 ByteDMD instrumentat
 
 - **[`hinton-problems`](https://github.com/cybertronai/hinton-problems)** — 53 stubs from Hinton's papers (1981–2022). [Site](https://cybertronai.github.io/hinton-problems/) · [Build notes](https://github.com/cybertronai/hinton-problems/blob/main/BUILD_NOTES.md).
 - **[`schmidhuber-problems`](https://github.com/cybertronai/schmidhuber-problems)** — 58 stubs from Schmidhuber's papers (1989–2025). [Site](https://cybertronai.github.io/schmidhuber-problems/) · [Build notes](https://github.com/cybertronai/schmidhuber-problems/blob/main/BUILD_NOTES.md).
+
+## How the cybertronai org repos fit together
+
+```mermaid
+graph LR
+    ByteDMD["ByteDMD"]
+    SimpleDally["simplified-<br/>dally-model"]
+    SPChall["sparse-parity-<br/>challenge"]
+    Hinton["hinton-problems"]
+    Schmid["schmidhuber-<br/>problems"]
+    SutroP["sutro-problems"]
+    Sutro["sutro"]
+    SY["<b>SutroYaro</b><br/>(this repo)"]
+
+    ByteDMD --> SY
+    SimpleDally --> SY
+    SPChall --> SY
+    Hinton --> SY
+    Schmid --> SY
+    SutroP --> SY
+    Sutro --> SY
+    Sutro -.-> SPChall
+
+    classDef cost fill:#e8d5ff,stroke:#7e3ff2,stroke-width:2px,color:#000
+    classDef problem fill:#cfe5ff,stroke:#1f6feb,stroke-width:2px,color:#000
+    classDef lab fill:#d1f4d1,stroke:#1a7f37,stroke-width:3px,color:#000
+
+    class ByteDMD,SimpleDally cost
+    class SPChall,Hinton,Schmid,SutroP,Sutro problem
+    class SY lab
+```
+
+**Purple** = cost-metric repos · **Blue** = problem repos · **Green** = the lab notebook (this repo). Full curated map with descriptions: [`docs/related-repos.md`](related-repos.md).

@@ -48,44 +48,55 @@ The org has a long history. These are not currently part of the energy-efficient
 
 ## How they connect (conceptual map)
 
-```
-                          ┌─────────────────────────┐
-                          │     The big question:   │
-                          │  energy-efficient AI    │
-                          │      training           │
-                          └────────────┬────────────┘
-                                       │
-                  ┌────────────────────┴────────────────────┐
-                  │                                         │
-        ┌─────────▼──────────┐               ┌──────────────▼─────────────┐
-        │  Cost / metric     │               │  Benchmark problems        │
-        │                    │               │                            │
-        │  ByteDMD          ─┼───────────────┼─►  sparse-parity-          │
-        │  simplified-      ─┤               │     challenge              │
-        │   dally-model      │               │                            │
-        └────────────────────┘               │  hinton-problems  ──┐      │
-                  │                          │  schmidhuber-       │      │
-                  │                          │   problems          │      │
-                  │                          │                     │      │
-                  │                          │  sutro-problems   ◄─┘      │
-                  │                          │   (matmul, etc.)           │
-                  │                          └────────────────────────────┘
-                  │                                       │
-                  └───────────────────┬───────────────────┘
-                                      │
-                          ┌───────────▼────────────┐
-                          │      SutroYaro         │
-                          │  (this repo)           │
-                          │                        │
-                          │  Lab notebook +        │
-                          │  scoreboard +          │
-                          │  autonomous research   │
-                          │  infrastructure +      │
-                          │  public docs site      │
-                          └────────────────────────┘
+```mermaid
+graph LR
+    %% Cost / metric layer
+    ByteDMD["<b>ByteDMD</b><br/><span style='font-size:0.85em'>byte-granularity LRU<br/>stack-distance tracer</span>"]
+    SimpleDally["<b>simplified-dally-model</b><br/><span style='font-size:0.85em'>2D Manhattan-grid<br/>communication cost</span>"]
+
+    %% Problem layer
+    SPChall["<b>sparse-parity-challenge</b><br/><span style='font-size:0.85em'>submission pipeline,<br/>auto-evaluated</span>"]
+    Hinton["<b>hinton-problems</b><br/><span style='font-size:0.85em'>53 representational stubs<br/>1981–2022, pure numpy</span>"]
+    Schmid["<b>schmidhuber-problems</b><br/><span style='font-size:0.85em'>58 algorithmic stubs<br/>1989–2025, pure numpy</span>"]
+    SutroP["<b>sutro-problems</b><br/><span style='font-size:0.85em'>matmul + small<br/>reproducible problems</span>"]
+    Sutro["<b>sutro</b><br/><span style='font-size:0.85em'>sparse_parity_benchmark.py<br/>+ original solvers</span>"]
+
+    %% Lab
+    SY["<b>SutroYaro</b> (this repo)<br/><span style='font-size:0.85em'>lab notebook · scoreboard ·<br/>autonomous research · public site</span>"]
+
+    %% Adjacent
+    Ana["<b>adotzh/SutroAna</b><br/><span style='font-size:0.85em'>auto-research loop<br/>(meeting #16)</span>"]
+
+    %% Edges
+    ByteDMD -->|"cost metric"| SY
+    SimpleDally -->|"cost metric (next)"| SY
+    SPChall -->|"problem set"| SY
+    Hinton -->|"problem set (v2 target)"| SY
+    Schmid -->|"problem set (v2 target)"| SY
+    SutroP -->|"problem set"| SY
+    Sutro -->|"reference solvers"| SY
+    Sutro -.benchmark spec.-> SPChall
+
+    Ana -.adjacent.-> SY
+
+    %% Styling — three families: cost (purple), problems (blue), lab (green), adjacent (gray)
+    classDef cost fill:#e8d5ff,stroke:#7e3ff2,stroke-width:2px,color:#000
+    classDef problem fill:#cfe5ff,stroke:#1f6feb,stroke-width:2px,color:#000
+    classDef lab fill:#d1f4d1,stroke:#1a7f37,stroke-width:3px,color:#000
+    classDef adjacent fill:#eee,stroke:#999,stroke-dasharray:5 3,color:#000
+
+    class ByteDMD,SimpleDally cost
+    class SPChall,Hinton,Schmid,SutroP,Sutro problem
+    class SY lab
+    class Ana adjacent
 ```
 
-`ByteDMD` and `simplified-dally-model` define the cost. `sparse-parity-challenge`, `hinton-problems`, `schmidhuber-problems`, `sutro-problems` provide the problems. `SutroYaro` is the lab notebook that consumes both: it tracks experiments, records what's proven (`DISCOVERIES.md`), runs autonomous research loops, and surfaces the public site.
+**Reading the diagram**:
+
+- **Purple (left)** — *cost-metric* repos. `ByteDMD` is current; `simplified-dally-model` is the 2D grid successor Yaroslav is iterating on.
+- **Blue (middle)** — *problem* repos. The submission pipeline (`sparse-parity-challenge`), the two companion baseline catalogs (`hinton-problems`, `schmidhuber-problems`), and `sutro-problems` for everything else (matmul energy-metric work, etc.). `sutro` holds `sparse_parity_benchmark.py` which feeds the challenge spec.
+- **Green (right)** — *the lab*. `SutroYaro` consumes the cost metric + the problems and produces: scoreboard, accumulated findings (`DISCOVERIES.md`), autonomous-research infrastructure, public docs site.
+- **Gray (dashed)** — *adjacent*. `adotzh/SutroAna` is solving overlapping problems independently (presented at meeting #16, 04 May 26).
 
 ## Updating this doc
 
