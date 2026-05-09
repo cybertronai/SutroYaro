@@ -466,7 +466,71 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Address 
 
 [Meeting #13, 13 apr 26]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+[Meeting #10, 23 Mar 26]
+
+[Meeting #11, 30 Mar 26]
+
+[Meeting #12, 06 Apr 26]
+
+[Meeting #13, 13 apr 26]
+
+[Meeting #14, 20 Apr 26]
+
+[Meeting #15, 27 Apr 26]
+
+[Meeting #16, 04 May 26]
+
 # [embedded image] 
+
+Question: what is possible in the new world of extremely cheap software? (2025 - ..)
+
+Old World, the cost of development caused silos.
+
+- algorithms live in abstract linear algebra land, don't know about hardware
+
+- compiler designers know hardware, don't touch algorithms
+
+New world:
+
+        - software is cheap, can we solve this jointly?
+
+Question: what is the energy requirement of learning?
 
 # General 
 
@@ -522,7 +586,7 @@ Agenda:
 
 Take Karpathy names: [[https://github.com/karpathy/makemore/blob/master/names.txt](https://github.com/karpathy/makemore/blob/master/names.txt)]
 
-the model takes random 1000 names for training from Karpathy[ ](https://github.com/karpathy/makemore/blob/master/names.txt)[[makemore/names.txt](https://github.com/karpathy/makemore/blob/master/names.txt)], and then take andom 1000 names and predicts last 3 characters for each of these names
+the model takes random 1000 names for training from Karpathy[ ](https://github.com/karpathy/makemore/blob/master/names.txt)[[makemore/names.txt](https://github.com/karpathy/makemore/blob/master/names.txt)], and then take random 1000 names and predicts last 3 characters for each of these names
 
 - Create baseline to obtain baseline accuracy and number of total operations
 
@@ -586,6 +650,8 @@ Meeting video: [[https://www.youtube.com/watch?v=vdQ3NkEiOt8](https://www.youtub
 
 Meeting [[notes](https://docs.google.com/document/d/1xD6sQbG6TnGifKWUbshcN2Yd1MSF_q3O7aEnI6p-JFE/edit?tab=t.0)] (internal)
 
+Yad's Automated Researcher
+
 ### Homework for next Monday 
 
 1. Get agents to improve [[sutro group challenge #1: sparse parity](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0)] using Data Movement distance  (Ding [[paper](https://arxiv.org/pdf/2312.14441)]) as the proxy for energy)
@@ -624,4 +690,18 @@ agenda: [[sutro #13 agenda](https://docs.google.com/document/d/15GGkMaShMrU7dXOd
 
 agenda: yaroslav ([[notes](https://docs.google.com/document/d/1QEQJIouhHiT5bB7LaDXfvgXvkTt6vB20ujRQiHRsoCo/edit?usp=sharing)]), Subutai Ahmad (Learning in pyramidal neurons [[slides](https://drive.google.com/file/d/1rVSXmXk269J54ec8_iL_Vo4yB-7DZstZ/view?usp=sharing)])
 
-## Meeting #15, 27 Apr 26
+## Meeting #15, 27 Apr 26 
+
+meeting [[notes](https://docs.google.com/document/d/1TdDtIkfift6P7c0eynCweJORsV3rEvYLsu6F7yiId3I/edit?tab=t.0)]
+
+## Meeting #16, 04 May 26 
+
+agenda: Ross Pantone, matmul work, meeting [[agenda](https://docs.google.com/document/d/1vzVxc_tUbde1t7Ju7eBUOALWeDRcocSMjKcxUFki4-g/edit?tab=t.0#heading=h.tygjuez2k9es)]
+
+- Ross Pantone: history of Rain AI
+
+- Yad Konrad [[presented](https://www.youtube.com/watch?v=dKqA962fIwQ&feature=youtu.be)] one-shotting [[hinton-problems](https://github.com/cybertronai/hinton-problems/)] ([[BUILD_NOTES](https://github.com/cybertronai/hinton-problems/blob/main/BUILD_NOTES.md)])
+
+- Anastasia Zhiboedova on [[SutroAna](https://github.com/adotzh/SutroAna)] auto-research loop
+
+## Meeting #17, 11 May 26
