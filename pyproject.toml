@@ -6,10 +6,71 @@ build-backend = "setuptools.build_meta"
 name = "sutro-yaro"
 version = "0.1.0"
 description = "Sutro Group research workspace for energy-efficient AI training"
+readme = "README.md"
 requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Sutro Group"},
+]
+keywords = ["sparse-parity", "energy-efficient-ml", "gymnasium", "reinforcement-learning"]
 dependencies = [
     "numpy",
 ]
 
+[project.optional-dependencies]
+# Gymnasium eval environment (SutroYaro/SparseParity-v0, SutroYaro/MultiChallenge-v0).
+# `pip install -e .[eval]` gets you everything you need to run
+# `gymnasium.make("SutroYaro/SparseParity-v0")` without any manual import.
+eval = [
+    "gymnasium>=0.29",
+]
+
+# Modal backend for running the harness off-machine.  Optional: only
+# needed if you pass ``backend="modal"`` to the environment.
+modal = [
+    "modal>=0.60",
+]
+
+# Developer / test tooling.
+dev = [
+    "pytest>=7",
+    "pytest-xdist",
+    "ruff",
+]
+
+# Convenience "everything" extra for CI and contributors.
+all = [
+    "gymnasium>=0.29",
+    "modal>=0.60",
+    "pytest>=7",
+    "pytest-xdist",
+    "ruff",
+]
+
+[project.urls]
+Homepage = "https://github.com/cybertronai/SutroYaro"
+Repository = "https://github.com/cybertronai/SutroYaro"
+Documentation = "https://cybertronai.github.io/SutroYaro/"
+
+# ---------------------------------------------------------------------------
+# Gymnasium entry points
+# ---------------------------------------------------------------------------
+# Gymnasium discovers environments via the ``gymnasium.envs`` entry-point
+# group (see https://gymnasium.farama.org/api/registry/).  When gymnasium
+# is imported it walks this group and imports every module listed, so the
+# ``gymnasium.register()`` calls at module scope fire automatically.
+#
+# Result: after ``pip install -e .[eval]`` you can do
+#
+#     import gymnasium as gym
+#     env = gym.make("SutroYaro/SparseParity-v0")
+#
+# with no prior ``import sparse_parity.eval``.
+[project.entry-points."gymnasium.envs"]
+SutroYaro = "sparse_parity.eval:register_all"
+
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"sparse_parity.eval" = ["answer_key.json", "README.md"]

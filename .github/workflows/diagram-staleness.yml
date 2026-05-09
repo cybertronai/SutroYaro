@@ -1,0 +1,40 @@
+name: Diagram staleness check
+
+# Fails any PR where docs/research/repo-tree.md or repo-layout.md have
+# drifted from a fresh regen of docs/research/_diagrams.yaml. The fix is
+# to run `bin/regen-diagrams` locally and commit the result.
+
+on:
+  pull_request:
+    paths:
+      - "docs/research/_diagrams.yaml"
+      - "docs/research/repo-tree.md"
+      - "docs/research/repo-layout.md"
+      - "bin/regen-diagrams"
+      - ".github/workflows/diagram-staleness.yml"
+  push:
+    branches: [main]
+    paths:
+      - "docs/research/_diagrams.yaml"
+      - "docs/research/repo-tree.md"
+      - "docs/research/repo-layout.md"
+      - "bin/regen-diagrams"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Verify diagrams match a fresh regen
+        run: |
+          bin/regen-diagrams --check
+          echo "✓ docs/research/repo-tree.md and repo-layout.md are in sync with _diagrams.yaml"

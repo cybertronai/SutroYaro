@@ -1,0 +1,264 @@
+#!/usr/bin/env python3
+"""
+Agent complexity budget — issue #8.
+
+Measures code and docs size of the repo and appends a snapshot to
+`.complexity-log.jsonl` so we can catch scope creep over time.
+
+Metrics recorded:
+- total python lines (excluding .venv, site, __pycache__, etc.)
+- total markdown lines
+- total file count, by directory bucket
+- per-bucket line totals
+
+Usage:
+    bin/complexity-check                 # append snapshot, print summary
+    bin/complexity-check --dry-run       # print but do not append
+    bin/complexity-check --diff          # compare to previous snapshot
+    bin/complexity-check --threshold 10  # flag growth >10% vs previous
+
+Exit codes:
+    0 = ok, growth below threshold (or no previous snapshot)
+    1 = python line growth exceeds threshold since previous snapshot
+
+This is advisory. It does not block commits. Integrate with `bin/run-agent`
+for pre/post agent-cycle accounting.
+"""
+
+import argparse
+import datetime as dt
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+LOG_FILE = REPO_ROOT / ".complexity-log.jsonl"
+
+# Directories we never want to count.
+EXCLUDE_DIRS = {
+    ".git", ".venv", "venv", "env", "__pycache__",
+    "node_modules", "site", ".mypy_cache", ".pytest_cache",
+    ".claude", ".traces", "docs/google-docs",
+}
+
+# Directory buckets for per-area reporting.
+# Tuple of (label, prefix). First match wins, so order matters.
+BUCKETS = [
+    ("src",            "src/"),
+    ("tests",          "tests/"),
+    ("bin",            "bin/"),
+    ("checks",         "checks/"),
+    ("docs",           "docs/"),
+    ("findings",       "findings/"),
+    ("contributions",  "contributions/"),
+    ("research",       "research/"),
+    ("results",        "results/"),
+    ("plans",          "plans/"),
+    ("root",           ""),  # catch-all for top-level files
+]
+
+PY_EXT = {".py"}
+MD_EXT = {".md"}
+
+
+def is_excluded(rel: Path) -> bool:
+    parts = set(rel.parts)
+    if parts & EXCLUDE_DIRS:
+        return True
+    # also exclude specific nested paths (joined form)
+    rel_str = str(rel)
+    for ex in EXCLUDE_DIRS:
+        if "/" in ex and rel_str.startswith(ex + os.sep):
+            return True
+    return False
+
+
+def bucket_of(rel_str: str) -> str:
+    for label, prefix in BUCKETS:
+        if prefix == "":
+            return label
+        if rel_str.startswith(prefix):
+            return label
+    return "root"
+
+
+def count_lines(path: Path) -> int:
+    try:
+        with path.open("rb") as f:
+            return sum(1 for _ in f)
+    except OSError:
+        return 0
+
+
+def git_commit() -> str:
+    try:
+        out = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True, text=True, cwd=REPO_ROOT, check=False,
+        )
+        return out.stdout.strip() or "unknown"
+    except Exception:
+        return "unknown"
+
+
+def walk_repo():
+    """Yield (rel_path, ext, line_count) for each tracked py/md file."""
+    for dirpath, dirnames, filenames in os.walk(REPO_ROOT):
+        # Prune excluded dirs in-place so os.walk doesn't descend.
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+
+        rel_dir = Path(dirpath).relative_to(REPO_ROOT)
+        if is_excluded(rel_dir):
+            continue
+
+        for name in filenames:
+            p = Path(dirpath) / name
+            rel = p.relative_to(REPO_ROOT)
+            ext = p.suffix
+            if ext not in PY_EXT and ext not in MD_EXT:
+                continue
+            yield rel, ext, count_lines(p)
+
+
+def snapshot():
+    buckets = {label: {"py_files": 0, "py_lines": 0,
+                       "md_files": 0, "md_lines": 0}
+               for label, _ in BUCKETS}
+
+    total_py_files = total_py_lines = 0
+    total_md_files = total_md_lines = 0
+
+    for rel, ext, n in walk_repo():
+        b = bucket_of(str(rel))
+        if ext == ".py":
+            buckets[b]["py_files"] += 1
+            buckets[b]["py_lines"] += n
+            total_py_files += 1
+            total_py_lines += n
+        else:
+            buckets[b]["md_files"] += 1
+            buckets[b]["md_lines"] += n
+            total_md_files += 1
+            total_md_lines += n
+
+    return {
+        "timestamp": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "commit": git_commit(),
+        "total_py_files": total_py_files,
+        "total_py_lines": total_py_lines,
+        "total_md_files": total_md_files,
+        "total_md_lines": total_md_lines,
+        "total_files": total_py_files + total_md_files,
+        "total_lines": total_py_lines + total_md_lines,
+        "avg_py_lines": round(total_py_lines / total_py_files, 1) if total_py_files else 0,
+        "avg_md_lines": round(total_md_lines / total_md_files, 1) if total_md_files else 0,
+        "buckets": buckets,
+    }
+
+
+def load_previous():
+    if not LOG_FILE.exists():
+        return None
+    last = None
+    with LOG_FILE.open() as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    last = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+    return last
+
+
+def fmt_pct(old, new):
+    if not old:
+        return "  n/a"
+    return f"{(new - old) / old * 100:+6.2f}%"
+
+
+def print_summary(snap, prev=None):
+    print(f"Complexity snapshot @ {snap['timestamp']}  commit={snap['commit'][:10]}")
+    print("-" * 72)
+    print(f"  python: {snap['total_py_files']:>5d} files  "
+          f"{snap['total_py_lines']:>7d} lines  "
+          f"(avg {snap['avg_py_lines']} lines/file)")
+    print(f"  markdn: {snap['total_md_files']:>5d} files  "
+          f"{snap['total_md_lines']:>7d} lines  "
+          f"(avg {snap['avg_md_lines']} lines/file)")
+    print(f"  total : {snap['total_files']:>5d} files  "
+          f"{snap['total_lines']:>7d} lines")
+
+    if prev is not None:
+        print()
+        print(f"Delta vs {prev.get('timestamp', 'prev')}"
+              f" (commit {prev.get('commit', 'unknown')[:10]}):")
+        print(f"  python lines: {prev['total_py_lines']} -> {snap['total_py_lines']}"
+              f"  ({fmt_pct(prev['total_py_lines'], snap['total_py_lines'])})")
+        print(f"  markdn lines: {prev['total_md_lines']} -> {snap['total_md_lines']}"
+              f"  ({fmt_pct(prev['total_md_lines'], snap['total_md_lines'])})")
+        print(f"  total files : {prev['total_files']} -> {snap['total_files']}"
+              f"  ({fmt_pct(prev['total_files'], snap['total_files'])})")
+
+    print()
+    print("By bucket:")
+    print(f"  {'bucket':<15s} {'py_files':>9s} {'py_lines':>9s}"
+          f" {'md_files':>9s} {'md_lines':>9s}")
+    for label, _ in BUCKETS:
+        b = snap["buckets"][label]
+        if b["py_files"] == 0 and b["md_files"] == 0:
+            continue
+        print(f"  {label:<15s} {b['py_files']:>9d} {b['py_lines']:>9d}"
+              f" {b['md_files']:>9d} {b['md_lines']:>9d}")
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--dry-run", action="store_true",
+                    help="print snapshot but do not append to log")
+    ap.add_argument("--diff", action="store_true",
+                    help="print delta vs previous snapshot (no append)")
+    ap.add_argument("--threshold", type=float, default=10.0,
+                    help="growth %% threshold for exit-1 signal (default 10)")
+    ap.add_argument("--json", action="store_true",
+                    help="emit only JSON on stdout (useful for scripting)")
+    args = ap.parse_args()
+
+    snap = snapshot()
+    prev = load_previous()
+
+    if args.json:
+        print(json.dumps(snap, indent=2))
+    else:
+        print_summary(snap, prev=prev)
+
+    if args.diff and not args.dry_run:
+        # diff mode: do not append
+        pass
+    elif not args.dry_run:
+        with LOG_FILE.open("a") as f:
+            f.write(json.dumps(snap) + "\n")
+        if not args.json:
+            print()
+            print(f"Appended to {LOG_FILE.relative_to(REPO_ROOT)}")
+
+    # Growth signal
+    if prev and prev.get("total_py_lines"):
+        growth = (snap["total_py_lines"] - prev["total_py_lines"]) / prev["total_py_lines"] * 100
+        if growth > args.threshold:
+            sys.stderr.write(
+                f"\nWARN: python line count grew {growth:.2f}% "
+                f"(> {args.threshold}%) since last snapshot.\n"
+                "  Prefer deleting code over adding code. "
+                "A simpler solution is always a WIN.\n"
+            )
+            sys.exit(1)
+
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

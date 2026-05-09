@@ -139,11 +139,60 @@ See `src/sparse_parity/experiments/_template.py` for the code template.
 7. **Commit locally, don't push** — the human decides when to push
 8. **Leave a "Next" section** — so the next session knows what to try
 9. **Metric isolation** — never modify measurement code (tracker.py, cache_tracker.py, data.py, config.py, harness.py). Agents that rewrite evaluation code to get better scores are gaming the metric, not improving the algorithm.
-10. **Two-phase results** — separate evidence from interpretation:
-    - **Phase 1 (evidence)**: experiment code produces `results/{exp_id}/results.json` with raw numbers, config, and environment info. No interpretation in this file.
-    - **Phase 2 (findings)**: write `docs/findings/{exp_id}.md` referencing the results JSON. Add hypothesis, analysis, and impact on DISCOVERIES.md here.
-    - Never write conclusions in Phase 1. Never put raw data in Phase 2 without linking to Phase 1.
+10. **Two-phase results** — see "Two-Phase Results Pipeline" below.
 11. **Reproducibility** — see `.claude/rules/experiment-reproducibility.md`. Every experiment must record seed, config, environment, and git commit hash.
+
+---
+
+## Two-Phase Results Pipeline
+
+Separate the evidence bundle (machine output) from the findings narrative (human interpretation). This prevents the common failure mode where an agent writes conclusions before verifying the numbers.
+
+### Phase 1 — Evidence bundle (machine-generated)
+
+Experiment code writes ONLY raw data. No interpretation, no "this shows that," no impact claims.
+
+```
+results/{exp_id}/
+  results.json         # raw numbers, full config, environment (python/numpy
+                       #   version, platform, git commit), seed(s)
+  figures/             # plots (optional)
+  stats.md             # statistical summary across seeds (optional;
+                       #   means, stds, per-seed values — no prose)
+  run.log              # captured stdout/stderr (optional)
+```
+
+Rules for Phase 1:
+- Never write prose conclusions here.
+- Always dump the full config even if parameters are default.
+- Always record seed. If the experiment ran multiple seeds, record every seed.
+- Record the environment (see `.claude/rules/experiment-reproducibility.md`).
+
+### Phase 2 — Findings narrative (human-reviewed)
+
+Only after Phase 1 is written, open `docs/findings/{exp_id}.md` and write the interpretation.
+
+```
+docs/findings/{exp_id}.md
+  - Hypothesis
+  - Link to results/{exp_id}/results.json   # do NOT inline raw data
+  - Key table (the one comparison that tells the story)
+  - Classification: WIN / LOSS / INVALID / INCONCLUSIVE / BASELINE
+  - Analysis: what worked, what didn't, the surprise
+  - Impact on DISCOVERIES.md (if any)
+  - Next experiment
+```
+
+Rules for Phase 2:
+- Reference the results JSON by path. Do not paste raw arrays or log dumps.
+- Must include the classification. "COMPLETED" is not a classification.
+- If you change your interpretation later, edit Phase 2 only. Phase 1 stays immutable.
+
+### Why the split
+
+The separation is enforced in code review. If a findings doc contains numbers that do not appear in the matching `results/{exp_id}/results.json`, that is a review block. If a `results.json` contains prose fields, same block. This is the cheapest way to catch agents (and humans) writing conclusions ahead of their data.
+
+The `run-experiment` skill automates this flow; see `.claude/skills/run-experiment/`.
 
 ## Current Baselines
 

@@ -1,0 +1,313 @@
+#!/usr/bin/env python3
+"""
+Automatic scoring pipeline under ByteDMD — issue #61.
+
+Discovers all `solve_*.py` files in the configured submission directories,
+imports each one, runs its `solve()` against the sparse-parity challenge
+data, and measures the cost under ByteDMD (the primary metric as of
+PR #80, 2026-04-15).
+
+Writes a TSV leaderboard to `results/scoreboard.tsv` (or an explicit
+`--out` path).
+
+Submission convention:
+    Each file exposes `def solve(x, y, n_bits, k_sparse)` returning the
+    sorted list of `k_sparse` secret bit indices. This matches the
+    sparse-parity-challenge issue-form contract.
+
+Usage:
+    PYTHONPATH=src bin/score-all
+    PYTHONPATH=src bin/score-all --dirs submissions contributions/submissions
+    PYTHONPATH=src bin/score-all --n-bits 20 --k-sparse 3 --seeds 42 123 456
+    PYTHONPATH=src bin/score-all --out results/scoreboard-bytedmd.tsv
+
+Exit codes:
+    0 = at least one submission scored successfully
+    1 = no submissions found or all submissions errored
+"""
+
+import argparse
+import importlib.util
+import json
+import os
+import sys
+import time
+import traceback
+from pathlib import Path
+from statistics import mean
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+SRC_ROOT = REPO_ROOT / "src"
+
+# Make bytedmd + sparse_parity importable whether or not PYTHONPATH is set.
+for p in (str(SRC_ROOT), str(REPO_ROOT)):
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+try:
+    from bytedmd import bytedmd  # noqa: E402
+except ImportError as e:
+    sys.stderr.write(f"ERROR: cannot import bytedmd: {e}\n")
+    sys.stderr.write("Run with PYTHONPATH=src or from repo root.\n")
+    sys.exit(2)
+
+DEFAULT_SUBMISSION_DIRS = [
+    "submissions",
+    "contributions/submissions",
+    "src/sparse_parity/reference",
+]
+
+DEFAULT_SEEDS = [42, 123, 456]
+DEFAULT_N_BITS = 20
+DEFAULT_K_SPARSE = 3
+DEFAULT_N_SAMPLES = 500
+ACCURACY_GATE = 0.95  # same as sparse-parity-challenge
+
+TSV_HEADER = [
+    "submission", "path", "accuracy", "bytedmd_mean",
+    "bytedmd_min", "bytedmd_max", "time_s_mean", "seeds",
+    "n_bits", "k_sparse", "status", "error",
+]
+
+
+def generate_data(n_bits, k_sparse, n_samples, seed):
+    """Generate sparse parity data as plain Python lists.
+
+    ByteDMD's tracer wraps Python values via dunders. Using lists (not
+    numpy) keeps every op tracked. Submissions that internally convert
+    to numpy will silently escape tracking; see `docs/research/bytedmd.md`.
+    """
+    import random
+    rng = random.Random(seed)
+    all_idx = list(range(n_bits))
+    rng.shuffle(all_idx)
+    secret = sorted(all_idx[:k_sparse])
+
+    x = [[1 if rng.random() < 0.5 else -1 for _ in range(n_bits)]
+         for _ in range(n_samples)]
+    y = []
+    for row in x:
+        prod = 1
+        for i in secret:
+            prod *= row[i]
+        y.append(prod)
+    return x, y, secret
+
+
+def discover_submissions(dirs):
+    """Yield (name, path) for each solve_*.py under the given directories."""
+    seen = set()
+    for d in dirs:
+        p = (REPO_ROOT / d) if not os.path.isabs(d) else Path(d)
+        if not p.exists() or not p.is_dir():
+            continue
+        for f in sorted(p.rglob("solve_*.py")):
+            if f in seen:
+                continue
+            seen.add(f)
+            yield f.stem, f
+
+
+def import_solve(path: Path):
+    """Load `solve` from a standalone file."""
+    spec = importlib.util.spec_from_file_location(f"submission_{path.stem}", path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load spec for {path}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    if not hasattr(mod, "solve"):
+        raise AttributeError(f"{path} has no `solve` function")
+    return mod.solve
+
+
+def score_one(solve_fn, n_bits, k_sparse, seeds, n_samples):
+    """Run solve under ByteDMD for each seed; return aggregated metrics."""
+    accs, costs, times = [], [], []
+    per_seed = []
+
+    for seed in seeds:
+        x, y, secret = generate_data(n_bits, k_sparse, n_samples, seed)
+
+        t0 = time.perf_counter()
+        try:
+            cost = bytedmd(lambda xx, yy: solve_fn(xx, yy, n_bits, k_sparse),
+                           (x, y))
+            # bytedmd() returns cost only; rerun solve untracked for the answer
+            found = solve_fn(x, y, n_bits, k_sparse)
+        except Exception as e:
+            per_seed.append({"seed": seed, "error": repr(e)})
+            continue
+        elapsed = time.perf_counter() - t0
+
+        try:
+            found_sorted = sorted(int(i) for i in found)
+        except Exception:
+            found_sorted = None
+
+        ok = found_sorted == secret
+        accs.append(1.0 if ok else 0.0)
+        costs.append(cost)
+        times.append(elapsed)
+        per_seed.append({
+            "seed": seed, "cost": cost, "time_s": elapsed,
+            "accuracy": 1.0 if ok else 0.0,
+            "found": found_sorted, "secret": secret,
+        })
+
+    if not costs:
+        return {
+            "accuracy": 0.0, "bytedmd_mean": None, "bytedmd_min": None,
+            "bytedmd_max": None, "time_s_mean": None, "per_seed": per_seed,
+        }
+
+    return {
+        "accuracy": mean(accs),
+        "bytedmd_mean": mean(costs),
+        "bytedmd_min": min(costs),
+        "bytedmd_max": max(costs),
+        "time_s_mean": mean(times),
+        "per_seed": per_seed,
+    }
+
+
+def format_row(r):
+    def fmt(v, spec=""):
+        if v is None:
+            return ""
+        return format(v, spec) if spec else str(v)
+
+    return "\t".join([
+        r["submission"],
+        r["path"],
+        fmt(r["accuracy"], ".4f") if r["accuracy"] is not None else "",
+        fmt(r["bytedmd_mean"], ".1f") if r["bytedmd_mean"] is not None else "",
+        fmt(r["bytedmd_min"], "d") if r["bytedmd_min"] is not None else "",
+        fmt(r["bytedmd_max"], "d") if r["bytedmd_max"] is not None else "",
+        fmt(r["time_s_mean"], ".6f") if r["time_s_mean"] is not None else "",
+        ",".join(str(s) for s in r["seeds"]),
+        str(r["n_bits"]),
+        str(r["k_sparse"]),
+        r["status"],
+        r["error"] or "",
+    ])
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--dirs", nargs="+", default=DEFAULT_SUBMISSION_DIRS,
+                    help="submission directories to scan (default: %(default)s)")
+    ap.add_argument("--out", default="results/scoreboard.tsv",
+                    help="output TSV path relative to repo root")
+    ap.add_argument("--seeds", type=int, nargs="+", default=DEFAULT_SEEDS,
+                    help="random seeds (default: %(default)s)")
+    ap.add_argument("--n-bits", type=int, default=DEFAULT_N_BITS)
+    ap.add_argument("--k-sparse", type=int, default=DEFAULT_K_SPARSE)
+    ap.add_argument("--n-samples", type=int, default=DEFAULT_N_SAMPLES)
+    ap.add_argument("--dry-run", action="store_true",
+                    help="print results, do not write TSV")
+    ap.add_argument("--json", action="store_true",
+                    help="also emit full per-seed JSON next to the TSV")
+    args = ap.parse_args()
+
+    submissions = list(discover_submissions(args.dirs))
+    if not submissions:
+        sys.stderr.write(
+            "No solve_*.py files found in: "
+            + ", ".join(args.dirs) + "\n"
+            + "Create one with signature: solve(x, y, n_bits, k_sparse) -> list[int]\n"
+        )
+        sys.exit(1)
+
+    print(f"Found {len(submissions)} submission(s). Scoring under ByteDMD...")
+    print(f"  config: n_bits={args.n_bits} k_sparse={args.k_sparse} "
+          f"n_samples={args.n_samples} seeds={args.seeds}")
+    print()
+
+    rows = []
+    any_ok = False
+
+    for name, path in submissions:
+        try:
+            rel_path = str(path.relative_to(REPO_ROOT))
+        except ValueError:
+            rel_path = str(path)
+        status = "OK"
+        err = ""
+        metrics = {
+            "accuracy": None, "bytedmd_mean": None, "bytedmd_min": None,
+            "bytedmd_max": None, "time_s_mean": None, "per_seed": [],
+        }
+
+        try:
+            solve_fn = import_solve(path)
+            metrics = score_one(solve_fn, args.n_bits, args.k_sparse,
+                                args.seeds, args.n_samples)
+            if metrics["bytedmd_mean"] is None:
+                status = "ERROR"
+                err = "; ".join(
+                    s.get("error", "") for s in metrics["per_seed"] if "error" in s
+                )[:200]
+            elif metrics["accuracy"] < ACCURACY_GATE:
+                status = "FAIL_ACC"
+            else:
+                status = "PASS"
+                any_ok = True
+        except Exception as e:
+            status = "ERROR"
+            err = f"{type(e).__name__}: {e}"
+            traceback.print_exc(file=sys.stderr)
+
+        row = {
+            "submission": name, "path": rel_path,
+            "accuracy": metrics["accuracy"],
+            "bytedmd_mean": metrics["bytedmd_mean"],
+            "bytedmd_min": metrics["bytedmd_min"],
+            "bytedmd_max": metrics["bytedmd_max"],
+            "time_s_mean": metrics["time_s_mean"],
+            "seeds": args.seeds, "n_bits": args.n_bits,
+            "k_sparse": args.k_sparse, "status": status, "error": err,
+            "_per_seed": metrics["per_seed"],
+        }
+        rows.append(row)
+
+        acc_str = f"{metrics['accuracy']:.2f}" if metrics["accuracy"] is not None else "   -"
+        cost_str = f"{metrics['bytedmd_mean']:.0f}" if metrics["bytedmd_mean"] is not None else "   -"
+        print(f"  {name:<30s}  acc={acc_str}  bytedmd={cost_str:>10s}  {status}")
+        if err:
+            print(f"      error: {err}")
+
+    # Sort: PASS first, then by bytedmd_mean asc (None last).
+    def sort_key(r):
+        pass_order = 0 if r["status"] == "PASS" else 1
+        cost = r["bytedmd_mean"] if r["bytedmd_mean"] is not None else float("inf")
+        return (pass_order, cost)
+
+    rows.sort(key=sort_key)
+
+    if args.dry_run:
+        print("\n--dry-run: not writing TSV.")
+        sys.exit(0 if any_ok else 1)
+
+    out_path = REPO_ROOT / args.out
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w") as f:
+        f.write("\t".join(TSV_HEADER) + "\n")
+        for r in rows:
+            f.write(format_row(r) + "\n")
+    print(f"\nWrote {out_path.relative_to(REPO_ROOT)} ({len(rows)} rows)")
+
+    if args.json:
+        json_path = out_path.with_suffix(".json")
+        with json_path.open("w") as f:
+            json.dump({"rows": rows, "config": {
+                "n_bits": args.n_bits, "k_sparse": args.k_sparse,
+                "n_samples": args.n_samples, "seeds": args.seeds,
+            }}, f, indent=2, default=str)
+        print(f"Wrote {json_path.relative_to(REPO_ROOT)}")
+
+    sys.exit(0 if any_ok else 1)
+
+
+if __name__ == "__main__":
+    main()

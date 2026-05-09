@@ -1,5 +1,7 @@
 # Agent Protocol
 
+> **For AI agents running autonomously.** Human contributors should read [LAB.md](LAB.md) instead — it covers the same lifecycle with room for judgment and review. AGENT.md is the strict machine loop.
+
 Machine-executable experiment loop for autonomous research sessions.
 Read this at the start of every agent session. Follow it exactly.
 

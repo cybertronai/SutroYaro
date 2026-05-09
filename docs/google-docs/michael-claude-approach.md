@@ -105,14 +105,14 @@ Since mask evaluation is fast when you know the function is XOR, we tested all 1
 
 # Results Comparison 
 
-  ------------------------ ------------------ ------------------- ---------------------- --------------------- --------------------
-  Metric           Backprop   Evolution   Naive Hybrid   Mask Hybrid   Exhaustive
-  Accuracy         60--68%     \~52%        \~54%           91--93%        93%
-  Time (sec)       0.23        1.27         0.29            0.15\*         0.15
-  Operations       271M        10B          1.95B           139M           142M
-  Reuse Distance   9.7         3.3          3.3             9.1            9.5
-  Passes 90%?      No          No           No              Yes            Yes
-  ------------------------ ------------------ ------------------- ---------------------- --------------------- --------------------
+  ------------------------ ----------------- ------------------ --------------------- -------------------- -------------------
+  Metric            Backprop   Evolution   Naive Hybrid   Mask Hybrid   Exhaustive
+  Accuracy         60--68%   \~52%      \~54%         91--93%      93%
+  Time (sec)       0.23      1.27       0.29          0.15\*       0.15
+  Operations       271M      10B        1.95B         139M         142M
+  Reuse Distance   9.7       3.3        3.3           9.1          9.5
+  Passes 90%?      No        No         No            Yes          Yes
+  ------------------------ ----------------- ------------------ --------------------- -------------------- -------------------
 
 \* Mask Hybrid time varies; Step 4 version took 17.5s before optimization, Step 5 optimized version runs in 0.15s.
 
@@ -137,10 +137,10 @@ Several directions are worth exploring:
 3.  Reuse distance optimization. Now that we have a working algorithm, we can focus on Yaroslav's energy metric. Restructuring the training loop to minimize average reuse distance --- for example, processing all data for one layer before moving to the next, or tiling computations to keep working sets small --- could reduce simulated energy cost without changing accuracy.
 4.  Character-level prediction bridge. Yaroslav's ultimate goal is next-character prediction without tokenization. The mask-based decomposition (search for relevant features, then learn their relationship) could apply to character-level models where most input characters are noise relative to predicting the next one. This connection is worth developing.
 
-::: c29
+::: c24
 \[a\](#cmnt_ref1)I'm curious about the appraisal that was used. In other words, what did you start with? What were your initial prompts? And which things worked/failed
 :::
 
-::: c29
+::: c24
 \[b\](#cmnt_ref2)I should probably show it to you this evening. It was a long chat.
 :::

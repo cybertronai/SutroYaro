@@ -2,106 +2,236 @@
 
 Click any node with children to expand or collapse it. Internal (directory-like) nodes are filled; leaves are hollow. Hover for the full path.
 
-<div id="tree-viz" style="width: 100%; min-height: 640px; overflow: auto; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 4px; background: var(--md-default-bg-color);"></div>
+<div id="tree-viz" style="position: relative; width: 100%; min-height: 640px; overflow: hidden; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 4px; background: var(--md-default-bg-color);">
+  <div id="tree-controls" style="position: absolute; top: 8px; right: 8px; z-index: 10; display: flex; gap: 4px; font-family: var(--md-typeface, sans-serif);">
+    <button data-action="zoom-in" title="Zoom in" style="width: 32px; height: 32px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 4px; background: var(--md-default-bg-color); color: var(--md-default-fg-color); cursor: pointer; font-size: 16px; line-height: 1;">＋</button>
+    <button data-action="zoom-out" title="Zoom out" style="width: 32px; height: 32px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 4px; background: var(--md-default-bg-color); color: var(--md-default-fg-color); cursor: pointer; font-size: 16px; line-height: 1;">−</button>
+    <button data-action="reset" title="Reset zoom" style="width: 32px; height: 32px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 4px; background: var(--md-default-bg-color); color: var(--md-default-fg-color); cursor: pointer; font-size: 14px; line-height: 1;">⤾</button>
+  </div>
+</div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (function () {
-  // Hardcoded tree data for SutroYaro repo.
+  // BEGIN_AUTOGEN treeData (regenerate via bin/regen-diagrams)
   const treeData = {
-    name: "SutroYaro",
-    children: [
-      {
-        name: "Top-level docs",
-        children: [
-          { name: "README.md" },
-          { name: "CLAUDE.md" },
-          { name: "LAB.md" },
-          { name: "AGENT.md" },
-          { name: "DISCOVERIES.md" },
-          { name: "TODO.md" },
-          { name: "CONTRIBUTING.md" },
-          { name: "AGENTS.md" },
-          { name: "CODEX.md" },
-          { name: "AGENT_EVAL.md" }
-        ]
-      },
-      {
-        name: "src/",
-        children: [
-          { name: "bytedmd/  (primary metric, vendored)" },
-          {
-            name: "sparse_parity/",
-            children: [
-              { name: "harness.py" },
-              { name: "tracker.py" },
-              { name: "cache_tracker.py" },
-              { name: "tracked_numpy.py" },
-              { name: "train.py" },
-              { name: "train_fused.py" },
-              { name: "train_perlayer.py" },
-              { name: "fast.py" },
-              { name: "model.py" },
-              { name: "data.py" },
-              { name: "config.py" },
-              { name: "eval/" },
-              { name: "experiments/" },
-              { name: "telegram_sync/" }
-            ]
-          },
-          { name: "telegram/" }
-        ]
-      },
-      {
-        name: "bin/",
-        children: [
-          { name: "reproduce-all" },
-          { name: "run-agent" },
-          { name: "analyze-log" },
-          { name: "tg-sync" },
-          { name: "tg-post" },
-          { name: "tg-auth" },
-          { name: "merge-findings" }
-        ]
-      },
-      {
-        name: "checks/",
-        children: [
-          { name: "env_check.py" },
-          { name: "baseline_check.py" }
-        ]
-      },
-      { name: "tests/" },
-      {
-        name: "research/",
-        children: [
-          { name: "log.jsonl  (37 experiments)" },
-          { name: "questions.yaml" },
-          { name: "search_space.yaml" }
-        ]
-      },
-      { name: "findings/  (38 exp_*.md files)" },
-      { name: "results/" },
-      { name: "contributions/" },
-      {
-        name: "docs/  (mkdocs site)",
-        children: [
-          { name: "index.md" },
-          { name: "context.md" },
-          { name: "changelog.md" },
-          { name: "research/" },
-          { name: "findings/" },
-          { name: "catchups/" },
-          { name: "meetings/" },
-          { name: "google-docs/" },
-          { name: "agent-prompts/" },
-          { name: "tasks/" },
-          { name: "tooling/" },
-          { name: "diagrams/" }
-        ]
-      }
-    ]
-  };
+  "name": "SutroYaro",
+  "children": [
+    {
+      "name": "Top-level docs",
+      "children": [
+        {
+          "name": "README.md"
+        },
+        {
+          "name": "CLAUDE.md"
+        },
+        {
+          "name": "LAB.md"
+        },
+        {
+          "name": "AGENT.md"
+        },
+        {
+          "name": "DISCOVERIES.md"
+        },
+        {
+          "name": "TODO.md"
+        },
+        {
+          "name": "CONTRIBUTING.md"
+        },
+        {
+          "name": "AGENTS.md"
+        },
+        {
+          "name": "CODEX.md"
+        },
+        {
+          "name": "GEMINI.md"
+        },
+        {
+          "name": "AGENT_EVAL.md"
+        }
+      ]
+    },
+    {
+      "name": "src/",
+      "children": [
+        {
+          "name": "bytedmd/  (primary metric, vendored)"
+        },
+        {
+          "name": "sparse_parity/",
+          "children": [
+            {
+              "name": "harness.py"
+            },
+            {
+              "name": "tracker.py"
+            },
+            {
+              "name": "cache_tracker.py"
+            },
+            {
+              "name": "tracked_numpy.py"
+            },
+            {
+              "name": "train.py"
+            },
+            {
+              "name": "train_fused.py"
+            },
+            {
+              "name": "train_perlayer.py"
+            },
+            {
+              "name": "fast.py"
+            },
+            {
+              "name": "model.py"
+            },
+            {
+              "name": "data.py"
+            },
+            {
+              "name": "config.py"
+            },
+            {
+              "name": "eval/"
+            },
+            {
+              "name": "experiments/"
+            },
+            {
+              "name": "challenges/"
+            },
+            {
+              "name": "telegram_sync/"
+            }
+          ]
+        },
+        {
+          "name": "telegram/"
+        }
+      ]
+    },
+    {
+      "name": "bin/",
+      "children": [
+        {
+          "name": "reproduce-all"
+        },
+        {
+          "name": "run-agent"
+        },
+        {
+          "name": "analyze-log"
+        },
+        {
+          "name": "complexity-check"
+        },
+        {
+          "name": "score-all"
+        },
+        {
+          "name": "regen-diagrams"
+        },
+        {
+          "name": "tg-sync"
+        },
+        {
+          "name": "tg-post"
+        },
+        {
+          "name": "tg-auth"
+        },
+        {
+          "name": "merge-findings"
+        }
+      ]
+    },
+    {
+      "name": "checks/",
+      "children": [
+        {
+          "name": "env_check.py"
+        },
+        {
+          "name": "baseline_check.py"
+        }
+      ]
+    },
+    {
+      "name": "tests/"
+    },
+    {
+      "name": "research/",
+      "children": [
+        {
+          "name": "log.jsonl  (37 experiments)"
+        },
+        {
+          "name": "questions.yaml"
+        },
+        {
+          "name": "search_space.yaml"
+        }
+      ]
+    },
+    {
+      "name": "findings/  (41 exp_*.md files)"
+    },
+    {
+      "name": "results/"
+    },
+    {
+      "name": "contributions/"
+    },
+    {
+      "name": "docs/  (mkdocs site)",
+      "children": [
+        {
+          "name": "index.md"
+        },
+        {
+          "name": "context.md"
+        },
+        {
+          "name": "changelog.md"
+        },
+        {
+          "name": "research/"
+        },
+        {
+          "name": "findings/"
+        },
+        {
+          "name": "catchups/"
+        },
+        {
+          "name": "meetings/"
+        },
+        {
+          "name": "google-docs/"
+        },
+        {
+          "name": "agent-prompts/"
+        },
+        {
+          "name": "tasks/  (11 tasks)"
+        },
+        {
+          "name": "tooling/"
+        },
+        {
+          "name": "diagrams/"
+        }
+      ]
+    }
+  ]
+};
+  // END_AUTOGEN treeData
 
   function render() {
     const container = document.getElementById("tree-viz");
@@ -132,17 +262,45 @@ Click any node with children to expand or collapse it. Internal (directory-like)
       .attr("width", width + margin.left + margin.right)
       .attr("height", 640)
       .style("font", "13px var(--md-typeface, sans-serif)")
-      .style("user-select", "none");
+      .style("user-select", "none")
+      .style("cursor", "grab");
 
-    const gLink = svg.append("g")
+    // Viewport receives all pan/zoom transforms.
+    const viewport = svg.append("g").attr("class", "viewport");
+
+    const gLink = viewport.append("g")
       .attr("fill", "none")
       .attr("stroke", "#888")
       .attr("stroke-opacity", 0.5)
       .attr("stroke-width", 1.5);
 
-    const gNode = svg.append("g")
+    const gNode = viewport.append("g")
       .attr("cursor", "pointer")
       .attr("pointer-events", "all");
+
+    // d3-zoom: scroll to zoom, drag to pan.
+    const zoom = d3.zoom()
+      .scaleExtent([0.3, 4])
+      .on("zoom", (event) => {
+        viewport.attr("transform", event.transform);
+      });
+
+    svg.call(zoom)
+      .on("dblclick.zoom", null)  // free up dblclick for future use
+      .on("mousedown.cursor", () => svg.style("cursor", "grabbing"))
+      .on("mouseup.cursor", () => svg.style("cursor", "grab"));
+
+    // Wire up control buttons.
+    const btn = (action) => container.querySelector('[data-action="' + action + '"]');
+    btn("zoom-in")?.addEventListener("click", () => {
+      svg.transition().duration(200).call(zoom.scaleBy, 1.3);
+    });
+    btn("zoom-out")?.addEventListener("click", () => {
+      svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.3);
+    });
+    btn("reset")?.addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity);
+    });
 
     // Build path string for tooltip.
     function pathOf(d) {
@@ -263,5 +421,6 @@ Click any node with children to expand or collapse it. Internal (directory-like)
 ## Notes
 
 - **Click** any node with children to expand or collapse it.
+- **Scroll** to zoom, **drag** to pan, or use the **＋ − ⤾** buttons in the top-right corner.
 - **Filled purple circles** mark collapsed branches; **hollow circles** mark leaves or expanded internal nodes.
 - The data here is a hand-curated snapshot of the top-level repo layout, not a live filesystem read. Update it when the structure changes.

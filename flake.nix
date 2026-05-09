@@ -32,6 +32,8 @@
               pkgs.bun
               # Google Docs sync
               pkgs.pandoc
+              # Ad-hoc queries against telegram.db and other SQLite state
+              pkgs.sqlite
             ];
             shellHook = ''
               export PYTHONPATH=$PWD/src:$PYTHONPATH
