@@ -2,6 +2,18 @@
 
 Research workspace for the **Sutro Group**, a study group exploring energy-efficient AI training. Weekly meetings at South Park Commons, San Francisco.
 
+## What this site is for
+
+SutroYaro is the lab's **memory and dispatcher** — not where the cutting-edge research happens, but where you go to find out **what's been tried, who's working on what right now, and how to spin up new builds** against the org's other repos. Five things it does:
+
+1. **Lab memory** — [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) is the curated "what's proven" record.
+2. **Agent-teams dispatcher** — the [hinton-problems](https://github.com/cybertronai/hinton-problems) and [schmidhuber-problems](https://github.com/cybertronai/schmidhuber-problems) catalogues (111 stubs combined) were built from SutroYaro sessions; the reusable machinery lives here.
+3. **Cross-repo index** — see [Related Repos](related-repos.md) for the full 8-repo map.
+4. **Public face** — this site, shown at the Monday meetings.
+5. **Telegram + Google Docs + GitHub sync** — see the [Sync Runbook](tooling/sync-runbook.md).
+
+The active research front itself has migrated to [`cybertronai/ByteDMD/experiments/grid`](https://github.com/cybertronai/ByteDMD/tree/dev/experiments/grid). Benchmark problems live in their own per-purpose repos. Cost metrics are defined in [`ByteDMD`](https://github.com/cybertronai/ByteDMD) and [`simplified-dally-model`](https://github.com/cybertronai/simplified-dally-model). SutroYaro is the integration layer that keeps everything visible and connected.
+
 ## The Challenges
 
 The group picks simple learning tasks and tries to solve them with less energy. Three challenges so far, all runnable in under 1 second:

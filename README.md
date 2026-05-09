@@ -5,6 +5,26 @@ Research workspace for the [Sutro Group](https://docs.google.com/document/d/1B98
 **Docs site**: https://cybertronai.github.io/SutroYaro/
 **License**: [Unlicense](LICENSE) (Public Domain)
 
+## What this repo is for
+
+SutroYaro is the **lab's memory and dispatcher**: where you go to find out what's been tried, who's working on what right now, and the agent-team patterns + sync infra that let you spin up new builds against the org's other repos.
+
+Concretely it does five things:
+
+1. **Lab memory across sessions.** [`DISCOVERIES.md`](DISCOVERIES.md) is the curated "what's proven" record. New agents and contributors read it before they spend tokens re-running settled experiments. Same for [`docs/tasks/`](docs/tasks/INDEX.md) (queue) and `docs/catchups/` (weekly snapshots).
+2. **Agent-teams dispatcher.** The [hinton-problems](https://github.com/cybertronai/hinton-problems) and [schmidhuber-problems](https://github.com/cybertronai/schmidhuber-problems) builds (53+58 stubs, ~71 wall hours, ~1.8B tokens combined) were both dispatched from SutroYaro sessions. The reusable machinery — `.claude/skills/`, hooks, the `agent-teams` patterns, the JSONL token-counting methodology — lives here.
+3. **Cross-repo index.** The 8-repo cybertronai org map ([`docs/related-repos.md`](docs/related-repos.md), `docs/research/active-threads-*`) only really makes sense from SutroYaro's vantage point.
+4. **Public face for the Sutro Group.** The mkdocs site at https://cybertronai.github.io/SutroYaro/ is what gets shown at meetings.
+5. **Telegram + Google Docs + GitHub integration.** [`bin/tg-sync`](bin/tg-sync), `src/sync_google_docs.py`, the daily catchups. No per-experiment-repo would naturally own this.
+
+**What this repo is not (anymore):**
+
+- **Not the active research front.** Yaroslav's edge work moved to [`ByteDMD/experiments/grid`](https://github.com/cybertronai/ByteDMD/tree/dev/experiments/grid) and [`simplified-dally-model`](https://github.com/cybertronai/simplified-dally-model).
+- **Not the home for benchmark problems.** Those have dedicated repos: [`sparse-parity-challenge`](https://github.com/cybertronai/sparse-parity-challenge), [`hinton-problems`](https://github.com/cybertronai/hinton-problems), [`schmidhuber-problems`](https://github.com/cybertronai/schmidhuber-problems), [`sutro-problems`](https://github.com/cybertronai/sutro-problems).
+- **Not the metric definition.** [`ByteDMD`](https://github.com/cybertronai/ByteDMD) and `simplified-dally-model` own that.
+
+See [`docs/related-repos.md`](docs/related-repos.md) for the full conceptual map. A reshuffle to align the codebase with this scoped role is tracked separately.
+
 ## Get Started
 
 Clone the repo and open it with your coding agent. The workspace is structured so the agent can navigate it, run experiments, and report findings.

@@ -4,6 +4,24 @@
 
 This is a research workspace for the **Sutro Group**, a study group exploring energy-efficient AI training. The group meets weekly at South Park Commons in San Francisco.
 
+## Scoped role of this repo (read this first)
+
+**SutroYaro is the lab's memory and dispatcher** — not the research front, not the metric, not the benchmark problems. Five things it does:
+
+1. **Lab memory** — `DISCOVERIES.md` is the curated "what's proven" record. New agents read this BEFORE running experiments to avoid spending tokens on settled work.
+2. **Agent-teams dispatcher** — the patterns in `.claude/skills/`, `bin/`, hooks, and the `agent-teams` machinery here are how new builds (e.g. hinton-problems, schmidhuber-problems) get launched.
+3. **Cross-repo index** — `docs/related-repos.md` is the curated map of the 8-repo cybertronai org.
+4. **Public face** — `docs/` + mkdocs build the site shown at Monday meetings.
+5. **Telegram + Google Docs + GitHub sync** — `bin/tg-sync`, `src/sync_google_docs.py`, daily catchups.
+
+**What this repo is NOT (so you don't accidentally do work in the wrong place):**
+
+- **NOT the active research front.** That's at `cybertronai/ByteDMD/experiments/grid` (Yaroslav) and `cybertronai/simplified-dally-model` (Yaroslav, 2D grid cost model).
+- **NOT the home for benchmark problems.** Those are in dedicated repos: `sparse-parity-challenge`, `hinton-problems`, `schmidhuber-problems`, `sutro-problems`.
+- **NOT the cost metric definition.** That's in `ByteDMD` and `simplified-dally-model`.
+
+If you're about to write experiment code or a new benchmark stub here, **stop** and check whether one of the per-purpose repos is the right home. SutroYaro should accumulate findings, not source code that belongs elsewhere. A reshuffle to align the codebase with this scoped role is tracked as a meta issue.
+
 ## Read These First
 
 - **LAB.md** — Protocol for running experiments (templates, lifecycle, rules)
