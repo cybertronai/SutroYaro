@@ -95,5 +95,14 @@ Full setup instructions in [CONTRIBUTING.md](https://github.com/cybertronai/Sutr
 | Telegram | [t.me/sutro_group](https://t.me/sutro_group) |
 | Code repo | [cybertronai/sutro](https://github.com/cybertronai/sutro) |
 | Challenge | [sparse-parity-challenge](https://github.com/cybertronai/sparse-parity-challenge) |
+| All related repos | [`docs/related-repos.md`](related-repos.md) — curated map of the cybertronai org repos and how they connect |
+| Active threads (snapshot) | [`docs/research/active-threads-2026-05-09.md`](research/active-threads-2026-05-09.md) — what every contributor is working on right now |
 | The Bigger Picture | [Yaroslav's roadmap](google-docs/bigger-picture.md) |
 | Meetings | Mondays 18:00 at South Park Commons (380 Brannan St) |
+
+## Companion baseline catalogs (shipped May 2026)
+
+The **representational + algorithmic baseline pair** for v2 ByteDMD instrumentation. Pure numpy, laptop-runnable, paper-comparison metrics per stub:
+
+- **[`hinton-problems`](https://github.com/cybertronai/hinton-problems)** — 53 stubs from Hinton's papers (1981–2022). [Site](https://cybertronai.github.io/hinton-problems/) · [Build notes](https://github.com/cybertronai/hinton-problems/blob/main/BUILD_NOTES.md).
+- **[`schmidhuber-problems`](https://github.com/cybertronai/schmidhuber-problems)** — 58 stubs from Schmidhuber's papers (1989–2025). [Site](https://cybertronai.github.io/schmidhuber-problems/) · [Build notes](https://github.com/cybertronai/schmidhuber-problems/blob/main/BUILD_NOTES.md).

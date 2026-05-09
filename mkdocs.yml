@@ -65,6 +65,7 @@ nav:
       - Branch Workflow: branch-workflow.md
       - Context: context.md
       - Goals: goals.md
+      - Related Repos: related-repos.md
   - Learning:
       - Learning Guide: learning-guide.md
       - Lectures: lectures/index.md

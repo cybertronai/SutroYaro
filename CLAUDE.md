@@ -191,7 +191,21 @@ When reviewing PRs: check that results are reproducible, findings follow the tem
 
 ## Related Repos
 
-- https://github.com/cybertronai/ByteDMD — Primary metric. **Active research front lives at [`experiments/grid`](https://github.com/cybertronai/ByteDMD/tree/dev/experiments/grid)** (Yaroslav's self-contained experiments).
-- https://github.com/cybertronai/sutro — Main code repo with sparse_parity_benchmark.py
-- https://github.com/cybertronai/SutroYaro — This research workspace (Phase 1/2 lab notebook + autonomous research infrastructure + public site)
-- https://github.com/cybertronai/sparse-parity-challenge — Submission pipeline: submit a solve() function via GitHub Issue, auto-evaluated under ByteDMD
+Full curated map with descriptions: [docs/related-repos.md](docs/related-repos.md). Quick list:
+
+**Active research front (May 2026):**
+- https://github.com/cybertronai/ByteDMD — Primary cost metric. Yaroslav's **active research front** lives at [`experiments/grid`](https://github.com/cybertronai/ByteDMD/tree/dev/experiments/grid).
+- https://github.com/cybertronai/simplified-dally-model — Yaroslav's 2D Manhattan-grid cost model. May replace 1D Dally pJ numbers in the eval harness once stable. See [Task #12](docs/tasks/012-2d-grid-dally-sparse-parity.md).
+- https://github.com/cybertronai/sutro — Main code repo with sparse_parity_benchmark.py.
+- https://github.com/cybertronai/sutro-problems — Small reproducible problems (matmul energy metric, etc.). Andy Zhang owner-access since 2026-05-06.
+- https://github.com/cybertronai/SutroYaro — This research workspace (Phase 1/2 lab notebook + autonomous research infrastructure + public site).
+- https://github.com/cybertronai/sparse-parity-challenge — Submission pipeline: submit a solve() function via GitHub Issue, auto-evaluated under ByteDMD.
+
+**Companion baseline catalogs (shipped May 2026):**
+- https://github.com/cybertronai/hinton-problems — 53 stubs from Hinton's papers (representational toy tasks). Site: https://cybertronai.github.io/hinton-problems/
+- https://github.com/cybertronai/schmidhuber-problems — 58 stubs from Schmidhuber's papers (algorithmic capability). Site: https://cybertronai.github.io/schmidhuber-problems/
+
+Together: representational + algorithmic baseline pair, both pure numpy + matplotlib. Tracking issues for v2 ByteDMD instrumentation: [hinton-problems #45](https://github.com/cybertronai/hinton-problems/issues/45), [schmidhuber-problems #17](https://github.com/cybertronai/schmidhuber-problems/issues/17).
+
+**Adjacent (not in cybertronai org):**
+- https://github.com/adotzh/SutroAna — Anastasia Zhiboedova's auto-research-loop framework, presented at meeting #16 (04 May 26).
