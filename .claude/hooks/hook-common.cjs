@@ -30,10 +30,14 @@ function getGitInfo(cwd) {
 function getSyncStatus(cwd) {
   const result = {};
 
-  const telegramPath = path.join(cwd, "src", "sparse_parity", "telegram_sync", "messages.json");
-  if (fs.existsSync(telegramPath)) {
-    const stat = fs.statSync(telegramPath);
-    result.telegram = stat.mtime.toISOString().slice(0, 10);
+  // Prefer telegram.db (current sync target). Fall back to legacy messages.json.
+  const telegramDb = path.join(cwd, "telegram.db");
+  const telegramJson = path.join(cwd, "src", "sparse_parity", "telegram_sync", "messages.json");
+  let telegramSrc = null;
+  if (fs.existsSync(telegramDb)) telegramSrc = telegramDb;
+  else if (fs.existsSync(telegramJson)) telegramSrc = telegramJson;
+  if (telegramSrc) {
+    result.telegram = fs.statSync(telegramSrc).mtime.toISOString().slice(0, 10);
   }
 
   const gdocsPath = path.join(cwd, "docs", "google-docs", "sutro-group-main.md");

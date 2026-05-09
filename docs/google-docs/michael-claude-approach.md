@@ -63,6 +63,18 @@ Exploration Results and Next Steps
 
 Opus 4.6 + Michael Keating \| March 2026
 
+Sutro Group Challenge \#3: Sparse Parity^\[a\](#cmnt1)\[b\](#cmnt2)^
+
+Exploration Results and Next Steps
+
+Opus 4.6 + Michael Keating \| March 2026
+
+Sutro Group Challenge \#3: Sparse Parity^\[a\](#cmnt1)\[b\](#cmnt2)^
+
+Exploration Results and Next Steps
+
+Opus 4.6 + Michael Keating \| March 2026
+
 # The Problem 
 
 Yaroslav's challenge asks us to solve sparse parity --- identifying 3 secret bits among 20 total inputs and learning their XOR relationship --- as a minimal benchmark for inventing energy-efficient learning algorithms. The task must complete in under 2 seconds, achieve over 90% accuracy, and we must measure memory access patterns (Average Reuse Distance) as a proxy for energy cost. This is the \"drosophila\" of learning: simple enough to iterate on rapidly, but hard enough that naive approaches fail.
@@ -125,10 +137,10 @@ Several directions are worth exploring:
 3.  Reuse distance optimization. Now that we have a working algorithm, we can focus on Yaroslav's energy metric. Restructuring the training loop to minimize average reuse distance --- for example, processing all data for one layer before moving to the next, or tiling computations to keep working sets small --- could reduce simulated energy cost without changing accuracy.
 4.  Character-level prediction bridge. Yaroslav's ultimate goal is next-character prediction without tokenization. The mask-based decomposition (search for relevant features, then learn their relationship) could apply to character-level models where most input characters are noise relative to predicting the next one. This connection is worth developing.
 
-::: c7
+::: c29
 \[a\](#cmnt_ref1)I'm curious about the appraisal that was used. In other words, what did you start with? What were your initial prompts? And which things worked/failed
 :::
 
-::: c7
+::: c29
 \[b\](#cmnt_ref2)I should probably show it to you this evening. It was a long chat.
 :::
