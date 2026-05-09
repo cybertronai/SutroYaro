@@ -178,6 +178,14 @@ DMC baseline rankings (sparse parity, n=20, k=3):
 11. **Hybrid approach: use KM to find candidate bits, then verify with small neural net.** What's the total energy cost?
 12. **At what depth does predictive coding's locality advantage over backprop appear?** Our 2-layer network is too shallow.
 13. **Can the pebble game optimizer's anti-dependency detection be automated for arbitrary computation graphs?**
+14. **2D-grid Dally cost model** [Yaroslav, 2026-05-08, [tracked: Task #12](docs/tasks/012-2d-grid-dally-sparse-parity.md)]: extending the 1D Dally hierarchy to a 2D grid via [`cybertronai/simplified-dally-model`](https://github.com/cybertronai/simplified-dally-model). When stable, all top-N solver rankings need to be re-scored under the new metric. Open: which solvers shift position; what's the minimum instruction set Yaroslav converges on.
+15. **Sparse-parity over time ("morse-code" framing)** [Andy Zhang, 2026-05-08, [tracked: Task #14](docs/tasks/014-sparse-parity-over-time.md)]: same parity function, n bits arrive one per timestep instead of as a fixed-length vector. Recurrent solvers (LSTM, RNN, RS-on-RNN) get a fairer comparison; static solvers (KM, GF(2)) don't naturally extend. Connects to the schmidhuber-problems `rs-parity` stub which already does this in numpy.
+16. **Accuracy vs joules graph** [Yaroslav, 2026-05-08, [tracked: Task #13](docs/tasks/013-accuracy-vs-joules-graph.md)]: the headline visualization for the energy-efficient-training argument — log-x joules, linear-y accuracy, one line per solver family, Pareto frontier overlaid. Plumbing exists in `cache_tracker.py`; need the script + the figure.
+
+### External references (recent, relevant)
+
+- [How to improve AI energy efficiency by 1000x — unconv.ai](https://unconv.ai/blog/how-to-improve-ai-energy-efficiency-by-1000x/) [Yaroslav, 2026-05-08]: aligned with the SutroYaro thesis; worth reading for the framing of the 1000x claim.
+- [`cybertronai/hinton-problems`](https://github.com/cybertronai/hinton-problems) (53 stubs, May 1-3) and [`cybertronai/schmidhuber-problems`](https://github.com/cybertronai/schmidhuber-problems) (58 stubs, May 6-8): companion baseline catalogs (representational + algorithmic) for v2 ByteDMD instrumentation. See `BUILD_NOTES.md` in each repo for the agent-team build process; both ship a `Token consumption` measurement methodology that distinguishes harness UI display ("780k context window") from cumulative cost (~1.15B tokens / 91% cache_read).
 
 ## Experiment Log
 

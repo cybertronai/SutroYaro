@@ -1,6 +1,6 @@
 # Open Tasks
 
-Feedback from Meetings #8-11, Telegram, and Google Docs. Updated 2026-04-19.
+Feedback from Meetings #8-16, Telegram, and Google Docs. Updated 2026-05-09.
 
 | # | Task | Priority | Status | File |
 |---|------|----------|--------|------|
@@ -15,3 +15,6 @@ Feedback from Meetings #8-11, Telegram, and Google Docs. Updated 2026-04-19.
 | 9 | Muon optimizer literature review (ByteDMD-aware) | MEDIUM | DONE | [009-muon-review.md](009-muon-review.md) |
 | 10 | ASI-Evolve paper review — autonomous loop lessons | HIGH | IN PROGRESS | [010-asi-evolve-integration.md](010-asi-evolve-integration.md) |
 | 11 | DeepSeek Engram offload — ByteDMD verification | MEDIUM | OPEN | [011-engram-offload-bytedmd.md](011-engram-offload-bytedmd.md) |
+| 12 | 2D-grid Dally model extension to sparse-parity | HIGH | OPEN | [012-2d-grid-dally-sparse-parity.md](012-2d-grid-dally-sparse-parity.md) |
+| 13 | Accuracy vs joules graph for sparse-parity solvers | MEDIUM | OPEN | [013-accuracy-vs-joules-graph.md](013-accuracy-vs-joules-graph.md) |
+| 14 | Sparse-parity over time ("morse code" framing) | MEDIUM | OPEN | [014-sparse-parity-over-time.md](014-sparse-parity-over-time.md) |
