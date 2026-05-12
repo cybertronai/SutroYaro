@@ -18,3 +18,4 @@ Feedback from Meetings #8-16, Telegram, and Google Docs. Updated 2026-05-09.
 | 12 | 2D-grid Dally model extension to sparse-parity | HIGH | OPEN | [012-2d-grid-dally-sparse-parity.md](012-2d-grid-dally-sparse-parity.md) |
 | 13 | Accuracy vs joules graph for sparse-parity solvers | MEDIUM | OPEN | [013-accuracy-vs-joules-graph.md](013-accuracy-vs-joules-graph.md) |
 | 14 | Sparse-parity over time ("morse code" framing) | MEDIUM | OPEN | [014-sparse-parity-over-time.md](014-sparse-parity-over-time.md) |
+| 15 | V2 / V3 instrumentation of Hinton + Schmidhuber stubs (cross-repo index) | HIGH | IN PROGRESS | [015-v2-v3-instrumentation.md](015-v2-v3-instrumentation.md) |
