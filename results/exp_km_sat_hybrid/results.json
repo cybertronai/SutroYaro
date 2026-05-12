@@ -1,0 +1,67 @@
+{
+  "experiment": "exp_km_sat_hybrid",
+  "note": "Oracle-query model: KM-min uses pre-paired samples, not a fixed random dataset. Internal ByteDMD measurement only \u2014 not a sparse-parity-challenge submission. See ~/dev/research/sutro/km+smt.md for full design rationale.",
+  "geometric_lb_factor": 0.3849,
+  "configs": {
+    "n20_k3": {
+      "label": "n=20/k=3",
+      "n_bits": 20,
+      "k_sparse": 3,
+      "n_sat_samples": 21,
+      "secret": [
+        5,
+        14,
+        19
+      ],
+      "km_min": {
+        "bytedmd": 268,
+        "correct": true,
+        "geo_lb": 103.2,
+        "elapsed_ms": 0.4
+      },
+      "sat": {
+        "bytedmd": 53828,
+        "correct": true,
+        "geo_lb": 20718.4,
+        "elapsed_ms": 282.2
+      },
+      "km_sat_hybrid": {
+        "bytedmd": 872,
+        "correct": true,
+        "geo_lb": 335.6,
+        "elapsed_ms": 3.6
+      }
+    },
+    "n40_k5": {
+      "label": "n=40/k=5",
+      "n_bits": 40,
+      "k_sparse": 5,
+      "n_sat_samples": 41,
+      "secret": [
+        3,
+        9,
+        10,
+        25,
+        36
+      ],
+      "km_min": {
+        "bytedmd": 598,
+        "correct": true,
+        "geo_lb": 230.2,
+        "elapsed_ms": 1.0
+      },
+      "sat": {
+        "bytedmd": null,
+        "correct": true,
+        "note": "trace skipped \u2014 C(40,5)=658,008 subsets exceeds trace budget",
+        "elapsed_ms": 128.7
+      },
+      "km_sat_hybrid": {
+        "bytedmd": 3382,
+        "correct": true,
+        "geo_lb": 1301.7,
+        "elapsed_ms": 24.1
+      }
+    }
+  }
+}
