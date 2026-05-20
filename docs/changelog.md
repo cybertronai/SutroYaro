@@ -2,6 +2,30 @@
 
 All notable changes to this research workspace.
 
+## [0.30.0] - 2026-05-20
+
+### 3-week catch-up (Apr 30 to May 20)
+
+`docs/catchups/2026-05-20.md`: first catch-up in three weeks. Research activity has moved out of SutroYaro into a four-challenge repo constellation; the hinton-problems and schmidhuber-problems catalogs shipped; the wikitext challenge launched. All 11 Telegram forum topics are now synced (was 6).
+
+### Four-challenge index
+
+`docs/challenges.md`: new challenge-centric index. Maps all four challenges (sparse parity, energy-efficient matmul, sparse parity on the grid, wikitext) plus the two baseline catalogs to repo, current state, who is active, and entry point. Linked from the homepage and nav; the homepage "The Challenges" table was updated off its stale three-variant list.
+
+### Reshuffle audit (issue #96)
+
+`docs/research/reshuffle-audit.md`: the Phase 1 per-asset triage that issue #96 asked for, written after the migration (PR #40 / #97) ran without it. Records what is residue, what is confirmed in sparse-parity-challenge, and what the strip still needs. No code was deleted.
+
+### Telegram sync covers all topics
+
+`src/telegram/sync.ts` and `sync_telegram.ts`: `TOPICS_TO_SYNC` expanded from 6 to all 11 forum topics, so challenge #2, challenge #3, wikitext, Pitch / Talking Points, and makemore task results are now picked up.
+
+### Doc framing
+
+- `CLAUDE.md`: `docs/challenges.md` added to "Read These First"; "Core Concepts" noted as Challenge #1 specific.
+- `DISCOVERIES.md`: the stale `Challenge 2: Sparse Sum` / `Challenge 3: Sparse AND` headers renamed to `Sibling task:` (they collided with the current challenge numbering); scope pointer to the challenge index added.
+- `.gitignore`: ignore `.antigravitycli/`.
+
 ## [0.29.0] - 2026-04-25
 
 ### ByteDMD floor-gap survey (PR #87 Seth + PR #88 Yad)

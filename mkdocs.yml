@@ -61,6 +61,7 @@ markdown_extensions:
 nav:
   - Home:
       - Overview: index.md
+      - Challenges: challenges.md
       - Getting Started: getting-started.md
       - Branch Workflow: branch-workflow.md
       - Context: context.md
@@ -90,6 +91,7 @@ nav:
       - Peer Research Protocol: research/peer-research-protocol.md
       - Eval Environment: research/eval-environment.md
       - Agent Infrastructure: research/agent-infrastructure.md
+      - "Reshuffle Audit (#96)": research/reshuffle-audit.md
       - "ByteDMD (primary metric)": research/bytedmd.md
       - "Auto-instrumented DMD Tracking (legacy)": research/tracked-numpy.md
       - Adding a Challenge: research/adding-a-challenge.md
@@ -179,6 +181,7 @@ nav:
           - How to Search: google-docs/how-to-search.md
   - Weekly Catch-Up:
       - Overview: catchups/index.md
+      - 2026-05-20: catchups/2026-05-20.md
       - 2026-04-30: catchups/2026-04-30.md
       - 2026-03-22: catchups/2026-03-22.md
       - Meeting 10 Report: catchups/meeting-10-report.md
