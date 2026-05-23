@@ -13,9 +13,14 @@ const TOPICS_TO_SYNC = [
   "chat-yad",
   "chat-yaroslav",
   "challenge #1: sparse parity",
+  "challenge #2: energy efficient matmul",
+  "challenge #3: energy-efficient sparse parity",
   "General",
   "In-person meetings",
   "Introductions",
+  "wikitext",
+  "Pitch / Talking Points",
+  "makemore task results",
 ];
 
 const OUTPUT_DIR = resolve(import.meta.dir, "src/sparse_parity/telegram_sync");

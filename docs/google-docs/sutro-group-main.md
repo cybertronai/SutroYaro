@@ -516,6 +516,58 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Address 
 
 [Meeting #16, 04 May 26]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+[Meeting #10, 23 Mar 26]
+
+[Meeting #11, 30 Mar 26]
+
+[Meeting #12, 06 Apr 26]
+
+[Meeting #13, 13 apr 26]
+
+[Meeting #14, 20 Apr 26]
+
+[Meeting #15, 27 Apr 26]
+
+[Meeting #16, 04 May 26]
+
+[Meeting #17, 11 May 26]
+
 # [embedded image] 
 
 Question: what is possible in the new world of extremely cheap software? (2025 - ..)
@@ -543,6 +595,14 @@ Locations: South Park Commons (380 Brannan Street)
 # Bookmarks 
 
 AI search \-- [[How to find things in Sutro group](https://docs.google.com/document/d/1q0dTP7Z6xaCT9Qy7NOf_QreZpQ4ZvTiwzuXiwRZG20c/edit?tab=t.0)]
+
+[[https://github.com/cybertronai/sutro-problems/](https://github.com/cybertronai/sutro-problems/)]
+
+[[https://github.com/cybertronai/wikitext](https://github.com/cybertronai/wikitext)]
+
+[[https://github.com/cybertronai/schmidhuber-problems](https://github.com/cybertronai/schmidhuber-problems)]
+
+[[https://github.com/cybertronai/hinton-problems/](https://github.com/cybertronai/hinton-problems/)]
 
 # Meetings 
 
@@ -704,4 +764,24 @@ agenda: Ross Pantone, matmul work, meeting [[agenda](https://docs.google.com/doc
 
 - Anastasia Zhiboedova on [[SutroAna](https://github.com/adotzh/SutroAna)] auto-research loop
 
-## Meeting #17, 11 May 26
+## Meeting #17, 11 May 26 
+
+agenda: Yad, Yaroslav, Armins updates, [[agenda](https://docs.google.com/document/d/1QLiypl-ezzi6PD7AwtZJloQTcvTjzCZWed3tOPi7emk/edit?tab=t.0)]
+
+## Meeting #18, 18 May 26 
+
+agenda: Armins, Yaroslav
+
+[[sutro 18](https://docs.google.com/document/d/19cIz3CsuDCcf8cELxULf1_K-_LFYqpOH2Ci1zWqQxLQ/edit?usp=sharing)]
+
+##### For next time 
+
+set new record on:
+
+1. [[https://github.com/cybertronai/sutro-problems/tree/main/matmul](https://github.com/cybertronai/sutro-problems/tree/main/matmul)]
+
+2. [[https://github.com/cybertronai/sutro-problems/tree/main/sparse-parity](https://github.com/cybertronai/sutro-problems/tree/main/sparse-parity)]
+
+3. [[https://github.com/cybertronai/wikitext](https://github.com/cybertronai/wikitext)]
+
+post in [[t.me/sutro_group](http://t.me/sutro_group)]

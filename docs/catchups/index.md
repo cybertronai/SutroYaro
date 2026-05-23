@@ -4,6 +4,7 @@ Weekly summaries of Sutro Group activity across Telegram, Google Docs, GitHub, a
 
 | Date | Week | Key Topics |
 |------|------|------------|
+| [2026-05-20](2026-05-20.md) | Apr 30 - May 20 | Four parallel challenges (two new: matmul, grid sparse parity), wikitext language-modeling challenge + repo, hinton/schmidhuber stub catalogs shipped, all 11 Telegram topics now synced |
 | [2026-04-30](2026-04-30.md) | Apr 23-30 | Challenge #2 (matmul) launched, Yaroslav pivots from ByteDMD-as-bound to direct Manhattan-distance impl, ByteDMD floor-gap survey shipped, Andy Zhang parallel-agent setup shared |
 | [2026-03-22](2026-03-22.md) | Mar 16-22 | Metric shift to DMC, 8 new issues created, Lukas Kaiser visiting Mar 30, RL env framing, discrete ML |
 | [Meeting #10 Report](meeting-10-report.md) | Mar 23 | DMC baseline and optimization results, presented at Meeting #10 |

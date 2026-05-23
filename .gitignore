@@ -47,4 +47,5 @@ telegram.db
 telegram.db-wal
 telegram.db-shm
 .cursor/
+.antigravitycli/
 *.code-workspace

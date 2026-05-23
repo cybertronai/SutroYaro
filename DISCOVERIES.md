@@ -3,6 +3,7 @@
 > Accumulated knowledge from all experiments. Read this before starting any new experiment.
 > Each entry is a proven fact with a source experiment.
 > **This is the shared knowledge base.** Anyone can add findings via PR. Format: one bullet, state the fact, cite the source.
+> **Scope:** this file records the **sparse parity** line of work (Phase 1 and 2). For the lab's current four-challenge map see [docs/challenges.md](docs/challenges.md).
 
 ## Proven Facts
 
@@ -230,7 +231,9 @@ DMC baseline rankings (sparse parity, n=20, k=3):
 
 ---
 
-## Challenge 2: Sparse Sum
+## Sibling task: Sparse Sum
+
+> **Note:** "Sparse Sum" and "Sparse AND" below are variants of sparse parity, used in Phase 2 to test whether the lab infrastructure generalizes. They are not the current numbered lab challenges (#2 is matmul, #3 is grid sparse parity). See [docs/challenges.md](docs/challenges.md).
 
 y = sum of x[secret_indices]. Output in [-k, k]. Regression, not classification.
 Unlike parity, each secret bit contributes independently (first-order signal).
@@ -261,7 +264,7 @@ This tests whether the infrastructure generalizes to new tasks.
 
 ---
 
-## Challenge 3: Sparse AND
+## Sibling task: Sparse AND
 
 y = product((x[secret]+1)/2). Maps {-1,+1} to {0,1} per bit, then takes product (logical AND).
 Output is 1 only when ALL k secret bits are +1. P(y=1) = 1/2^k.

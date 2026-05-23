@@ -24,6 +24,7 @@ If you're about to write experiment code or a new benchmark stub here, **stop** 
 
 ## Read These First
 
+- **docs/challenges.md** — The four-challenge index: what each challenge is, where it lives, current state
 - **LAB.md** — Protocol for running experiments (templates, lifecycle, rules)
 - **AGENT.md** — Machine-executable experiment loop for autonomous sessions
 - **DISCOVERIES.md** — What's proven so far (read before every experiment)
@@ -35,7 +36,9 @@ If you're about to write experiment code or a new benchmark stub here, **stop** 
 
 ## Core Concepts
 
-- **Sparse Parity**: The benchmark task — learn XOR/parity from random {-1,+1} inputs. n=20 bits, k=3 secret, 17 noise. The "drosophila" of energy-efficient training.
+> The lab now runs four challenges (see [docs/challenges.md](docs/challenges.md)). The concepts below are from Challenge #1, sparse parity, where most of the recorded findings live.
+
+- **Sparse Parity**: Challenge #1's task — learn XOR/parity from random {-1,+1} inputs. n=20 bits, k=3 secret, 17 noise. The "drosophila" of energy-efficient training.
 - **Average Reuse Distance (ARD)**: Proxy metric for energy efficiency. Small ARD = data stays in cache = cheap. Large ARD = expensive external memory access.
 - **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).

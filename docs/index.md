@@ -16,15 +16,16 @@ The active research front itself has migrated to [`cybertronai/ByteDMD/experimen
 
 ## The Challenges
 
-The group picks simple learning tasks and tries to solve them with less energy. Three challenges so far, all runnable in under 1 second:
+The group runs several energy-efficient-learning challenges in parallel, each in its own repo:
 
-| Challenge | Task | What it tests |
-|-----------|------|---------------|
-| **Sparse Parity** | y = product of k secret bits (XOR) | k-th order interactions, no local signal |
-| **Sparse Sum** | y = sum of k secret bits | First-order linear structure |
-| **Sparse AND** | y = logical AND of k secret bits | Class-imbalanced k-th order |
+| Challenge | Goal | Repo |
+|-----------|------|------|
+| **Sparse Parity** | Learn k-bit XOR for minimum data movement | sparse-parity-challenge |
+| **Energy-efficient matmul** | Minimum-energy 16x16 matmul on a 2D grid | sutro-problems |
+| **Sparse parity on the grid** | Solve sparse parity in ~9 grid instructions | sutro-problems |
+| **wikitext** | Train a WikiText-103 LM for minimum Joules | cybertronai/wikitext |
 
-Standard config: n=20 bits, k=3 secret, 17 noise. The [adding-a-challenge guide](research/adding-a-challenge.md) documents how any agent or contributor can add the next task.
+See the **[Challenges index](challenges.md)** for current records, who is active, open questions, and where to start on each.
 
 ## Where the Active Research Lives
 
