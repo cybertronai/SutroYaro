@@ -2,6 +2,14 @@
 
 All notable changes to this research workspace.
 
+## [0.31.0] - 2026-05-29
+
+### Auto-research-loop dispatcher kit
+
+`docs/auto-research-loop/index.md`: a driver brief for running the agent-teams paper-reproduction loop on a new researcher. Distills the hinton-problems and schmidhuber-problems builds into the reusable parts: the wave model, copy-paste TeamCreate and worker-prompt templates (machine paths generalized to placeholders so a second operator can drive it), the measured human-in-the-loop cost (8 of 40 prompts load-bearing, ~25.7 lead turns per prompt), and a "make it a transferability test" section. Serves the repo's dispatcher role per CLAUDE.md.
+
+`docs/auto-research-loop/lecun-spec-draft.md`: a worked LeCun SPEC draft with a method-family wave plan (ConvNets, training tricks, invariance, energy-based, sparse coding, self-supervised), each stub tied to a verified paper and year. Seed for a future `lecun-problems` build. Not wired into the mkdocs nav; publishing is a separate decision.
+
 ## [0.30.0] - 2026-05-20
 
 ### 3-week catch-up (Apr 30 to May 20)

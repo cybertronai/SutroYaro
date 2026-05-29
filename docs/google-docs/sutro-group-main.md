@@ -568,6 +568,64 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Address 
 
 [Meeting #17, 11 May 26]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+[Meeting #10, 23 Mar 26]
+
+[Meeting #11, 30 Mar 26]
+
+[Meeting #12, 06 Apr 26]
+
+[Meeting #13, 13 apr 26]
+
+[Meeting #14, 20 Apr 26]
+
+[Meeting #15, 27 Apr 26]
+
+[Meeting #16, 04 May 26]
+
+[Meeting #17, 11 May 26]
+
+[Meeting #18, 18 May 26]
+
+[For next time]
+
+[Meeting #19, 25 May 26]
+
 # [embedded image] 
 
 Question: what is possible in the new world of extremely cheap software? (2025 - ..)
@@ -785,3 +843,11 @@ set new record on:
 3. [[https://github.com/cybertronai/wikitext](https://github.com/cybertronai/wikitext)]
 
 post in [[t.me/sutro_group](http://t.me/sutro_group)]
+
+## Meeting #19, 25 May 26 
+
+agenda: remembering the fallen soldiers, Cosmin, Yad, Naka
+
+[[sutro 19](https://docs.google.com/document/d/10jz2txaMsX1k2SYrnrE24gQ0AyyFo1SzBCTqfw8ABHU/edit?tab=t.0) ]
+
+[[wikitext (w19)](https://docs.google.com/document/u/0/d/1C8RvYBKvsqpB84jb183qIkVUKjaqo5AVp4Vh33sJneQ/edit)]
